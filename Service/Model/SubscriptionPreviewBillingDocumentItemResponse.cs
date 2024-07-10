@@ -1,0 +1,156 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace IO.Swagger.Model {
+
+  /// <summary>
+  /// 
+  /// </summary>
+  [DataContract]
+  public class SubscriptionPreviewBillingDocumentItemResponse {
+    /// <summary>
+    /// Gets or Sets SubscriptionItemDescription
+    /// </summary>
+    [DataMember(Name="subscription_item_description", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "subscription_item_description")]
+    public string SubscriptionItemDescription { get; set; }
+
+    /// <summary>
+    /// Gets or Sets SubscriptionItemName
+    /// </summary>
+    [DataMember(Name="subscription_item_name", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "subscription_item_name")]
+    public string SubscriptionItemName { get; set; }
+
+    /// <summary>
+    /// Gets or Sets SubscriptionItemNumber
+    /// </summary>
+    [DataMember(Name="subscription_item_number", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "subscription_item_number")]
+    public string SubscriptionItemNumber { get; set; }
+
+    /// <summary>
+    /// Gets or Sets ProcessingType
+    /// </summary>
+    [DataMember(Name="processing_type", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "processing_type")]
+    public string ProcessingType { get; set; }
+
+    /// <summary>
+    /// Gets or Sets ProductName
+    /// </summary>
+    [DataMember(Name="product_name", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "product_name")]
+    public string ProductName { get; set; }
+
+    /// <summary>
+    /// The identifier of the price this billing document item is associated with.
+    /// </summary>
+    /// <value>The identifier of the price this billing document item is associated with.</value>
+    [DataMember(Name="price_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "price_id")]
+    public string PriceId { get; set; }
+
+    /// <summary>
+    /// The end date of the service period associated with this billing document item. If the associated charge is a one-time fee, then this date is the date of that charge.
+    /// </summary>
+    /// <value>The end date of the service period associated with this billing document item. If the associated charge is a one-time fee, then this date is the date of that charge.</value>
+    [DataMember(Name="service_end_date", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "service_end_date")]
+    public string ServiceEndDate { get; set; }
+
+    /// <summary>
+    /// The start date of the service period associated with this billing document item. If the associated charge is a one-time fee, then this date is the date of that charge.
+    /// </summary>
+    /// <value>The start date of the service period associated with this billing document item. If the associated charge is a one-time fee, then this date is the date of that charge.</value>
+    [DataMember(Name="service_start_date", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "service_start_date")]
+    public string ServiceStartDate { get; set; }
+
+    /// <summary>
+    /// The amount of tax applied to the billing document item.
+    /// </summary>
+    /// <value>The amount of tax applied to the billing document item.</value>
+    [DataMember(Name="tax", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "tax")]
+    public decimal? Tax { get; set; }
+
+    /// <summary>
+    /// The number of units of this item.
+    /// </summary>
+    /// <value>The number of units of this item.</value>
+    [DataMember(Name="quantity", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "quantity")]
+    public decimal? Quantity { get; set; }
+
+    /// <summary>
+    /// Specifies the units used to measure usage.
+    /// </summary>
+    /// <value>Specifies the units used to measure usage.</value>
+    [DataMember(Name="unit_of_measure", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "unit_of_measure")]
+    public string UnitOfMeasure { get; set; }
+
+    /// <summary>
+    /// The total amount of this billing document item exclusive of tax.
+    /// </summary>
+    /// <value>The total amount of this billing document item exclusive of tax.</value>
+    [DataMember(Name="subtotal", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "subtotal")]
+    public decimal? Subtotal { get; set; }
+
+    /// <summary>
+    /// The total amount of this billing document item.
+    /// </summary>
+    /// <value>The total amount of this billing document item.</value>
+    [DataMember(Name="total", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "total")]
+    public decimal? Total { get; set; }
+
+    /// <summary>
+    /// Gets or Sets TaxationItems
+    /// </summary>
+    [DataMember(Name="taxation_items", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "taxation_items")]
+    public List<AllOfsubscriptionPreviewBillingDocumentItemResponseTaxationItemsItems> TaxationItems { get; set; }
+
+
+    /// <summary>
+    /// Get the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()  {
+      var sb = new StringBuilder();
+      sb.Append("class SubscriptionPreviewBillingDocumentItemResponse {\n");
+      sb.Append("  SubscriptionItemDescription: ").Append(SubscriptionItemDescription).Append("\n");
+      sb.Append("  SubscriptionItemName: ").Append(SubscriptionItemName).Append("\n");
+      sb.Append("  SubscriptionItemNumber: ").Append(SubscriptionItemNumber).Append("\n");
+      sb.Append("  ProcessingType: ").Append(ProcessingType).Append("\n");
+      sb.Append("  ProductName: ").Append(ProductName).Append("\n");
+      sb.Append("  PriceId: ").Append(PriceId).Append("\n");
+      sb.Append("  ServiceEndDate: ").Append(ServiceEndDate).Append("\n");
+      sb.Append("  ServiceStartDate: ").Append(ServiceStartDate).Append("\n");
+      sb.Append("  Tax: ").Append(Tax).Append("\n");
+      sb.Append("  Quantity: ").Append(Quantity).Append("\n");
+      sb.Append("  UnitOfMeasure: ").Append(UnitOfMeasure).Append("\n");
+      sb.Append("  Subtotal: ").Append(Subtotal).Append("\n");
+      sb.Append("  Total: ").Append(Total).Append("\n");
+      sb.Append("  TaxationItems: ").Append(TaxationItems).Append("\n");
+      sb.Append("}\n");
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Get the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson() {
+      return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+}
+}

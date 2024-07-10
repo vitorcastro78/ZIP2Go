@@ -1,0 +1,54 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace IO.Swagger.Model {
+
+  /// <summary>
+  /// Details about the customer’s acceptance of the mandate.
+  /// </summary>
+  [DataContract]
+  public class CustomerAcceptanceMandate {
+    /// <summary>
+    /// A reference to the consent agreement you have with your customer.
+    /// </summary>
+    /// <value>A reference to the consent agreement you have with your customer.</value>
+    [DataMember(Name="id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "id")]
+    public string Id { get; set; }
+
+    /// <summary>
+    /// The date on which the customer accepted the mandate.
+    /// </summary>
+    /// <value>The date on which the customer accepted the mandate.</value>
+    [DataMember(Name="date", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "date")]
+    public DateTime? Date { get; set; }
+
+
+    /// <summary>
+    /// Get the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()  {
+      var sb = new StringBuilder();
+      sb.Append("class CustomerAcceptanceMandate {\n");
+      sb.Append("  Id: ").Append(Id).Append("\n");
+      sb.Append("  Date: ").Append(Date).Append("\n");
+      sb.Append("}\n");
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Get the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson() {
+      return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+}
+}

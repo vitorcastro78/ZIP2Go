@@ -1,0 +1,62 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace IO.Swagger.Model {
+
+  /// <summary>
+  /// 
+  /// </summary>
+  [DataContract]
+  public class PaymentScheduleItemRetryBulk {
+    /// <summary>
+    /// Gets or Sets Id
+    /// </summary>
+    [DataMember(Name="id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "id")]
+    public string Id { get; set; }
+
+    /// <summary>
+    /// ID of the payment gateway used to collect payments. The default value is the account's default payment gateway ID. If no payment gateway ID is found on the customer account level, the default value will be the tenant's default payment gateway ID. This field will be ignored when `items` is specified.
+    /// </summary>
+    /// <value>ID of the payment gateway used to collect payments. The default value is the account's default payment gateway ID. If no payment gateway ID is found on the customer account level, the default value will be the tenant's default payment gateway ID. This field will be ignored when `items` is specified.</value>
+    [DataMember(Name="payment_gateway_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "payment_gateway_id")]
+    public string PaymentGatewayId { get; set; }
+
+    /// <summary>
+    /// ID of the payment method. The default value is the account's default payment method ID. This field will be ignored when `items` is specified.
+    /// </summary>
+    /// <value>ID of the payment method. The default value is the account's default payment method ID. This field will be ignored when `items` is specified.</value>
+    [DataMember(Name="payment_method_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "payment_method_id")]
+    public string PaymentMethodId { get; set; }
+
+
+    /// <summary>
+    /// Get the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()  {
+      var sb = new StringBuilder();
+      sb.Append("class PaymentScheduleItemRetryBulk {\n");
+      sb.Append("  Id: ").Append(Id).Append("\n");
+      sb.Append("  PaymentGatewayId: ").Append(PaymentGatewayId).Append("\n");
+      sb.Append("  PaymentMethodId: ").Append(PaymentMethodId).Append("\n");
+      sb.Append("}\n");
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Get the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson() {
+      return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+}
+}

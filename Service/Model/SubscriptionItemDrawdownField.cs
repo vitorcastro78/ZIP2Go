@@ -1,0 +1,45 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace IO.Swagger.Model {
+
+  /// <summary>
+  /// The drawdown information.
+  /// </summary>
+  [DataContract]
+  public class SubscriptionItemDrawdownField {
+    /// <summary>
+    /// The conversion rate between usage unit of measure (UOM) and drawdown unit of measure for a drawdown charge.        **Note**:    <ul>    <li>Must be a positive number (>0).</li>    <li>Must be `1` when usage UOM and drawdown UOM are the same.</li>     <li>If both `conversion_rate` and `unit_of_measure` for the drawdown are empty, the system will set default values respectively: <ul>      <li> `conversion_rate`: 1 </li>      <li> `unit_of_measure`: Same as the usage UOM of this drawdown charge. </li></ul></li></ul>        The `conversion_rate` and `unit_of_measure` fields need to have values or be empty at the same time.     
+    /// </summary>
+    /// <value>The conversion rate between usage unit of measure (UOM) and drawdown unit of measure for a drawdown charge.        **Note**:    <ul>    <li>Must be a positive number (>0).</li>    <li>Must be `1` when usage UOM and drawdown UOM are the same.</li>     <li>If both `conversion_rate` and `unit_of_measure` for the drawdown are empty, the system will set default values respectively: <ul>      <li> `conversion_rate`: 1 </li>      <li> `unit_of_measure`: Same as the usage UOM of this drawdown charge. </li></ul></li></ul>        The `conversion_rate` and `unit_of_measure` fields need to have values or be empty at the same time.     </value>
+    [DataMember(Name="conversion_rate", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "conversion_rate")]
+    public decimal? ConversionRate { get; set; }
+
+
+    /// <summary>
+    /// Get the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()  {
+      var sb = new StringBuilder();
+      sb.Append("class SubscriptionItemDrawdownField {\n");
+      sb.Append("  ConversionRate: ").Append(ConversionRate).Append("\n");
+      sb.Append("}\n");
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Get the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson() {
+      return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+}
+}
