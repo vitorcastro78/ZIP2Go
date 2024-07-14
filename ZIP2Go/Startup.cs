@@ -77,14 +77,14 @@ namespace ZIP2Go
                     {
                         Version = "2024-01-10",
                         Title = "Quickstart API Reference",
-                        Description = "Quickstart API Reference (ASP.NET Core 7.0)",
+                        Description = "Quickstart API Reference (ASP.NET Core 8.0)",
                         Contact = new OpenApiContact()
                         {
                            Name = "Swagger Codegen Contributors",
                            Url = new Uri("https://github.com/swagger-api/swagger-codegen"),
                            Email = ""
                         },
-                        TermsOfService = new Uri("")
+                        TermsOfService = new Uri("https://localhost:5000/")
                     });
                     c.CustomSchemaIds(type => type.FullName);
                     c.IncludeXmlComments($"{AppContext.BaseDirectory}{Path.DirectorySeparatorChar}{_hostingEnv.ApplicationName}.xml");
@@ -116,7 +116,7 @@ namespace ZIP2Go
             app.UseSwaggerUI(c =>
             {
                 //TODO: Either use the SwaggerGen generated Swagger contract (generated from C# classes)
-                c.SwaggerEndpoint("/swagger/2024-01-10/swagger.json", "Quickstart API Reference");
+                c.SwaggerEndpoint("/swagger/swagger.json", "Quickstart API Reference");
 
                 //TODO: Or alternatively use the original Swagger contract that's included in the static files
                 // c.SwaggerEndpoint("/swagger-original.json", "Quickstart API Reference Original");
