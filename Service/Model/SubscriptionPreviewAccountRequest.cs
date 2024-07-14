@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ZIP2Go.Model {
 
   /// <summary>
   /// Account data that is used for the subscription preview. If you specify this field, do not specify &#x60;account_id&#x60;. Note that this operation is only for preview and no subscription is created.

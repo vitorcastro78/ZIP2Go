@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace IO.Swagger.Client
+namespace ZIP2Go.Client
 {
     /// <summary>
     /// Represents a set of configuration settings
@@ -117,7 +117,7 @@ namespace IO.Swagger.Client
         /// </summary>
         public static String ToDebugReport()
         {
-            String report = "C# SDK (IO.Swagger) Debug Report:\n";
+            String report = "C# SDK (ZIP2Go) Debug Report:\n";
             report += "    OS: " + Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + Assembly
                      .GetExecutingAssembly()

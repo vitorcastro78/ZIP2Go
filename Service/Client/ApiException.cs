@@ -1,6 +1,6 @@
 using System;
 
-namespace IO.Swagger.Client {
+namespace ZIP2Go.Client {
   /// <summary>
   /// API Exception
   /// </summary>

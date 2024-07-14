@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ZIP2Go.Model {
 
   /// <summary>
   /// The information of the new account that owns the invoice associated with this subscription. If you specify this field, do not specify &#x60;invoice_owner_account_id&#x60;.

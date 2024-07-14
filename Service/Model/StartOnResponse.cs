@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ZIP2Go.Model {
 
   /// <summary>
   /// Indicates on which date the subscription becomes effective.

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using RestSharp;
-using IO.Swagger.Client;
-using IO.Swagger.Model;
+using ZIP2Go.Client;
+using ZIP2Go.Model;
 
-namespace IO.Swagger.Api
+namespace ZIP2Go.Api
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints

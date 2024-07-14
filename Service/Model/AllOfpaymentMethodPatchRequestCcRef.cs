@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ZIP2Go.Model {
 
   /// <summary>
   /// Credit Card Reference Transaction. See Supported payment methods for payment gateways that support this type of payment method.

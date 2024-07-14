@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ZIP2Go.Model {
 
   /// <summary>
   /// If it is a &#x60;paypal_express_native&#x60; payment method, this hash contains details about the PayPal Express Native payment method.

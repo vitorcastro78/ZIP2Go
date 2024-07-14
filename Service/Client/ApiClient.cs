@@ -12,7 +12,7 @@ using RestSharp;
 using RestSharp.Extensions;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Client
+namespace ZIP2Go.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
