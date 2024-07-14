@@ -199,14 +199,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateProduct: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateProduct: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Product) ApiClient.Deserialize(response.Content, typeof(Product), response.Headers);
+            return (Product) ApiClient.Deserialize(response.Content, typeof(Product));
         }
     
         /// <summary>
@@ -246,7 +246,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeleteProduct: " + response.Content, response.Content);
@@ -303,14 +303,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetProduct: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetProduct: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Product) ApiClient.Deserialize(response.Content, typeof(Product), response.Headers);
+            return (Product) ApiClient.Deserialize(response.Content, typeof(Product));
         }
     
         /// <summary>
@@ -360,14 +360,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetProducts: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetProducts: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (ProductListResponse) ApiClient.Deserialize(response.Content, typeof(ProductListResponse), response.Headers);
+            return (ProductListResponse) ApiClient.Deserialize(response.Content, typeof(ProductListResponse));
         }
     
         /// <summary>
@@ -423,14 +423,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateProduct: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateProduct: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Product) ApiClient.Deserialize(response.Content, typeof(Product), response.Headers);
+            return (Product) ApiClient.Deserialize(response.Content, typeof(Product));
         }
     
     }

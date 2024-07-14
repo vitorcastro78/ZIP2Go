@@ -216,14 +216,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelPaymentScheduleItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelPaymentScheduleItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem), response.Headers);
+            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
     
         /// <summary>
@@ -273,14 +273,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreatePaymentScheduleItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreatePaymentScheduleItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem), response.Headers);
+            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
     
         /// <summary>
@@ -328,14 +328,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentScheduleItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentScheduleItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem), response.Headers);
+            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
     
         /// <summary>
@@ -389,14 +389,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling RetryPaymentScheduleItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling RetryPaymentScheduleItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem), response.Headers);
+            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
     
         /// <summary>
@@ -446,14 +446,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling SkipPaymentScheduleItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling SkipPaymentScheduleItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem), response.Headers);
+            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
     
         /// <summary>
@@ -507,14 +507,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdatePaymentScheduleItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdatePaymentScheduleItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem), response.Headers);
+            return (PaymentScheduleItem) ApiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
     
     }

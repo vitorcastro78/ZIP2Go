@@ -187,14 +187,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreatePrice: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreatePrice: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Price) ApiClient.Deserialize(response.Content, typeof(Price), response.Headers);
+            return (Price) ApiClient.Deserialize(response.Content, typeof(Price));
         }
     
         /// <summary>
@@ -234,7 +234,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeletePrice: " + response.Content, response.Content);
@@ -287,14 +287,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPrice: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPrice: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Price) ApiClient.Deserialize(response.Content, typeof(Price), response.Headers);
+            return (Price) ApiClient.Deserialize(response.Content, typeof(Price));
         }
     
         /// <summary>
@@ -340,14 +340,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPrices: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPrices: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PriceListResponse) ApiClient.Deserialize(response.Content, typeof(PriceListResponse), response.Headers);
+            return (PriceListResponse) ApiClient.Deserialize(response.Content, typeof(PriceListResponse));
         }
     
         /// <summary>
@@ -399,14 +399,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchPrice: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchPrice: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Price) ApiClient.Deserialize(response.Content, typeof(Price), response.Headers);
+            return (Price) ApiClient.Deserialize(response.Content, typeof(Price));
         }
     
     }

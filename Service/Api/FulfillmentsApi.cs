@@ -224,14 +224,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateFulfillment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateFulfillment: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Fulfillment) ApiClient.Deserialize(response.Content, typeof(Fulfillment), response.Headers);
+            return (Fulfillment) ApiClient.Deserialize(response.Content, typeof(Fulfillment));
         }
     
         /// <summary>
@@ -285,14 +285,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateFulfillments: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateFulfillments: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (FulfillmentCreateBulkResponse) ApiClient.Deserialize(response.Content, typeof(FulfillmentCreateBulkResponse), response.Headers);
+            return (FulfillmentCreateBulkResponse) ApiClient.Deserialize(response.Content, typeof(FulfillmentCreateBulkResponse));
         }
     
         /// <summary>
@@ -332,7 +332,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeleteFulfillment: " + response.Content, response.Content);
@@ -391,14 +391,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetFulfillment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetFulfillment: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Fulfillment) ApiClient.Deserialize(response.Content, typeof(Fulfillment), response.Headers);
+            return (Fulfillment) ApiClient.Deserialize(response.Content, typeof(Fulfillment));
         }
     
         /// <summary>
@@ -450,14 +450,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetFulfillments: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetFulfillments: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (FilfillmentListResponse) ApiClient.Deserialize(response.Content, typeof(FilfillmentListResponse), response.Headers);
+            return (FilfillmentListResponse) ApiClient.Deserialize(response.Content, typeof(FilfillmentListResponse));
         }
     
         /// <summary>
@@ -515,14 +515,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateFulfillment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateFulfillment: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Fulfillment) ApiClient.Deserialize(response.Content, typeof(Fulfillment), response.Headers);
+            return (Fulfillment) ApiClient.Deserialize(response.Content, typeof(Fulfillment));
         }
     
     }

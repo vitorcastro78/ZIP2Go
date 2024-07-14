@@ -166,14 +166,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillingDocument: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillingDocument: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (BillingDocument) ApiClient.Deserialize(response.Content, typeof(BillingDocument), response.Headers);
+            return (BillingDocument) ApiClient.Deserialize(response.Content, typeof(BillingDocument));
         }
     
         /// <summary>
@@ -223,14 +223,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillingDocuments: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillingDocuments: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (BillingDocumentListResponse) ApiClient.Deserialize(response.Content, typeof(BillingDocumentListResponse), response.Headers);
+            return (BillingDocumentListResponse) ApiClient.Deserialize(response.Content, typeof(BillingDocumentListResponse));
         }
     
         /// <summary>
@@ -282,14 +282,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostBillingDocument: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostBillingDocument: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (BillingDocument) ApiClient.Deserialize(response.Content, typeof(BillingDocument), response.Headers);
+            return (BillingDocument) ApiClient.Deserialize(response.Content, typeof(BillingDocument));
         }
     
     }

@@ -142,14 +142,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateBillRunPreview: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateBillRunPreview: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (BillRunPreview) ApiClient.Deserialize(response.Content, typeof(BillRunPreview), response.Headers);
+            return (BillRunPreview) ApiClient.Deserialize(response.Content, typeof(BillRunPreview));
         }
     
         /// <summary>
@@ -195,14 +195,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillRunPreview: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillRunPreview: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (BillRunPreview) ApiClient.Deserialize(response.Content, typeof(BillRunPreview), response.Headers);
+            return (BillRunPreview) ApiClient.Deserialize(response.Content, typeof(BillRunPreview));
         }
     
     }

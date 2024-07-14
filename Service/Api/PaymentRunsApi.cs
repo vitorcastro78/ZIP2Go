@@ -193,14 +193,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreatePaymentRuns: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreatePaymentRuns: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentRun) ApiClient.Deserialize(response.Content, typeof(PaymentRun), response.Headers);
+            return (PaymentRun) ApiClient.Deserialize(response.Content, typeof(PaymentRun));
         }
     
         /// <summary>
@@ -240,7 +240,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeletePaymentRuns: " + response.Content, response.Content);
@@ -295,14 +295,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentRun: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentRun: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentRun) ApiClient.Deserialize(response.Content, typeof(PaymentRun), response.Headers);
+            return (PaymentRun) ApiClient.Deserialize(response.Content, typeof(PaymentRun));
         }
     
         /// <summary>
@@ -350,14 +350,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentRuns: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentRuns: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentRunListResponse) ApiClient.Deserialize(response.Content, typeof(PaymentRunListResponse), response.Headers);
+            return (PaymentRunListResponse) ApiClient.Deserialize(response.Content, typeof(PaymentRunListResponse));
         }
     
         /// <summary>
@@ -411,14 +411,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdatePaymentRuns: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdatePaymentRuns: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (PaymentRun) ApiClient.Deserialize(response.Content, typeof(PaymentRun), response.Headers);
+            return (PaymentRun) ApiClient.Deserialize(response.Content, typeof(PaymentRun));
         }
     
     }

@@ -128,14 +128,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillingDocumentItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetBillingDocumentItems: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (BillingDocumentItemListResponse) ApiClient.Deserialize(response.Content, typeof(BillingDocumentItemListResponse), response.Headers);
+            return (BillingDocumentItemListResponse) ApiClient.Deserialize(response.Content, typeof(BillingDocumentItemListResponse));
         }
     
     }

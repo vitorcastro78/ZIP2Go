@@ -187,14 +187,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem), response.Headers);
+            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem));
         }
     
         /// <summary>
@@ -234,7 +234,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeleteTaxationItem: " + response.Content, response.Content);
@@ -287,14 +287,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem), response.Headers);
+            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem));
         }
     
         /// <summary>
@@ -340,14 +340,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItems: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (TaxationItemListResponse) ApiClient.Deserialize(response.Content, typeof(TaxationItemListResponse), response.Headers);
+            return (TaxationItemListResponse) ApiClient.Deserialize(response.Content, typeof(TaxationItemListResponse));
         }
     
         /// <summary>
@@ -399,14 +399,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem), response.Headers);
+            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem));
         }
     
     }

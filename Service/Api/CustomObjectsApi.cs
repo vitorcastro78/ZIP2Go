@@ -202,14 +202,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateCustomObject: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateCustomObject: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CustomObject) ApiClient.Deserialize(response.Content, typeof(CustomObject), response.Headers);
+            return (CustomObject) ApiClient.Deserialize(response.Content, typeof(CustomObject));
         }
     
         /// <summary>
@@ -253,7 +253,7 @@ path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeleteCustomObject: " + response.Content, response.Content);
@@ -312,14 +312,14 @@ path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCustomObject: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCustomObject: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CustomObject) ApiClient.Deserialize(response.Content, typeof(CustomObject), response.Headers);
+            return (CustomObject) ApiClient.Deserialize(response.Content, typeof(CustomObject));
         }
     
         /// <summary>
@@ -371,14 +371,14 @@ path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCustomObjects: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCustomObjects: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (ListCustomObjectResponse) ApiClient.Deserialize(response.Content, typeof(ListCustomObjectResponse), response.Headers);
+            return (ListCustomObjectResponse) ApiClient.Deserialize(response.Content, typeof(ListCustomObjectResponse));
         }
     
         /// <summary>
@@ -436,14 +436,14 @@ path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateCustomObject: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UpdateCustomObject: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CustomObject) ApiClient.Deserialize(response.Content, typeof(CustomObject), response.Headers);
+            return (CustomObject) ApiClient.Deserialize(response.Content, typeof(CustomObject));
         }
     
     }

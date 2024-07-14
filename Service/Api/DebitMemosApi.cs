@@ -309,14 +309,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
         /// <summary>
@@ -372,14 +372,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
         /// <summary>
@@ -419,7 +419,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeleteDebitMemo: " + response.Content, response.Content);
@@ -480,14 +480,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
         /// <summary>
@@ -535,14 +535,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetDebitMemoItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetDebitMemoItems: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemoItemListResponse) ApiClient.Deserialize(response.Content, typeof(DebitMemoItemListResponse), response.Headers);
+            return (DebitMemoItemListResponse) ApiClient.Deserialize(response.Content, typeof(DebitMemoItemListResponse));
         }
     
         /// <summary>
@@ -596,14 +596,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetDebitMemoes: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetDebitMemoes: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemoListResponse) ApiClient.Deserialize(response.Content, typeof(DebitMemoListResponse), response.Headers);
+            return (DebitMemoListResponse) ApiClient.Deserialize(response.Content, typeof(DebitMemoListResponse));
         }
     
         /// <summary>
@@ -663,14 +663,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
         /// <summary>
@@ -730,14 +730,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PayDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PayDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
         /// <summary>
@@ -793,14 +793,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostsDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostsDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
         /// <summary>
@@ -856,14 +856,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UnpostsDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UnpostsDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo), response.Headers);
+            return (DebitMemo) ApiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
     
     }

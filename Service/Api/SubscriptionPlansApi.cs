@@ -164,14 +164,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionPlan: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionPlan: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionPlan) ApiClient.Deserialize(response.Content, typeof(SubscriptionPlan), response.Headers);
+            return (SubscriptionPlan) ApiClient.Deserialize(response.Content, typeof(SubscriptionPlan));
         }
     
         /// <summary>
@@ -229,14 +229,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionPlans: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionPlans: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionPlanListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionPlanListResponse), response.Headers);
+            return (SubscriptionPlanListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionPlanListResponse));
         }
     
     }

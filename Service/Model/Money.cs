@@ -11,7 +11,7 @@ namespace ZIP2Go.Model {
   /// 
   /// </summary>
   [DataContract]
-  public class Money : Dictionary<String, BigDecimal> {
+  public class Money : Dictionary<String, decimal> {
 
     /// <summary>
     /// Get the string presentation of the object

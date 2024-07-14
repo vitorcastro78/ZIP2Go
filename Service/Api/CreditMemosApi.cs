@@ -345,14 +345,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling ApplyCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling ApplyCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -410,14 +410,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -475,14 +475,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -522,7 +522,7 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.DELETE, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling DeleteCreditMemo: " + response.Content, response.Content);
@@ -585,14 +585,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -640,14 +640,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCreditMemoItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCreditMemoItems: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemoItemListResponse) ApiClient.Deserialize(response.Content, typeof(CreditMemoItemListResponse), response.Headers);
+            return (CreditMemoItemListResponse) ApiClient.Deserialize(response.Content, typeof(CreditMemoItemListResponse));
         }
     
         /// <summary>
@@ -703,14 +703,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCreditMemos: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetCreditMemos: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemoListResponse) ApiClient.Deserialize(response.Content, typeof(CreditMemoListResponse), response.Headers);
+            return (CreditMemoListResponse) ApiClient.Deserialize(response.Content, typeof(CreditMemoListResponse));
         }
     
         /// <summary>
@@ -772,14 +772,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -837,14 +837,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PostCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -906,14 +906,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UnapplyCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UnapplyCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
         /// <summary>
@@ -971,14 +971,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UnpostCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UnpostCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo), response.Headers);
+            return (CreditMemo) ApiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     
     }

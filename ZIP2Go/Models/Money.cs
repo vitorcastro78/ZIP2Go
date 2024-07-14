@@ -24,7 +24,7 @@ namespace ZIP2Go.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class Money : Dictionary<String, BigDecimal>, IEquatable<Money>
+    public partial class Money : Dictionary<String, decimal>, IEquatable<Money>
     { 
         /// <summary>
         /// Returns the string presentation of the object

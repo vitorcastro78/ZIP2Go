@@ -451,14 +451,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling ActivateSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling ActivateSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
         /// <summary>
@@ -534,14 +534,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionCancelResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionCancelResponse), response.Headers);
+            return (SubscriptionCancelResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionCancelResponse));
         }
     
         /// <summary>
@@ -613,14 +613,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
         /// <summary>
@@ -690,14 +690,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionByKey: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionByKey: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
         /// <summary>
@@ -773,14 +773,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionByVersion: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionByVersion: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionVersionListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionVersionListResponse), response.Headers);
+            return (SubscriptionVersionListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionVersionListResponse));
         }
     
         /// <summary>
@@ -850,14 +850,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptions: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptions: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionListResponse), response.Headers);
+            return (SubscriptionListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionListResponse));
         }
     
         /// <summary>
@@ -933,14 +933,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
         /// <summary>
@@ -1016,14 +1016,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PauseSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PauseSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
         /// <summary>
@@ -1067,14 +1067,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PreviewExistingSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PreviewExistingSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionPreviewResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse), response.Headers);
+            return (SubscriptionPreviewResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse));
         }
     
         /// <summary>
@@ -1114,14 +1114,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PreviewSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PreviewSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (SubscriptionPreviewResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse), response.Headers);
+            return (SubscriptionPreviewResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse));
         }
     
         /// <summary>
@@ -1197,14 +1197,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling ResumeSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling ResumeSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
         /// <summary>
@@ -1280,14 +1280,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling UncancelSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling UncancelSubscription: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription), response.Headers);
+            return (Subscription) ApiClient.Deserialize(response.Content, typeof(Subscription));
         }
     
     }

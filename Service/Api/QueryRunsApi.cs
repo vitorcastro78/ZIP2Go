@@ -158,14 +158,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelQueryRun: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CancelQueryRun: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (QueryRun) ApiClient.Deserialize(response.Content, typeof(QueryRun), response.Headers);
+            return (QueryRun) ApiClient.Deserialize(response.Content, typeof(QueryRun));
         }
     
         /// <summary>
@@ -213,14 +213,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.POST, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateQueryRun: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling CreateQueryRun: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (QueryRun) ApiClient.Deserialize(response.Content, typeof(QueryRun), response.Headers);
+            return (QueryRun) ApiClient.Deserialize(response.Content, typeof(QueryRun));
         }
     
         /// <summary>
@@ -266,14 +266,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetQueryRun: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetQueryRun: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (QueryRun) ApiClient.Deserialize(response.Content, typeof(QueryRun), response.Headers);
+            return (QueryRun) ApiClient.Deserialize(response.Content, typeof(QueryRun));
         }
     
     }

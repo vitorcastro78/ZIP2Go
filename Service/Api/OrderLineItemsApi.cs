@@ -149,14 +149,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.GET, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetOrderLineItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling GetOrderLineItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (OrderLineItem) ApiClient.Deserialize(response.Content, typeof(OrderLineItem), response.Headers);
+            return (OrderLineItem) ApiClient.Deserialize(response.Content, typeof(OrderLineItem));
         }
     
         /// <summary>
@@ -212,14 +212,14 @@ namespace ZIP2Go.Api
             String[] authSettings = new String[] { "bearerAuth" };
     
             // make the HTTP request
-            IRestResponse response = (IRestResponse) ApiClient.CallApi(path, Method.PATCH, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
     
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchOrderLineItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException ((int)response.StatusCode, "Error calling PatchOrderLineItem: " + response.ErrorMessage, response.ErrorMessage);
     
-            return (OrderLineItem) ApiClient.Deserialize(response.Content, typeof(OrderLineItem), response.Headers);
+            return (OrderLineItem) ApiClient.Deserialize(response.Content, typeof(OrderLineItem));
         }
     
     }
