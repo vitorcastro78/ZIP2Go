@@ -172,34 +172,6 @@ namespace ZIP2Go.Models
         /// The type of the additional phone number.
         /// </summary>
         /// <value>The type of the additional phone number.</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum OtherPhoneTypeEnum
-        {
-            /// <summary>
-            /// Enum WorkEnum for work
-            /// </summary>
-            [EnumMember(Value = "work")]
-            WorkEnum = 0,
-            /// <summary>
-            /// Enum MobileEnum for mobile
-            /// </summary>
-            [EnumMember(Value = "mobile")]
-            MobileEnum = 1,
-            /// <summary>
-            /// Enum HomeEnum for home
-            /// </summary>
-            [EnumMember(Value = "home")]
-            HomeEnum = 2,
-            /// <summary>
-            /// Enum OtherEnum for other
-            /// </summary>
-            [EnumMember(Value = "other")]
-            OtherEnum = 3        }
-
-        /// <summary>
-        /// The type of the additional phone number.
-        /// </summary>
-        /// <value>The type of the additional phone number.</value>
 
         [DataMember(Name="other_phone_type")]
         public OtherPhoneTypeEnum? OtherPhoneType { get; set; }

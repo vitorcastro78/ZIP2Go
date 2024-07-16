@@ -17,7 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using ZIP2Go.WebAPI.Attributes;
 using ZIP2Go.WebAPI.Security;
 using Microsoft.AspNetCore.Authorization;
-using ZIP2Go.WebAPI.Models;
+using ZIP2Go.Models;
 
 namespace ZIP2Go.WebAPI.Controllers
 { 

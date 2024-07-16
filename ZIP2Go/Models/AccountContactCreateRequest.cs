@@ -17,8 +17,10 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using ZIP2Go.WebAPI.Enums;
 
-namespace ZIP2Go.Models
+
+namespace ZIP2Go.WebAPI.Models
 {
     /// <summary>
     /// 
@@ -170,33 +172,6 @@ namespace ZIP2Go.Models
         [DataMember(Name="work_phone")]
         public string WorkPhone { get; set; }
 
-        /// <summary>
-        /// The type of the additional phone number.
-        /// </summary>
-        /// <value>The type of the additional phone number.</value>
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum OtherPhoneTypeEnum
-        {
-            /// <summary>
-            /// Enum WorkEnum for work
-            /// </summary>
-            [EnumMember(Value = "work")]
-            WorkEnum = 0,
-            /// <summary>
-            /// Enum MobileEnum for mobile
-            /// </summary>
-            [EnumMember(Value = "mobile")]
-            MobileEnum = 1,
-            /// <summary>
-            /// Enum HomeEnum for home
-            /// </summary>
-            [EnumMember(Value = "home")]
-            HomeEnum = 2,
-            /// <summary>
-            /// Enum OtherEnum for other
-            /// </summary>
-            [EnumMember(Value = "other")]
-            OtherEnum = 3        }
 
         /// <summary>
         /// The type of the additional phone number.

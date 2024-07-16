@@ -1,0 +1,98 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace ZIP2Go.Models {
+
+  /// <summary>
+  /// Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora&#x27;s [Payment Pages 2.0](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/LA_Hosted_Payment_Pages/B_Payment_Pages_2.0) instead of interacting with this API directly.
+  /// </summary>
+  [DataContract]
+  public class Card {
+    /// <summary>
+    /// The card number, as a string without any separators.
+    /// </summary>
+    /// <value>The card number, as a string without any separators.</value>
+    [DataMember(Name="card_number", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "card_number")]
+    public string CardNumber { get; set; }
+
+    /// <summary>
+    /// Card brand.
+    /// </summary>
+    /// <value>Card brand.</value>
+    [DataMember(Name="brand", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "brand")]
+    public string Brand { get; set; }
+
+    /// <summary>
+    /// One or two digit expiration month (1-12) of the credit card.
+    /// </summary>
+    /// <value>One or two digit expiration month (1-12) of the credit card.</value>
+    [DataMember(Name="expiry_month", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "expiry_month")]
+    public decimal? ExpiryMonth { get; set; }
+
+    /// <summary>
+    /// Two- or four-digit number representing the card's expiration year.
+    /// </summary>
+    /// <value>Two- or four-digit number representing the card's expiration year.</value>
+    [DataMember(Name="expiry_year", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "expiry_year")]
+    public decimal? ExpiryYear { get; set; }
+
+    /// <summary>
+    /// Card security code. It is highly recommended to always include this value.
+    /// </summary>
+    /// <value>Card security code. It is highly recommended to always include this value.</value>
+    [DataMember(Name="security_code", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "security_code")]
+    public string SecurityCode { get; set; }
+
+    /// <summary>
+    /// Gets or Sets Mandate
+    /// </summary>
+    [DataMember(Name="mandate", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "mandate")]
+    public CardMandate Mandate { get; set; }
+
+    /// <summary>
+    /// The last four digits of the card number.
+    /// </summary>
+    /// <value>The last four digits of the card number.</value>
+    [DataMember(Name="last_4", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "last_4")]
+    public string Last4 { get; set; }
+
+
+    /// <summary>
+    /// Get the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()  {
+      var sb = new StringBuilder();
+      sb.Append("class Card {\n");
+      sb.Append("  CardNumber: ").Append(CardNumber).Append("\n");
+      sb.Append("  Brand: ").Append(Brand).Append("\n");
+      sb.Append("  ExpiryMonth: ").Append(ExpiryMonth).Append("\n");
+      sb.Append("  ExpiryYear: ").Append(ExpiryYear).Append("\n");
+      sb.Append("  SecurityCode: ").Append(SecurityCode).Append("\n");
+      sb.Append("  Mandate: ").Append(Mandate).Append("\n");
+      sb.Append("  Last4: ").Append(Last4).Append("\n");
+      sb.Append("}\n");
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Get the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson() {
+      return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+}
+}

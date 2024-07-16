@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using RestSharp;
 using ZIP2Go.Client;
-using ZIP2Go.Model;
+using ZIP2Go.Models;
 
-namespace ZIP2Go.Api
+namespace ZIP2Go.Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints

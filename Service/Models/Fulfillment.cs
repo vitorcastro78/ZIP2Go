@@ -1,0 +1,224 @@
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
+
+namespace ZIP2Go.Models {
+
+  /// <summary>
+  /// 
+  /// </summary>
+  [DataContract]
+  public class Fulfillment {
+    /// <summary>
+    /// Unique identifier for the object.
+    /// </summary>
+    /// <value>Unique identifier for the object.</value>
+    [DataMember(Name="id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "id")]
+    public string Id { get; set; }
+
+    /// <summary>
+    /// Unique identifier of the Zuora user who last updated the object
+    /// </summary>
+    /// <value>Unique identifier of the Zuora user who last updated the object</value>
+    [DataMember(Name="updated_by_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "updated_by_id")]
+    public string UpdatedById { get; set; }
+
+    /// <summary>
+    /// The date and time when the object was last updated in ISO 8601 UTC format.
+    /// </summary>
+    /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
+    [DataMember(Name="updated_time", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "updated_time")]
+    public DateTime? UpdatedTime { get; set; }
+
+    /// <summary>
+    /// Unique identifier of the Zuora user who created the object
+    /// </summary>
+    /// <value>Unique identifier of the Zuora user who created the object</value>
+    [DataMember(Name="created_by_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "created_by_id")]
+    public string CreatedById { get; set; }
+
+    /// <summary>
+    /// The date and time when the object was created in ISO 8601 UTC format.
+    /// </summary>
+    /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
+    [DataMember(Name="created_time", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "created_time")]
+    public DateTime? CreatedTime { get; set; }
+
+    /// <summary>
+    /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
+    /// </summary>
+    /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
+    [DataMember(Name="custom_fields", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "custom_fields")]
+    public Dictionary<string, Object> CustomFields { get; set; }
+
+    /// <summary>
+    /// The custom objects associated with a Zuora standard object.
+    /// </summary>
+    /// <value>The custom objects associated with a Zuora standard object.</value>
+    [DataMember(Name="custom_objects", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "custom_objects")]
+    public OneOffulfillmentCustomObjects CustomObjects { get; set; }
+
+    /// <summary>
+    /// The unique identifier of the associated order line item.
+    /// </summary>
+    /// <value>The unique identifier of the associated order line item.</value>
+    [DataMember(Name="order_line_item_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "order_line_item_id")]
+    public string OrderLineItemId { get; set; }
+
+    /// <summary>
+    /// Human-readable identifier for the object. It can be user-supplied.
+    /// </summary>
+    /// <value>Human-readable identifier for the object. It can be user-supplied.</value>
+    [DataMember(Name="fulfillment_number", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "fulfillment_number")]
+    public string FulfillmentNumber { get; set; }
+
+    /// <summary>
+    /// The date of the fulfillment.
+    /// </summary>
+    /// <value>The date of the fulfillment.</value>
+    [DataMember(Name="fulfillment_date", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "fulfillment_date")]
+    public DateTime? FulfillmentDate { get; set; }
+
+    /// <summary>
+    /// The type of fulfillment.
+    /// </summary>
+    /// <value>The type of fulfillment.</value>
+    [DataMember(Name="type", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "type")]
+    public string Type { get; set; }
+
+    /// <summary>
+    /// The number of units of this item.
+    /// </summary>
+    /// <value>The number of units of this item.</value>
+    [DataMember(Name="quantity", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "quantity")]
+    public decimal? Quantity { get; set; }
+
+    /// <summary>
+    /// The status of the invoice.
+    /// </summary>
+    /// <value>The status of the invoice.</value>
+    [DataMember(Name="state", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "state")]
+    public string State { get; set; }
+
+    /// <summary>
+    /// All order line items associated with this fulfillment that were unbilled on or before this date are included in future bill runs.
+    /// </summary>
+    /// <value>All order line items associated with this fulfillment that were unbilled on or before this date are included in future bill runs.</value>
+    [DataMember(Name="target_date", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "target_date")]
+    public DateTime? TargetDate { get; set; }
+
+    /// <summary>
+    /// An arbitrary string attached to the object. Often useful for displaying to users.
+    /// </summary>
+    /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
+    [DataMember(Name="description", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "description")]
+    public string Description { get; set; }
+
+    /// <summary>
+    /// The tracking number of the fulfillment.
+    /// </summary>
+    /// <value>The tracking number of the fulfillment.</value>
+    [DataMember(Name="tracking_number", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "tracking_number")]
+    public string TrackingNumber { get; set; }
+
+    /// <summary>
+    /// The name of the shipping carrier for this fulfillment.
+    /// </summary>
+    /// <value>The name of the shipping carrier for this fulfillment.</value>
+    [DataMember(Name="carrier", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "carrier")]
+    public string Carrier { get; set; }
+
+    /// <summary>
+    /// The fulfillment system for the fulfillment.
+    /// </summary>
+    /// <value>The fulfillment system for the fulfillment.</value>
+    [DataMember(Name="fulfillment_system", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "fulfillment_system")]
+    public string FulfillmentSystem { get; set; }
+
+    /// <summary>
+    /// An external identifier for the fulfillment.
+    /// </summary>
+    /// <value>An external identifier for the fulfillment.</value>
+    [DataMember(Name="external_id", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "external_id")]
+    public string ExternalId { get; set; }
+
+    /// <summary>
+    /// Gets or Sets Revenue
+    /// </summary>
+    [DataMember(Name="revenue", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "revenue")]
+    public AllOffulfillmentRevenue Revenue { get; set; }
+
+    /// <summary>
+    /// The fulfillment location of the fulfillment.
+    /// </summary>
+    /// <value>The fulfillment location of the fulfillment.</value>
+    [DataMember(Name="location", EmitDefaultValue=false)]
+    [JsonProperty(PropertyName = "location")]
+    public Dictionary<string, Object> Location { get; set; }
+
+
+    /// <summary>
+    /// Get the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()  {
+      var sb = new StringBuilder();
+      sb.Append("class Fulfillment {\n");
+      sb.Append("  Id: ").Append(Id).Append("\n");
+      sb.Append("  UpdatedById: ").Append(UpdatedById).Append("\n");
+      sb.Append("  UpdatedTime: ").Append(UpdatedTime).Append("\n");
+      sb.Append("  CreatedById: ").Append(CreatedById).Append("\n");
+      sb.Append("  CreatedTime: ").Append(CreatedTime).Append("\n");
+      sb.Append("  CustomFields: ").Append(CustomFields).Append("\n");
+      sb.Append("  CustomObjects: ").Append(CustomObjects).Append("\n");
+      sb.Append("  OrderLineItemId: ").Append(OrderLineItemId).Append("\n");
+      sb.Append("  FulfillmentNumber: ").Append(FulfillmentNumber).Append("\n");
+      sb.Append("  FulfillmentDate: ").Append(FulfillmentDate).Append("\n");
+      sb.Append("  Type: ").Append(Type).Append("\n");
+      sb.Append("  Quantity: ").Append(Quantity).Append("\n");
+      sb.Append("  State: ").Append(State).Append("\n");
+      sb.Append("  TargetDate: ").Append(TargetDate).Append("\n");
+      sb.Append("  Description: ").Append(Description).Append("\n");
+      sb.Append("  TrackingNumber: ").Append(TrackingNumber).Append("\n");
+      sb.Append("  Carrier: ").Append(Carrier).Append("\n");
+      sb.Append("  FulfillmentSystem: ").Append(FulfillmentSystem).Append("\n");
+      sb.Append("  ExternalId: ").Append(ExternalId).Append("\n");
+      sb.Append("  Revenue: ").Append(Revenue).Append("\n");
+      sb.Append("  Location: ").Append(Location).Append("\n");
+      sb.Append("}\n");
+      return sb.ToString();
+    }
+
+    /// <summary>
+    /// Get the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson() {
+      return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+}
+}
