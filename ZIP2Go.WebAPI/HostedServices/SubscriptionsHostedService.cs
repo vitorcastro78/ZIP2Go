@@ -7,28 +7,28 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using ZIP2Go.Service;
+using ZIP2Go.Models;
 using Service.Interfaces;
 
 namespace ZIP2GO.WebAPI.HostedService
 {
 
-    public class AccountHostedService : BackgroundService
+    public class SubscriptionsHostedService : BackgroundService
     {
-        private readonly ILogger<AccountHostedService> _logger;
+        private readonly ILogger<SubscriptionsHostedService> _logger;
         private Timer? _timer = null;
         private int CountRound = 0;
 
-        public AccountHostedService(
+        public SubscriptionsHostedService(
             IServiceProvider services,
-            ILogger<AccountHostedService> logger)
+            ILogger<SubscriptionsHostedService> logger)
         {
             Services = services;
             _logger = logger;
         }
 
         public IServiceProvider Services { get; }
-
-        public IAccountsService accountsService { get; }
+        public ISubscriptionsService subscriptionsService { get; }
 
         public override async Task StopAsync(CancellationToken stoppingToken)
         {
