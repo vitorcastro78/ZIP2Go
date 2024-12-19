@@ -2,6 +2,7 @@
 using ZIP2Go.Models;
 using RestSharp;
 using Service.Interfaces;
+using EasyCaching.Core;
 
 namespace ZIP2Go.Service
 {
@@ -11,16 +12,26 @@ namespace ZIP2Go.Service
     public class AccountsService : IAccountsService
     {
         /// <summary>
+        /// Gets or sets the API client.
+        /// </summary>
+        /// <value>An instance of the ApiClient</value>
+        public ApiClient ApiClient { get; set; }
+        private readonly IEasyCachingProvider _cache;
+
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="AccountsApi"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public AccountsService(ApiClient apiClient = null)
+        public AccountsService(IEasyCachingProvider cache, ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient;
             else
                 this.ApiClient = apiClient;
+
+            _cache = cache;
         }
 
         /// <summary>
@@ -52,11 +63,7 @@ namespace ZIP2Go.Service
             return this.ApiClient.BasePath;
         }
 
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
+
 
         /// <summary>
         /// Create an account Creates a new account object.
@@ -571,5 +578,89 @@ namespace ZIP2Go.Service
             return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
         }
 
+
+
+        //private async Task<ListAccountResponse> GetAllSubscriptionsByResellerAccountIdAsync(string accountId)
+        //{
+        //    var cachekey = $"GetAccounts-{accountId}";
+
+
+        //    var allSubscriptions = new ListAccountResponse();
+        //    _cache.Set<bool> cachekey, true, TimeSpan.FromMinutes(20));
+        //    if (!_cache.Exists(cachekey))
+        //    {
+
+        //        foreach (var reseller in resellers)
+        //        {
+
+        //            // The API will return 8000 subscriptions, but active and canceled only around 1000 subscriptions
+        //            var datas = await GetAllSubscriptions<GetAllSubscriptionResponse>(string.Empty, "active", reseller.Id);
+        //            if (datas.Data.Count > 0)
+        //            {
+        //                allSubscriptions.Data.AddRange(datas.Data);
+        //            }
+
+        //            while (!string.IsNullOrEmpty(datas.Next_page) && datas.Data.Count > 0)
+        //            {
+        //                datas = await GetAllSubscriptions<GetAllSubscriptionResponse>(datas.Next_page, "active", reseller.Id);
+        //                if (datas.Data.Count > 0)
+        //                {
+        //                    allSubscriptions.Data.AddRange(datas.Data);
+        //                }
+        //            }
+
+        //            // the API doesn't support or command, so call the API with "canceled".
+        //            datas = await GetAllSubscriptions<GetAllSubscriptionResponse>(string.Empty, "canceled", reseller.Id);
+        //            if (datas.Data.Count > 0)
+        //            {
+        //                allSubscriptions.Data.AddRange(datas.Data);
+        //            }
+
+        //            while (!string.IsNullOrEmpty(datas.Next_page) && datas.Data.Count > 0)
+        //            {
+        //                datas = await GetAllSubscriptions<GetAllSubscriptionResponse>(datas.Next_page, "canceled", reseller.Id);
+        //                if (datas.Data.Count > 0)
+        //                {
+        //                    allSubscriptions.Data.AddRange(datas.Data);
+        //                }
+        //            }
+        //        }
+
+        //        if (allSubscriptions.Any())
+        //        {
+        //            _cache.Set(cacheKey, allSubscriptions, TimeSpan.FromMinutes(20));
+        //            _cache.Remove($"{cacheKey}_loading");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        allSubscriptions = _cache.Get<ListAccountResponse>(cacheKey).Value;
+        //    }
+
+        //    return allSubscriptions;
+        //}
+
+        private async Task<Account> GetAccountCache(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        {
+            string cachekey = $"GetAccount-{accountId}";
+            var accountResp = new Account();
+            _cache.Set<bool>(cachekey, true, TimeSpan.FromMinutes(20));
+            if (!_cache.Exists(cachekey))
+            {
+
+                var account = GetAccount(accountId, fields, subscriptionsFields, subscriptionPlansFields, subscriptionItemsFields, invoiceOwnerAccountFields, planFields, paymentMethodsFields, paymentsFields, billingDocumentsFields, billingDocumentItemsFields, billToFields, soldToFields, defaultPaymentMethodFields, usageRecordsFields, invoicesFields, creditMemosFields, debitMemosFields, prepaidBalanceFields, transactionsFields, expand, filter, pageSize, zuoraTrackId, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
+
+                if (account != null)
+                {
+                    _cache.Set(cachekey, account, TimeSpan.FromMinutes(20));
+                }
+            }
+            else
+            {
+                accountResp = _cache.Get<Account>(cachekey).Value;
+            }
+
+            return accountResp;
+        }
     }
 }
