@@ -20,7 +20,7 @@ namespace ZIP2Go.Service
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountsApi"/> class.
+        /// Initializes a new instance of the <see cref="AccountsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
@@ -35,7 +35,7 @@ namespace ZIP2Go.Service
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountsApi"/> class.
+        /// Initializes a new instance of the <see cref="AccountsService"/> class.
         /// </summary>
         /// <returns></returns>
         public AccountsService(String basePath)

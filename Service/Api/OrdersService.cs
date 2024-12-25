@@ -14,7 +14,7 @@ namespace ZIP2Go.Service
     public class OrdersService : IOrdersService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrdersApi"/> class.
+        /// Initializes a new instance of the <see cref="OrdersService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
@@ -27,7 +27,7 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrdersApi"/> class.
+        /// Initializes a new instance of the <see cref="OrdersService"/> class.
         /// </summary>
         /// <returns></returns>
         public OrdersService(String basePath)

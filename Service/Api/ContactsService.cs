@@ -14,7 +14,7 @@ namespace ZIP2Go.Service
     public class ContactsService : IContactsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContactsApi"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
@@ -27,7 +27,7 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="ContactsApi"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <returns></returns>
         public ContactsService(String basePath)

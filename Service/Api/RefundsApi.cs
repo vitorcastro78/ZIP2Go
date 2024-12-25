@@ -9,7 +9,7 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IRefundsApi
+    public interface IRefundsService
     {
         /// <summary>
         /// Cancel a refund Cancels an unapplied refund.
@@ -128,14 +128,14 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class RefundsApi : IRefundsApi
+    public class RefundsService : IRefundsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RefundsApi"/> class.
+        /// Initializes a new instance of the <see cref="RefundsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public RefundsApi(ApiClient apiClient = null)
+        public RefundsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -144,10 +144,10 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="RefundsApi"/> class.
+        /// Initializes a new instance of the <see cref="RefundsService"/> class.
         /// </summary>
         /// <returns></returns>
-        public RefundsApi(String basePath)
+        public RefundsService(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }

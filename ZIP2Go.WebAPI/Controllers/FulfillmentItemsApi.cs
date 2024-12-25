@@ -24,8 +24,8 @@ namespace ZIP2Go.WebAPI.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [ApiController]
-    public class FulfillmentItemsApiController : ControllerBase
+    [ServiceController]
+    public class FulfillmentItemsServiceController : ControllerBase
     { 
         /// <summary>
         /// Create a fulfillment item

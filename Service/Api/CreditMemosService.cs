@@ -27,7 +27,7 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreditMemosApi"/> class.
+        /// Initializes a new instance of the <see cref="CreditMemosService"/> class.
         /// </summary>
         /// <returns></returns>
         public CreditMemosService(String basePath)

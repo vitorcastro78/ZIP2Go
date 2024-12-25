@@ -9,7 +9,7 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IWorkflowsApi
+    public interface IWorkflowsService
     {
         /// <summary>
         /// Run a workflow Run a specified workflow. In the request body, you can include parameters that you want to pass to the workflow. For the parameters to be recognized and picked up by tasks in the workflow, you need to define the parameters first.
@@ -29,14 +29,14 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class WorkflowsApi : IWorkflowsApi
+    public class WorkflowsService : IWorkflowsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowsApi"/> class.
+        /// Initializes a new instance of the <see cref="WorkflowsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public WorkflowsApi(ApiClient apiClient = null)
+        public WorkflowsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -45,10 +45,10 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowsApi"/> class.
+        /// Initializes a new instance of the <see cref="WorkflowsService"/> class.
         /// </summary>
         /// <returns></returns>
-        public WorkflowsApi(String basePath)
+        public WorkflowsService(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }

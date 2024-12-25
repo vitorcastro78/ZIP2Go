@@ -14,7 +14,7 @@ namespace ZIP2Go.Service
     public class BillingDocumentItemsService : IBillingDocumentItemsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BillingDocumentItemsApi"/> class.
+        /// Initializes a new instance of the <see cref="BillingDocumentItemsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
@@ -27,7 +27,7 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="BillingDocumentItemsApi"/> class.
+        /// Initializes a new instance of the <see cref="BillingDocumentItemsService"/> class.
         /// </summary>
         /// <returns></returns>
         public BillingDocumentItemsService(String basePath)

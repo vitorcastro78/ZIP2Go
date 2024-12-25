@@ -9,7 +9,7 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IUsageRecordsApi
+    public interface IUsageRecordsService
     {
         /// <summary>
         /// Create a usage record Creates a new Usage object.
@@ -96,14 +96,14 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class UsageRecordsApi : IUsageRecordsApi
+    public class UsageRecordsService : IUsageRecordsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsageRecordsApi"/> class.
+        /// Initializes a new instance of the <see cref="UsageRecordsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public UsageRecordsApi(ApiClient apiClient = null)
+        public UsageRecordsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -112,10 +112,10 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="UsageRecordsApi"/> class.
+        /// Initializes a new instance of the <see cref="UsageRecordsService"/> class.
         /// </summary>
         /// <returns></returns>
-        public UsageRecordsApi(String basePath)
+        public UsageRecordsService(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }

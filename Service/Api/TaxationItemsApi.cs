@@ -9,7 +9,7 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface ITaxationItemsApi
+    public interface ITaxationItemsService
     {
         /// <summary>
         /// Create a taxation item Creates a taxation item.
@@ -92,14 +92,14 @@ namespace ZIP2Go.Service
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public class TaxationItemsApi : ITaxationItemsApi
+    public class TaxationItemsService : ITaxationItemsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TaxationItemsApi"/> class.
+        /// Initializes a new instance of the <see cref="TaxationItemsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public TaxationItemsApi(ApiClient apiClient = null)
+        public TaxationItemsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient; 
@@ -108,10 +108,10 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="TaxationItemsApi"/> class.
+        /// Initializes a new instance of the <see cref="TaxationItemsService"/> class.
         /// </summary>
         /// <returns></returns>
-        public TaxationItemsApi(String basePath)
+        public TaxationItemsService(String basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }

@@ -13,7 +13,7 @@ namespace ZIP2Go.Service
     public class DebitMemosService : IDebitMemosService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DebitMemosApi"/> class.
+        /// Initializes a new instance of the <see cref="DebitMemosService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
@@ -26,7 +26,7 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="DebitMemosApi"/> class.
+        /// Initializes a new instance of the <see cref="DebitMemosService"/> class.
         /// </summary>
         /// <returns></returns>
         public DebitMemosService(String basePath)

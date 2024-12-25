@@ -14,7 +14,7 @@ namespace ZIP2Go.Service
     public class BillRunPreviewsService : IBillRunPreviewsService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BillRunPreviewsApi"/> class.
+        /// Initializes a new instance of the <see cref="BillRunPreviewsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
@@ -27,7 +27,7 @@ namespace ZIP2Go.Service
         }
     
         /// <summary>
-        /// Initializes a new instance of the <see cref="BillRunPreviewsApi"/> class.
+        /// Initializes a new instance of the <see cref="BillRunPreviewsService"/> class.
         /// </summary>
         /// <returns></returns>
         public BillRunPreviewsService(String basePath)
