@@ -7,10 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZIP2Go.WebAPI", "ZIP2Go.WebAPI\ZIP2Go.WebAPI.csproj", "{4E06BE35-084F-4852-B74F-7A6B51DA89D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriptionsFunction", "SubscriptionsFunction\SubscriptionsFunction.csproj", "{BE2171F3-A5A5-4DDD-A5F7-69AFA90FB6C9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountsFunction", "AccountsFunction\AccountsFunction.csproj", "{4109A223-D99E-47DC-9BEF-7D2250E60A04}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,14 +21,6 @@ Global
 		{4E06BE35-084F-4852-B74F-7A6B51DA89D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E06BE35-084F-4852-B74F-7A6B51DA89D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E06BE35-084F-4852-B74F-7A6B51DA89D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE2171F3-A5A5-4DDD-A5F7-69AFA90FB6C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE2171F3-A5A5-4DDD-A5F7-69AFA90FB6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE2171F3-A5A5-4DDD-A5F7-69AFA90FB6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE2171F3-A5A5-4DDD-A5F7-69AFA90FB6C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4109A223-D99E-47DC-9BEF-7D2250E60A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4109A223-D99E-47DC-9BEF-7D2250E60A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4109A223-D99E-47DC-9BEF-7D2250E60A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4109A223-D99E-47DC-9BEF-7D2250E60A04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
