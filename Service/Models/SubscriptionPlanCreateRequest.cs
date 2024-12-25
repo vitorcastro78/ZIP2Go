@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the plan associated with this subscription plan.</value>
     [DataMember(Name="plan_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "plan_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan_id")]
     public string PlanId { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the plan associated with this subscription plan.</value>
     [DataMember(Name="plan_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "plan_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan_number")]
     public string PlanNumber { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Price information within the subscription plan.</value>
     [DataMember(Name="prices", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "prices")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prices")]
     public List<AllOfsubscriptionPlanCreateRequestPricesItems> Prices { get; set; }
 
     /// <summary>
@@ -41,14 +41,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier for the subscription plan. This identifier enables you to refer to the subscription plan before the subscription plan has an internal identifier in Zuora.</value>
     [DataMember(Name="unique_token", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "unique_token")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unique_token")]
     public string UniqueToken { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

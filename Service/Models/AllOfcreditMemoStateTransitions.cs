@@ -16,14 +16,14 @@ namespace ZIP2Go.Models {
     /// Gets or Sets PostedTime
     /// </summary>
     [DataMember(Name="posted_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "posted_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "posted_time")]
     public string PostedTime { get; set; }
 
     /// <summary>
     /// Gets or Sets CanceledTime
     /// </summary>
     [DataMember(Name="canceled_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "canceled_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
     public string CanceledTime { get; set; }
 
 

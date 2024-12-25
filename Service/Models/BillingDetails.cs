@@ -17,14 +17,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer full name or business name.</value>
     [DataMember(Name="name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or Sets Address
     /// </summary>
     [DataMember(Name="address", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "address")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
     public AddressFieldDefinitions Address { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer email address.</value>
     [DataMember(Name="email", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "email")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
     public string Email { get; set; }
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer phone (including extension).</value>
     [DataMember(Name="phone", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "phone")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
     public string Phone { get; set; }
 
 

@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Terms
     /// </summary>
     [DataMember(Name="terms", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "terms")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
     public AllOfsubscriptionRenewPatchResponseTerms Terms { get; set; }
 
 

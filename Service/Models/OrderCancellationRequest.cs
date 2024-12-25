@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The reason for cancelling the order.</value>
     [DataMember(Name="cancel_reason", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "cancel_reason")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_reason")]
     public string CancelReason { get; set; }
 
 

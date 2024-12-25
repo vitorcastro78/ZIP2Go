@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of an invoice or debit memo billing document.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of billing document. The default is `invoice`.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Document number of an invoice or debit memo billing document.</value>
     [DataMember(Name="billing_document_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_number")]
     public string BillingDocumentNumber { get; set; }
 
 

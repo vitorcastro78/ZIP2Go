@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Date on which the subscription is paused.</value>
     [DataMember(Name="pause_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "pause_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_date")]
     public string PauseDate { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Can be either the end of the current billing period or a specific date.</value>
     [DataMember(Name="pause_at", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "pause_at")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_at")]
     public string PauseAt { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of intervals in a duration where the subscription is paused. For example, pause_interval=year and pause_interval_count=1 represents a 1-year pause.</value>
     [DataMember(Name="pause_interval_count", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "pause_interval_count")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_interval_count")]
     public decimal? PauseIntervalCount { get; set; }
 
     /// <summary>
@@ -41,21 +41,21 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unit in which the pause duration is defined. One of day, week, month or year.</value>
     [DataMember(Name="pause_interval", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "pause_interval")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_interval")]
     public string PauseInterval { get; set; }
 
     /// <summary>
     /// Gets or Sets ResumeBehavior
     /// </summary>
     [DataMember(Name="resume_behavior", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "resume_behavior")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resume_behavior")]
     public ResumeSubscriptionRequest ResumeBehavior { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier for the object.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who last updated the object</value>
     [DataMember(Name="updated_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
     public string UpdatedById { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
     [DataMember(Name="updated_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who created the object</value>
     [DataMember(Name="created_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
     public string CreatedById { get; set; }
 
     /// <summary>
@@ -49,14 +49,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
     [DataMember(Name="created_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -64,14 +64,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The custom objects associated with a Zuora standard object.</value>
     [DataMember(Name="custom_objects", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_objects")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
     public OneOfaccountContactPatchRequestCustomObjects CustomObjects { get; set; }
 
     /// <summary>
     /// Gets or Sets Address
     /// </summary>
     [DataMember(Name="address", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "address")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
     public Address Address { get; set; }
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer first name.</value>
     [DataMember(Name="first_name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "first_name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "first_name")]
     public string FirstName { get; set; }
 
     /// <summary>
@@ -87,7 +87,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer home phone (including extension).</value>
     [DataMember(Name="home_phone", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "home_phone")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "home_phone")]
     public string HomePhone { get; set; }
 
     /// <summary>
@@ -95,7 +95,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer last name.</value>
     [DataMember(Name="last_name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "last_name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_name")]
     public string LastName { get; set; }
 
     /// <summary>
@@ -103,7 +103,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer phone (including extension).</value>
     [DataMember(Name="mobile_phone", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mobile_phone")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mobile_phone")]
     public string MobilePhone { get; set; }
 
     /// <summary>
@@ -111,7 +111,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Nickname for this contact.</value>
     [DataMember(Name="nickname", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "nickname")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "nickname")]
     public string Nickname { get; set; }
 
     /// <summary>
@@ -119,7 +119,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Other customer phone (including extension).</value>
     [DataMember(Name="other_phone", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "other_phone")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "other_phone")]
     public string OtherPhone { get; set; }
 
     /// <summary>
@@ -127,7 +127,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer email address.</value>
     [DataMember(Name="email", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "email")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
     public string Email { get; set; }
 
     /// <summary>
@@ -135,7 +135,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A region defined in your Zuora Tax rules.</value>
     [DataMember(Name="tax_region", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "tax_region")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_region")]
     public string TaxRegion { get; set; }
 
     /// <summary>
@@ -143,7 +143,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer work email.</value>
     [DataMember(Name="work_email", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "work_email")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "work_email")]
     public string WorkEmail { get; set; }
 
     /// <summary>
@@ -151,7 +151,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Customer work phone.</value>
     [DataMember(Name="work_phone", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "work_phone")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "work_phone")]
     public string WorkPhone { get; set; }
 
     /// <summary>
@@ -159,7 +159,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of the additional phone number.</value>
     [DataMember(Name="other_phone_type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "other_phone_type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "other_phone_type")]
     public string OtherPhoneType { get; set; }
 
     /// <summary>
@@ -167,7 +167,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The contact's fax number.</value>
     [DataMember(Name="fax", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "fax")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fax")]
     public string Fax { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the credit memo taxation item</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Refund amount.</value>
     [DataMember(Name="amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
     public decimal? Amount { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The items to which the credit memo is applied.</value>
     [DataMember(Name="credit_memo_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_memo_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_items")]
     public List<RefundCreditMemoItemRequest> CreditMemoItems { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The items to which the credit memo is applied.</value>
     [DataMember(Name="taxation_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "taxation_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_items")]
     public List<RefundCreditMemoItemRequest> TaxationItems { get; set; }
 
 

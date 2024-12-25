@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of a PayPal billing agreement. For example, I-1TJ3GAGG82Y9.</value>
     [DataMember(Name="baid", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "baid")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "baid")]
     public string Baid { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Email address associated with the payment method</value>
     [DataMember(Name="email", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "email")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
     public string Email { get; set; }
 
 

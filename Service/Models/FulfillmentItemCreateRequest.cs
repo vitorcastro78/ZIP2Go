@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -25,14 +25,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier for the object. It can be user-supplied.</value>
     [DataMember(Name="fulfillment_item_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "fulfillment_item_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fulfillment_item_number")]
     public string FulfillmentItemNumber { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier for the object. It can be user-supplied.</value>
     [DataMember(Name="fulfillment_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "fulfillment_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fulfillment_number")]
     public string FulfillmentNumber { get; set; }
 
 

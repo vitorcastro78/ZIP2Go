@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A reference to the consent agreement you have with your customer.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date on which the customer accepted the mandate.</value>
     [DataMember(Name="date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "date")]
     public DateTime? Date { get; set; }
 
 

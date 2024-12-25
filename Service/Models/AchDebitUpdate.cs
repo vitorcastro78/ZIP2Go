@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Mandate
     /// </summary>
     [DataMember(Name="mandate", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mandate")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
     public Mandate Mandate { get; set; }
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The nine-digit routing number or ABA number used by banks.</value>
     [DataMember(Name="bank_aba_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_aba_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_aba_code")]
     public string BankAbaCode { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of the account holder, which can be either a person or a company.</value>
     [DataMember(Name="bank_account_name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_account_name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_name")]
     public string BankAccountName { get; set; }
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of bank account associated with the payment method.</value>
     [DataMember(Name="bank_account_type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_account_type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_type")]
     public string BankAccountType { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Name of the bank associated with this bank account.</value>
     [DataMember(Name="bank_name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_name")]
     public string BankName { get; set; }
 
 

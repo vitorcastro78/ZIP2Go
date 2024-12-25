@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The unique ID of an active version.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public int? Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of the active version. Currently the only valid value is `Workflow::Setup`.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The status of an active version.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public string State { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the original Workflow version.</value>
     [DataMember(Name="original_workflow_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "original_workflow_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "original_workflow_id")]
     public int? OriginalWorkflowId { get; set; }
 
     /// <summary>
@@ -49,21 +49,21 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of the workflow definition.</value>
     [DataMember(Name="name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
     public string Name { get; set; }
 
     /// <summary>
     /// Gets or Sets CreatedTime
     /// </summary>
     [DataMember(Name="created_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
     /// Gets or Sets UpdatedTime
     /// </summary>
     [DataMember(Name="updated_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
     public DateTime? UpdatedTime { get; set; }
 
 

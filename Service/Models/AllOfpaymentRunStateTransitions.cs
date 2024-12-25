@@ -16,14 +16,14 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Completed
     /// </summary>
     [DataMember(Name="completed", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "completed")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "completed")]
     public string Completed { get; set; }
 
     /// <summary>
     /// Gets or Sets Failed
     /// </summary>
     [DataMember(Name="failed", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "failed")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed")]
     public string Failed { get; set; }
 
 

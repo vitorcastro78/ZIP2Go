@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Data
     /// </summary>
     [DataMember(Name="data", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "data")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
     public List<FulfillmentItemCreateRequest> Data { get; set; }
 
 

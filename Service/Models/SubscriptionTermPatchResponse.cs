@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Current term information for the subscription.</value>
     [DataMember(Name="current_term", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "current_term")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_term")]
     public AllOfsubscriptionTermPatchResponseCurrentTerm CurrentTerm { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Renewal term information for the subscription.</value>
     [DataMember(Name="renewal_term", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "renewal_term")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "renewal_term")]
     public AllOfsubscriptionTermPatchResponseRenewalTerm RenewalTerm { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If true, the subscription automatically renews at the end of the current term.</value>
     [DataMember(Name="auto_renew", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "auto_renew")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "auto_renew")]
     public bool? AutoRenew { get; set; }
 
 

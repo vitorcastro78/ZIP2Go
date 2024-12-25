@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets BillingDetails
     /// </summary>
     [DataMember(Name="billing_details", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_details")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_details")]
     public BillingDetails BillingDetails { get; set; }
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A customer account identifier.</value>
     [DataMember(Name="account_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
     public string AccountId { get; set; }
 
     /// <summary>
@@ -32,14 +32,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A human-readable customer account identifier. It can be user-supplied.</value>
     [DataMember(Name="account_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
     public string AccountNumber { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -47,7 +47,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.</value>
     [DataMember(Name="card", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "card")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
     public AllOfpaymentMethodPatchRequestCard Card { get; set; }
 
     /// <summary>
@@ -55,14 +55,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Credit Card Reference Transaction. See Supported payment methods for payment gateways that support this type of payment method.</value>
     [DataMember(Name="cc_ref", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "cc_ref")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cc_ref")]
     public AllOfpaymentMethodPatchRequestCcRef CcRef { get; set; }
 
     /// <summary>
     /// Gets or Sets Mandate
     /// </summary>
     [DataMember(Name="mandate", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mandate")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
     public AllOfpaymentMethodPatchRequestMandate Mandate { get; set; }
 
     /// <summary>
@@ -70,7 +70,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If this is an ach_debit payment method, this hash contains details about the ACH debit bank account.</value>
     [DataMember(Name="ach_debit", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "ach_debit")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ach_debit")]
     public AllOfpaymentMethodPatchRequestAchDebit AchDebit { get; set; }
 
     /// <summary>
@@ -78,7 +78,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Maximum number of consecutive failed retry payment attempts using this payment method before retries are stopped.</value>
     [DataMember(Name="maximum_payment_attempts", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "maximum_payment_attempts")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "maximum_payment_attempts")]
     public decimal? MaximumPaymentAttempts { get; set; }
 
     /// <summary>
@@ -86,7 +86,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The retry interval in hours.</value>
     [DataMember(Name="payment_retry_interval", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_retry_interval")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_retry_interval")]
     public int? PaymentRetryInterval { get; set; }
 
     /// <summary>
@@ -94,14 +94,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the device browser session.</value>
     [DataMember(Name="device_session_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "device_session_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "device_session_id")]
     public string DeviceSessionId { get; set; }
 
     /// <summary>
     /// Gets or Sets GatewayOptions
     /// </summary>
     [DataMember(Name="gateway_options", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_options")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
     public Dictionary<string, string> GatewayOptions { get; set; }
 
     /// <summary>
@@ -109,7 +109,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>3-letter ISO 4217 currency code.</value>
     [DataMember(Name="currency", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "currency")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
     public string Currency { get; set; }
 
     /// <summary>
@@ -117,7 +117,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.</value>
     [DataMember(Name="gateway_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_id")]
     public string GatewayId { get; set; }
 
 

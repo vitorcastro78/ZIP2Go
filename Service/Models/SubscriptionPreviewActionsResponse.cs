@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the action.</value>
     [DataMember(Name="action_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "action_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "action_id")]
     public string ActionId { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The action associated with this metric.</value>
     [DataMember(Name="action", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "action")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "action")]
     public string Action { get; set; }
 
     /// <summary>
@@ -33,14 +33,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The sequence number of the action.</value>
     [DataMember(Name="sequence", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "sequence")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sequence")]
     public int? Sequence { get; set; }
 
     /// <summary>
     /// Gets or Sets SubscriptionItems
     /// </summary>
     [DataMember(Name="subscription_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_items")]
     public List<AllOfsubscriptionPreviewActionsResponseSubscriptionItemsItems> SubscriptionItems { get; set; }
 
 

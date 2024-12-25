@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Success
     /// </summary>
     [DataMember(Name="success", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "success")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "success")]
     public string Success { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier for the object.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who last updated the object</value>
     [DataMember(Name="updated_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
     public string UpdatedById { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
     [DataMember(Name="updated_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who created the object</value>
     [DataMember(Name="created_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
     public string CreatedById { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
     [DataMember(Name="created_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public Dictionary<string, Object> CustomFields { get; set; }
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The custom objects associated with a Zuora standard object.</value>
     [DataMember(Name="custom_objects", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_objects")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
     public OneOfbillRunPreviewCustomObjects CustomObjects { get; set; }
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates whether to generate a preview of future invoice items and credit memo items with the assumption that the subscriptions are renewed. **all**: The assumption is applied to all the subscriptions. Zuora generates preview invoice item data and credit memo item data from the first day of the customer's next billing period to the target date. **auto_renew_only**: The assumption is applied to the subscriptions that have auto_renew enabled. Zuora generates preview invoice item data and credit memo item data from the first day of the customer's next billing period to the target date.</value>
     [DataMember(Name="assume_renewal", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "assume_renewal")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "assume_renewal")]
     public string AssumeRenewal { get; set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifiers of the customer account batches to be included in this bill run preview.</value>
     [DataMember(Name="batches", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "batches")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "batches")]
     public List<string> Batches { get; set; }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Charge type or types to be excluded from this bill run preview.</value>
     [DataMember(Name="charges_excluded", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "charges_excluded")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "charges_excluded")]
     public List<string> ChargesExcluded { get; set; }
 
     /// <summary>
@@ -97,7 +97,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If true, draft items will be included in this bill run preview.</value>
     [DataMember(Name="include_draft_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "include_draft_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "include_draft_items")]
     public bool? IncludeDraftItems { get; set; }
 
     /// <summary>
@@ -105,7 +105,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If true, evergreen subscriptions will be included in this bill run preview.</value>
     [DataMember(Name="include_evergreen_subscriptions", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "include_evergreen_subscriptions")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "include_evergreen_subscriptions")]
     public bool? IncludeEvergreenSubscriptions { get; set; }
 
     /// <summary>
@@ -113,21 +113,21 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>All unbilled items on or before this date are included in this bill run.</value>
     [DataMember(Name="target_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "target_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
     public DateTime? TargetDate { get; set; }
 
     /// <summary>
     /// Gets or Sets StateTransitions
     /// </summary>
     [DataMember(Name="state_transitions", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state_transitions")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
     public BillRunPreviewStateTransitions StateTransitions { get; set; }
 
     /// <summary>
     /// Gets or Sets File
     /// </summary>
     [DataMember(Name="file", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "file")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "file")]
     public BillRunPreviewFile File { get; set; }
 
     /// <summary>
@@ -135,7 +135,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier for this object.</value>
     [DataMember(Name="billing_preview_run_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_preview_run_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_preview_run_number")]
     public string BillingPreviewRunNumber { get; set; }
 
     /// <summary>
@@ -143,7 +143,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The state of the bill run preview.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public string State { get; set; }
 
     /// <summary>
@@ -151,7 +151,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of the customer accounts whose bill run preview job succeeded.</value>
     [DataMember(Name="number_of_accounts_succeeded", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "number_of_accounts_succeeded")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_accounts_succeeded")]
     public decimal? NumberOfAccountsSucceeded { get; set; }
 
     /// <summary>
@@ -159,7 +159,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of the customer accounts included in the bill run preview job.</value>
     [DataMember(Name="number_of_accounts", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "number_of_accounts")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_accounts")]
     public decimal? NumberOfAccounts { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the number of intervals used to calculate smoothed overage charges.</value>
     [DataMember(Name="interval_count", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "interval_count")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval_count")]
     public int? IntervalCount { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Represents the overage type: one of rolling_window or rollover.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the included units to which overage charges do not apply.</value>
     [DataMember(Name="included_units", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "included_units")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "included_units")]
     public decimal? IncludedUnits { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies whether or not to credit unused units.</value>
     [DataMember(Name="credit_unused_units", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_unused_units")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_unused_units")]
     public bool? CreditUnusedUnits { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates if the overage price is calculated at the end of the smoothing period.</value>
     [DataMember(Name="apply_at_end_of_smoothing_period", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "apply_at_end_of_smoothing_period")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_at_end_of_smoothing_period")]
     public bool? ApplyAtEndOfSmoothingPeriod { get; set; }
 
 

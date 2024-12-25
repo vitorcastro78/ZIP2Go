@@ -17,14 +17,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date that appears on the credit memo.</value>
     [DataMember(Name="document_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "document_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
     public DateTime? DocumentDate { get; set; }
 
     /// <summary>
     /// Gets or Sets ApplyDate
     /// </summary>
     [DataMember(Name="apply_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "apply_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_date")]
     public DateTime? ApplyDate { get; set; }
 
 

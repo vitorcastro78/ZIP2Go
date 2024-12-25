@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Three-letter ISO currency code.</value>
     [DataMember(Name="currency", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "currency")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
     public string Currency { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Card security code.</value>
     [DataMember(Name="security_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "security_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "security_code")]
     public string SecurityCode { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of the payment gateway instance. If no value is specified for this field, the default payment gateway of your Zuora tenant will be used.</value>
     [DataMember(Name="payment_gateway", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_gateway")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway")]
     public string PaymentGateway { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A hash containing gateway-specific parameters.</value>
     [DataMember(Name="gateway_options", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_options")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
     public Dictionary<string, string> GatewayOptions { get; set; }
 
 

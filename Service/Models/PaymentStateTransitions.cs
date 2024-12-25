@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time (ISO 8601 UTC format) when the payment was canceled.</value>
     [DataMember(Name="canceled_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "canceled_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
     public DateTime? CanceledTime { get; set; }
 
 

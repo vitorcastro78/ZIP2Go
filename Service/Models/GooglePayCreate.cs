@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The complete JSON Object representing the encrypted payment token payload returned in the response from the Google Pay session.</value>
     [DataMember(Name="customer_token", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "customer_token")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "customer_token")]
     public Dictionary<string, Object> CustomerToken { get; set; }
 
 

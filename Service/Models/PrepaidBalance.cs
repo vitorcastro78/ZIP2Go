@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unit of measure for the prepaid balance.</value>
     [DataMember(Name="prepaid_UOM", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "prepaid_UOM")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prepaid_UOM")]
     public string PrepaidUOM { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Start date of the fund effective period.</value>
     [DataMember(Name="start_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
     public DateTime? StartDate { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>End date of the fund effective period.</value>
     [DataMember(Name="end_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "end_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
     public DateTime? EndDate { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The funded balance, which is the total units of the fund. </value>
     [DataMember(Name="total_balance", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "total_balance")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_balance")]
     public decimal? TotalBalance { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Remaining balance on the fund, which is the remaining units of the fund. </value>
     [DataMember(Name="remaining_balance", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "remaining_balance")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_balance")]
     public decimal? RemainingBalance { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An array of prepaid balance transactions</value>
     [DataMember(Name="transactions", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "transactions")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transactions")]
     public List<PrepaidBalanceTransaction> Transactions { get; set; }
 
 

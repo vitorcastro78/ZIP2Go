@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The end time for which usage is recorded.</value>
     [DataMember(Name="end_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "end_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_time")]
     public DateTime? EndTime { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of units of this item.</value>
     [DataMember(Name="quantity", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "quantity")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
     public decimal? Quantity { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The start time for which usage is recorded.</value>
     [DataMember(Name="start_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_time")]
     public DateTime? StartTime { get; set; }
 
     /// <summary>
@@ -41,14 +41,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the units to measure usage. Units of measure are configured in Zuora Central. Your values depend on your configuration in Billing Settings.</value>
     [DataMember(Name="unit_of_measure", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "unit_of_measure")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
     public string UnitOfMeasure { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

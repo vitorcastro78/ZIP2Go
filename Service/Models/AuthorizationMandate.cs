@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates the type of mandate, if any.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
 

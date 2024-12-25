@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier for the object.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The URL from which the file can be downloaded</value>
     [DataMember(Name="url", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "url")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "url")]
     public string Url { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of the file returned.</value>
     [DataMember(Name="content_type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "content_type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "content_type")]
     public string ContentType { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of file.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
 

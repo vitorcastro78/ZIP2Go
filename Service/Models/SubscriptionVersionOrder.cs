@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier for the object.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who last updated the object</value>
     [DataMember(Name="updated_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
     public string UpdatedById { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
     [DataMember(Name="updated_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who created the object</value>
     [DataMember(Name="created_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
     public string CreatedById { get; set; }
 
     /// <summary>
@@ -49,14 +49,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
     [DataMember(Name="created_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -64,7 +64,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The custom objects associated with a Zuora standard object.</value>
     [DataMember(Name="custom_objects", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_objects")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
     public OneOfsubscriptionVersionOrderCustomObjects CustomObjects { get; set; }
 
     /// <summary>
@@ -72,7 +72,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The order number of the new order. If not provided, system will auto-generate a number for this order.     Note: Ensure that the order number does not contain a slash.</value>
     [DataMember(Name="order_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "order_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_number")]
     public string OrderNumber { get; set; }
 
     /// <summary>
@@ -80,7 +80,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date when the order is signed. All the order actions under this order will use this order date as the contract effective date if the contract effective date field is skipped or its value is left as null.</value>
     [DataMember(Name="order_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "order_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_date")]
     public DateTime? OrderDate { get; set; }
 
     /// <summary>
@@ -88,7 +88,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -96,14 +96,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Category of the order to indicate a product sale or return. Default value is `sale`.</value>
     [DataMember(Name="category", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "category")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "category")]
     public string Category { get; set; }
 
     /// <summary>
     /// Gets or Sets LineItems
     /// </summary>
     [DataMember(Name="line_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "line_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_items")]
     public LineItemListResponse LineItems { get; set; }
 
     /// <summary>
@@ -111,14 +111,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The status of the order.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public string State { get; set; }
 
     /// <summary>
     /// Gets or Sets Actions
     /// </summary>
     [DataMember(Name="actions", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "actions")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "actions")]
     public AllOfsubscriptionVersionOrderActions Actions { get; set; }
 
 

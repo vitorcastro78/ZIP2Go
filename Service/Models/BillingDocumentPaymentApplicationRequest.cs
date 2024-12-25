@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the billing document to which the credit memo, payment, or refund is applied.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of billing document.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The amount applied to this billing document.</value>
     [DataMember(Name="amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
     public decimal? Amount { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A human-readable identifier for the billing document; may be user-supplied.</value>
     [DataMember(Name="billing_document_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_number")]
     public string BillingDocumentNumber { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The billing document items (invoice items or debit memo items or taxation items) to which the payment is applied.</value>
     [DataMember(Name="items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
     public List<BillingDocumentItemPaymentApplicationRequest> Items { get; set; }
 
 

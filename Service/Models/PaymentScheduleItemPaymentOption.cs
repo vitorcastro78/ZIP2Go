@@ -16,14 +16,14 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Detail
     /// </summary>
     [DataMember(Name="detail", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "detail")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
     public Dictionary<string, string> Detail { get; set; }
 
     /// <summary>
     /// Gets or Sets Type
     /// </summary>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
 

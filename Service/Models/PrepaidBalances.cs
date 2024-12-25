@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An array of prepaid balance validity periods</value>
     [DataMember(Name="validity_periods", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "validity_periods")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "validity_periods")]
     public List<ValidityPeriod> ValidityPeriods { get; set; }
 
 

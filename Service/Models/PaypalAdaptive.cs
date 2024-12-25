@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>PayPal preapproval key.</value>
     [DataMember(Name="preapproval_key", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "preapproval_key")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "preapproval_key")]
     public string PreapprovalKey { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Email address associated with the payment method.</value>
     [DataMember(Name="email", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "email")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
     public string Email { get; set; }
 
 

@@ -16,14 +16,14 @@ namespace ZIP2Go.Models {
     /// Gets or Sets SubscriptionPlan
     /// </summary>
     [DataMember(Name="subscription_plan", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_plan")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plan")]
     public SubscriptionPlanCreateRequest SubscriptionPlan { get; set; }
 
     /// <summary>
     /// Gets or Sets StartOn
     /// </summary>
     [DataMember(Name="start_on", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_on")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_on")]
     public StartOn StartOn { get; set; }
 
 

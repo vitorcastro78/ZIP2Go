@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>User-provided reason for the refund.</value>
     [DataMember(Name="reason_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "reason_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
     public string ReasonCode { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="bank_account_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_account_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_account")]
     public string BankAccountAccount { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="unapplied_payment_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "unapplied_payment_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unapplied_payment_account")]
     public string UnappliedPaymentAccount { get; set; }
 
     /// <summary>
@@ -49,14 +49,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Transaction identifier returned by the payment gateway. You may use this field to reconcile payments between your payment gateway and Zuora Payments.</value>
     [DataMember(Name="reference_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "reference_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reference_id")]
     public string ReferenceId { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

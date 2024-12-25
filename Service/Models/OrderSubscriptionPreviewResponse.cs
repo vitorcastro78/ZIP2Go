@@ -17,14 +17,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the subscription. It can be user-supplied.</value>
     [DataMember(Name="subscription_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_number")]
     public string SubscriptionNumber { get; set; }
 
     /// <summary>
     /// Gets or Sets Actions
     /// </summary>
     [DataMember(Name="actions", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "actions")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "actions")]
     public List<AllOforderSubscriptionPreviewResponseActionsItems> Actions { get; set; }
 
 

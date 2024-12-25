@@ -16,21 +16,21 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Type
     /// </summary>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
     /// Gets or Sets Errors
     /// </summary>
     [DataMember(Name="errors", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "errors")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "errors")]
     public List<Error> Errors { get; set; }
 
     /// <summary>
     /// Gets or Sets Retryable
     /// </summary>
     [DataMember(Name="retryable", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "retryable")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "retryable")]
     public bool? Retryable { get; set; }
 
 

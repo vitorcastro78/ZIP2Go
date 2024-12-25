@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>One- or two-digit expiration month (1-12) of the credit card.</value>
     [DataMember(Name="expiry_month", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "expiry_month")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expiry_month")]
     public decimal? ExpiryMonth { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Two- or four-digit number representing the card's expiration year.</value>
     [DataMember(Name="expiry_year", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "expiry_year")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expiry_year")]
     public decimal? ExpiryYear { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Card security code. It is highly recommended to always include this value.</value>
     [DataMember(Name="security_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "security_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "security_code")]
     public string SecurityCode { get; set; }
 
 

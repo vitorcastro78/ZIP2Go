@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of the payment.</value>
     [DataMember(Name="payment_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_number")]
     public string PaymentNumber { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The payment transaction amount.</value>
     [DataMember(Name="amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
     public List<string> Amount { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The state of the payment.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public AllOfpaymentTransactionsState State { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The related payments.</value>
     [DataMember(Name="payments", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payments")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
     public AllOfpaymentTransactionsPayments Payments { get; set; }
 
 

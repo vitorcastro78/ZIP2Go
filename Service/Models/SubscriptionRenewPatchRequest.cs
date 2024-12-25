@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets StartOn
     /// </summary>
     [DataMember(Name="start_on", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_on")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_on")]
     public StartOn StartOn { get; set; }
 
 

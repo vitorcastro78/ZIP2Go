@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The total amount exclusive of tax.</value>
     [DataMember(Name="subtotal", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subtotal")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subtotal")]
     public decimal? Subtotal { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The total tax amount.</value>
     [DataMember(Name="tax", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "tax")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax")]
     public decimal? Tax { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The total amount.</value>
     [DataMember(Name="total", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "total")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total")]
     public decimal? Total { get; set; }
 
     /// <summary>
@@ -41,21 +41,21 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of billing document. Can be one of the credit memo, debit memo, or invoice.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
     /// Gets or Sets TargetDate
     /// </summary>
     [DataMember(Name="target_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "target_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
     public DateTime? TargetDate { get; set; }
 
     /// <summary>
     /// Gets or Sets BillingDocumentItems
     /// </summary>
     [DataMember(Name="billing_document_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_items")]
     public List<AllOfsubscriptionPreviewBillingDocumentsResponseBillingDocumentItemsItems> BillingDocumentItems { get; set; }
 
 

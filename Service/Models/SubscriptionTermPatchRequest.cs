@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Current term information for the subscription.</value>
     [DataMember(Name="current_term", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "current_term")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_term")]
     public AllOfsubscriptionTermPatchRequestCurrentTerm CurrentTerm { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Renewal term information for the subscription.</value>
     [DataMember(Name="renewal_term", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "renewal_term")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "renewal_term")]
     public AllOfsubscriptionTermPatchRequestRenewalTerm RenewalTerm { get; set; }
 
     /// <summary>
@@ -33,14 +33,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If true, the subscription automatically renews at the end of the current term.</value>
     [DataMember(Name="auto_renew", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "auto_renew")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "auto_renew")]
     public bool? AutoRenew { get; set; }
 
     /// <summary>
     /// Gets or Sets StartOn
     /// </summary>
     [DataMember(Name="start_on", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_on")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_on")]
     public StartOn StartOn { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>ID of the bill-to contact.</value>
     [DataMember(Name="bill_to_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bill_to_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to_id")]
     public string BillToId { get; set; }
 
     /// <summary>
@@ -56,7 +56,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of payment term associated with the invoice.</value>
     [DataMember(Name="payment_terms", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_terms")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_terms")]
     public string PaymentTerms { get; set; }
 
     /// <summary>
@@ -64,7 +64,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The billing document settings for the customer.</value>
     [DataMember(Name="billing_document_settings", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_settings")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_settings")]
     public AllOfsubscriptionTermPatchRequestBillingDocumentSettings BillingDocumentSettings { get; set; }
 
     /// <summary>
@@ -72,7 +72,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>ID of the sold-to contact.</value>
     [DataMember(Name="sold_to_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "sold_to_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to_id")]
     public string SoldToId { get; set; }
 
 

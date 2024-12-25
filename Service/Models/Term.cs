@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of intervals in a term. For example, interval=year and interval_count=1 represents a 1 year term.</value>
     [DataMember(Name="interval_count", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "interval_count")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval_count")]
     public int? IntervalCount { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unit in which term duration is defined. One of day, week, month or year.</value>
     [DataMember(Name="interval", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "interval")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval")]
     public string Interval { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Date when the subscription term starts.</value>
     [DataMember(Name="start_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
     public DateTime? StartDate { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Type of the subscription. Can be either `termed` or `evergreen`.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Date when the subscription term ends.</value>
     [DataMember(Name="end_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "end_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
     public DateTime? EndDate { get; set; }
 
 

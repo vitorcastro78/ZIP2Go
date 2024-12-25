@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active accounting code in your Zuora chart of accounts.</value>
     [DataMember(Name="on_account_accounting_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "on_account_accounting_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "on_account_accounting_code")]
     public string OnAccountAccountingCode { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active accounting code in your Zuora chart of accounts.</value>
     [DataMember(Name="deferred_revenue_accounting_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "deferred_revenue_accounting_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "deferred_revenue_accounting_code")]
     public string DeferredRevenueAccountingCode { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active accounting code in your Zuora chart of accounts.</value>
     [DataMember(Name="recognized_revenue_accounting_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "recognized_revenue_accounting_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recognized_revenue_accounting_code")]
     public string RecognizedRevenueAccountingCode { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Name of the revenue recognition rule that you want to apply.</value>
     [DataMember(Name="revenue_recognition_rule_name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "revenue_recognition_rule_name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue_recognition_rule_name")]
     public string RevenueRecognitionRuleName { get; set; }
 
 

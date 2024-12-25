@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Array of credit memos.</value>
     [DataMember(Name="credit_memos", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_memos")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
     public AllOfgenerateBillingDocumentsAccountResponseCreditMemos CreditMemos { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Array of invoices.</value>
     [DataMember(Name="invoices", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoices")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices")]
     public AllOfgenerateBillingDocumentsAccountResponseInvoices Invoices { get; set; }
 
 

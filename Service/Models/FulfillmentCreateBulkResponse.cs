@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Data
     /// </summary>
     [DataMember(Name="data", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "data")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
     public List<Fulfillment> Data { get; set; }
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The total amount collected by this request.</value>
     [DataMember(Name="amount_paid", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount_paid")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_paid")]
     public decimal? AmountPaid { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the payment associated with this fulfillment.</value>
     [DataMember(Name="payment_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_number")]
     public string PaymentNumber { get; set; }
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifiers of any credit memos associated with this request.</value>
     [DataMember(Name="credit_memo_numbers", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_memo_numbers")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_numbers")]
     public List<string> CreditMemoNumbers { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifiers of any invoices associated with this request.</value>
     [DataMember(Name="invoice_numbers", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice_numbers")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_numbers")]
     public List<string> InvoiceNumbers { get; set; }
 
 

@@ -16,14 +16,14 @@ namespace ZIP2Go.Models {
     /// Gets or Sets NextPage
     /// </summary>
     [DataMember(Name="next_page", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "next_page")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "next_page")]
     public string NextPage { get; set; }
 
     /// <summary>
     /// Gets or Sets Data
     /// </summary>
     [DataMember(Name="data", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "data")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
     public List<Refund> Data { get; set; }
 
 

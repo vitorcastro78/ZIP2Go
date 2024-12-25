@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Id
     /// </summary>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>ID of the payment gateway used to collect payments. The default value is the account's default payment gateway ID. If no payment gateway ID is found on the customer account level, the default value will be the tenant's default payment gateway ID. This field will be ignored when `items` is specified.</value>
     [DataMember(Name="payment_gateway_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_gateway_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway_id")]
     public string PaymentGatewayId { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>ID of the payment method. The default value is the account's default payment method ID. This field will be ignored when `items` is specified.</value>
     [DataMember(Name="payment_method_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_method_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_method_id")]
     public string PaymentMethodId { get; set; }
 
 

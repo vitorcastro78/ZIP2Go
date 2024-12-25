@@ -17,14 +17,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.</value>
     [DataMember(Name="card", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "card")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
     public AllOfApplePayCard Card { get; set; }
 
     /// <summary>
     /// Gets or Sets Mandate
     /// </summary>
     [DataMember(Name="mandate", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mandate")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
     public Mandate Mandate { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The ID of newly processed payment. Only available in the response of the Create Payment Method API request.</value>
     [DataMember(Name="payment_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_id")]
     public string PaymentId { get; set; }
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A gateway unique identifier that replaces sensitive payment method data or represents a gateway's unique customer profile. When `token` is used to represent a customer profile, `second_token` is conditionally required for representing the underlying tokenized payment method.</value>
     [DataMember(Name="token", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "token")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "token")]
     public string Token { get; set; }
 
 

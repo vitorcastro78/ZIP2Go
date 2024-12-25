@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The URL from which a zipped CSV file may be downloaded. This file contains the preview invoice item data and credit memo item data for the specified customer accounts.</value>
     [DataMember(Name="url", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "url")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "url")]
     public string Url { get; set; }
 
 

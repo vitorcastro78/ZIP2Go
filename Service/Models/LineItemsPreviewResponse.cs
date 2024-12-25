@@ -16,21 +16,21 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Mrr
     /// </summary>
     [DataMember(Name="mrr", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mrr")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mrr")]
     public LineItemsPreviewResponseMrr Mrr { get; set; }
 
     /// <summary>
     /// Gets or Sets Tcb
     /// </summary>
     [DataMember(Name="tcb", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "tcb")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tcb")]
     public LineItemsPreviewResponseMrr Tcb { get; set; }
 
     /// <summary>
     /// Gets or Sets Tcv
     /// </summary>
     [DataMember(Name="tcv", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "tcv")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tcv")]
     public LineItemsPreviewResponseMrr Tcv { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Date on which the subscription is canceled.</value>
     [DataMember(Name="cancel_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "cancel_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_date")]
     public string CancelDate { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.</value>
     [DataMember(Name="cancel_at", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "cancel_at")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_at")]
     public string CancelAt { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Processing options for the invoice or payment.</value>
     [DataMember(Name="processing_options", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "processing_options")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processing_options")]
     public AllOfcancelSubscriptionRequestProcessingOptions ProcessingOptions { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Amount to be refunded</value>
     [DataMember(Name="refund_amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "refund_amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_amount")]
     public decimal? RefundAmount { get; set; }
 
     /// <summary>
@@ -49,21 +49,21 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates whether to write off the outstanding balance on the invoice after canceling the subscription.</value>
     [DataMember(Name="write_off", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "write_off")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "write_off")]
     public bool? WriteOff { get; set; }
 
     /// <summary>
     /// Gets or Sets WriteOffBehavior
     /// </summary>
     [DataMember(Name="write_off_behavior", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "write_off_behavior")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "write_off_behavior")]
     public WriteOffSuscriptionRequest WriteOffBehavior { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

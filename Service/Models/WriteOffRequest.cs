@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string associated with the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date when the invoice takes effect.</value>
     [DataMember(Name="document_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "document_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
     public DateTime? DocumentDate { get; set; }
 
     /// <summary>
@@ -33,14 +33,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Reason for issuing this credit memo</value>
     [DataMember(Name="reason_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "reason_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
     public string ReasonCode { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Information of all invoice items.</value>
     [DataMember(Name="invoice_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_items")]
     public List<WriteOffItemsRequest> InvoiceItems { get; set; }
 
 

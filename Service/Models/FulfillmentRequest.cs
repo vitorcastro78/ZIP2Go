@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The unique identifier of the associated order line item.</value>
     [DataMember(Name="order_line_item_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "order_line_item_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_line_item_id")]
     public string OrderLineItemId { get; set; }
 
     /// <summary>
@@ -25,14 +25,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of the shipping carrier for this fulfillment.</value>
     [DataMember(Name="carrier", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "carrier")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "carrier")]
     public string Carrier { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -40,14 +40,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
     /// Gets or Sets Revenue
     /// </summary>
     [DataMember(Name="revenue", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "revenue")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue")]
     public AllOffulfillmentRequestRevenue Revenue { get; set; }
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An external identifier for the fulfillment</value>
     [DataMember(Name="external_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "external_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external_id")]
     public string ExternalId { get; set; }
 
     /// <summary>
@@ -63,7 +63,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date of the fulfillment.</value>
     [DataMember(Name="fulfillment_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "fulfillment_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fulfillment_date")]
     public DateTime? FulfillmentDate { get; set; }
 
     /// <summary>
@@ -71,7 +71,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The fulfillment location of the fulfillment.</value>
     [DataMember(Name="location", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "location")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "location")]
     public string Location { get; set; }
 
     /// <summary>
@@ -79,7 +79,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The fulfillment system for the fulfillment.</value>
     [DataMember(Name="fulfillment_system", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "fulfillment_system")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fulfillment_system")]
     public string FulfillmentSystem { get; set; }
 
     /// <summary>
@@ -87,7 +87,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of fulfillment.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -95,7 +95,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of units of this item.</value>
     [DataMember(Name="quantity", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "quantity")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
     public decimal? Quantity { get; set; }
 
     /// <summary>
@@ -103,7 +103,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The status of the invoice.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public string State { get; set; }
 
     /// <summary>
@@ -111,7 +111,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The tracking number of the fulfillment.</value>
     [DataMember(Name="tracking_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "tracking_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tracking_number")]
     public string TrackingNumber { get; set; }
 
     /// <summary>
@@ -119,7 +119,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Information of all fulfillment items.</value>
     [DataMember(Name="items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
     public List<FulfillmentItemCreateRequestForFulfillmentPost> Items { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the payment takes effect.</value>
     [DataMember(Name="effective_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "effective_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "effective_date")]
     public DateTime? EffectiveDate { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates to which billing documents (invoices or debit memos) are the payment applied.</value>
     [DataMember(Name="billing_documents", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_documents")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
     public List<BillingDocumentPaymentApplicationRequest> BillingDocuments { get; set; }
 
 

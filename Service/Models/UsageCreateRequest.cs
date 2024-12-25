@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the account. It can be user-supplied. Either `account_number` or `account_id` is required.</value>
     [DataMember(Name="account_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
     public string AccountNumber { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the account associated with this subscription. Either `account_id` or `account_number` is required.</value>
     [DataMember(Name="account_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
     public string AccountId { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the subscription item.</value>
     [DataMember(Name="subscription_item_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_item_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_id")]
     public string SubscriptionItemId { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the subscription item.</value>
     [DataMember(Name="subscription_item_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_item_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_number")]
     public string SubscriptionItemNumber { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The end time for which usage is recorded.</value>
     [DataMember(Name="end_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "end_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_time")]
     public DateTime? EndTime { get; set; }
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of units of this item.</value>
     [DataMember(Name="quantity", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "quantity")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
     public decimal? Quantity { get; set; }
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The start time for which usage is recorded.</value>
     [DataMember(Name="start_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "start_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_time")]
     public DateTime? StartTime { get; set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The identifier of the subscription associated with the billing document item.</value>
     [DataMember(Name="subscription_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_id")]
     public string SubscriptionId { get; set; }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the subscription. It can be user-supplied.</value>
     [DataMember(Name="subscription_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_number")]
     public string SubscriptionNumber { get; set; }
 
     /// <summary>
@@ -97,14 +97,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the units to measure usage. Units of measure are configured in Zuora Central. Your values depend on your configuration in Billing Settings.</value>
     [DataMember(Name="unit_of_measure", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "unit_of_measure")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
     public string UnitOfMeasure { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Date on which the billing document is created or paid.</value>
     [DataMember(Name="document_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "document_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
     public DateTime? DocumentDate { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The target date for the order to be picked up by bill run for billing.</value>
     [DataMember(Name="target_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "target_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
     public DateTime? TargetDate { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of an invoice or a debit memo item.</value>
     [DataMember(Name="billing_document_item_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_item_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_item_id")]
     public string BillingDocumentItemId { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the payment application item.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The related billing document item.</value>
     [DataMember(Name="billing_document_item", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_item")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_item")]
     public AllOfpaymentAppliedToBillingItemResponseBillingDocumentItem BillingDocumentItem { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The amount of the payment that is applied to the specific billing document item.</value>
     [DataMember(Name="amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
     public decimal? Amount { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of an invoice or a debit memo.</value>
     [DataMember(Name="billing_document_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_document_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_id")]
     public string BillingDocumentId { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of a taxation item.</value>
     [DataMember(Name="taxation_item_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "taxation_item_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_item_id")]
     public string TaxationItemId { get; set; }
 
 

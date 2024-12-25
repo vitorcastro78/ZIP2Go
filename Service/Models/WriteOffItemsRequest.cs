@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string associated with the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="deferred_revenue_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "deferred_revenue_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "deferred_revenue_account")]
     public string DeferredRevenueAccount { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="on_account_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "on_account_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "on_account_account")]
     public string OnAccountAccount { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="recognized_revenue_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "recognized_revenue_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recognized_revenue_account")]
     public string RecognizedRevenueAccount { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of the revenue recognition rule governing the revenue schedule.</value>
     [DataMember(Name="revenue_recognition_rule_name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "revenue_recognition_rule_name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue_recognition_rule_name")]
     public string RevenueRecognitionRuleName { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The end date of the service period associated with this invoice item. If the price for the associated subscription item is a one-time fee, then this date is the date of that subscription item.</value>
     [DataMember(Name="service_end", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "service_end")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "service_end")]
     public DateTime? ServiceEnd { get; set; }
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The start date of the service period associated with this invoice item. If the price for the associated subscription item is a one-time fee, then this date is the date of that subscription item.</value>
     [DataMember(Name="service_start", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "service_start")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "service_start")]
     public DateTime? ServiceStart { get; set; }
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The unique SKU (stock keeping unit) of the product associated with this item.</value>
     [DataMember(Name="sku", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "sku")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
     public string Sku { get; set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the units used to measure usage.</value>
     [DataMember(Name="unit_of_measure", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "unit_of_measure")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
     public string UnitOfMeasure { get; set; }
 
     /// <summary>
@@ -89,14 +89,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The unique identifier of the invoice item.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

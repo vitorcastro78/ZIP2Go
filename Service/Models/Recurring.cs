@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies on which day or the month or day of the week a customer shall be billed.</value>
     [DataMember(Name="recurring_on", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "recurring_on")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recurring_on")]
     public string RecurringOn { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies on which day or the month or day of the week a customer shall be billed.</value>
     [DataMember(Name="on", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "on")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "on")]
     public string On { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates that this is a usage price.</value>
     [DataMember(Name="usage", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "usage")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "usage")]
     public bool? Usage { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the billing frequency. One of `week`, `month` or `year`.</value>
     [DataMember(Name="interval", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "interval")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval")]
     public string Interval { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of intervals (specified in the interval attribute) between subscription billings. For example, interval=month and intervalCount=3 bills every 3 months.</value>
     [DataMember(Name="interval_count", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "interval_count")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval_count")]
     public int? IntervalCount { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies how to align billing for recurring (subscription) products that start on different days.</value>
     [DataMember(Name="alignment_behavior", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "alignment_behavior")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "alignment_behavior")]
     public string AlignmentBehavior { get; set; }
 
     /// <summary>
@@ -65,7 +65,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>You can choose to bill in_advance or in_arrears for recurring prices. The field is not used with one-time or usage-based prices.</value>
     [DataMember(Name="timing", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "timing")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "timing")]
     public string Timing { get; set; }
 
     /// <summary>
@@ -73,7 +73,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>You can choose to bill in_advance or in_arrears for recurring prices. The field is not used with one-time or usage-based prices.</value>
     [DataMember(Name="formula", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "formula")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "formula")]
     public string Formula { get; set; }
 
     /// <summary>
@@ -81,7 +81,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies the duration frequency. One of day, week, month or year.</value>
     [DataMember(Name="duration_interval", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "duration_interval")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "duration_interval")]
     public string DurationInterval { get; set; }
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Specifies how long a customer shall be charged if this is less than the duration of the subscription</value>
     [DataMember(Name="duration_interval_count", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "duration_interval_count")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "duration_interval_count")]
     public int? DurationIntervalCount { get; set; }
 
     /// <summary>
@@ -97,7 +97,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A rating group based on which usage records are rated. Only applicable to usage prices.</value>
     [DataMember(Name="rating_group", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "rating_group")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "rating_group")]
     public string RatingGroup { get; set; }
 
 

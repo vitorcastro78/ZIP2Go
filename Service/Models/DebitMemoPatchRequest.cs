@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates whether the billing document is automatically picked up for processing in the corresponding payment run.</value>
     [DataMember(Name="pay", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "pay")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pay")]
     public bool? Pay { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string associated with the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date on which payment for the billing document is due.</value>
     [DataMember(Name="due_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "due_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "due_date")]
     public DateTime? DueDate { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date when the billing document takes effect.</value>
     [DataMember(Name="document_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "document_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
     public DateTime? DocumentDate { get; set; }
 
     /// <summary>
@@ -49,14 +49,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Reason for issuing this billing document. This field is applicable only if the `type` field is set to `credit_memo` or `debit_memo`.</value>
     [DataMember(Name="reason_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "reason_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
     public string ReasonCode { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
 

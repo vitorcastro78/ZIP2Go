@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The request limit quota for the time window closest to exhaustion. See [rate limits](https://developer.zuora.com/rest-api/general-concepts/rate-concurrency-limits/#rate-limits) for more information.</value>
     [DataMember(Name="ratelimit-limit", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "ratelimit-limit")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ratelimit-limit")]
     public string RatelimitLimit { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of requests remaining in the time window closest to quota exhaustion. See [rate limits](https://developer.zuora.com/rest-api/general-concepts/rate-concurrency-limits/#rate-limits) for more information.</value>
     [DataMember(Name="ratelimit-remaining", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "ratelimit-remaining")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ratelimit-remaining")]
     public decimal? RatelimitRemaining { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The number of seconds until the quota resets for the time window closest to quota exhaustion. See [rate limits](https://developer.zuora.com/rest-api/general-concepts/rate-concurrency-limits/#rate-limits) for more information.</value>
     [DataMember(Name="ratelimit-reset", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "ratelimit-reset")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ratelimit-reset")]
     public decimal? RatelimitReset { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Zuora’s internal identifier for this request.</value>
     [DataMember(Name="zuora-request-id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "zuora-request-id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "zuora-request-id")]
     public string ZuoraRequestId { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A user-supplied identifier for this request. If you supply a `zuora-track-id` as a request header, Zuora returns the `zuora-track-id` as a response header. </value>
     [DataMember(Name="zuora-track-id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "zuora-track-id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "zuora-track-id")]
     public string ZuoraTrackId { get; set; }
 
 

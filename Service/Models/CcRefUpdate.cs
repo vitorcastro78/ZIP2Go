@@ -17,14 +17,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A gateway unique identifier that replaces sensitive payment method data. This field is conditionally required only when `token` is being used to represent a gateway customer profile.</value>
     [DataMember(Name="second_token", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "second_token")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "second_token")]
     public string SecondToken { get; set; }
 
     /// <summary>
     /// Gets or Sets Mandate
     /// </summary>
     [DataMember(Name="mandate", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mandate")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
     public Mandate Mandate { get; set; }
 
 

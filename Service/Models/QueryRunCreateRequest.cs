@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The character used as delimiter to separate values in the output file.</value>
     [DataMember(Name="column_separator", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "column_separator")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "column_separator")]
     public string ColumnSeparator { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If supplied, Zuora with compress the output file using the specified compression algorithm.</value>
     [DataMember(Name="content_encoding", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "content_encoding")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "content_encoding")]
     public string ContentEncoding { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Base64-encoded public key of a 1024-bit RSA key-pair. If you set this field, Zuora will encrypt the query results using the provided public key. You must use the corresponding private key to decrypt the query results.</value>
     [DataMember(Name="encryption_key", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "encryption_key")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "encryption_key")]
     public string EncryptionKey { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of the file returned.</value>
     [DataMember(Name="content_type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "content_type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "content_type")]
     public string ContentType { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The SQL statement of the query.</value>
     [DataMember(Name="sql", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "sql")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sql")]
     public string Sql { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If set to `true`, any deleted records are included in the response.</value>
     [DataMember(Name="read_deleted", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "read_deleted")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "read_deleted")]
     public bool? ReadDeleted { get; set; }
 
 

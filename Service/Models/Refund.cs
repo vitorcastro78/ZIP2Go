@@ -16,7 +16,7 @@ namespace ZIP2Go.Models {
     /// Gets or Sets Id
     /// </summary>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -24,7 +24,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who last updated the object</value>
     [DataMember(Name="updated_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
     public string UpdatedById { get; set; }
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
     [DataMember(Name="updated_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who created the object</value>
     [DataMember(Name="created_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
     public string CreatedById { get; set; }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
     [DataMember(Name="created_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
@@ -56,7 +56,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public Dictionary<string, Object> CustomFields { get; set; }
 
     /// <summary>
@@ -64,7 +64,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The custom objects associated with a Zuora standard object.</value>
     [DataMember(Name="custom_objects", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_objects")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
     public OneOfrefundCustomObjects CustomObjects { get; set; }
 
     /// <summary>
@@ -72,7 +72,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Refund amount.</value>
     [DataMember(Name="amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
     public decimal? Amount { get; set; }
 
     /// <summary>
@@ -80,14 +80,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
     [DataMember(Name="description", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "description")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
     public string Description { get; set; }
 
     /// <summary>
     /// Gets or Sets GatewayOptions
     /// </summary>
     [DataMember(Name="gateway_options", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_options")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
     public Dictionary<string, string> GatewayOptions { get; set; }
 
     /// <summary>
@@ -95,14 +95,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date when the refund takes effect.</value>
     [DataMember(Name="refund_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "refund_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_date")]
     public DateTime? RefundDate { get; set; }
 
     /// <summary>
     /// Gets or Sets RefundMethodType
     /// </summary>
     [DataMember(Name="refund_method_type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "refund_method_type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_method_type")]
     public string RefundMethodType { get; set; }
 
     /// <summary>
@@ -110,7 +110,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier for the payment, either `payment_number` or `payment_id.</value>
     [DataMember(Name="payment_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_id")]
     public string PaymentId { get; set; }
 
     /// <summary>
@@ -118,7 +118,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>User-provided reason for the refund.</value>
     [DataMember(Name="reason_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "reason_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
     public string ReasonCode { get; set; }
 
     /// <summary>
@@ -126,7 +126,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A payment gateway-specific field used by Orbital, Vantiv and Verifi.</value>
     [DataMember(Name="statement_descriptor", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "statement_descriptor")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "statement_descriptor")]
     public string StatementDescriptor { get; set; }
 
     /// <summary>
@@ -134,7 +134,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A payment gateway-specific field used by Orbital, Vantiv and Verifi.</value>
     [DataMember(Name="statement_descriptor_phone", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "statement_descriptor_phone")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "statement_descriptor_phone")]
     public string StatementDescriptorPhone { get; set; }
 
     /// <summary>
@@ -142,7 +142,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If true, indicates that this refund is not handled by Zuora.</value>
     [DataMember(Name="external", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "external")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "external")]
     public bool? External { get; set; }
 
     /// <summary>
@@ -150,7 +150,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Transaction identifier returned by the payment gateway. You may use this field to reconcile refunds between your payment gateway and Zuora Payments.</value>
     [DataMember(Name="reference_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "reference_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reference_id")]
     public string ReferenceId { get; set; }
 
     /// <summary>
@@ -158,7 +158,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>A second transaction identifier returned by the payment gateway if there is an additional transaction for the refunds. You may use this field to reconcile payments between your payment gateway and Zuora Payments.</value>
     [DataMember(Name="second_reference_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "second_reference_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "second_reference_id")]
     public string SecondReferenceId { get; set; }
 
     /// <summary>
@@ -166,7 +166,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="bank_account_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_account_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_account")]
     public string BankAccountAccount { get; set; }
 
     /// <summary>
@@ -174,7 +174,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="on_account_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "on_account_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "on_account_account")]
     public string OnAccountAccount { get; set; }
 
     /// <summary>
@@ -182,7 +182,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>An active account in your Zuora Chart of Accounts.</value>
     [DataMember(Name="unapplied_payment_account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "unapplied_payment_account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unapplied_payment_account")]
     public string UnappliedPaymentAccount { get; set; }
 
     /// <summary>
@@ -190,7 +190,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the payment method used to create this refund.</value>
     [DataMember(Name="payment_method_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_method_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_method_id")]
     public string PaymentMethodId { get; set; }
 
     /// <summary>
@@ -198,7 +198,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The related credit memo.</value>
     [DataMember(Name="credit_memo", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_memo")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo")]
     public AllOfrefundCreditMemo CreditMemo { get; set; }
 
     /// <summary>
@@ -206,7 +206,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the customer this refund is for, if one exists.</value>
     [DataMember(Name="account_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
     public string AccountId { get; set; }
 
     /// <summary>
@@ -214,7 +214,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The account that owns the refund</value>
     [DataMember(Name="account", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
     public AllOfrefundAccount Account { get; set; }
 
     /// <summary>
@@ -222,7 +222,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the payment gateway that Zuora will use to authorize the payments that are made with this payment method. If you do not set this field, Zuora will use one of the following payment gateways instead: The default payment gateway of the customer account that owns the payment method, if the payment method is associated with a customer account or the default payment gateway of your Zuora tenant.</value>
     [DataMember(Name="gateway_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_id")]
     public string GatewayId { get; set; }
 
     /// <summary>
@@ -230,7 +230,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Comments about the refund.</value>
     [DataMember(Name="comment", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "comment")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "comment")]
     public string Comment { get; set; }
 
     /// <summary>
@@ -238,7 +238,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Message returned by the payment gateway for this refund.</value>
     [DataMember(Name="gateway_response", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_response")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_response")]
     public string GatewayResponse { get; set; }
 
     /// <summary>
@@ -246,7 +246,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Code returned by the payment gateway for this refund.</value>
     [DataMember(Name="gateway_response_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_response_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_response_code")]
     public string GatewayResponseCode { get; set; }
 
     /// <summary>
@@ -254,14 +254,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The payment gateway state of the refund.</value>
     [DataMember(Name="gateway_state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_state")]
     public string GatewayState { get; set; }
 
     /// <summary>
     /// Gets or Sets PaymentMethod
     /// </summary>
     [DataMember(Name="payment_method", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payment_method")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_method")]
     public PaymentMethod PaymentMethod { get; set; }
 
     /// <summary>
@@ -269,14 +269,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier for this object; may be user-supplied.</value>
     [DataMember(Name="refund_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "refund_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_number")]
     public string RefundNumber { get; set; }
 
     /// <summary>
     /// Gets or Sets StateTransitions
     /// </summary>
     [DataMember(Name="state_transitions", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state_transitions")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
     public RefundStateTransitions StateTransitions { get; set; }
 
     /// <summary>
@@ -284,7 +284,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The state of the refund.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public string State { get; set; }
 
     /// <summary>
@@ -292,7 +292,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Gateway reconciliation reason.</value>
     [DataMember(Name="gateway_reconciliation_reason", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_reconciliation_reason")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_reconciliation_reason")]
     public string GatewayReconciliationReason { get; set; }
 
     /// <summary>
@@ -300,7 +300,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Gateway reconciliation state.</value>
     [DataMember(Name="gateway_reconciliation_status", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gateway_reconciliation_status")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_reconciliation_status")]
     public string GatewayReconciliationStatus { get; set; }
 
     /// <summary>
@@ -308,14 +308,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the payout from the payment gateway.</value>
     [DataMember(Name="payout_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "payout_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payout_id")]
     public string PayoutId { get; set; }
 
     /// <summary>
     /// Gets or Sets AppliedTo
     /// </summary>
     [DataMember(Name="applied_to", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "applied_to")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "applied_to")]
     public List<RefundsAppliedToResponse> AppliedTo { get; set; }
 
 

@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If set to `true`, any associated billing document items are excluded from the revenue accounting.</value>
     [DataMember(Name="exclude_item_billing_from_revenue_accounting", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "exclude_item_billing_from_revenue_accounting")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude_item_billing_from_revenue_accounting")]
     public bool? ExcludeItemBillingFromRevenueAccounting { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If set to `true`, any associated subscription items are excluded from the revenue accounting.</value>
     [DataMember(Name="exclude_item_booking_from_revenue_accounting", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "exclude_item_booking_from_revenue_accounting")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude_item_booking_from_revenue_accounting")]
     public bool? ExcludeItemBookingFromRevenueAccounting { get; set; }
 
 

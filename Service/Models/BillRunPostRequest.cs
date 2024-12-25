@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date printed on the invoice.</value>
     [DataMember(Name="invoice_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_date")]
     public DateTime? InvoiceDate { get; set; }
 
 

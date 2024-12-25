@@ -16,21 +16,21 @@ namespace ZIP2Go.Models {
     /// Gets or Sets GrossAmount
     /// </summary>
     [DataMember(Name="gross_amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "gross_amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gross_amount")]
     public decimal? GrossAmount { get; set; }
 
     /// <summary>
     /// Gets or Sets NetAmount
     /// </summary>
     [DataMember(Name="net_amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "net_amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "net_amount")]
     public decimal? NetAmount { get; set; }
 
     /// <summary>
     /// Gets or Sets Currency
     /// </summary>
     [DataMember(Name="currency", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "currency")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
     public string Currency { get; set; }
 
 

@@ -17,21 +17,21 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The unique identifier of the customer account associated with these items.</value>
     [DataMember(Name="account_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
     public string AccountId { get; set; }
 
     /// <summary>
     /// Gets or Sets CreditMemoItems
     /// </summary>
     [DataMember(Name="credit_memo_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_memo_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_items")]
     public List<AllOfaccountPreviewResponseCreditMemoItemsItems> CreditMemoItems { get; set; }
 
     /// <summary>
     /// Gets or Sets InvoiceItems
     /// </summary>
     [DataMember(Name="invoice_items", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice_items")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_items")]
     public List<AllOfaccountPreviewResponseInvoiceItemsItems> InvoiceItems { get; set; }
 
 

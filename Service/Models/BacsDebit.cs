@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The bank account number of the account holder.</value>
     [DataMember(Name="account_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
     public string AccountNumber { get; set; }
 
     /// <summary>
@@ -25,14 +25,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the bank associated with this bank account.</value>
     [DataMember(Name="bank_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "bank_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_code")]
     public string BankCode { get; set; }
 
     /// <summary>
     /// Gets or Sets Mandate
     /// </summary>
     [DataMember(Name="mandate", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "mandate")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
     public Mandate Mandate { get; set; }
 
 

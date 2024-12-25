@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier for the object.</value>
     [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
     public string Id { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who last updated the object</value>
     [DataMember(Name="updated_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
     public string UpdatedById { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
     [DataMember(Name="updated_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "updated_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
     public DateTime? UpdatedTime { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Unique identifier of the Zuora user who created the object</value>
     [DataMember(Name="created_by_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_by_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
     public string CreatedById { get; set; }
 
     /// <summary>
@@ -49,14 +49,14 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
     [DataMember(Name="created_time", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "created_time")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
     public DateTime? CreatedTime { get; set; }
 
     /// <summary>
     /// Gets or Sets CustomFields
     /// </summary>
     [DataMember(Name="custom_fields", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_fields")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
     public CustomFields CustomFields { get; set; }
 
     /// <summary>
@@ -64,7 +64,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The custom objects associated with a Zuora standard object.</value>
     [DataMember(Name="custom_objects", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "custom_objects")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
     public OneOfBillRunCreateRequestCustomObjects CustomObjects { get; set; }
 
     /// <summary>
@@ -72,7 +72,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the customer account to bill. Specify this field or `account_number` if you want to create a bill run for a single customer.</value>
     [DataMember(Name="account_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
     public string AccountId { get; set; }
 
     /// <summary>
@@ -80,7 +80,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Human-readable identifier of the account to bill. Specify this field or `account_id` if you want to create a bill run for a single customer.</value>
     [DataMember(Name="account_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "account_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
     public string AccountNumber { get; set; }
 
     /// <summary>
@@ -88,7 +88,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If set to `true`, invoices will be automatically emailed to customers.</value>
     [DataMember(Name="email", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "email")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
     public bool? Email { get; set; }
 
     /// <summary>
@@ -96,7 +96,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Indicates whether to automatically post a billing document after it is created.</value>
     [DataMember(Name="post", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "post")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "post")]
     public bool? Post { get; set; }
 
     /// <summary>
@@ -104,7 +104,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If set to `true`, subscriptions will be automatically renewed.</value>
     [DataMember(Name="renew", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "renew")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "renew")]
     public bool? Renew { get; set; }
 
     /// <summary>
@@ -112,7 +112,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The day of the month on which the multiple customer accounts are billed.</value>
     [DataMember(Name="day_of_month", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "day_of_month")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "day_of_month")]
     public string DayOfMonth { get; set; }
 
     /// <summary>
@@ -120,7 +120,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the customer account batch to be included in this bill run.</value>
     [DataMember(Name="batches", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "batches")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "batches")]
     public List<string> Batches { get; set; }
 
     /// <summary>
@@ -128,7 +128,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date displayed on the invoice.</value>
     [DataMember(Name="invoice_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_date")]
     public DateTime? InvoiceDate { get; set; }
 
     /// <summary>
@@ -136,7 +136,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>All unbilled items on or before this date are included in this bill run.</value>
     [DataMember(Name="target_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "target_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
     public DateTime? TargetDate { get; set; }
 
     /// <summary>
@@ -144,7 +144,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>If it is set to `false`, invoices for zero amounts will not be emailed to customers. </value>
     [DataMember(Name="email_zero_amount_invoices", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "email_zero_amount_invoices")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email_zero_amount_invoices")]
     public bool? EmailZeroAmountInvoices { get; set; }
 
     /// <summary>
@@ -152,7 +152,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Type of the charge to be excluded from the bill run.</value>
     [DataMember(Name="charges_excluded", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "charges_excluded")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "charges_excluded")]
     public List<string> ChargesExcluded { get; set; }
 
     /// <summary>
@@ -160,7 +160,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The name of the bill run.</value>
     [DataMember(Name="name", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "name")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
     public string Name { get; set; }
 
     /// <summary>
@@ -168,7 +168,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The type of the bill run. This field is only available if you have the <a href=”https://knowledgecenter.zuora.com/Zuora_Billing/Bill_your_customers/Automate_billing_document_generation/Bill_runs/Z_Catch-Up_Bill_Run” target=”_blank”>Catch-Up Bill Run</a> feature enabled in your tenant.</value>
     [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "type")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
     public string Type { get; set; }
 
     /// <summary>
@@ -176,7 +176,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The target subscriptions for this bill run. Note that all these subscriptions must belong to the same account.</value>
     [DataMember(Name="subscription_ids", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "subscription_ids")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_ids")]
     public List<string> SubscriptionIds { get; set; }
 
 

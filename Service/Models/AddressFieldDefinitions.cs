@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Address line 1 (e.g., street, PO Box, or company name).</value>
     [DataMember(Name="line1", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "line1")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line1")]
     public string Line1 { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Address line 2 (e.g., apartment, suite, unit, or building).</value>
     [DataMember(Name="line2", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "line2")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line2")]
     public string Line2 { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>City, district, suburb, town, or village.</value>
     [DataMember(Name="city", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "city")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "city")]
     public string City { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The country of the contact's address.</value>
     [DataMember(Name="country", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "country")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "country")]
     public string Country { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The state, county, province, or region.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public string State { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>ZIP or postal code.</value>
     [DataMember(Name="postal_code", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "postal_code")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "postal_code")]
     public string PostalCode { get; set; }
 
 

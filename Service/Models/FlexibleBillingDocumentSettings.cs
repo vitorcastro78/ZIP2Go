@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Identifier of the invoice template associated with this customer. Not applicable for debit memos or credit memos.</value>
     [DataMember(Name="template_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "template_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "template_id")]
     public string TemplateId { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>ID of the billing document sequence set.</value>
     [DataMember(Name="sequence_set_id", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "sequence_set_id")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sequence_set_id")]
     public string SequenceSetId { get; set; }
 
 

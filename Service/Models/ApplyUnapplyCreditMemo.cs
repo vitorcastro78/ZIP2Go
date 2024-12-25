@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The date when the credit memo is applied</value>
     [DataMember(Name="effective_date", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "effective_date")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "effective_date")]
     public DateTime? EffectiveDate { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Array of billing documents to apply this credit memo to.</value>
     [DataMember(Name="billing_documents", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "billing_documents")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
     public List<CreditMemoApplicationRequest> BillingDocuments { get; set; }
 
 

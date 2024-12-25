@@ -17,7 +17,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The total billing document amount that is written off.</value>
     [DataMember(Name="amount", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "amount")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
     public string Amount { get; set; }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>Reasons for failure.</value>
     [DataMember(Name="failed_reason", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "failed_reason")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed_reason")]
     public string FailedReason { get; set; }
 
     /// <summary>
@@ -33,7 +33,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The invoice number.</value>
     [DataMember(Name="invoice_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_number")]
     public string InvoiceNumber { get; set; }
 
     /// <summary>
@@ -41,7 +41,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The related invoice.</value>
     [DataMember(Name="invoice", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "invoice")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice")]
     public AllOfwriteOffInvoice Invoice { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The states of the transactions.</value>
     [DataMember(Name="state", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "state")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
     public AllOfwriteOffState State { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ namespace ZIP2Go.Models {
     /// </summary>
     /// <value>The credit memo number.</value>
     [DataMember(Name="credit_memo_number", EmitDefaultValue=false)]
-    [JsonProperty(PropertyName = "credit_memo_number")]
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_number")]
     public string CreditMemoNumber { get; set; }
 
 
