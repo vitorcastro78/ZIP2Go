@@ -1,6 +1,6 @@
 ﻿using ZIP2Go.Models;
 
-namespace ZIP2Go.Service
+namespace Service.Interfaces
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
@@ -23,7 +23,7 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentScheduleItem</returns>
-        PaymentScheduleItem CancelPaymentScheduleItem (string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        PaymentScheduleItem CancelPaymentScheduleItem(string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
         /// <summary>
         /// Create a payment schedule item Creates a new Payment Schedule Item object.
         /// </summary>
@@ -40,7 +40,7 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentScheduleItem</returns>
-        PaymentScheduleItem CreatePaymentScheduleItem (PaymentScheduleItemCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
+        PaymentScheduleItem CreatePaymentScheduleItem(PaymentScheduleItemCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
         /// <summary>
         /// Retrieve a payment schedule item Retrieves the payment schedule item with the given ID.
         /// </summary>
@@ -56,7 +56,7 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentScheduleItem</returns>
-        PaymentScheduleItem GetPaymentScheduleItem (string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        PaymentScheduleItem GetPaymentScheduleItem(string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
         /// <summary>
         /// Retry a payment shedule item Retries the payment schedule item with the given ID.
         /// </summary>
@@ -74,7 +74,7 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentScheduleItem</returns>
-        PaymentScheduleItem RetryPaymentScheduleItem (PaymentScheduleItemRetry body, string paymentScheduleItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
+        PaymentScheduleItem RetryPaymentScheduleItem(PaymentScheduleItemRetry body, string paymentScheduleItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
         /// <summary>
         /// Skip a payment schedule item Skips the payment schedule item with the given ID.
         /// </summary>
@@ -91,7 +91,7 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentScheduleItem</returns>
-        PaymentScheduleItem SkipPaymentScheduleItem (string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        PaymentScheduleItem SkipPaymentScheduleItem(string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
         /// <summary>
         /// Update a payment schedule item Updates the specified payment schedule item by setting the values of the parameters passed. Any parameters not provided will remain unchanged.
         /// </summary>
@@ -109,6 +109,6 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentScheduleItem</returns>
-        PaymentScheduleItem UpdatePaymentScheduleItem (PaymentScheduleItemPatch body, string paymentScheduleItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
+        PaymentScheduleItem UpdatePaymentScheduleItem(PaymentScheduleItemPatch body, string paymentScheduleItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
     }
 }

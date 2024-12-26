@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using RestSharp;
+using Service.Interfaces;
 using ZIP2Go.Client;
 using ZIP2Go.Models;
 
