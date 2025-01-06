@@ -20,11 +20,11 @@ using Microsoft.AspNetCore.Authorization;
 using ZIP2Go.Models;
 
 namespace ZIP2Go.WebAPI.Controllers
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
-    [ServiceController]
+    [ApiController]
     public class FulfillmentItemsServiceController : ControllerBase
     { 
         /// <summary>

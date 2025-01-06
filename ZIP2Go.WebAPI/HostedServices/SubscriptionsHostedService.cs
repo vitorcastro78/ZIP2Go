@@ -42,7 +42,7 @@ namespace ZIP2GO.WebAPI.HostedService
         {
             _logger.LogInformation(
                 "Consume Scoped Service Hosted Service running.");
-            _timer = new Timer(DoWork, null, TimeSpan.Zero,
+            _timer = new Timer( DoWork, null, TimeSpan.Zero,
             TimeSpan.FromMinutes(15));
 
         }
