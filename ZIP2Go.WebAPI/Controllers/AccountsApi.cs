@@ -24,12 +24,12 @@ namespace ZIP2Go.WebAPI.Controllers
     /// <summary>
     ///
     /// </summary>
-    [ServiceController]
-    public class AccountsServiceController : ControllerBase
+    [ApiController]
+    public class AccountsController : ControllerBase
     {
         private readonly IAccountsService _accountsService;
 
-        public AccountsServiceController(IAccountsService accountsService)
+        public AccountsController(IAccountsService accountsService)
         {
             _accountsService = accountsService;
         }
