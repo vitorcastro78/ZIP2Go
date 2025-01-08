@@ -1,36 +1,34 @@
-using System;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Text;
 
-namespace ZIP2Go.Models {
-
-  /// <summary>
-  /// The information of the new account that owns the invoice associated with this subscription. If you specify this field, do not specify &#x60;invoice_owner_account_id&#x60;.
-  /// </summary>
-  [DataContract]
-  public class AllOfsubscriptionPreviewRequestInvoiceOwnerAccountData : AccountCreateRequest {
-
+namespace ZIP2Go.Models
+{
     /// <summary>
-    /// Get the string presentation of the object
+    /// The information of the new account that owns the invoice associated with this subscription. If you specify this field, do not specify &#x60;invoice_owner_account_id&#x60;.
     /// </summary>
-    /// <returns>String presentation of the object</returns>
-    public override string ToString()  {
-      var sb = new StringBuilder();
-      sb.Append("class AllOfsubscriptionPreviewRequestInvoiceOwnerAccountData {\n");
-      sb.Append("}\n");
-      return sb.ToString();
-    }
+    [DataContract]
+    public class AllOfsubscriptionPreviewRequestInvoiceOwnerAccountData : AccountCreateRequest
+    {
+        /// <summary>
+        /// Get the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public new string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
-    /// <summary>
-    /// Get the JSON string presentation of the object
-    /// </summary>
-    /// <returns>JSON string presentation of the object</returns>
-    public  new string ToJson() {
-      return JsonConvert.SerializeObject(this, Formatting.Indented);
+        /// <summary>
+        /// Get the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class AllOfsubscriptionPreviewRequestInvoiceOwnerAccountData {\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
     }
-
-}
 }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2Go.Client;
@@ -7,7 +5,6 @@ using ZIP2Go.Models;
 
 namespace ZIP2Go.Service
 {
-
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
@@ -21,11 +18,11 @@ namespace ZIP2Go.Service
         public SubscriptionItemsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient; 
+                this.ApiClient = Configuration.DefaultApiClient;
             else
                 this.ApiClient = apiClient;
         }
-    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SubscriptionItemsApi"/> class.
         /// </summary>
@@ -34,17 +31,13 @@ namespace ZIP2Go.Service
         {
             this.ApiClient = new ApiClient(basePath);
         }
-    
+
         /// <summary>
-        /// Sets the base path of the API client.
+        /// Gets or sets the API client.
         /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(String basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
-    
+        /// <value>An instance of the ApiClient</value>
+        public ApiClient ApiClient { get; set; }
+
         /// <summary>
         /// Gets the base path of the API client.
         /// </summary>
@@ -54,13 +47,7 @@ namespace ZIP2Go.Service
         {
             return this.ApiClient.BasePath;
         }
-    
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient {get; set;}
-    
+
         /// <summary>
         /// List subscription items List items contained in subscriptions.
         /// </summary>
@@ -81,48 +68,56 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionItemListResponse</returns>
-        public SubscriptionItemListResponse GetSubscriptionItems (string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> priceFields, List<string> subscriptionPlanFields, List<string> planFields, List<string> productFields, List<string> subscriptionFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionItemListResponse GetSubscriptionItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> priceFields, List<string> subscriptionPlanFields, List<string> planFields, List<string> productFields, List<string> subscriptionFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
-    
             var path = "/subscription_items";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
- if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
- if (subscriptionPlanFields != null) queryParams.Add("subscription_plan.fields[]", ApiClient.ParameterToString(subscriptionPlanFields)); // query parameter
- if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
- if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
- if (subscriptionFields != null) queryParams.Add("subscription.fields[]", ApiClient.ParameterToString(subscriptionFields)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
+            if (subscriptionPlanFields != null) queryParams.Add("subscription_plan.fields[]", ApiClient.ParameterToString(subscriptionPlanFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
+            if (subscriptionFields != null) queryParams.Add("subscription.fields[]", ApiClient.ParameterToString(subscriptionFields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionItems: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetSubscriptionItems: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (SubscriptionItemListResponse) ApiClient.Deserialize(response.Content, typeof(SubscriptionItemListResponse));
+                throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionItems: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (SubscriptionItemListResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionItemListResponse));
         }
-    
+
+        /// <summary>
+        /// Sets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public void SetBasePath(String basePath)
+        {
+            this.ApiClient.BasePath = basePath;
+        }
     }
 }

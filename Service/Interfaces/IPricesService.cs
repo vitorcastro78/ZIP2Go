@@ -23,6 +23,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Price</returns>
         Price CreatePrice(PriceCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete a price Permanently deletes a price. It cannot be undone.
         /// </summary>
@@ -35,6 +36,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeletePrice(string priceId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve a price Retrieves the price with the given ID.
         /// </summary>
@@ -50,6 +52,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Price</returns>
         Price GetPrice(string priceId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List prices Returns a dictionary with a data property that contains an array of prices, starting after the cursor, if used. Each entry in the array is a separate price object. If no more prices are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -66,6 +69,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PriceListResponse</returns>
         PriceListResponse GetPrices(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a price Updates the specified price by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         /// </summary>

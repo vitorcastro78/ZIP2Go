@@ -1,12 +1,8 @@
-using System;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace ZIP2Go.WebAPI.Security
 {
@@ -41,7 +37,7 @@ namespace ZIP2Go.WebAPI.Security
             }
             catch
             {
-                return  AuthenticateResult.Fail("Invalid Authorization Header");
+                return AuthenticateResult.Fail("Invalid Authorization Header");
             }
 
             var claims = new[] {
@@ -52,7 +48,7 @@ namespace ZIP2Go.WebAPI.Security
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-            return  AuthenticateResult.Success(ticket);
+            return AuthenticateResult.Success(ticket);
         }
     }
 }

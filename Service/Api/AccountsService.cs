@@ -1,8 +1,8 @@
-﻿using ZIP2Go.Client;
-using ZIP2Go.Models;
+﻿using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
-using EasyCaching.Core;
+using ZIP2Go.Client;
+using ZIP2Go.Models;
 
 namespace ZIP2Go.Service
 {
@@ -11,13 +11,7 @@ namespace ZIP2Go.Service
     /// </summary>
     public class AccountsService : IAccountsService
     {
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
         private readonly IEasyCachingProvider _cache;
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountsService"/> class.
@@ -44,26 +38,10 @@ namespace ZIP2Go.Service
         }
 
         /// <summary>
-        /// Sets the base path of the API client.
+        /// Gets or sets the API client.
         /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(String basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
-
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public String GetBasePath(String basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
-
-
+        /// <value>An instance of the ApiClient</value>
+        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Create an account Creates a new account object.
@@ -378,7 +356,6 @@ namespace ZIP2Go.Service
         /// <returns>ListAccountResponse</returns>
         public ListAccountResponse GetAccounts(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
-
             var path = "/accounts";
             path = path.Replace("{format}", "json");
 
@@ -433,6 +410,16 @@ namespace ZIP2Go.Service
         }
 
         /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public String GetBasePath(String basePath)
+        {
+            return this.ApiClient.BasePath;
+        }
+
+        /// <summary>
         /// Preview an account Generates a preview of future invoice and credit memo items for a customer account.              Previewing a customer account shows you how much a single customer will be invoiced from the most recent invoice to a specific end of term date in the future.      &lt;br/&gt;      Previewing a customer account only calculates taxes for charges if you use &lt;a href&#x3D;&#x27;https://knowledgecenter.zuora.com/Billing/Taxes/A_Zuora_Tax&#x27; target&#x3D;&#x27;_blank&#x27;&gt;Zuora Tax&lt;/a&gt; and the price associated with the invoice item is tax inclusive; otherwise, it does not calculate taxes.
         /// </summary>
         /// <param name="body"></param>
@@ -481,6 +468,16 @@ namespace ZIP2Go.Service
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewAccount: " + response.ErrorMessage, response.ErrorMessage);
 
             return (AccountPreviewResponse)ApiClient.Deserialize(response.Content, typeof(AccountPreviewResponse));
+        }
+
+        /// <summary>
+        /// Sets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public void SetBasePath(String basePath)
+        {
+            this.ApiClient.BasePath = basePath;
         }
 
         /// <summary>
@@ -578,21 +575,16 @@ namespace ZIP2Go.Service
             return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
         }
 
-
-
         //private async Task<ListAccountResponse> GetAllSubscriptionsByResellerAccountIdAsync(string accountId)
         //{
         //    var cachekey = $"GetAccounts-{accountId}";
-
 
         //    var allSubscriptions = new ListAccountResponse();
         //    _cache.Set<bool> cachekey, true, TimeSpan.FromMinutes(20));
         //    if (!_cache.Exists(cachekey))
         //    {
-
         //        foreach (var reseller in resellers)
         //        {
-
         //            // The API will return 8000 subscriptions, but active and canceled only around 1000 subscriptions
         //            var datas = await GetAllSubscriptions<GetAllSubscriptionResponse>(string.Empty, "active", reseller.Id);
         //            if (datas.Data.Count > 0)
@@ -647,7 +639,6 @@ namespace ZIP2Go.Service
             _cache.Set<bool>(cachekey, true, TimeSpan.FromMinutes(20));
             if (!_cache.Exists(cachekey))
             {
-
                 var account = GetAccount(accountId, fields, subscriptionsFields, subscriptionPlansFields, subscriptionItemsFields, invoiceOwnerAccountFields, planFields, paymentMethodsFields, paymentsFields, billingDocumentsFields, billingDocumentItemsFields, billToFields, soldToFields, defaultPaymentMethodFields, usageRecordsFields, invoicesFields, creditMemosFields, debitMemosFields, prepaidBalanceFields, transactionsFields, expand, filter, pageSize, zuoraTrackId, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
 
                 if (account != null)

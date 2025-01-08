@@ -24,6 +24,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentRun</returns>
         PaymentRun CreatePaymentRuns(PaymentRunCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> summaryFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete a payment run Deletes a payment run. Only the payment runs with the &#x60;canceled&#x60; or &#x60;pending&#x60; status can be deleted.
         /// </summary>
@@ -36,6 +37,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeletePaymentRuns(string paymentRunId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve a payment run Retrieves the payment run information with the given ID.
         /// </summary>
@@ -52,6 +54,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentRun</returns>
         PaymentRun GetPaymentRun(string paymentRunId, List<string> fields, List<string> summaryFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List payment runs Returns an array of payment runs. Each entry in the array is a separate payment run object.       If no more payment runs are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -69,6 +72,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentRunListResponse</returns>
         PaymentRunListResponse GetPaymentRuns(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> summaryFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a payment run Updates a payment run by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
         /// </summary>

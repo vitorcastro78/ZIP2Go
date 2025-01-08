@@ -1,21 +1,13 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Threading.Tasks;
-using System.Threading;
-using Microsoft.Extensions.Hosting;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Linq;
-using ZIP2Go.Service;
-using Service.Interfaces;
+﻿using Service.Interfaces;
 
 namespace ZIP2GO.WebAPI.HostedService
 {
-
     public class AccountHostedService : BackgroundService
     {
         private readonly ILogger<AccountHostedService> _logger;
+
         private Timer? _timer = null;
+
         private int CountRound = 0;
 
         public AccountHostedService(
@@ -26,9 +18,9 @@ namespace ZIP2GO.WebAPI.HostedService
             _logger = logger;
         }
 
-        public IServiceProvider Services { get; }
-
         public IAccountsService accountsService { get; }
+
+        public IServiceProvider Services { get; }
 
         public override async Task StopAsync(CancellationToken stoppingToken)
         {
@@ -44,13 +36,11 @@ namespace ZIP2GO.WebAPI.HostedService
                 "Consume Scoped Service Hosted Service running.");
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
             TimeSpan.FromMinutes(15));
-
         }
 
         private async void DoWork(object? state)
         {
             _logger.LogInformation($"Hosted Service started round {CountRound}.");
-           
         }
     }
 }

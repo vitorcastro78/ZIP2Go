@@ -23,6 +23,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>QueryRun</returns>
         QueryRun CancelQueryRun(string queryRunId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Create a query run Creates a new query run job.
         /// </summary>
@@ -39,6 +40,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>QueryRun</returns>
         QueryRun CreateQueryRun(QueryRunCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Retrieve a query run Retrieves the query run with the given ID.
         /// </summary>

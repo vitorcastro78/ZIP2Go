@@ -1,45 +1,43 @@
-using System;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Text;
 
-namespace ZIP2Go.Models {
-
-  /// <summary>
-  /// 
-  /// </summary>
-  [DataContract]
-  public class PaymentSchedulePaymentsItem {
+namespace ZIP2Go.Models
+{
     /// <summary>
-    /// Unique identifier of the payment schedule item.
+    ///
     /// </summary>
-    /// <value>Unique identifier of the payment schedule item.</value>
-    [DataMember(Name="id", EmitDefaultValue=false)]
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-    public string Id { get; set; }
+    [DataContract]
+    public class PaymentSchedulePaymentsItem
+    {
+        /// <summary>
+        /// Unique identifier of the payment schedule item.
+        /// </summary>
+        /// <value>Unique identifier of the payment schedule item.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public string Id { get; set; }
 
+        /// <summary>
+        /// Get the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
-    /// <summary>
-    /// Get the string presentation of the object
-    /// </summary>
-    /// <returns>String presentation of the object</returns>
-    public override string ToString()  {
-      var sb = new StringBuilder();
-      sb.Append("class PaymentSchedulePaymentsItem {\n");
-      sb.Append("  Id: ").Append(Id).Append("\n");
-      sb.Append("}\n");
-      return sb.ToString();
+        /// <summary>
+        /// Get the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class PaymentSchedulePaymentsItem {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
     }
-
-    /// <summary>
-    /// Get the JSON string presentation of the object
-    /// </summary>
-    /// <returns>JSON string presentation of the object</returns>
-    public string ToJson() {
-      return JsonConvert.SerializeObject(this, Formatting.Indented);
-    }
-
-}
 }

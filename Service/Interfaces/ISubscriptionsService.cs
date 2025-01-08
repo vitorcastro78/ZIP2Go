@@ -36,6 +36,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
         Subscription ActivateSubscription(SubscriptionActivateRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Cancel a subscription Cancels a subscription.
         /// </summary>
@@ -65,6 +66,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>SubscriptionCancelResponse</returns>
         SubscriptionCancelResponse CancelSubscription(CancelSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Create a subscription Creates a new subscription.
         /// </summary>
@@ -93,6 +95,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
         Subscription CreateSubscription(SubscriptionCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Retrieve a subscription Retrieves the subscription with the given subscription key (number or ID).
         /// </summary>
@@ -120,6 +123,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Subscription</returns>
         Subscription GetSubscriptionByKey(string subscriptionId, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List all versions of a subscription Lists all versions of the specified subscription.
         /// </summary>
@@ -150,6 +154,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionVersionListResponse</returns>
         SubscriptionVersionListResponse GetSubscriptionByVersion(string subscriptionId, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> actionsFields, string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List subscriptions Returns a dictionary with a data property that contains an array of subscriptions, starting after the cursor, if used. Each entry in the array is a separate subscription object. If no more subscriptions are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -178,6 +183,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionListResponse</returns>
         SubscriptionListResponse GetSubscriptions(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a subscription Updates the specified subscription by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         /// </summary>
@@ -207,6 +213,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
         Subscription PatchSubscription(SubscriptionPatchRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Pause a subscription Pauses a subscription.
         /// </summary>
@@ -236,6 +243,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
         Subscription PauseSubscription(PauseSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Preview an existing subscription You can preview the billing document metrics or the order delta metrics across a specified time frame.
         /// </summary>
@@ -249,6 +257,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPreviewResponse</returns>
         SubscriptionPreviewResponse PreviewExistingSubscription(SubscriptionPreviewExistingRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Preview a subscription You can preview the billing document metrics or the order delta metrics across a specified time frame.
         /// </summary>
@@ -261,6 +270,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPreviewResponse</returns>
         SubscriptionPreviewResponse PreviewSubscription(SubscriptionPreviewRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Resume a subscription Resumes a subscription.
         /// </summary>
@@ -290,6 +300,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
         Subscription ResumeSubscription(ResumeSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Uncancel a subscription Uncancel a cancelled subscription.
         /// </summary>

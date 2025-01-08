@@ -1,52 +1,50 @@
-using System;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Text;
 
-namespace ZIP2Go.Models {
-
-  /// <summary>
-  /// 
-  /// </summary>
-  [DataContract]
-  public class PaymentSchedulePaymentOptionRequest {
+namespace ZIP2Go.Models
+{
     /// <summary>
-    /// Gets or Sets Detail
+    ///
     /// </summary>
-    [DataMember(Name="detail", EmitDefaultValue=false)]
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
-    public Dictionary<string, string> Detail { get; set; }
+    [DataContract]
+    public class PaymentSchedulePaymentOptionRequest
+    {
+        /// <summary>
+        /// Gets or Sets Detail
+        /// </summary>
+        [DataMember(Name = "detail", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
+        public Dictionary<string, string> Detail { get; set; }
 
-    /// <summary>
-    /// Gets or Sets Type
-    /// </summary>
-    [DataMember(Name="type", EmitDefaultValue=false)]
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
-    public bool? Type { get; set; }
+        /// <summary>
+        /// Gets or Sets Type
+        /// </summary>
+        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
+        public bool? Type { get; set; }
 
+        /// <summary>
+        /// Get the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
-    /// <summary>
-    /// Get the string presentation of the object
-    /// </summary>
-    /// <returns>String presentation of the object</returns>
-    public override string ToString()  {
-      var sb = new StringBuilder();
-      sb.Append("class PaymentSchedulePaymentOptionRequest {\n");
-      sb.Append("  Detail: ").Append(Detail).Append("\n");
-      sb.Append("  Type: ").Append(Type).Append("\n");
-      sb.Append("}\n");
-      return sb.ToString();
+        /// <summary>
+        /// Get the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class PaymentSchedulePaymentOptionRequest {\n");
+            sb.Append("  Detail: ").Append(Detail).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
     }
-
-    /// <summary>
-    /// Get the JSON string presentation of the object
-    /// </summary>
-    /// <returns>JSON string presentation of the object</returns>
-    public string ToJson() {
-      return JsonConvert.SerializeObject(this, Formatting.Indented);
-    }
-
-}
 }

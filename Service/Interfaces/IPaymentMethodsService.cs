@@ -20,6 +20,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentMethodAuthorizationResponse</returns>
         PaymentMethodAuthorizationResponse AuthorizePaymentMethod(PaymentMethodAuthorizationRequest body, string paymentMethodId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Create a payment method Creates a new payment method object. See [Payment Pages 2.0 implementation overview](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/LA_Hosted_Payment_Pages/B_Payment_Pages_2.0/1_Payment_Pages_2.0_Implementation_Overview) to learn how to create payment methods through Hosted Payment Pages.
         /// </summary>
@@ -37,6 +38,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentMethod</returns>
         PaymentMethod CreatePaymentMethod(PaymentMethodCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> accountFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete a payment method Permanently deletes a payment method. It cannot be undone.
         /// </summary>
@@ -49,6 +51,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeletePaymentMethod(string paymentMethodId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve a payment method Retrieves the payment method with the given ID.
         /// </summary>
@@ -65,6 +68,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentMethod</returns>
         PaymentMethod GetPaymentMethodById(string paymentMethodId, List<string> fields, List<string> accountFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List payment methods Returns a dictionary with a data property that contains an array of payment methods, starting after the cursor, if used. Each entry in the array is a separate payment method object. If no more payment methods are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -82,6 +86,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentMethodListResponse</returns>
         PaymentMethodListResponse GetPaymentMethods(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> accountFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Scrub a payment method Scrubs sensitive data such as card number on the specified payment method.
         /// </summary>
@@ -94,6 +99,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void ScrubPaymentMethod(string paymentMethodId, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a payment method Updates the specified payment method by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         /// </summary>
@@ -112,6 +118,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentMethod</returns>
         PaymentMethod UpdatePaymentMethod(PaymentMethodPatchRequest body, string paymentMethodId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> accountFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Verify a payment method Sends an authorization request to the corresponding payment gateway to verify the payment method. Supported payment methods are credit cards and Paypal.
         /// </summary>
@@ -130,6 +137,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentMethod</returns>
         PaymentMethod VerifyPaymentMethod(PaymentMethodVerificationRequest body, string paymentMethodId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> accountFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Cancel a payment authorization Cancel or void the blocked fund from the specified payment method.
         /// </summary>

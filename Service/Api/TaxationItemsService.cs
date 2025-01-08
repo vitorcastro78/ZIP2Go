@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2Go.Client;
@@ -7,7 +5,6 @@ using ZIP2Go.Models;
 
 namespace ZIP2Go.Service
 {
-
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
@@ -21,11 +18,11 @@ namespace ZIP2Go.Service
         public TaxationItemsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient; 
+                this.ApiClient = Configuration.DefaultApiClient;
             else
                 this.ApiClient = apiClient;
         }
-    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TaxationItemsService"/> class.
         /// </summary>
@@ -34,33 +31,13 @@ namespace ZIP2Go.Service
         {
             this.ApiClient = new ApiClient(basePath);
         }
-    
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(String basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
-    
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public String GetBasePath(String basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
-    
+
         /// <summary>
         /// Gets or sets the API client.
         /// </summary>
         /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient {get; set;}
-    
+        public ApiClient ApiClient { get; set; }
+
         /// <summary>
         /// Create a taxation item Creates a taxation item.
         /// </summary>
@@ -76,46 +53,46 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>TaxationItem</returns>
-        public TaxationItem CreateTaxationItem (TaxationItemCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
+        public TaxationItem CreateTaxationItem(TaxationItemCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateTaxationItem");
-    
+
             var path = "/taxation_items";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem));
+                throw new ApiException((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (TaxationItem)ApiClient.Deserialize(response.Content, typeof(TaxationItem));
         }
-    
+
         /// <summary>
         /// Delete a taxation item Permanently deletes a taxation item. This operation cannot be undone once it is performed.
         /// </summary>
@@ -127,42 +104,52 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
-        public void DeleteTaxationItem (string taxationItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public void DeleteTaxationItem(string taxationItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'taxationItemId' is set
             if (taxationItemId == null) throw new ApiException(400, "Missing required parameter 'taxationItemId' when calling DeleteTaxationItem");
-    
+
             var path = "/taxation_items/{taxation_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "taxation_item_id" + "}", ApiClient.ParameterToString(taxationItemId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-                         if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteTaxationItem: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling DeleteTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
-    
+                throw new ApiException((int)response.StatusCode, "Error calling DeleteTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
+
             return;
         }
-    
+
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public String GetBasePath(String basePath)
+        {
+            return this.ApiClient.BasePath;
+        }
+
         /// <summary>
         /// Retrieve a taxation item Retrieves the taxation item with the given ID.
         /// </summary>
@@ -177,45 +164,45 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>TaxationItem</returns>
-        public TaxationItem GetTaxationItem (string taxationItemId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public TaxationItem GetTaxationItem(string taxationItemId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'taxationItemId' is set
             if (taxationItemId == null) throw new ApiException(400, "Missing required parameter 'taxationItemId' when calling GetTaxationItem");
-    
+
             var path = "/taxation_items/{taxation_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "taxation_item_id" + "}", ApiClient.ParameterToString(taxationItemId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItem: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling GetTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem));
+                throw new ApiException((int)response.StatusCode, "Error calling GetTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (TaxationItem)ApiClient.Deserialize(response.Content, typeof(TaxationItem));
         }
-    
+
         /// <summary>
         /// List taxation items Returns an array of taxation items. Each entry in the array is a separate Taxation Item object. If no more taxation items are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -231,44 +218,53 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>TaxationItemListResponse</returns>
-        public TaxationItemListResponse GetTaxationItems (string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public TaxationItemListResponse GetTaxationItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
-    
             var path = "/taxation_items";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
- if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItems: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling GetTaxationItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetTaxationItems: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (TaxationItemListResponse) ApiClient.Deserialize(response.Content, typeof(TaxationItemListResponse));
+                throw new ApiException((int)response.StatusCode, "Error calling GetTaxationItems: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (TaxationItemListResponse)ApiClient.Deserialize(response.Content, typeof(TaxationItemListResponse));
         }
-    
+
+        /// <summary>
+        /// Sets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public void SetBasePath(String basePath)
+        {
+            this.ApiClient.BasePath = basePath;
+        }
+
         /// <summary>
         /// Update a taxation item Updates a taxation item by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
         /// </summary>
@@ -285,48 +281,47 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>TaxationItem</returns>
-        public TaxationItem UpdateTaxationItem (TaxationItemPatchRequest body, string taxationItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
+        public TaxationItem UpdateTaxationItem(TaxationItemPatchRequest body, string taxationItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling UpdateTaxationItem");
             // verify the required parameter 'taxationItemId' is set
             if (taxationItemId == null) throw new ApiException(400, "Missing required parameter 'taxationItemId' when calling UpdateTaxationItem");
-    
+
             var path = "/taxation_items/{taxation_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "taxation_item_id" + "}", ApiClient.ParameterToString(taxationItemId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (TaxationItem) ApiClient.Deserialize(response.Content, typeof(TaxationItem));
+                throw new ApiException((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (TaxationItem)ApiClient.Deserialize(response.Content, typeof(TaxationItem));
         }
-    
     }
 }

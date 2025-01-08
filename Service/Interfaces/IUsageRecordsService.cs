@@ -24,6 +24,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Usage</returns>
         Usage CreateUsage(UsageCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> accountFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete a usage record Permanently deletes a usage object. It cannot be undone.
         /// </summary>
@@ -36,6 +37,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeleteUsage(string id, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve a usage record Retrieves the usage with the given ID.
         /// </summary>
@@ -52,6 +54,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Usage</returns>
         Usage GetUsage(string id, List<string> fields, List<string> accountFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List usage records Returns an array of usage records. Each entry in the array is a separate Usage object.         If no more usages are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -69,6 +72,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>ListUsageResponse</returns>
         ListUsageResponse GetUsageRecords(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> accountFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a usage record Updates the usage record. Any fields on the object not provided in the request are not changed.
         /// </summary>

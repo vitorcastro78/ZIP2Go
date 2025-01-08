@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2Go.Client;
@@ -7,7 +5,6 @@ using ZIP2Go.Models;
 
 namespace ZIP2Go.Service
 {
-
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
@@ -21,11 +18,11 @@ namespace ZIP2Go.Service
         public PaymentSchedulesService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient; 
+                this.ApiClient = Configuration.DefaultApiClient;
             else
                 this.ApiClient = apiClient;
         }
-    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PaymentSchedulesService"/> class.
         /// </summary>
@@ -34,33 +31,13 @@ namespace ZIP2Go.Service
         {
             this.ApiClient = new ApiClient(basePath);
         }
-    
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(String basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
-    
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public String GetBasePath(String basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
-    
+
         /// <summary>
         /// Gets or sets the API client.
         /// </summary>
         /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient {get; set;}
-    
+        public ApiClient ApiClient { get; set; }
+
         /// <summary>
         /// Cancel a payment schedule Cancels the payment schedule with the given ID.
         /// </summary>
@@ -78,50 +55,50 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentSchedule</returns>
-        public PaymentSchedule CancelPaymentSchedule (PaymentScheduleCancel body, string paymentScheduleId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize)
+        public PaymentSchedule CancelPaymentSchedule(PaymentScheduleCancel body, string paymentScheduleId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CancelPaymentSchedule");
             // verify the required parameter 'paymentScheduleId' is set
             if (paymentScheduleId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleId' when calling CancelPaymentSchedule");
-    
+
             var path = "/payment_schedules/{payment_schedule_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_id" + "}", ApiClient.ParameterToString(paymentScheduleId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CancelPaymentSchedule: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling CancelPaymentSchedule: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CancelPaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (PaymentSchedule) ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
+                throw new ApiException((int)response.StatusCode, "Error calling CancelPaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (PaymentSchedule)ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
         }
-    
+
         /// <summary>
         /// Create a payment schedule Creates a new Payment Schedule object.
         /// </summary>
@@ -138,47 +115,57 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentSchedule</returns>
-        public PaymentSchedule CreatePaymentSchedule (PaymentScheduleCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize)
+        public PaymentSchedule CreatePaymentSchedule(PaymentScheduleCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePaymentSchedule");
-    
+
             var path = "/payment_schedules";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreatePaymentSchedule: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling CreatePaymentSchedule: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreatePaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (PaymentSchedule) ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
+                throw new ApiException((int)response.StatusCode, "Error calling CreatePaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (PaymentSchedule)ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
         }
-    
+
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public String GetBasePath(String basePath)
+        {
+            return this.ApiClient.BasePath;
+        }
+
         /// <summary>
         /// Retrieve a payment schedule Retrieves the payment schedule with the given ID.
         /// </summary>
@@ -194,46 +181,56 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentSchedule</returns>
-        public PaymentSchedule GetPaymentSchedule (string paymentScheduleId, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public PaymentSchedule GetPaymentSchedule(string paymentScheduleId, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'paymentScheduleId' is set
             if (paymentScheduleId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleId' when calling GetPaymentSchedule");
-    
+
             var path = "/payment_schedules/{payment_schedule_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_id" + "}", ApiClient.ParameterToString(paymentScheduleId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentSchedule: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling GetPaymentSchedule: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetPaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (PaymentSchedule) ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
+                throw new ApiException((int)response.StatusCode, "Error calling GetPaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (PaymentSchedule)ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
         }
-    
+
+        /// <summary>
+        /// Sets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public void SetBasePath(String basePath)
+        {
+            this.ApiClient.BasePath = basePath;
+        }
+
         /// <summary>
         /// Update a payment schedule Updates the specified payment schedule by setting the values of the parameters passed. Any parameters not provided will remain unchanged.
         /// </summary>
@@ -251,49 +248,48 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentSchedule</returns>
-        public PaymentSchedule UpdatePaymentSchedule (PaymentSchedulePatchRequest body, string paymentScheduleId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize)
+        public PaymentSchedule UpdatePaymentSchedule(PaymentSchedulePatchRequest body, string paymentScheduleId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling UpdatePaymentSchedule");
             // verify the required parameter 'paymentScheduleId' is set
             if (paymentScheduleId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleId' when calling UpdatePaymentSchedule");
-    
+
             var path = "/payment_schedules/{payment_schedule_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_id" + "}", ApiClient.ParameterToString(paymentScheduleId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (paymentScheduleItemFields != null) queryParams.Add("payment_schedule_item.fields[]", ApiClient.ParameterToString(paymentScheduleItemFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling UpdatePaymentSchedule: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling UpdatePaymentSchedule: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling UpdatePaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (PaymentSchedule) ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
+                throw new ApiException((int)response.StatusCode, "Error calling UpdatePaymentSchedule: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (PaymentSchedule)ApiClient.Deserialize(response.Content, typeof(PaymentSchedule));
         }
-    
     }
 }

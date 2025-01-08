@@ -23,6 +23,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>BillRunPreview</returns>
         BillRunPreview CreateBillRunPreview(BillRunPreviewCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Retrieve a bill run preview Retrieves the bill run preview information with the given ID.
         /// </summary>

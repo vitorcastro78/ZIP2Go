@@ -29,6 +29,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Order</returns>
         Order ActivateOrder(string orderId, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Cancel an order Cancels a draft order.
         /// </summary>
@@ -52,6 +53,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>OrderCancelResponse</returns>
         OrderCancelResponse CancelOrder(OrderCancellationRequest body, string orderId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Create an order You can use this operation to create subscriptions and make changes to existing subscriptions. You can also use this operation to create order line items.      &lt;p&gt; Note that the following limitations apply to this operation:      &lt;ul&gt;       &lt;li&gt;Up to 50 subscriptions are allowed in a single call.&lt;/li&gt;      &lt;li&gt;Up to 100 order line items are allowed in an order.&lt;/li&gt;       &lt;li&gt;Up to 1000 orders are allowed on a subscription.&lt;/li&gt;      &lt;/ul&gt;
         /// </summary>
@@ -74,6 +76,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Order</returns>
         Order CreateOrder(OrderCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Preview an order Retrieves the preview of the order delta metrics and invoice items of a specified order. Preview for subscriptions and order line items are both supported. This operation is only an order preview and no order is created.       &lt;p&gt; Note that the following limitations apply to this operation:      &lt;ul&gt;       &lt;li&gt;Up to 50 subscriptions are allowed in a single call.&lt;/li&gt;       &lt;li&gt;Up to 100 order line items are allowed in an order preview.&lt;/li&gt;       &lt;/ul&gt;
         /// </summary>
@@ -86,6 +89,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>OrderPreviewResponse</returns>
         OrderPreviewResponse CreateOrderPreview(OrderPreviewCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Delete an order Deletes an order.
         /// </summary>
@@ -98,6 +102,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeleteOrder(string orderId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve an order Use this operation to retrieve the detailed information about a specific order.
         /// </summary>
@@ -119,6 +124,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Order</returns>
         Order GetOrder(string orderId, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List orders Lists all or a subset of orders in your tenant.
         /// </summary>

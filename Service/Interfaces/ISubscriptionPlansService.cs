@@ -28,6 +28,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlan</returns>
         SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List subscription plans Returns a dictionary with a data property that contains an array of subscription plans, starting after cursor. Each entry in the array is a separate  object. If no more  are available, the resulting array will be empty. This request should never return an error.
         /// </summary>

@@ -23,6 +23,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>FulfillmentItem</returns>
         FulfillmentItem CreateFulfillmentItem(FulfillmentItemCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Create fulfillment items Bulk create fulfillment items.
         /// </summary>
@@ -39,6 +40,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>FulfillmentItemCreateBulkResponse</returns>
         FulfillmentItemCreateBulkResponse CreateFulfillmentItems(FulfillmentItemCreateBulkRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete a fulfillment item Permanently deletes a fulfillment item. This operation cannot be undone.
         /// </summary>
@@ -51,6 +53,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeleteFulfillmentItem(string fulfillmentItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve a fulfillment item Retrieves the fulfillment item with the given ID.
         /// </summary>
@@ -66,6 +69,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>FulfillmentItem</returns>
         FulfillmentItem GetFulfillmentItem(string fulfillmentItemId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List fulfillment items Returns a dictionary with a data property that contains an array of fulfillment items, starting after the cursor, if used. Each entry in the array is a separate fulfillment item object. If no more fulfillment item are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -82,6 +86,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>FilfillmentItemListResponse</returns>
         FilfillmentItemListResponse GetFulfillmentItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a fulfillment item Updates the specified fulfillment item by setting the values of the fields passed. Any fields not provided remain unchanged.
         /// </summary>

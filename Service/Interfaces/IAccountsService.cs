@@ -43,6 +43,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Account</returns>
         Account CreateAccount(AccountCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete an account Permanently Deletes an account. It cannot be undone.
         /// </summary>
@@ -55,6 +56,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeleteAccount(string accountId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Generate billing documents for an account Creates billing documents for an account.
         /// </summary>
@@ -68,6 +70,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>GenerateBillingDocumentsAccountResponse</returns>
         GenerateBillingDocumentsAccountResponse GenerateBillingDocuments(GenerateBillingDocumentsAccountRequest body, string accountId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve an account Retrieves the account with the given ID.
         /// </summary>
@@ -101,6 +104,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Account</returns>
         Account GetAccount(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List accounts Returns a dictionary with a data property that contains an array of accounts, starting after the cursor, if used. Each entry in the array is a separate account object. If no more accounts are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -135,6 +139,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>ListAccountResponse</returns>
         ListAccountResponse GetAccounts(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Preview an account Generates a preview of future invoice and credit memo items for a customer account.              Previewing a customer account shows you how much a single customer will be invoiced from the most recent invoice to a specific end of term date in the future.      &lt;br/&gt;      Previewing a customer account only calculates taxes for charges if you use &lt;a href&#x3D;&#x27;https://knowledgecenter.zuora.com/Billing/Taxes/A_Zuora_Tax&#x27; target&#x3D;&#x27;_blank&#x27;&gt;Zuora Tax&lt;/a&gt; and the price associated with the invoice item is tax inclusive; otherwise, it does not calculate taxes.
         /// </summary>
@@ -148,6 +153,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>AccountPreviewResponse</returns>
         AccountPreviewResponse PreviewAccount(AccountPreviewRequest body, string accountId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update an account Updates the specified account by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         /// </summary>

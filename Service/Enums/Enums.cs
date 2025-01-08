@@ -1,5 +1,5 @@
-﻿using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace ZIP2Go.Service.Enums
 {
@@ -938,11 +938,339 @@ namespace ZIP2Go.Service.Enums
     }
 
     /// <summary>
+    /// Represents the overage type: one of rolling_window or rollover.
+    /// </summary>
+    /// <value>Represents the overage type: one of rolling_window or rollover.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum OverageTypeEnum
+    {
+        /// <summary>
+        /// Enum RollingWindowEnum for rolling_window
+        /// </summary>
+        [EnumMember(Value = "rolling_window")]
+        RollingWindowEnum = 0,
+
+        /// <summary>
+        /// Enum RolloverEnum for rollover
+        /// </summary>
+        [EnumMember(Value = "rollover")]
+        RolloverEnum = 1
+    }
+
+    /// <summary>
+    /// Can be either the end of the current billing period or a specific date.
+    /// </summary>
+    /// <value>Can be either the end of the current billing period or a specific date.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PauseAtEnum
+    {
+        /// <summary>
+        /// Enum InvoicePeriodEndEnum for invoice_period_end
+        /// </summary>
+        [EnumMember(Value = "invoice_period_end")]
+        InvoicePeriodEndEnum = 0
+    }
+
+    /// <summary>
+    /// Unit in which the pause duration is defined. One of day, week, month or year.
+    /// </summary>
+    /// <value>Unit in which the pause duration is defined. One of day, week, month or year.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PauseIntervalEnum
+    {
+        /// <summary>
+        /// Enum MonthEnum for month
+        /// </summary>
+        [EnumMember(Value = "month")]
+        MonthEnum = 0,
+
+        /// <summary>
+        /// Enum DayEnum for day
+        /// </summary>
+        [EnumMember(Value = "day")]
+        DayEnum = 1,
+
+        /// <summary>
+        /// Enum YearEnum for year
+        /// </summary>
+        [EnumMember(Value = "year")]
+        YearEnum = 2,
+
+        /// <summary>
+        /// Enum WeekEnum for week
+        /// </summary>
+        [EnumMember(Value = "week")]
+        WeekEnum = 3
+    }
+
+    /// <summary>
+    /// The payment gateway state of the payment.
+    /// </summary>
+    /// <value>The payment gateway state of the payment.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PaymentGatewayStateEnum
+    {
+        /// <summary>
+        /// Enum MarkedForSubmissionEnum for marked_for_submission
+        /// </summary>
+        [EnumMember(Value = "marked_for_submission")]
+        MarkedForSubmissionEnum = 0,
+
+        /// <summary>
+        /// Enum SubmittedEnum for submitted
+        /// </summary>
+        [EnumMember(Value = "submitted")]
+        SubmittedEnum = 1,
+
+        /// <summary>
+        /// Enum SettledEnum for settled
+        /// </summary>
+        [EnumMember(Value = "settled")]
+        SettledEnum = 2,
+
+        /// <summary>
+        /// Enum NotSubmittedEnum for not_submitted
+        /// </summary>
+        [EnumMember(Value = "not_submitted")]
+        NotSubmittedEnum = 3,
+
+        /// <summary>
+        /// Enum FailedEnum for failed
+        /// </summary>
+        [EnumMember(Value = "failed")]
+        FailedEnum = 4
+    }
+
+    /// <summary>
+    /// The status of the payment authorization.
+    /// </summary>
+    /// <value>The status of the payment authorization.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PaymentMethodAuthorizationStateEnum
+    {
+        /// <summary>
+        /// Enum ApprovedEnum for approved
+        /// </summary>
+        [EnumMember(Value = "approved")]
+        ApprovedEnum = 0,
+
+        /// <summary>
+        /// Enum QueuedForSubmissionEnum for queued_for_submission
+        /// </summary>
+        [EnumMember(Value = "queued_for_submission")]
+        QueuedForSubmissionEnum = 1
+    }
+
+    /// <summary>
+    /// The state of the payment method.
+    /// </summary>
+    /// <value>The state of the payment method.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PaymentMethodStateEnum
+    {
+        /// <summary>
+        /// Enum ActiveEnum for active
+        /// </summary>
+        [EnumMember(Value = "active")]
+        ActiveEnum = 0,
+
+        /// <summary>
+        /// Enum ClosedEnum for closed
+        /// </summary>
+        [EnumMember(Value = "closed")]
+        ClosedEnum = 1,
+
+        /// <summary>
+        /// Enum ScrubbedEnum for scrubbed
+        /// </summary>
+        [EnumMember(Value = "scrubbed")]
+        ScrubbedEnum = 2
+    }
+
+    /// <summary>
     /// The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.
     /// </summary>
     /// <value>The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.</value>
     [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
     public enum PaymentMethodTypeEnum
+    {
+        /// <summary>
+        /// Enum PaypalExpressEnum for paypal_express
+        /// </summary>
+        [EnumMember(Value = "paypal_express")]
+        PaypalExpressEnum = 0,
+
+        /// <summary>
+        /// Enum PaypalExpressNativeEnum for paypal_express_native
+        /// </summary>
+        [EnumMember(Value = "paypal_express_native")]
+        PaypalExpressNativeEnum = 1,
+
+        /// <summary>
+        /// Enum PaypalAdaptiveEnum for paypal_adaptive
+        /// </summary>
+        [EnumMember(Value = "paypal_adaptive")]
+        PaypalAdaptiveEnum = 2,
+
+        /// <summary>
+        /// Enum CardEnum for card
+        /// </summary>
+        [EnumMember(Value = "card")]
+        CardEnum = 3,
+
+        /// <summary>
+        /// Enum CcRefEnum for cc_ref
+        /// </summary>
+        [EnumMember(Value = "cc_ref")]
+        CcRefEnum = 4,
+
+        /// <summary>
+        /// Enum AchDebitEnum for ach_debit
+        /// </summary>
+        [EnumMember(Value = "ach_debit")]
+        AchDebitEnum = 5,
+
+        /// <summary>
+        /// Enum SepaDebitEnum for sepa_debit
+        /// </summary>
+        [EnumMember(Value = "sepa_debit")]
+        SepaDebitEnum = 6,
+
+        /// <summary>
+        /// Enum BetalingsDebitEnum for betalings_debit
+        /// </summary>
+        [EnumMember(Value = "betalings_debit")]
+        BetalingsDebitEnum = 7,
+
+        /// <summary>
+        /// Enum AutogiroDebitEnum for autogiro_debit
+        /// </summary>
+        [EnumMember(Value = "autogiro_debit")]
+        AutogiroDebitEnum = 8,
+
+        /// <summary>
+        /// Enum BacsDebitEnum for bacs_debit
+        /// </summary>
+        [EnumMember(Value = "bacs_debit")]
+        BacsDebitEnum = 9,
+
+        /// <summary>
+        /// Enum AuBecsDebitEnum for au_becs_debit
+        /// </summary>
+        [EnumMember(Value = "au_becs_debit")]
+        AuBecsDebitEnum = 10,
+
+        /// <summary>
+        /// Enum NzBecsDebitEnum for nz_becs_debit
+        /// </summary>
+        [EnumMember(Value = "nz_becs_debit")]
+        NzBecsDebitEnum = 11,
+
+        /// <summary>
+        /// Enum PadDebitEnum for pad_debit
+        /// </summary>
+        [EnumMember(Value = "pad_debit")]
+        PadDebitEnum = 12,
+
+        /// <summary>
+        /// Enum ApplePayEnum for apple_pay
+        /// </summary>
+        [EnumMember(Value = "apple_pay")]
+        ApplePayEnum = 13,
+
+        /// <summary>
+        /// Enum WireTransferEnum for wire_transfer
+        /// </summary>
+        [EnumMember(Value = "wire_transfer")]
+        WireTransferEnum = 14,
+
+        /// <summary>
+        /// Enum CheckEnum for check
+        /// </summary>
+        [EnumMember(Value = "check")]
+        CheckEnum = 15,
+
+        /// <summary>
+        /// Enum CashEnum for cash
+        /// </summary>
+        [EnumMember(Value = "cash")]
+        CashEnum = 16,
+
+        /// <summary>
+        /// Enum OtherEnum for other
+        /// </summary>
+        [EnumMember(Value = "other")]
+        OtherEnum = 17,
+
+        /// <summary>
+        /// Enum PaypalEnum for paypal
+        /// </summary>
+        [EnumMember(Value = "paypal")]
+        PaypalEnum = 18,
+
+        /// <summary>
+        /// Enum AdyenGooglePayEnum for adyen_google_pay
+        /// </summary>
+        [EnumMember(Value = "adyen_google_pay")]
+        AdyenGooglePayEnum = 19,
+
+        /// <summary>
+        /// Enum AdyenApplePayEnum for adyen_apple_pay
+        /// </summary>
+        [EnumMember(Value = "adyen_apple_pay")]
+        AdyenApplePayEnum = 20
+    }
+
+    /// <summary>
+    /// The state of the payment.
+    /// </summary>
+    /// <value>The state of the payment.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PaymentStateEnum
+    {
+        /// <summary>
+        /// Enum DraftEnum for draft
+        /// </summary>
+        [EnumMember(Value = "draft")]
+        DraftEnum = 0,
+
+        /// <summary>
+        /// Enum PostedEnum for posted
+        /// </summary>
+        [EnumMember(Value = "posted")]
+        PostedEnum = 1,
+
+        /// <summary>
+        /// Enum ProcessingEnum for processing
+        /// </summary>
+        [EnumMember(Value = "processing")]
+        ProcessingEnum = 2,
+
+        /// <summary>
+        /// Enum ProcessedEnum for processed
+        /// </summary>
+        [EnumMember(Value = "processed")]
+        ProcessedEnum = 3,
+
+        /// <summary>
+        /// Enum ErrorEnum for error
+        /// </summary>
+        [EnumMember(Value = "error")]
+        ErrorEnum = 4,
+
+        /// <summary>
+        /// Enum CanceledEnum for canceled
+        /// </summary>
+        [EnumMember(Value = "canceled")]
+        CanceledEnum = 5
+    }
+
+    /// <summary>
+    /// The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.
+    /// </summary>
+    /// <value>The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.</value>
+    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+    public enum PaymentTypeEnum
     {
         /// <summary>
         /// Enum PaypalExpressEnum for paypal_express
@@ -1120,298 +1448,5 @@ namespace ZIP2Go.Service.Enums
         /// </summary>
         [EnumMember(Value = "single_use")]
         SingleUseEnum = 1
-    }
-
-    /// <summary>
-    /// Represents the overage type: one of rolling_window or rollover.
-    /// </summary>
-    /// <value>Represents the overage type: one of rolling_window or rollover.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum OverageTypeEnum
-    {
-        /// <summary>
-        /// Enum RollingWindowEnum for rolling_window
-        /// </summary>
-        [EnumMember(Value = "rolling_window")]
-        RollingWindowEnum = 0,
-        /// <summary>
-        /// Enum RolloverEnum for rollover
-        /// </summary>
-        [EnumMember(Value = "rollover")]
-        RolloverEnum = 1
-    }
-
-    /// <summary>
-    /// Can be either the end of the current billing period or a specific date.
-    /// </summary>
-    /// <value>Can be either the end of the current billing period or a specific date.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PauseAtEnum
-    {
-        /// <summary>
-        /// Enum InvoicePeriodEndEnum for invoice_period_end
-        /// </summary>
-        [EnumMember(Value = "invoice_period_end")]
-        InvoicePeriodEndEnum = 0
-    }
-
-    /// <summary>
-    /// Unit in which the pause duration is defined. One of day, week, month or year.
-    /// </summary>
-    /// <value>Unit in which the pause duration is defined. One of day, week, month or year.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PauseIntervalEnum
-    {
-        /// <summary>
-        /// Enum MonthEnum for month
-        /// </summary>
-        [EnumMember(Value = "month")]
-        MonthEnum = 0,
-        /// <summary>
-        /// Enum DayEnum for day
-        /// </summary>
-        [EnumMember(Value = "day")]
-        DayEnum = 1,
-        /// <summary>
-        /// Enum YearEnum for year
-        /// </summary>
-        [EnumMember(Value = "year")]
-        YearEnum = 2,
-        /// <summary>
-        /// Enum WeekEnum for week
-        /// </summary>
-        [EnumMember(Value = "week")]
-        WeekEnum = 3
-    }
-
-    /// <summary>
-    /// The state of the payment.
-    /// </summary>
-    /// <value>The state of the payment.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PaymentStateEnum
-    {
-        /// <summary>
-        /// Enum DraftEnum for draft
-        /// </summary>
-        [EnumMember(Value = "draft")]
-        DraftEnum = 0,
-        /// <summary>
-        /// Enum PostedEnum for posted
-        /// </summary>
-        [EnumMember(Value = "posted")]
-        PostedEnum = 1,
-        /// <summary>
-        /// Enum ProcessingEnum for processing
-        /// </summary>
-        [EnumMember(Value = "processing")]
-        ProcessingEnum = 2,
-        /// <summary>
-        /// Enum ProcessedEnum for processed
-        /// </summary>
-        [EnumMember(Value = "processed")]
-        ProcessedEnum = 3,
-        /// <summary>
-        /// Enum ErrorEnum for error
-        /// </summary>
-        [EnumMember(Value = "error")]
-        ErrorEnum = 4,
-        /// <summary>
-        /// Enum CanceledEnum for canceled
-        /// </summary>
-        [EnumMember(Value = "canceled")]
-        CanceledEnum = 5
-    }
-
-    /// <summary>
-    /// The payment gateway state of the payment.
-    /// </summary>
-    /// <value>The payment gateway state of the payment.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PaymentGatewayStateEnum
-    {
-        /// <summary>
-        /// Enum MarkedForSubmissionEnum for marked_for_submission
-        /// </summary>
-        [EnumMember(Value = "marked_for_submission")]
-        MarkedForSubmissionEnum = 0,
-        /// <summary>
-        /// Enum SubmittedEnum for submitted
-        /// </summary>
-        [EnumMember(Value = "submitted")]
-        SubmittedEnum = 1,
-        /// <summary>
-        /// Enum SettledEnum for settled
-        /// </summary>
-        [EnumMember(Value = "settled")]
-        SettledEnum = 2,
-        /// <summary>
-        /// Enum NotSubmittedEnum for not_submitted
-        /// </summary>
-        [EnumMember(Value = "not_submitted")]
-        NotSubmittedEnum = 3,
-        /// <summary>
-        /// Enum FailedEnum for failed
-        /// </summary>
-        [EnumMember(Value = "failed")]
-        FailedEnum = 4
-    }
-
-    /// <summary>
-    /// The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.
-    /// </summary>
-    /// <value>The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PaymentTypeEnum
-    {
-        /// <summary>
-        /// Enum PaypalExpressEnum for paypal_express
-        /// </summary>
-        [EnumMember(Value = "paypal_express")]
-        PaypalExpressEnum = 0,
-        /// <summary>
-        /// Enum PaypalExpressNativeEnum for paypal_express_native
-        /// </summary>
-        [EnumMember(Value = "paypal_express_native")]
-        PaypalExpressNativeEnum = 1,
-        /// <summary>
-        /// Enum PaypalAdaptiveEnum for paypal_adaptive
-        /// </summary>
-        [EnumMember(Value = "paypal_adaptive")]
-        PaypalAdaptiveEnum = 2,
-        /// <summary>
-        /// Enum CardEnum for card
-        /// </summary>
-        [EnumMember(Value = "card")]
-        CardEnum = 3,
-        /// <summary>
-        /// Enum CcRefEnum for cc_ref
-        /// </summary>
-        [EnumMember(Value = "cc_ref")]
-        CcRefEnum = 4,
-        /// <summary>
-        /// Enum AchDebitEnum for ach_debit
-        /// </summary>
-        [EnumMember(Value = "ach_debit")]
-        AchDebitEnum = 5,
-        /// <summary>
-        /// Enum SepaDebitEnum for sepa_debit
-        /// </summary>
-        [EnumMember(Value = "sepa_debit")]
-        SepaDebitEnum = 6,
-        /// <summary>
-        /// Enum BetalingsDebitEnum for betalings_debit
-        /// </summary>
-        [EnumMember(Value = "betalings_debit")]
-        BetalingsDebitEnum = 7,
-        /// <summary>
-        /// Enum AutogiroDebitEnum for autogiro_debit
-        /// </summary>
-        [EnumMember(Value = "autogiro_debit")]
-        AutogiroDebitEnum = 8,
-        /// <summary>
-        /// Enum BacsDebitEnum for bacs_debit
-        /// </summary>
-        [EnumMember(Value = "bacs_debit")]
-        BacsDebitEnum = 9,
-        /// <summary>
-        /// Enum AuBecsDebitEnum for au_becs_debit
-        /// </summary>
-        [EnumMember(Value = "au_becs_debit")]
-        AuBecsDebitEnum = 10,
-        /// <summary>
-        /// Enum NzBecsDebitEnum for nz_becs_debit
-        /// </summary>
-        [EnumMember(Value = "nz_becs_debit")]
-        NzBecsDebitEnum = 11,
-        /// <summary>
-        /// Enum PadDebitEnum for pad_debit
-        /// </summary>
-        [EnumMember(Value = "pad_debit")]
-        PadDebitEnum = 12,
-        /// <summary>
-        /// Enum ApplePayEnum for apple_pay
-        /// </summary>
-        [EnumMember(Value = "apple_pay")]
-        ApplePayEnum = 13,
-        /// <summary>
-        /// Enum WireTransferEnum for wire_transfer
-        /// </summary>
-        [EnumMember(Value = "wire_transfer")]
-        WireTransferEnum = 14,
-        /// <summary>
-        /// Enum CheckEnum for check
-        /// </summary>
-        [EnumMember(Value = "check")]
-        CheckEnum = 15,
-        /// <summary>
-        /// Enum CashEnum for cash
-        /// </summary>
-        [EnumMember(Value = "cash")]
-        CashEnum = 16,
-        /// <summary>
-        /// Enum OtherEnum for other
-        /// </summary>
-        [EnumMember(Value = "other")]
-        OtherEnum = 17,
-        /// <summary>
-        /// Enum PaypalEnum for paypal
-        /// </summary>
-        [EnumMember(Value = "paypal")]
-        PaypalEnum = 18,
-        /// <summary>
-        /// Enum AdyenGooglePayEnum for adyen_google_pay
-        /// </summary>
-        [EnumMember(Value = "adyen_google_pay")]
-        AdyenGooglePayEnum = 19,
-        /// <summary>
-        /// Enum AdyenApplePayEnum for adyen_apple_pay
-        /// </summary>
-        [EnumMember(Value = "adyen_apple_pay")]
-        AdyenApplePayEnum = 20
-    }
-
-    /// <summary>
-    /// The state of the payment method.
-    /// </summary>
-    /// <value>The state of the payment method.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PaymentMethodStateEnum
-    {
-        /// <summary>
-        /// Enum ActiveEnum for active
-        /// </summary>
-        [EnumMember(Value = "active")]
-        ActiveEnum = 0,
-        /// <summary>
-        /// Enum ClosedEnum for closed
-        /// </summary>
-        [EnumMember(Value = "closed")]
-        ClosedEnum = 1,
-        /// <summary>
-        /// Enum ScrubbedEnum for scrubbed
-        /// </summary>
-        [EnumMember(Value = "scrubbed")]
-        ScrubbedEnum = 2
-    }
-
-
-    /// <summary>
-    /// The status of the payment authorization.
-    /// </summary>
-    /// <value>The status of the payment authorization.</value>
-    [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-    public enum PaymentMethodAuthorizationStateEnum
-    {
-        /// <summary>
-        /// Enum ApprovedEnum for approved
-        /// </summary>
-        [EnumMember(Value = "approved")]
-        ApprovedEnum = 0,
-        /// <summary>
-        /// Enum QueuedForSubmissionEnum for queued_for_submission
-        /// </summary>
-        [EnumMember(Value = "queued_for_submission")]
-        QueuedForSubmissionEnum = 1
     }
 }

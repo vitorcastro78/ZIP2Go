@@ -24,6 +24,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>BillingDocument</returns>
         BillingDocument GetBillingDocument(string billingDocumentId, List<string> fields, List<string> billingDocumentItemsFields, List<string> taxationItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List billing documents Returns a dictionary with a data property that contains an array of billing documents, starting after cursor. Each entry in the array is a separate billing document object. If no more billing documents are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -42,6 +43,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>BillingDocumentListResponse</returns>
         BillingDocumentListResponse GetBillingDocuments(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> billingDocumentItemsFields, List<string> taxationItemsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Create a billing document Creates different types of billing document objects, including invoices, credit memos, and debit memos.
         /// </summary>

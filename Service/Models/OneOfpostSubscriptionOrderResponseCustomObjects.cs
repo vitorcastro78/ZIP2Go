@@ -5,32 +5,33 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace ZIP2Go.Models {
-
-  /// <summary>
-  /// 
-  /// </summary>
-  [DataContract]
-  public class OneOfpostSubscriptionOrderResponseCustomObjects {
-
+namespace ZIP2Go.Models
+{
     /// <summary>
-    /// Get the string presentation of the object
+    ///
     /// </summary>
-    /// <returns>String presentation of the object</returns>
-    public override string ToString()  {
-      var sb = new StringBuilder();
-      sb.Append("class OneOfpostSubscriptionOrderResponseCustomObjects {\n");
-      sb.Append("}\n");
-      return sb.ToString();
-    }
+    [DataContract]
+    public class OneOfpostSubscriptionOrderResponseCustomObjects
+    {
+        /// <summary>
+        /// Get the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
-    /// <summary>
-    /// Get the JSON string presentation of the object
-    /// </summary>
-    /// <returns>JSON string presentation of the object</returns>
-    public string ToJson() {
-      return JsonConvert.SerializeObject(this, Formatting.Indented);
+        /// <summary>
+        /// Get the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class OneOfpostSubscriptionOrderResponseCustomObjects {\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
     }
-
-}
 }

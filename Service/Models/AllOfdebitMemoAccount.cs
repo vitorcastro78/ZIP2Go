@@ -1,36 +1,34 @@
-using System;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
+using System.Text;
 
-namespace ZIP2Go.Models {
-
-  /// <summary>
-  /// The account that owns the billing document. EXPANDABLE
-  /// </summary>
-  [DataContract]
-  public class AllOfdebitMemoAccount : Account {
-
+namespace ZIP2Go.Models
+{
     /// <summary>
-    /// Get the string presentation of the object
+    /// The account that owns the billing document. EXPANDABLE
     /// </summary>
-    /// <returns>String presentation of the object</returns>
-    public override string ToString()  {
-      var sb = new StringBuilder();
-      sb.Append("class AllOfdebitMemoAccount {\n");
-      sb.Append("}\n");
-      return sb.ToString();
-    }
+    [DataContract]
+    public class AllOfdebitMemoAccount : Account
+    {
+        /// <summary>
+        /// Get the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public new string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
 
-    /// <summary>
-    /// Get the JSON string presentation of the object
-    /// </summary>
-    /// <returns>JSON string presentation of the object</returns>
-    public  new string ToJson() {
-      return JsonConvert.SerializeObject(this, Formatting.Indented);
+        /// <summary>
+        /// Get the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class AllOfdebitMemoAccount {\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
     }
-
-}
 }

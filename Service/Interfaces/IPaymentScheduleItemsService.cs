@@ -24,6 +24,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentScheduleItem</returns>
         PaymentScheduleItem CancelPaymentScheduleItem(string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Create a payment schedule item Creates a new Payment Schedule Item object.
         /// </summary>
@@ -41,6 +42,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentScheduleItem</returns>
         PaymentScheduleItem CreatePaymentScheduleItem(PaymentScheduleItemCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Retrieve a payment schedule item Retrieves the payment schedule item with the given ID.
         /// </summary>
@@ -57,6 +59,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentScheduleItem</returns>
         PaymentScheduleItem GetPaymentScheduleItem(string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retry a payment shedule item Retries the payment schedule item with the given ID.
         /// </summary>
@@ -75,6 +78,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>PaymentScheduleItem</returns>
         PaymentScheduleItem RetryPaymentScheduleItem(PaymentScheduleItemRetry body, string paymentScheduleItemId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Skip a payment schedule item Skips the payment schedule item with the given ID.
         /// </summary>
@@ -92,6 +96,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentScheduleItem</returns>
         PaymentScheduleItem SkipPaymentScheduleItem(string paymentScheduleItemId, List<string> fields, List<string> paymentScheduleFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a payment schedule item Updates the specified payment schedule item by setting the values of the parameters passed. Any parameters not provided will remain unchanged.
         /// </summary>

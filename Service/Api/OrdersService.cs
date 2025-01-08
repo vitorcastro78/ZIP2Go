@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2Go.Client;
@@ -7,7 +5,6 @@ using ZIP2Go.Models;
 
 namespace ZIP2Go.Service
 {
-
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
@@ -21,11 +18,11 @@ namespace ZIP2Go.Service
         public OrdersService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient; 
+                this.ApiClient = Configuration.DefaultApiClient;
             else
                 this.ApiClient = apiClient;
         }
-    
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OrdersService"/> class.
         /// </summary>
@@ -34,33 +31,13 @@ namespace ZIP2Go.Service
         {
             this.ApiClient = new ApiClient(basePath);
         }
-    
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(String basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
-    
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public String GetBasePath(String basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
-    
+
         /// <summary>
         /// Gets or sets the API client.
         /// </summary>
         /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient {get; set;}
-    
+        public ApiClient ApiClient { get; set; }
+
         /// <summary>
         /// Activate an order Activates a draft order.
         /// </summary>
@@ -82,52 +59,52 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Order</returns>
-        public Order ActivateOrder (string orderId, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public Order ActivateOrder(string orderId, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling ActivateOrder");
-    
+
             var path = "/orders/{order_id}/activate";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", ApiClient.ParameterToString(orderId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
- if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
- if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
- if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
- if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
- if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
+            if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
+            if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling ActivateOrder: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling ActivateOrder: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling ActivateOrder: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (Order) ApiClient.Deserialize(response.Content, typeof(Order));
+                throw new ApiException((int)response.StatusCode, "Error calling ActivateOrder: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (Order)ApiClient.Deserialize(response.Content, typeof(Order));
         }
-    
+
         /// <summary>
         /// Cancel an order Cancels a draft order.
         /// </summary>
@@ -150,55 +127,55 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>OrderCancelResponse</returns>
-        public OrderCancelResponse CancelOrder (OrderCancellationRequest body, string orderId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize)
+        public OrderCancelResponse CancelOrder(OrderCancellationRequest body, string orderId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CancelOrder");
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling CancelOrder");
-    
+
             var path = "/orders/{order_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", ApiClient.ParameterToString(orderId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
- if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
- if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
- if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
- if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
- if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
+            if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
+            if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CancelOrder: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling CancelOrder: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CancelOrder: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (OrderCancelResponse) ApiClient.Deserialize(response.Content, typeof(OrderCancelResponse));
+                throw new ApiException((int)response.StatusCode, "Error calling CancelOrder: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (OrderCancelResponse)ApiClient.Deserialize(response.Content, typeof(OrderCancelResponse));
         }
-    
+
         /// <summary>
         /// Create an order You can use this operation to create subscriptions and make changes to existing subscriptions. You can also use this operation to create order line items.      &lt;p&gt; Note that the following limitations apply to this operation:      &lt;ul&gt;       &lt;li&gt;Up to 50 subscriptions are allowed in a single call.&lt;/li&gt;      &lt;li&gt;Up to 100 order line items are allowed in an order.&lt;/li&gt;       &lt;li&gt;Up to 1000 orders are allowed on a subscription.&lt;/li&gt;      &lt;/ul&gt;
         /// </summary>
@@ -220,52 +197,52 @@ namespace ZIP2Go.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Order</returns>
-        public Order CreateOrder (OrderCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Order CreateOrder(OrderCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateOrder");
-    
+
             var path = "/orders";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
- if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
- if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
- if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
- if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
- if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
+            if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
+            if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreateOrder: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling CreateOrder: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreateOrder: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (Order) ApiClient.Deserialize(response.Content, typeof(Order));
+                throw new ApiException((int)response.StatusCode, "Error calling CreateOrder: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (Order)ApiClient.Deserialize(response.Content, typeof(Order));
         }
-    
+
         /// <summary>
         /// Preview an order Retrieves the preview of the order delta metrics and invoice items of a specified order. Preview for subscriptions and order line items are both supported. This operation is only an order preview and no order is created.       &lt;p&gt; Note that the following limitations apply to this operation:      &lt;ul&gt;       &lt;li&gt;Up to 50 subscriptions are allowed in a single call.&lt;/li&gt;       &lt;li&gt;Up to 100 order line items are allowed in an order preview.&lt;/li&gt;       &lt;/ul&gt;
         /// </summary>
@@ -277,42 +254,42 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>OrderPreviewResponse</returns>
-        public OrderPreviewResponse CreateOrderPreview (OrderPreviewCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public OrderPreviewResponse CreateOrderPreview(OrderPreviewCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateOrderPreview");
-    
+
             var path = "/orders/preview";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-                         if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreateOrderPreview: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling CreateOrderPreview: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling CreateOrderPreview: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (OrderPreviewResponse) ApiClient.Deserialize(response.Content, typeof(OrderPreviewResponse));
+                throw new ApiException((int)response.StatusCode, "Error calling CreateOrderPreview: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (OrderPreviewResponse)ApiClient.Deserialize(response.Content, typeof(OrderPreviewResponse));
         }
-    
+
         /// <summary>
         /// Delete an order Deletes an order.
         /// </summary>
@@ -324,42 +301,52 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
-        public void DeleteOrder (string orderId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public void DeleteOrder(string orderId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling DeleteOrder");
-    
+
             var path = "/orders/{order_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", ApiClient.ParameterToString(orderId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-                         if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteOrder: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling DeleteOrder: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling DeleteOrder: " + response.ErrorMessage, response.ErrorMessage);
-    
+                throw new ApiException((int)response.StatusCode, "Error calling DeleteOrder: " + response.ErrorMessage, response.ErrorMessage);
+
             return;
         }
-    
+
+        /// <summary>
+        /// Gets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public String GetBasePath(String basePath)
+        {
+            return this.ApiClient.BasePath;
+        }
+
         /// <summary>
         /// Retrieve an order Use this operation to retrieve the detailed information about a specific order.
         /// </summary>
@@ -380,51 +367,51 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Order</returns>
-        public Order GetOrder (string orderId, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public Order GetOrder(string orderId, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling GetOrder");
-    
+
             var path = "/orders/{order_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", ApiClient.ParameterToString(orderId));
-    
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
- if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
- if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
- if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
- if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
- if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
+            if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
+            if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetOrder: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling GetOrder: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetOrder: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (Order) ApiClient.Deserialize(response.Content, typeof(Order));
+                throw new ApiException((int)response.StatusCode, "Error calling GetOrder: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (Order)ApiClient.Deserialize(response.Content, typeof(Order));
         }
-    
+
         /// <summary>
         /// List orders Lists all or a subset of orders in your tenant.
         /// </summary>
@@ -446,49 +433,57 @@ namespace ZIP2Go.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>OrderListResponse</returns>
-        public OrderListResponse GetOrders (string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public OrderListResponse GetOrders(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
-    
             var path = "/orders";
             path = path.Replace("{format}", "json");
-                
+
             var queryParams = new Dictionary<String, String>();
             var headerParams = new Dictionary<String, String>();
             var formParams = new Dictionary<String, String>();
             var fileParams = new Dictionary<String, FileParameter>();
             String postBody = null;
-    
-             if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
- if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
- if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
- if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
- if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
- if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
- if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
- if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
- if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
- if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
- if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
- if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
-             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
- if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
- if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
- if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
- if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
-            
+
+            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (orderActionsFields != null) queryParams.Add("order_actions.fields[]", ApiClient.ParameterToString(orderActionsFields)); // query parameter
+            if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
+            if (lineItemsFields != null) queryParams.Add("line_items.fields[]", ApiClient.ParameterToString(lineItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
+            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
+            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
+            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+
             // authentication setting, if any
             String[] authSettings = new String[] { "bearerAuth" };
-    
+
             // make the HTTP request
-            RestResponse response = (RestResponse) ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
-    
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+
             if (((int)response.StatusCode) >= 400)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetOrders: " + response.Content, response.Content);
+                throw new ApiException((int)response.StatusCode, "Error calling GetOrders: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
-                throw new ApiException ((int)response.StatusCode, "Error calling GetOrders: " + response.ErrorMessage, response.ErrorMessage);
-    
-            return (OrderListResponse) ApiClient.Deserialize(response.Content, typeof(OrderListResponse));
+                throw new ApiException((int)response.StatusCode, "Error calling GetOrders: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (OrderListResponse)ApiClient.Deserialize(response.Content, typeof(OrderListResponse));
         }
-    
+
+        /// <summary>
+        /// Sets the base path of the API client.
+        /// </summary>
+        /// <param name="basePath">The base path</param>
+        /// <value>The base path</value>
+        public void SetBasePath(String basePath)
+        {
+            this.ApiClient.BasePath = basePath;
+        }
     }
 }

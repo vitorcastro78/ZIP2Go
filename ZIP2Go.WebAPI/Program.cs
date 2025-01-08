@@ -39,10 +39,11 @@ static void ConfigureServices(IServiceCollection services)
     });
 
     // Adiciona serviços do framework
-    services.AddMvc(options => {
+    services.AddMvc(options =>
+    {
         //adicionado por instância
         options.Filters.Add(new ActionFilter());
-        //adicionado por tipo      
+        //adicionado por tipo
     });
 }
 

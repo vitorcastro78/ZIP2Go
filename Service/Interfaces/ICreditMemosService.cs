@@ -29,6 +29,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>CreditMemo</returns>
         CreditMemo ApplyCreditMemo(ApplyUnapplyCreditMemo body, string creditMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Cancel a credit memo Cancels a credit memo. Only credit memos with the Draft status can be cancelled.
         /// </summary>
@@ -50,6 +51,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CreditMemo</returns>
         CreditMemo CancelCreditMemo(string creditMemoId, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Create a credit memo Creates a new credit memo.
         /// </summary>
@@ -71,6 +73,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>CreditMemo</returns>
         CreditMemo CreateCreditMemo(CreditMemoCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Delete a credit memo Permanently deletes a credit memo. This operation cannot be undone once it is performed.
         /// </summary>
@@ -83,6 +86,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
         void DeleteCreditMemo(string creditMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Retrieve a credit memo Retrieves the credit memo with the given ID.
         /// </summary>
@@ -103,6 +107,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CreditMemo</returns>
         CreditMemo GetCreditMemo(string creditMemoId, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List credit memo items Retrieves information about all items of credit memos. A credit memo item is a single line item in a credit memo.
         /// </summary>
@@ -120,6 +125,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CreditMemoItemListResponse</returns>
         CreditMemoItemListResponse GetCreditMemoItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// List credit memos Returns a dictionary with a data property that contains an array of credit memos, starting after cursor. Each entry in the array is a separate credit memo object. If no more credit memos are available, the resulting array will be empty. This request should never return an error.
         /// </summary>
@@ -141,6 +147,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CreditMemoListResponse</returns>
         CreditMemoListResponse GetCreditMemos(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Update a credit memo Updates a credit memo by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
         /// </summary>
@@ -163,6 +170,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>CreditMemo</returns>
         CreditMemo PatchCreditMemo(CreditMemoPatchRequest body, string creditMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Post a credit memo Opens a draft credit memo.
         /// </summary>
@@ -184,6 +192,7 @@ namespace Service.Interfaces
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CreditMemo</returns>
         CreditMemo PostCreditMemo(string creditMemoId, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+
         /// <summary>
         /// Unapply a credit memo Unapply an applied credit memo.
         /// </summary>
@@ -206,6 +215,7 @@ namespace Service.Interfaces
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>CreditMemo</returns>
         CreditMemo UnapplyCreditMemo(ApplyUnapplyCreditMemo body, string creditMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> appliedToFields, List<string> creditMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+
         /// <summary>
         /// Unpost a credit memo Unposts an open credit memo that has not been applied, and changes its &#x60;state&#x60; to &#x60;draft&#x60;.
         /// </summary>
