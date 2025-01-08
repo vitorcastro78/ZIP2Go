@@ -1,4 +1,5 @@
 using EasyCaching.SQLite;
+using Microsoft.AspNetCore.Builder;
 using Service.Interfaces;
 using ZIP2Go.Service;
 using ZIP2Go.WebAPI.Filters;
@@ -53,8 +54,16 @@ static void ConfigureWebApp(WebApplication app)
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(config =>
+        {
+            config.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object>
+            {
+                ["activated"] = false
+            };
+        });
     }
+    app.MapSwagger().RequireAuthorization();
+
 
     app.UseHttpsRedirection();
 
