@@ -46,7 +46,7 @@ namespace ZIP2GO.WebAPI.Filters
                         }
                     }
 
-                    // String Length [StringLength]
+                    // string Length [StringLength]
                     int? minLenght = null, maxLength = null;
                     var stringLengthAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(StringLengthAttribute));
                     if (stringLengthAttr != null)

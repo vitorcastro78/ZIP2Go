@@ -18,13 +18,13 @@ namespace ZIP2GO.Client
         private string acceptEncoding;
         private string contentEncoding;
 
-        private readonly Dictionary<String, String> _defaultHeaderMap = new Dictionary<String, String>();
+        private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath = "https://rest.sandbox.na.zuora.com/v2")
+        public ApiClient(string basePath = "https://rest.sandbox.na.zuora.com/v2")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
@@ -39,7 +39,7 @@ namespace ZIP2GO.Client
         /// <summary>
         /// Gets the default header.
         /// </summary>
-        public Dictionary<String, String> DefaultHeader
+        public Dictionary<string, string> DefaultHeader
         {
             get { return _defaultHeaderMap; }
         }
@@ -53,7 +53,7 @@ namespace ZIP2GO.Client
         /// <summary>
         /// Encode string in base64 format.
         /// </summary>
-        /// <param name="text">String to be encoded.</param>
+        /// <param name="text">string to be encoded.</param>
         /// <returns>Encoded string.</returns>
         public static string Base64Encode(string text)
         {
@@ -95,9 +95,9 @@ namespace ZIP2GO.Client
         /// <param name="fileParams">File parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
         /// <returns>Object</returns>
-        public Object CallApi(String path, RestSharp.Method method, Dictionary<String, String> queryParams, String postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, String[] authSettings)
+        public Object CallApi(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody,
+            Dictionary<string, string> headerParams, Dictionary<string, string> formParams,
+            Dictionary<string, FileParameter> fileParams, string[] authSettings)
         {
             var request = new RestRequest(path, method);
             var response = new Object();
@@ -137,9 +137,9 @@ namespace ZIP2GO.Client
 
         }
 
-        public T CallApi<T>(String path, RestSharp.Method method, Dictionary<String, String> queryParams, String postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, String[] authSettings)
+        public T CallApi<T>(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody,
+            Dictionary<string, string> headerParams, Dictionary<string, string> formParams,
+            Dictionary<string, FileParameter> fileParams, string[] authSettings)
         {
             var request = new RestRequest(path, method);
             var response = new Object();
@@ -191,7 +191,7 @@ namespace ZIP2GO.Client
 
             if (type == typeof(Stream))
             {
-                var filePath = String.IsNullOrEmpty(Configuration.TempFolderPath)
+                var filePath = string.IsNullOrEmpty(Configuration.TempFolderPath)
                     ? Path.GetTempPath()
                     : Configuration.TempFolderPath;
 
@@ -212,7 +212,7 @@ namespace ZIP2GO.Client
                 return DateTime.Parse(content, null, System.Globalization.DateTimeStyles.RoundtripKind);
             }
 
-            if (type == typeof(String) || type.Name.StartsWith("System.Nullable")) // return primitive type
+            if (type == typeof(string) || type.Name.StartsWith("System.Nullable")) // return primitive type
             {
                 return ConvertType(content, type);
             }
@@ -231,7 +231,7 @@ namespace ZIP2GO.Client
         /// <summary>
         /// Escape string (url-encoded).
         /// </summary>
-        /// <param name="str">String to be escaped.</param>
+        /// <param name="str">string to be escaped.</param>
         /// <returns>Escaped string.</returns>
         public string EscapeString(string str)
         {
@@ -284,7 +284,7 @@ namespace ZIP2GO.Client
                 // For example: 2009-06-15T13:45:30.0000000
                 return ((DateTime)obj).ToString(Configuration.DateTimeFormat);
             else if (obj is List<string>)
-                return String.Join(",", (obj as List<string>).ToArray());
+                return string.Join(",", (obj as List<string>).ToArray());
             else
                 return Convert.ToString(obj);
         }
@@ -312,7 +312,7 @@ namespace ZIP2GO.Client
         /// <param name="queryParams">Query parameters.</param>
         /// <param name="headerParams">Header parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
-        public void UpdateParamsForAuth(Dictionary<String, String> queryParams, Dictionary<String, String> headerParams, string[] authSettings)
+        public void UpdateParamsForAuth(Dictionary<string, string> queryParams, Dictionary<string, string> headerParams, string[] authSettings)
         {
             if (authSettings == null || authSettings.Length == 0)
                 return;

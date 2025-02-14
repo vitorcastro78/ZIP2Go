@@ -8,7 +8,7 @@ namespace ZIP2GO.Service.Models
     /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
     /// </summary>
     [DataContract]
-    public class CustomFields : Dictionary<String, Object>
+    public class CustomFields : Dictionary<string, Object>
     {
         /// <summary>
         /// Get the JSON string presentation of the object
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

@@ -8,7 +8,7 @@ namespace ZIP2GO.Service.Models
     ///
     /// </summary>
     [DataContract]
-    public class ListQueryParams : Dictionary<String, Object>
+    public class ListQueryParams : Dictionary<string, Object>
     {
         /// <summary>
         /// Get the JSON string presentation of the object
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
