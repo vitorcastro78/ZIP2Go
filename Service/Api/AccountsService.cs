@@ -311,14 +311,14 @@ namespace ZIP2GO.Service
             String[] authSettings = new String[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
+            return ApiClient.CallApi<Account>(path, Method.Get, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
 
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.ErrorMessage, response.ErrorMessage);
+            //if (((int)response.StatusCode) >= 400)
+            //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
+            //else if (((int)response.StatusCode) == 0)
+            //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
+            //return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
         }
 
         /// <summary>

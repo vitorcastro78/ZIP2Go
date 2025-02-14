@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Text.RegularExpressions;
 using System.Web;
+using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Client
 {
@@ -10,6 +11,13 @@ namespace ZIP2GO.Client
     /// </summary>
     public class ApiClient
     {
+        private string zuoraTrackId;
+        private bool? _async;
+        private string zuoraEntityIds;
+        private string idempotencyKey;
+        private string acceptEncoding;
+        private string contentEncoding;
+
         private readonly Dictionary<String, String> _defaultHeaderMap = new Dictionary<String, String>();
 
         /// <summary>
@@ -92,7 +100,7 @@ namespace ZIP2GO.Client
             Dictionary<String, FileParameter> fileParams, String[] authSettings)
         {
             var request = new RestRequest(path, method);
-
+            var response = new Object();
             UpdateParamsForAuth(queryParams, headerParams, authSettings);
 
             // add default header, if any
@@ -119,15 +127,52 @@ namespace ZIP2GO.Client
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
 
-            if(method == Method.Get)
+            if(method == Method.Post)
             {
-                return (Object)RestClient.Execute(request);
+                response = (Object)RestClient.Execute(request);
+                
             }
-            else
-            {
 
-            }
+            return response;
+
+        }
+
+        public T CallApi<T>(String path, RestSharp.Method method, Dictionary<String, String> queryParams, String postBody,
+            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
+            Dictionary<String, FileParameter> fileParams, String[] authSettings)
+        {
+            var request = new RestRequest(path, method);
+            var response = new Object();
+            UpdateParamsForAuth(queryParams, headerParams, authSettings);
+
+            // add default header, if any
+            foreach (var defaultHeader in _defaultHeaderMap)
+                request.AddHeader(defaultHeader.Key, defaultHeader.Value);
+
+            // add header parameter, if any
+            foreach (var param in headerParams)
+                request.AddHeader(param.Key, param.Value);
+
+            // add query parameter, if any
+            foreach (var param in queryParams)
+                request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
+
+            // add form parameter, if any
+            foreach (var param in formParams)
+                request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
+
+            // add file parameter, if any
+            //// foreach(var param in fileParams)
+            ////    request.AddFile(param.Value.Name, param.Value, param.Value.FileName, param.Value.ContentType);
+
+            if (postBody != null) // http body (model) parameter
+                request.AddParameter("application/json", postBody, ParameterType.RequestBody);
+
+
+            return (T)Deserialize(RestClient.Execute(request).Content,typeof(T));
             
+            
+
         }
 
         /// <summary>
