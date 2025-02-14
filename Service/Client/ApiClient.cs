@@ -121,10 +121,13 @@ namespace ZIP2GO.Client
 
             if(method == Method.Get)
             {
-              
+                return (Object)RestClient.Execute(request);
             }
+            else
+            {
 
-            return (Object)RestClient.Execute(request);
+            }
+            
         }
 
         /// <summary>
