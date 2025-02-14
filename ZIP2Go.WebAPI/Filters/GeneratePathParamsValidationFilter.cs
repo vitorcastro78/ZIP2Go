@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ZIP2Go.WebAPI.Filters
+namespace Zip2Go.WebAPI.Filters
 {
     /// <summary>
     /// Path Parameter Validation Rules Filter

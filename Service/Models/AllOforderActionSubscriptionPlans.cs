@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace Zip2Go.Models
 {
     /// <summary>
     /// Specify this field to add new plans to the new subscription.

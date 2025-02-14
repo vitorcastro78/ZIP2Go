@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace Zip2Go.Models
 {
     /// <summary>
     /// The recurring components of a price such as interval and usage.

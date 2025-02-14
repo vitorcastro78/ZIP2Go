@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace Zip2Go.Models
 {
     /// <summary>
     /// Identifier of the account that owns the subscription.

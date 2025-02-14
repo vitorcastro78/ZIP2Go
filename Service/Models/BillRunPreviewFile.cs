@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace Zip2Go.Models
 {
     /// <summary>
     /// File containing the results of the bill run preview.

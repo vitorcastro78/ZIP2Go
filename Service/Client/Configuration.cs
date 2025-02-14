@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace ZIP2Go.Client
+namespace Zip2Go.Client
 {
     /// <summary>
     /// Represents a set of configuration settings
@@ -112,7 +112,7 @@ namespace ZIP2Go.Client
         /// </summary>
         public static String ToDebugReport()
         {
-            String report = "C# SDK (ZIP2Go) Debug Report:\n";
+            String report = "C# SDK (Zip2Go) Debug Report:\n";
             report += "    OS: " + Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + Assembly
                      .GetExecutingAssembly()

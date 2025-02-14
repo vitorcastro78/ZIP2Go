@@ -1,6 +1,6 @@
 ﻿using Service.Interfaces;
 
-namespace ZIP2GO.WebAPI.HostedService
+namespace Zip2Go.WebAPI.HostedService
 {
     public class InvoicesHostedService : BackgroundService
     {

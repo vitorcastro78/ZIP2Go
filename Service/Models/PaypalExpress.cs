@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace Zip2Go.Models
 {
     /// <summary>
     /// If it is a &#x60;paypal_express&#x60; payment method, this hash contains details about the PayPal Express payment method.

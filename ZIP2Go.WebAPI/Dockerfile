@@ -11,17 +11,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ZIP2Go.WebAPI.WebAPI/ZIP2Go.WebAPI.WebAPI.csproj", "ZIP2Go.WebAPI.WebAPI/"]
-RUN dotnet restore "./ZIP2Go.WebAPI.WebAPI/ZIP2Go.WebAPI.WebAPI.csproj"
+COPY ["Zip2Go.WebAPI.WebAPI/Zip2Go.WebAPI.WebAPI.csproj", "Zip2Go.WebAPI.WebAPI/"]
+RUN dotnet restore "./Zip2Go.WebAPI.WebAPI/Zip2Go.WebAPI.WebAPI.csproj"
 COPY . .
-WORKDIR "/src/ZIP2Go.WebAPI.WebAPI"
-RUN dotnet build "./ZIP2Go.WebAPI.WebAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/Zip2Go.WebAPI.WebAPI"
+RUN dotnet build "./Zip2Go.WebAPI.WebAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./ZIP2Go.WebAPI.WebAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Zip2Go.WebAPI.WebAPI.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ZIP2Go.WebAPI.WebAPI.dll"]
+ENTRYPOINT ["dotnet", "Zip2Go.WebAPI.WebAPI.dll"]

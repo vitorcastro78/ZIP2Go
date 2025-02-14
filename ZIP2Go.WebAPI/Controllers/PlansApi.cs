@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-using ZIP2Go.Models;
-using ZIP2Go.WebAPI.Attributes;
-using ZIP2Go.WebAPI.Security;
+using Zip2Go.Models;
+using Zip2Go.WebAPI.Attributes;
+using Zip2Go.WebAPI.Security;
 
-namespace ZIP2Go.WebAPI.Controllers
+namespace Zip2Go.WebAPI.Controllers
 {
     /// <summary>
     ///

@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 
-namespace ZIP2Go.WebAPI.Security
+namespace Zip2Go.WebAPI.Security
 {
     /// <summary>
     /// class to handle bearer authentication.

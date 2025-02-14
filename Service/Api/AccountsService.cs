@@ -1,10 +1,10 @@
 ﻿using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
-using ZIP2Go.Client;
-using ZIP2Go.Models;
+using Zip2Go.Client;
+using Zip2Go.Models;
 
-namespace ZIP2Go.Service
+namespace Zip2Go.Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints

@@ -3,7 +3,7 @@ using RestSharp;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace ZIP2Go.Client
+namespace Zip2Go.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.

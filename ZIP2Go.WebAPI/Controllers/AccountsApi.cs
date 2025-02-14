@@ -14,11 +14,11 @@ using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-using ZIP2Go.Models;
-using ZIP2Go.WebAPI.Attributes;
-using ZIP2Go.WebAPI.Security;
+using Zip2Go.Models;
+using Zip2Go.WebAPI.Attributes;
+using Zip2Go.WebAPI.Security;
 
-namespace ZIP2Go.WebAPI.Controllers
+namespace Zip2Go.WebAPI.Controllers
 {
     /// <summary>
     ///
@@ -156,7 +156,7 @@ namespace ZIP2Go.WebAPI.Controllers
         /// <response code="504">Gateway Timeout</response>
         [HttpDelete]
         [Route("/v2/accounts/{account_id}")]
-        //        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteAccount")]
         [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
@@ -227,7 +227,7 @@ namespace ZIP2Go.WebAPI.Controllers
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
         [Route("/v2/accounts/{account_id}/bill")]
-        //        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GenerateBillingDocuments")]
         [SwaggerResponse(statusCode: 200, type: typeof(GenerateBillingDocumentsAccountResponse), description: "Default Response")]
@@ -324,7 +324,7 @@ namespace ZIP2Go.WebAPI.Controllers
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
         [Route("/v2/accounts/{account_id}")]
-        //       [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccount")]
         [SwaggerResponse(statusCode: 200, type: typeof(Account), description: "Default Response")]
@@ -422,7 +422,7 @@ namespace ZIP2Go.WebAPI.Controllers
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
         [Route("/v2/accounts")]
-        //      [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccounts")]
         [SwaggerResponse(statusCode: 200, type: typeof(ListAccountResponse), description: "Default Response")]
@@ -545,11 +545,11 @@ namespace ZIP2Go.WebAPI.Controllers
             // return StatusCode(504, default(ErrorResponse));
             string exampleJson = null;
             exampleJson = "{\n  \"account_id\" : \"account_id\",\n  \"invoice_items\" : [ \"\", \"\" ],\n  \"credit_memo_items\" : [ \"\", \"\" ]\n}";
-
+            var result = _accountsService.PreviewAccount(body, accountId, zuoraTrackId, _async, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<AccountPreviewResponse>(exampleJson)
             : default(AccountPreviewResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ObjectResult(result);
         }
 
         /// <summary>
