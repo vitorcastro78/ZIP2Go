@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Zip2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// Specify this field if you want to resume a subscription.

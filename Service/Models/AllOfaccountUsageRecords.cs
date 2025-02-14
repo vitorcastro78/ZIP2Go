@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Zip2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// List of customer usages.

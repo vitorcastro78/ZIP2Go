@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Zip2Go.WebAPI.Filters
+namespace ZIP2GO.WebAPI.Filters
 {
     public class ActionFilter : IActionFilter
     {

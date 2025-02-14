@@ -1,7 +1,7 @@
 using EasyCaching.SQLite;
 using Service.Interfaces;
-using Zip2Go.Service;
-using Zip2Go.WebAPI.Filters;
+using ZIP2GO.Service;
+using ZIP2GO.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 

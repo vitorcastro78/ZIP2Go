@@ -1,9 +1,9 @@
 ﻿using RestSharp;
 using Service.Interfaces;
-using Zip2Go.Client;
-using Zip2Go.Models;
+using ZIP2GO.Client;
+using ZIP2GO.Service.Models;
 
-namespace Zip2Go.Service
+namespace ZIP2GO.Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints

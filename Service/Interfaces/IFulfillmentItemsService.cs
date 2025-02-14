@@ -1,4 +1,4 @@
-﻿using Zip2Go.Models;
+﻿using ZIP2GO.Service.Models;
 
 namespace Service.Interfaces
 {

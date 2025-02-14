@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Zip2Go.Models;
+using ZIP2GO.Service.Models;
 
 namespace Service.Interfaces
 {

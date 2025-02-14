@@ -1,14 +1,9 @@
 ﻿using EasyCaching.Core;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zip2Go.Client;
-using Zip2Go.Models;
 
-namespace Service.Client
+
+
+namespace ZIP2GO.Client
 {
     public  class CachingTrigger
     {

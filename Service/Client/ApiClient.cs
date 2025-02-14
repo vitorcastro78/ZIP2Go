@@ -1,10 +1,9 @@
 using Newtonsoft.Json;
 using RestSharp;
-using Service.Client;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace Zip2Go.Client
+namespace ZIP2GO.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.

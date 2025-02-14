@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace Zip2Go.WebAPI.Attributes
+namespace ZIP2GO.WebAPI.Attributes
 {
     /// <summary>
     /// Model state validation attribute
