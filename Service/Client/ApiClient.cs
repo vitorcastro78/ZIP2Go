@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using RestSharp;
+using Service.Client;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -117,6 +118,12 @@ namespace Zip2Go.Client
 
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
+
+
+            if(method == Method.Get)
+            {
+              
+            }
 
             return (Object)RestClient.Execute(request);
         }

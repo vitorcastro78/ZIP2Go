@@ -632,26 +632,26 @@ namespace Zip2Go.Service
         //    return allSubscriptions;
         //}
 
-        private async Task<Account> GetAccountCache(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
-        {
-            string cachekey = $"GetAccount-{accountId}";
-            var accountResp = new Account();
-            _cache.Set<bool>(cachekey, true, TimeSpan.FromMinutes(20));
-            if (!_cache.Exists(cachekey))
-            {
-                var account = GetAccount(accountId, fields, subscriptionsFields, subscriptionPlansFields, subscriptionItemsFields, invoiceOwnerAccountFields, planFields, paymentMethodsFields, paymentsFields, billingDocumentsFields, billingDocumentItemsFields, billToFields, soldToFields, defaultPaymentMethodFields, usageRecordsFields, invoicesFields, creditMemosFields, debitMemosFields, prepaidBalanceFields, transactionsFields, expand, filter, pageSize, zuoraTrackId, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
+        //private async Task<Account> GetAccountCache(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        //{
+        //    string cachekey = $"GetAccount-{accountId}";
+        //    var accountResp = new Account();
+        //    _cache.Set<bool>(cachekey, true, TimeSpan.FromMinutes(20));
+        //    if (!_cache.Exists(cachekey))
+        //    {
+        //        var account = GetAccount(accountId, fields, subscriptionsFields, subscriptionPlansFields, subscriptionItemsFields, invoiceOwnerAccountFields, planFields, paymentMethodsFields, paymentsFields, billingDocumentsFields, billingDocumentItemsFields, billToFields, soldToFields, defaultPaymentMethodFields, usageRecordsFields, invoicesFields, creditMemosFields, debitMemosFields, prepaidBalanceFields, transactionsFields, expand, filter, pageSize, zuoraTrackId, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
 
-                if (account != null)
-                {
-                    _cache.Set(cachekey, account, TimeSpan.FromMinutes(20));
-                }
-            }
-            else
-            {
-                accountResp = _cache.Get<Account>(cachekey).Value;
-            }
+        //        if (account != null)
+        //        {
+        //            _cache.Set(cachekey, account, TimeSpan.FromMinutes(20));
+        //        }
+        //    }
+        //    else
+        //    {
+        //        accountResp = _cache.Get<Account>(cachekey).Value;
+        //    }
 
-            return accountResp;
-        }
+        //    return accountResp;
+        //}
     }
 }

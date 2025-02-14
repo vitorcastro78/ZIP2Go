@@ -19,14 +19,22 @@ static void AddDependencyInjection(WebApplicationBuilder builder)
     builder.Services.AddScoped<IInvoicesService, InvoicesService>();
     builder.Services.AddScoped<ISubscriptionsService, SubscriptionsService>();
     builder.Services.AddScoped<ISubscriptionItemsService, SubscriptionItemsService>();
+    builder.Services.AddScoped<ISubscriptionPlansService, SubscriptionPlansService>();
     builder.Services.AddScoped<IOrdersService, OrdersService>();
+    builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
+    builder.Services.AddScoped<IProductsService, ProductsService>();
+    builder.Services.AddScoped<IContactsService, ContactsService>();
+    builder.Services.AddScoped<IBillingDocumentItemsService, BillingDocumentItemsService>();
+    builder.Services.AddScoped<IBillingDocumentsService, BillingDocumentsService>();
+    builder.Services.AddScoped<IWorkflowsService, WorkflowsService>();
+
 }
 
 static void ConfigureServices(IServiceCollection services)
 {
     services.AddControllers();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    // services.AddEndpointsServiceExplorer();
+    services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
 
     services.AddEasyCaching(option =>
