@@ -34,7 +34,7 @@ namespace ZIP2GO.Service
         /// <returns></returns>
         public AccountsService(string basePath)
         {
-            this.ApiClient = new ApiClient(basePath);
+            this.ApiClient = new ApiClient(_cache,basePath);
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace ZIP2GO.Service
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            return ApiClient.CallApi<Account>(path, Method.Get, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
+            return ApiClient.CallApi<Account>(accountId, path, Method.Get);
 
             //if (((int)response.StatusCode) >= 400)
             //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);

@@ -1,3 +1,4 @@
+using EasyCaching.Core;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Text.RegularExpressions;
@@ -12,22 +13,24 @@ namespace ZIP2GO.Client
     public class ApiClient
     {
         private string zuoraTrackId;
-        private bool? _async;
+        private bool? _allowAsync;
         private string zuoraEntityIds;
         private string idempotencyKey;
         private string acceptEncoding;
         private string contentEncoding;
 
         private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
+        private readonly IEasyCachingProvider _cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(string basePath = "https://rest.sandbox.na.zuora.com/v2")
+        public ApiClient(IEasyCachingProvider cache, string basePath = "https://rest.sandbox.na.zuora.com/v2")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
+            _cache = cache;
         }
 
         /// <summary>
@@ -127,22 +130,25 @@ namespace ZIP2GO.Client
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
 
-            if(method == Method.Post)
-            {
-                response = (Object)RestClient.Execute(request);
-                
-            }
-
-            return response;
+            return Deserialize(RestClient.Execute(request).Content, typeof(Object));
 
         }
 
-        public T CallApi<T>(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody,
-            Dictionary<string, string> headerParams, Dictionary<string, string> formParams,
-            Dictionary<string, FileParameter> fileParams, string[] authSettings)
+        public T CallApi<T>(string Id, string path, RestSharp.Method method, Dictionary<string, string>? queryParams = null, string? postBody = null,
+            Dictionary<string, string>? headerParams = null, Dictionary<string, string>? formParams = null,
+            Dictionary<string, FileParameter>? fileParams = null, string[]? authSettings = null)
         {
+
+            headerParams.Add("zuora-track-id", zuoraTrackId); // header parameter
+            headerParams.Add("async", _allowAsync.ToString()); // header parameter
+            headerParams.Add("zuora-entity-ids", zuoraEntityIds); // header parameter
+            headerParams.Add("idempotency-key", idempotencyKey); // header parameter
+            headerParams.Add("accept-encoding", acceptEncoding); // header parameter
+            headerParams.Add("content-encoding", contentEncoding); // header parameter
+
+
             var request = new RestRequest(path, method);
-            var response = new Object();
+            var response = new RestResponse();
             UpdateParamsForAuth(queryParams, headerParams, authSettings);
 
             // add default header, if any
@@ -168,10 +174,18 @@ namespace ZIP2GO.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
+            var cachingTrigger = new CachingTrigger(_cache);
 
-            return (T)Deserialize(RestClient.Execute(request).Content,typeof(T));
-            
-            
+            if (method != Method.Get)
+            {
+               var result = (T)Deserialize(RestClient.Execute(request).Content, typeof(T));
+               cachingTrigger.SetCachingTrigger<T>( method, response);
+               return result;
+            }
+            else
+            {
+                return cachingTrigger.GetCachingTrigger<T>(Id);
+            }
 
         }
 

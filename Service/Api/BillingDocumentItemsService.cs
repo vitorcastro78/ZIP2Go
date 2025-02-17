@@ -1,3 +1,4 @@
+using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2GO.Client;
@@ -10,18 +11,22 @@ namespace ZIP2GO.Service
     /// </summary>
     public class BillingDocumentItemsService : IBillingDocumentItemsService
     {
+        private readonly IEasyCachingProvider _cache;
         /// <summary>
         /// Initializes a new instance of the <see cref="BillingDocumentItemsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public BillingDocumentItemsService(ApiClient apiClient = null)
+        public BillingDocumentItemsService(IEasyCachingProvider cache, ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient;
             else
                 this.ApiClient = apiClient;
+
+            _cache = cache;
         }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BillingDocumentItemsService"/> class.
@@ -29,7 +34,7 @@ namespace ZIP2GO.Service
         /// <returns></returns>
         public BillingDocumentItemsService(string basePath)
         {
-            this.ApiClient = new ApiClient(basePath);
+            this.ApiClient = new ApiClient(_cache,basePath);
         }
 
         /// <summary>
