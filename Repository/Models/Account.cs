@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer billing documents.</value>
         [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
-        public AllOfaccountBillingDocuments BillingDocuments { get; set; }
+        public BillingDocument BillingDocuments { get; set; }
 
         /// <summary>
         /// Gets or Sets BillingDocumentSettings
@@ -63,7 +63,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Customer billing address.</value>
         [DataMember(Name = "bill_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to")]
-        public AllOfaccountBillTo BillTo { get; set; }
+        public Contact BillTo { get; set; }
 
         /// <summary>
         /// Customer billing address.
@@ -103,7 +103,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of credit memo</value>
         [DataMember(Name = "credit_memos", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
-        public AllOfaccountCreditMemos CreditMemos { get; set; }
+        public List<CreditMemo> CreditMemos { get; set; }
 
         /// <summary>
         /// CRM account identifier.
@@ -135,7 +135,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfaccountCustomObjects CustomObjects { get; set; }
+        public List<CustomObject> CustomObjects { get; set; }
 
         /// <summary>
         /// List of debit memo
@@ -143,7 +143,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of debit memo</value>
         [DataMember(Name = "debit_memos", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "debit_memos")]
-        public AllOfaccountDebitMemos DebitMemos { get; set; }
+        public List<DebitMemo> DebitMemos { get; set; }
 
         /// <summary>
         /// The default payment method for the customer.
@@ -151,7 +151,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The default payment method for the customer.</value>
         [DataMember(Name = "default_payment_method", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_payment_method")]
-        public AllOfaccountDefaultPaymentMethod DefaultPaymentMethod { get; set; }
+        public PaymentMethod DefaultPaymentMethod { get; set; }
 
         /// <summary>
         /// Identifier of the default payment method on the customer account.
