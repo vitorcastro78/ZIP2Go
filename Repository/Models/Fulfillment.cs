@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOffulfillmentCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.
@@ -127,7 +127,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "revenue", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue")]
-        public AllOffulfillmentRevenue Revenue { get; set; }
+        public Revenue Revenue { get; set; }
 
         /// <summary>
         /// The status of the invoice.

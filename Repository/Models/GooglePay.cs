@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.</value>
         [DataMember(Name = "card", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
-        public AllOfGooglePayCard Card { get; set; }
+        public Card Card { get; set; }
 
         /// <summary>
         /// A gateway unique identifier that replaces sensitive payment method data or represents a gateway's unique customer profile. When `token` is used to represent a customer profile, `second_token` is conditionally required for representing the underlying tokenized payment method.

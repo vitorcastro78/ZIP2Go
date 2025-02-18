@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The account that owns the billing document. EXPANDABLE</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfcreditMemoAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the account that owns the credit memo.     **Either this field or `account_number` is required when creating credit memos from a price(charge in the v1 API).**
@@ -47,7 +47,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "applied_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "applied_to")]
-        public List<CreditMemoAppliedToResponse> AppliedTo { get; set; }
+        public List<CreditMemo> AppliedTo { get; set; }
 
         /// <summary>
         /// The total balance remaining.  This field is deprecated. Use `remaining_balance` field.
@@ -63,7 +63,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing document settings for the customer.</value>
         [DataMember(Name = "billing_document_settings", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_settings")]
-        public AllOfcreditMemoBillingDocumentSettings BillingDocumentSettings { get; set; }
+        public List<BillingDocumentSettings> BillingDocumentSettings { get; set; }
 
         /// <summary>
         /// The billing address for the customer.
@@ -71,7 +71,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing address for the customer.</value>
         [DataMember(Name = "bill_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to")]
-        public AllOfcreditMemoBillTo BillTo { get; set; }
+        public Contact BillTo { get; set; }
 
         /// <summary>
         /// ID of the bill-to contact.
@@ -127,7 +127,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfcreditMemoCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string associated with the object. Often useful for displaying to users.
@@ -175,7 +175,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of billing document items. EXPANDABLE</value>
         [DataMember(Name = "items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
-        public AllOfcreditMemoItems Items { get; set; }
+        public List<CreditMemoItem> Items { get; set; }
 
         /// <summary>
         /// Identifier of the Zuora user who posted the billing document.
@@ -214,7 +214,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "state_transitions", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
-        public AllOfcreditMemoStateTransitions StateTransitions { get; set; }
+        public StateTransitions StateTransitions { get; set; }
 
         /// <summary>
         /// The total amount exclusive of tax.

@@ -18,21 +18,14 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "action_id")]
         public string ActionId { get; set; }
 
-        /// <summary>
-        /// Specify this field to add subscription plans to existing subscriptions.
-        /// </summary>
-        /// <value>Specify this field to add subscription plans to existing subscriptions.</value>
-        [DataMember(Name = "add_subscription_plan", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "add_subscription_plan")]
-        public AllOforderActionAddSubscriptionPlan AddSubscriptionPlan { get; set; }
-
+      
         /// <summary>
         /// Specify this field to cancel an existing subscription.
         /// </summary>
         /// <value>Specify this field to cancel an existing subscription.</value>
         [DataMember(Name = "cancel", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel")]
-        public AllOforderActionCancel Cancel { get; set; }
+        public SubscriptionCancel Cancel { get; set; }
 
         /// <summary>
         /// Specify this field to pause an existing subscription.

@@ -79,7 +79,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfinvoiceItemCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// The accounting code for the deferred revenue, such as Monthly Recurring Liability.
@@ -127,7 +127,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The invoice the item belongs to. EXPANDABLE</value>
         [DataMember(Name = "invoice", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice")]
-        public AllOfinvoiceItemInvoice Invoice { get; set; }
+        public Invoice Invoice { get; set; }
 
         /// <summary>
         /// The identifier of the invoice associated with this invoice item.

@@ -47,7 +47,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related billing document.</value>
         [DataMember(Name = "billing_document", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document")]
-        public AllOfbillingDocumentItemBillingDocument BillingDocument { get; set; }
+        public BillingDocument BillingDocument { get; set; }
 
         /// <summary>
         /// The related billing document id.
@@ -95,7 +95,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfbillingDocumentItemCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// The accounting code for the deferred revenue, such as Monthly Recurring Liability.
@@ -255,7 +255,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The expandable subscription associated with the billing document item.</value>
         [DataMember(Name = "subscription", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription")]
-        public AllOfbillingDocumentItemSubscription Subscription { get; set; }
+        public Subscription Subscription { get; set; }
 
         /// <summary>
         /// The identifier of the subscription associated with the billing document item.
@@ -271,7 +271,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The expandable subscription item associated with this billing document item.</value>
         [DataMember(Name = "subscription_item", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item")]
-        public AllOfbillingDocumentItemSubscriptionItem SubscriptionItem { get; set; }
+        public SubscriptionItem SubscriptionItem { get; set; }
 
         /// <summary>
         /// The identifier the subscription item associated with this billing document item.
@@ -303,7 +303,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of taxation items.</value>
         [DataMember(Name = "taxation_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_items")]
-        public AllOfbillingDocumentItemTaxationItems TaxationItems { get; set; }
+        public List<TaxationItem> TaxationItems { get; set; }
 
         /// <summary>
         /// The designated tax code.

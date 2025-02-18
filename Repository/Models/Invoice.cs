@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The account that owns the invoice. EXPANDABLE</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfinvoiceAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the account that owns the invoice.
@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing document settings for the customer.</value>
         [DataMember(Name = "billing_document_settings", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_settings")]
-        public AllOfinvoiceBillingDocumentSettings BillingDocumentSettings { get; set; }
+        public BillingDocumentSettings BillingDocumentSettings { get; set; }
 
         /// <summary>
         /// The billing address for the customer.
@@ -56,7 +56,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing address for the customer.</value>
         [DataMember(Name = "bill_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to")]
-        public AllOfinvoiceBillTo BillTo { get; set; }
+        public Contact BillTo { get; set; }
 
         /// <summary>
         /// ID of the bill-to contact.
@@ -104,7 +104,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfinvoiceCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string associated with the object. Often useful for displaying to users.
@@ -152,7 +152,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of invoice items.</value>
         [DataMember(Name = "items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
-        public AllOfinvoiceItems Items { get; set; }
+        public List<InvoiceItem> Items { get; set; }
 
         /// <summary>
         /// Whether payment was successfully collected for this invoice. An invoice can be paid with a payment or a credit memo.
@@ -208,7 +208,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The selling address for the customer.</value>
         [DataMember(Name = "sold_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to")]
-        public AllOfinvoiceSoldTo SoldTo { get; set; }
+        public Contact SoldTo { get; set; }
 
         /// <summary>
         /// ID of the sold-to contact.
@@ -231,7 +231,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "state_transitions", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
-        public AllOfinvoiceStateTransitions StateTransitions { get; set; }
+        public StateTransitions StateTransitions { get; set; }
 
         /// <summary>
         /// The total amount exclusive of tax.

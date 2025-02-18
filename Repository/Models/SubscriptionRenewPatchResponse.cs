@@ -2,19 +2,26 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Repository.Models
 {
     /// <summary>
-    /// Specify this field to pause an existing subscription.
+    /// Specify this field to renew a subscription
     /// </summary>
     [DataContract]
-    public class AllOforderActionPause : SubscriptionPause
+    public class SubscriptionRenewPatchResponse
     {
+        /// <summary>
+        /// Gets or Sets Terms
+        /// </summary>
+        [DataMember(Name = "terms", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
+        public SubscriptionTerm Terms { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public new string ToJson()
+        public string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -26,7 +33,8 @@ namespace ZIP2GO.Service.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AllOforderActionPause {\n");
+            sb.Append("class SubscriptionRenewPatchResponse {\n");
+            sb.Append("  Terms: ").Append(Terms).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

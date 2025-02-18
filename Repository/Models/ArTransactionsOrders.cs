@@ -24,7 +24,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related credit memos.</value>
         [DataMember(Name = "credit_memos", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
-        public AllOfarTransactionsOrdersCreditMemos CreditMemos { get; set; }
+        public OrdersCreditMemos CreditMemos { get; set; }
 
         /// <summary>
         /// The numbers of related invoices
@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related invoices.</value>
         [DataMember(Name = "invoices", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices")]
-        public AllOfarTransactionsOrdersInvoices Invoices { get; set; }
+        public OrdersInvoices Invoices { get; set; }
 
         /// <summary>
         /// The related payments.

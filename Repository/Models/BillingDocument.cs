@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The account that owns the billing document. EXPANDABLE</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfbillingDocumentAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the account that owns the billing document.
@@ -96,7 +96,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfbillingDocumentCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string associated with the object. Often useful for displaying to users.
@@ -152,7 +152,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of billing document items.</value>
         [DataMember(Name = "items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
-        public AllOfbillingDocumentItems Items { get; set; }
+        public List<BillingDocumentItem> Items { get; set; }
 
         /// <summary>
         /// Whether payment was successfully collected for this invoice. An invoice can be paid with a payment or a credit memo.
@@ -215,7 +215,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "state_transitions", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
-        public AllOfbillingDocumentStateTransitions StateTransitions { get; set; }
+        public List<BillingDocumentStateTransitions> StateTransitions { get; set; }
 
         /// <summary>
         /// The total amount exclusive of tax.

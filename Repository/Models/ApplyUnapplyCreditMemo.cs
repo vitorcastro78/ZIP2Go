@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Array of billing documents to apply this credit memo to.</value>
         [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
-        public List<CreditMemoApplicationRequest> BillingDocuments { get; set; }
+        public List<BillingDocument> BillingDocuments { get; set; }
 
         /// <summary>
         /// The date when the credit memo is applied

@@ -71,7 +71,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfdebitMemoItemCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// The related debit memo.
@@ -79,7 +79,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related debit memo.</value>
         [DataMember(Name = "debit_memo", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "debit_memo")]
-        public AllOfdebitMemoItemDebitMemo DebitMemo { get; set; }
+        public DebitMemo DebitMemo { get; set; }
 
         /// <summary>
         /// The related debit memo id.
@@ -231,7 +231,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer subscriptions.</value>
         [DataMember(Name = "subscription", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription")]
-        public AllOfdebitMemoItemSubscription Subscription { get; set; }
+        public Subscription Subscription { get; set; }
 
         /// <summary>
         /// The identifier of the subscription associated with the debit memo item.
@@ -247,7 +247,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The expandable subscription item associated with this billing document item.</value>
         [DataMember(Name = "subscription_item", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item")]
-        public AllOfdebitMemoItemSubscriptionItem SubscriptionItem { get; set; }
+        public SubscriptionItem SubscriptionItem { get; set; }
 
         /// <summary>
         /// The identifier the subscription item associated with this debit memo item.
@@ -278,7 +278,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "taxation_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_items")]
-        public TaxationItemListResponse TaxationItems { get; set; }
+        public List<TaxationItem> TaxationItems { get; set; }
 
         /// <summary>
         /// The designated tax code.

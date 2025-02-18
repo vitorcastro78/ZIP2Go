@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using ZIP2GO.Service.Models;
+using ZIP2GO.Repository.Models;
 
 namespace Repository.DataContext
 {

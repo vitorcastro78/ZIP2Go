@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.</value>
         [DataMember(Name = "card", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
-        public AllOfApplePayCard Card { get; set; }
+        public Card Card { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate

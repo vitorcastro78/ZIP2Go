@@ -64,7 +64,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related credit memo.</value>
         [DataMember(Name = "credit_memo", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo")]
-        public AllOfcreditMemoItemCreditMemo CreditMemo { get; set; }
+        public CreditMemo CreditMemo { get; set; }
 
         /// <summary>
         /// The related credit memo id.
@@ -88,7 +88,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfcreditMemoItemCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// The accounting code for the deferred revenue, such as Monthly Recurring Liability.
@@ -232,7 +232,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer subscriptions.</value>
         [DataMember(Name = "subscription", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription")]
-        public AllOfcreditMemoItemSubscription Subscription { get; set; }
+        public Subscription Subscription { get; set; }
 
         /// <summary>
         /// The identifier of the subscription associated with the credit memo item.
@@ -248,7 +248,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The expandable subscription item associated with this billing document item.</value>
         [DataMember(Name = "subscription_item", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item")]
-        public AllOfcreditMemoItemSubscriptionItem SubscriptionItem { get; set; }
+        public SubscriptionItem SubscriptionItem { get; set; }
 
         /// <summary>
         /// The identifier the subscription item associated with this credit memo item.
@@ -279,7 +279,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "taxation_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_items")]
-        public TaxationItemListResponse TaxationItems { get; set; }
+        public List<TaxationItem> TaxationItems { get; set; }
 
         /// <summary>
         /// The designated tax code.
