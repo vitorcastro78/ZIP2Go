@@ -143,7 +143,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The order line item associated with this invoice item. EXPANDABLE</value>
         [DataMember(Name = "line_item", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_item")]
-        public AllOfinvoiceItemLineItem LineItem { get; set; }
+        public OrderLineItem LineItem { get; set; }
 
         /// <summary>
         /// Name of the invoice item displayed to customers on billing documents.
@@ -231,7 +231,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer subscriptions.</value>
         [DataMember(Name = "subscription", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription")]
-        public AllOfinvoiceItemSubscription Subscription { get; set; }
+        public Subscription Subscription { get; set; }
 
         /// <summary>
         /// The identifier of the subscription associated with the invoice item.
@@ -247,7 +247,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The expandable subscription item associated with this billing document item.</value>
         [DataMember(Name = "subscription_item", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item")]
-        public AllOfinvoiceItemSubscriptionItem SubscriptionItem { get; set; }
+        public SubscriptionItem SubscriptionItem { get; set; }
 
         /// <summary>
         /// The identifier the subscription item associated with this invoice item.
@@ -270,7 +270,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "taxation_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_items")]
-        public TaxationItemListResponse TaxationItems { get; set; }
+        public List<TaxationItem> TaxationItems { get; set; }
 
         /// <summary>
         /// The designated tax code.
