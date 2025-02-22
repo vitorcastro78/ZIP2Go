@@ -103,7 +103,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfPriceCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An active accounting code in your Zuora chart of accounts.
@@ -188,7 +188,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "overage", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "overage")]
-        public AllOfPriceOverage Overage { get; set; }
+        public Overage Overage { get; set; }
 
         /// <summary>
         /// Specify the ID of a plan to which this price is associated.
@@ -249,7 +249,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "revenue", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue")]
-        public AllOfPriceRevenue Revenue { get; set; }
+        public Revenue Revenue { get; set; }
 
         /// <summary>
         /// Determines when to recognize the revenue for this charge. You can choose to recognize upon invoicing or daily over time.

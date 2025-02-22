@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -25,6 +25,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
         public string Number { get; set; }
+
         /// <summary>
         /// The related invoices.
         /// </summary>
@@ -40,6 +41,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "state", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public AllOfrefundOrderTransactionsState State { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing document with which the payment schedule is associated. Note: This field is optional. If you have the Standalone Payment feature enabled, you can leave this field blank and set standalone to true to create standalone payments. You can also choose to create unapplied payments by leaving this object blank and setting standalone to false. If Standalone Payment is not enabled, leaving this object unspecified will create unapplied payments.</value>
         [DataMember(Name = "billing_document", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document")]
-        public AllOfpaymentScheduleBillingDocument BillingDocument { get; set; }
+        public BillingDocument BillingDocument { get; set; }
 
         /// <summary>
         /// Unique identifier of the Zuora user who created the object
@@ -88,7 +88,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfpaymentScheduleCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.
@@ -151,7 +151,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Container for the payment options, which describe the transactional level rules for processing payments. Currently, only the gateway_options type is supported. Payment schedule payment_options take precedence over payment schedule item payment_options.</value>
         [DataMember(Name = "payment_options", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_options")]
-        public List<PaymentSchedulePaymentOptionRequest> PaymentOptions { get; set; }
+        public List<PaymentOption> PaymentOptions { get; set; }
 
         /// <summary>
         /// Number of the payment schedule.

@@ -5,12 +5,10 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestSharp;
 using Service.Client;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Client
 {
@@ -177,7 +175,7 @@ namespace ZIP2GO.Client
                 var response = RestClient.Execute(request);
                 cachingTrigger.SetCachingTrigger<T>(method, response);
                 var result = (T)Deserialize(response.Content, typeof(T));
-                
+
                 return result;
             }
             else
@@ -277,6 +275,7 @@ namespace ZIP2GO.Client
                     case "bearerAuth":
                         // Add bearer token logic here
                         break;
+
                     default:
                         // Show warning about security definition not found
                         break;

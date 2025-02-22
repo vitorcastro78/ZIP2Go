@@ -2,7 +2,7 @@ using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2GO.Client;
-using ZIP2GO.Service.Models;
+using ZIP2GO.Service.Modelos;
 
 namespace ZIP2GO.Service
 {
@@ -34,7 +34,7 @@ namespace ZIP2GO.Service
         /// <returns></returns>
         public BillingDocumentsService(string basePath)
         {
-            this.ApiClient = new ApiClient(_cache, basePath);
+            this.ApiClient = new ApiClient(basePath);
         }
 
         /// <summary>

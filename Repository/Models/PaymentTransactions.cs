@@ -32,7 +32,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related payments.</value>
         [DataMember(Name = "payments", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
-        public AllOfpaymentTransactionsPayments Payments { get; set; }
+        public List<Payment> Payments { get; set; }
 
         /// <summary>
         /// The state of the payment.
@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The state of the payment.</value>
         [DataMember(Name = "state", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
-        public AllOfpaymentTransactionsState State { get; set; }
+        public TransactionsState State { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

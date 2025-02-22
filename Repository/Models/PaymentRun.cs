@@ -104,7 +104,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfpaymentRunCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// Unique identifier for the object.
@@ -159,7 +159,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The date and time when the payment run executed, in the `yyyy-mm-dd hh:mm:ss` format.</value>
         [DataMember(Name = "state_transitions", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
-        public AllOfpaymentRunStateTransitions StateTransitions { get; set; }
+        public PaymentRunStateTransitions StateTransitions { get; set; }
 
         /// <summary>
         /// Summary of the payment run.
@@ -167,7 +167,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Summary of the payment run.</value>
         [DataMember(Name = "summary", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "summary")]
-        public AllOfpaymentRunSummary Summary { get; set; }
+        public PaymentRunSummary Summary { get; set; }
 
         /// <summary>
         /// The target date used to determine which receivables to be paid in the payment run.       The payments are collected for all receivables with the due date no later than the target date.

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -127,6 +127,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "invoice_owner_account_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_owner_account_number")]
         public string InvoiceOwnerAccountNumber { get; set; }
+
         /// <summary>
         /// Separates a single subscription from other subscriptions and creates an invoice for this subscription. If the value is `true`, the subscription is billed separately from other subscriptions. If the value is `false`, the subscription is included with other subscriptions in the account invoice.
         /// </summary>
@@ -204,6 +205,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "subscription_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_number")]
         public string SubscriptionNumber { get; set; }
+
         /// <summary>
         /// The plans associated with the new subscription.
         /// </summary>
@@ -211,6 +213,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "subscription_plans", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plans")]
         public List<SubscriptionPlanCreateRequest> SubscriptionPlans { get; set; }
+
         /// <summary>
         /// Indicates whether to preview the subscription till the end of the current term.
         /// </summary>
@@ -218,6 +221,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "term_end", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "term_end")]
         public bool? TermEnd { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

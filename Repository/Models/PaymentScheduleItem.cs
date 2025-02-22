@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing document with which the payment schedule is associated. If you have the Standalone Payment feature enabled, you can leave this field blank and set standalone to true to create standalone payments. You can also choose to create unapplied payments by leaving this object blank and setting standalone to false. If Standalone Payment is not enabled, leaving this object unspecified will create unapplied payments.</value>
         [DataMember(Name = "billing_document", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document")]
-        public AllOfpaymentScheduleItemBillingDocument BillingDocument { get; set; }
+        public BillingDocument BillingDocument { get; set; }
 
         /// <summary>
         /// The reason for the cancellation of payment schedule item.
@@ -88,7 +88,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfpaymentScheduleItemCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.
@@ -120,7 +120,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer payments.</value>
         [DataMember(Name = "payment", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment")]
-        public AllOfpaymentScheduleItemPayment Payment { get; set; }
+        public Payment Payment { get; set; }
 
         /// <summary>
         /// ID of the payment gateway used to collect payments. The default value is the account's default payment gateway ID. If no payment gateway ID is found on the customer account level, the default value will be the tenant's default payment gateway ID. This field will be ignored when `items` is specified.
@@ -159,7 +159,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Payment schedule record.</value>
         [DataMember(Name = "payment_schedule", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_schedule")]
-        public AllOfpaymentScheduleItemPaymentSchedule PaymentSchedule { get; set; }
+        public PaymentSchedule PaymentSchedule { get; set; }
 
         /// <summary>
         /// ID of the payment schedule.

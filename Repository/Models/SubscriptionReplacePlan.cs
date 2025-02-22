@@ -8,7 +8,7 @@ namespace ZIP2GO.Repository.Models
     ///
     /// </summary>
     [DataContract]
-    public class SubscriptionReplacePlanPatchResponse
+    public class SubscriptionReplacePlan
     {
         /// <summary>
         /// Gets or Sets CustomFields
@@ -62,7 +62,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "subscription_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_items")]
-        public AllOfsubscriptionReplacePlanPatchResponseSubscriptionItems SubscriptionItems { get; set; }
+        public List<SubscriptionItem> SubscriptionItems { get; set; }
 
         /// <summary>
         /// A unique string to represent the subscription plan in the order. The unique token is used to perform multiple actions against a newly added subscription plan. For example, if you want to add and update a product in the same order, assign a unique token to the newly added subscription plan and use that token in future order actions.

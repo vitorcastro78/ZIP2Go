@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Information of the new account associated with the subscription.</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfsubscriptionAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the account associated with this subscription.
@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing document settings for the customer.</value>
         [DataMember(Name = "billing_document_settings", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_settings")]
-        public AllOfsubscriptionBillingDocumentSettings BillingDocumentSettings { get; set; }
+        public BillingDocumentSettings BillingDocumentSettings { get; set; }
 
         /// <summary>
         /// The billing address for the customer.
@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The billing address for the customer.</value>
         [DataMember(Name = "bill_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to")]
-        public AllOfsubscriptionBillTo BillTo { get; set; }
+        public Contact BillTo { get; set; }
 
         /// <summary>
         /// ID of the bill-to contact.
@@ -112,7 +112,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Current term information for the subscription</value>
         [DataMember(Name = "current_term", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_term")]
-        public AllOfsubscriptionCurrentTerm CurrentTerm { get; set; }
+        public Term CurrentTerm { get; set; }
 
         /// <summary>
         /// Date when all the services or products in the subscription are accepted by the subscriber.
@@ -136,7 +136,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfsubscriptionCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// Description of the subscription. Often useful for displaying to users.
@@ -168,7 +168,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Initial term information for the subscription.</value>
         [DataMember(Name = "initial_term", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "initial_term")]
-        public AllOfsubscriptionInitialTerm InitialTerm { get; set; }
+        public Term InitialTerm { get; set; }
 
         /// <summary>
         /// List of invoice items.
@@ -176,7 +176,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of invoice items.</value>
         [DataMember(Name = "invoice_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_items")]
-        public AllOfsubscriptionInvoiceItems InvoiceItems { get; set; }
+        public List<InvoiceItem> InvoiceItems { get; set; }
 
         /// <summary>
         /// Identifier of the account that owns the subscription.
@@ -184,7 +184,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the account that owns the subscription.</value>
         [DataMember(Name = "invoice_owner_account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_owner_account")]
-        public AllOfsubscriptionInvoiceOwnerAccount InvoiceOwnerAccount { get; set; }
+        public Account InvoiceOwnerAccount { get; set; }
 
         /// <summary>
         /// Identifier of the account that owns the invoice associated with this subscription.
@@ -256,7 +256,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Renewal term information for the subscription.</value>
         [DataMember(Name = "renewal_term", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "renewal_term")]
-        public AllOfsubscriptionRenewalTerm RenewalTerm { get; set; }
+        public Term RenewalTerm { get; set; }
 
         /// <summary>
         /// Date when the subscribed-to service is activated.
@@ -272,7 +272,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The selling address for the customer.</value>
         [DataMember(Name = "sold_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to")]
-        public AllOfsubscriptionSoldTo SoldTo { get; set; }
+        public Contact SoldTo { get; set; }
 
         /// <summary>
         /// ID of the sold-to contact.
@@ -312,7 +312,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of subscription plans.</value>
         [DataMember(Name = "subscription_plans", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plans")]
-        public AllOfsubscriptionSubscriptionPlans SubscriptionPlans { get; set; }
+        public List<SubscriptionPlan> SubscriptionPlans { get; set; }
 
         /// <summary>
         /// Unique identifier of the Zuora user who last updated the object
@@ -329,6 +329,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "updated_time", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
+
         /// <summary>
         /// The version of the subscription. This version can be used in the `filter[]` query parameter to filter subscriptions.
         /// </summary>
@@ -336,6 +337,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "version", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "version")]
         public int? Version { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

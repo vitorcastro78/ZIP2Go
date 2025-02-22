@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     /// Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora&#x27;s [Payment Pages 2.0](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/LA_Hosted_Payment_Pages/B_Payment_Pages_2.0) instead of interacting with this API directly.

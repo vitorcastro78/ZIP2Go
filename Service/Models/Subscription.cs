@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     /// Subscription information.
@@ -329,6 +329,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "updated_time", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
+
         /// <summary>
         /// The version of the subscription. This version can be used in the `filter[]` query parameter to filter subscriptions.
         /// </summary>
@@ -336,6 +337,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "version", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "version")]
         public int? Version { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

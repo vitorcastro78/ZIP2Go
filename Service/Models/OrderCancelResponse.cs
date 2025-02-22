@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -143,6 +143,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "updated_time", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
+
         /// <summary>
         /// The billing documents that are written off.
         /// </summary>

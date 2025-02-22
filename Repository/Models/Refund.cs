@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The account that owns the refund</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfrefundAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the customer this refund is for, if one exists.
@@ -39,7 +39,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "applied_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "applied_to")]
-        public List<RefundsAppliedToResponse> AppliedTo { get; set; }
+        public List<RefundsAppliedTo> AppliedTo { get; set; }
 
         /// <summary>
         /// An active account in your Zuora Chart of Accounts.
@@ -79,7 +79,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related credit memo.</value>
         [DataMember(Name = "credit_memo", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo")]
-        public AllOfrefundCreditMemo CreditMemo { get; set; }
+        public CreditMemo CreditMemo { get; set; }
 
         /// <summary>
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
@@ -95,7 +95,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfrefundCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.

@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The customer account associated with this payment.</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfpaymentAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the customer account associated with this payment.
@@ -63,7 +63,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "applied_to", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "applied_to")]
-        public List<PaymentsAppliedToResponse> AppliedTo { get; set; }
+        public List<PaymentsAppliedTo> AppliedTo { get; set; }
 
         /// <summary>
         /// Identifier of the authorization transaction from the payment gateway.
@@ -111,7 +111,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfpaymentCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.

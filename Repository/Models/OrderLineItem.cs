@@ -8,7 +8,7 @@ namespace ZIP2GO.Repository.Models
     /// Data of order line items.
     /// </summary>
     [DataContract]
-    public class OrderLineItem
+    public class OrderItem
     {
         /// <summary>
         /// An active accounting code in your Zuora chart of accounts.
@@ -88,7 +88,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOforderLineItemCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.
@@ -144,7 +144,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of invoice items. EXPANDABLE</value>
         [DataMember(Name = "invoice_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_items")]
-        public AllOforderLineItemInvoiceItems InvoiceItems { get; set; }
+        public List<InvoiceItem> InvoiceItems { get; set; }
 
         /// <summary>
         /// Human-readable identifier of the order item. It can be user-supplied.

@@ -15,7 +15,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "actions", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "actions")]
-        public AllOfsubscriptionVersionOrderActions Actions { get; set; }
+        public OrderAction Actions { get; set; }
 
         /// <summary>
         /// Category of the order to indicate a product sale or return. Default value is `sale`.
@@ -54,7 +54,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfsubscriptionVersionOrderCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.
@@ -77,7 +77,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "line_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_items")]
-        public LineItemListResponse LineItems { get; set; }
+        public List<OrderItem> LineItems { get; set; }
 
         /// <summary>
         /// The date when the order is signed. All the order actions under this order will use this order date as the contract effective date if the contract effective date field is skipped or its value is left as null.

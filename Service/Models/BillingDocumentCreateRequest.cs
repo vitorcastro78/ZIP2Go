@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -64,6 +64,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "due_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "due_date")]
         public DateTime? DueDate { get; set; }
+
         /// <summary>
         /// Indicates whether to exclude this credit memo billing document from the rule of automatically applying it to invoices. This field is applicable only if the `type` field is set to `credit_memo`.
         /// </summary>
@@ -111,6 +112,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "reason_code", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
         public string ReasonCode { get; set; }
+
         /// <summary>
         /// Whether to transfer to an external accounting system.
         /// </summary>
@@ -118,6 +120,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "transfer_to_accounting", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transfer_to_accounting")]
         public bool? TransferToAccounting { get; set; }
+
         /// <summary>
         /// The type of billing document. Can be one of the credit memo, debit memo, or invoice.
         /// </summary>
@@ -125,6 +128,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "type", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

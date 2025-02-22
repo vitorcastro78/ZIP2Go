@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -32,6 +32,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "description", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
+
         /// <summary>
         /// The unique identifier of the invoice item.
         /// </summary>
@@ -95,6 +96,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

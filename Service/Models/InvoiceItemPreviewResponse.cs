@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -124,6 +124,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "subscription_item_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_number")]
         public string SubscriptionItemNumber { get; set; }
+
         /// <summary>
         /// The name of the subscription associated with this item.
         /// </summary>
@@ -139,6 +140,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "subscription_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_number")]
         public string SubscriptionNumber { get; set; }
+
         /// <summary>
         /// The amount of tax applied to the invoice item.
         /// </summary>

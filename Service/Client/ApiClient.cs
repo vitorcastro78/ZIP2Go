@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Text.RegularExpressions;
 using System.Web;
-using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Client
 {
@@ -26,11 +25,10 @@ namespace ZIP2GO.Client
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(IEasyCachingProvider cache, string basePath = "https://rest.sandbox.na.zuora.com/v2")
+        public ApiClient(string basePath = "https://rest.sandbox.na.zuora.com/v2")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
-            _cache = cache;
         }
 
         /// <summary>
@@ -129,23 +127,19 @@ namespace ZIP2GO.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-
             return Deserialize(RestClient.Execute(request).Content, typeof(Object));
-
         }
 
         public T CallApi<T>(string Id, string path, RestSharp.Method method, Dictionary<string, string>? queryParams = null, string? postBody = null,
             Dictionary<string, string>? headerParams = null, Dictionary<string, string>? formParams = null,
             Dictionary<string, FileParameter>? fileParams = null, string[]? authSettings = null)
         {
-
             headerParams.Add("zuora-track-id", zuoraTrackId); // header parameter
             headerParams.Add("async", _allowAsync.ToString()); // header parameter
             headerParams.Add("zuora-entity-ids", zuoraEntityIds); // header parameter
             headerParams.Add("idempotency-key", idempotencyKey); // header parameter
             headerParams.Add("accept-encoding", acceptEncoding); // header parameter
             headerParams.Add("content-encoding", contentEncoding); // header parameter
-
 
             var request = new RestRequest(path, method);
             var response = new RestResponse();
@@ -178,15 +172,14 @@ namespace ZIP2GO.Client
 
             if (method != Method.Get)
             {
-               var result = (T)Deserialize(RestClient.Execute(request).Content, typeof(T));
-               cachingTrigger.SetCachingTrigger<T>( method, response);
-               return result;
+                var result = (T)Deserialize(RestClient.Execute(request).Content, typeof(T));
+                cachingTrigger.SetCachingTrigger<T>(method, response);
+                return result;
             }
             else
             {
                 return cachingTrigger.GetCachingTrigger<T>(Id);
             }
-
         }
 
         /// <summary>

@@ -25,13 +25,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
         public string Number { get; set; }
+
         /// <summary>
         /// The related invoices.
         /// </summary>
         /// <value>The related invoices.</value>
         [DataMember(Name = "refunds", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunds")]
-        public AllOfrefundOrderTransactionsRefunds Refunds { get; set; }
+        public List<Refund> Refunds { get; set; }
 
         /// <summary>
         /// The states of the refunds.
@@ -39,7 +40,8 @@ namespace ZIP2GO.Repository.Models
         /// <value>The states of the refunds.</value>
         [DataMember(Name = "state", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
-        public AllOfrefundOrderTransactionsState State { get; set; }
+        public TransactionsState State { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

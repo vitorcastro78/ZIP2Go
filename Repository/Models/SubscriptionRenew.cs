@@ -5,18 +5,17 @@ using System.Text;
 namespace ZIP2GO.Repository.Models
 {
     /// <summary>
-    ///
+    /// Specify this field to renew a subscription
     /// </summary>
     [DataContract]
-    public class SubscriptionRemovePlanPatchResponse
+    public class SubscriptionRenew
     {
         /// <summary>
-        /// Identifier of the subscription plan.
+        /// Gets or Sets Terms
         /// </summary>
-        /// <value>Identifier of the subscription plan.</value>
-        [DataMember(Name = "subscription_plan_id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plan_id")]
-        public string SubscriptionPlanId { get; set; }
+        [DataMember(Name = "terms", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
+        public SubscriptionTerm Terms { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object
@@ -34,8 +33,8 @@ namespace ZIP2GO.Repository.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class SubscriptionRemovePlanPatchResponse {\n");
-            sb.Append("  SubscriptionPlanId: ").Append(SubscriptionPlanId).Append("\n");
+            sb.Append("class SubscriptionRenewPatchResponse {\n");
+            sb.Append("  Terms: ").Append(Terms).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

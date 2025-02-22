@@ -304,6 +304,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "updated_time", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

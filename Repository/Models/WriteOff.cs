@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The related invoice.</value>
         [DataMember(Name = "invoice", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice")]
-        public AllOfwriteOffInvoice Invoice { get; set; }
+        public Invoice Invoice { get; set; }
 
         /// <summary>
         /// The invoice number.
@@ -56,7 +56,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The states of the transactions.</value>
         [DataMember(Name = "state", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
-        public AllOfwriteOffState State { get; set; }
+        public WriteOffState State { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

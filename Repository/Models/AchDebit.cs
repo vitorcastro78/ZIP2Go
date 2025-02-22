@@ -56,6 +56,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "mandate", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

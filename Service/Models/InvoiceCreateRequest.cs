@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -64,6 +64,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "due_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "due_date")]
         public DateTime? DueDate { get; set; }
+
         /// <summary>
         /// Information of all invoice items.
         /// </summary>
@@ -95,6 +96,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "transfer_to_accounting", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transfer_to_accounting")]
         public bool? TransferToAccounting { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

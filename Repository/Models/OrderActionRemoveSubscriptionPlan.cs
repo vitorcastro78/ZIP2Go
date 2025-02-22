@@ -5,23 +5,16 @@ using System.Text;
 namespace ZIP2GO.Repository.Models
 {
     /// <summary>
-    /// Specify this field to renew a subscription
+    /// Specify this field to remove subscription plans from existing subscriptions.
     /// </summary>
     [DataContract]
-    public class SubscriptionRenewPatchResponse
+    public class OrderActionRemoveSubscriptionPlan : SubscriptionRemovePlan
     {
-        /// <summary>
-        /// Gets or Sets Terms
-        /// </summary>
-        [DataMember(Name = "terms", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
-        public SubscriptionTerm Terms { get; set; }
-
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
+        public new string ToJson()
         {
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
@@ -33,8 +26,7 @@ namespace ZIP2GO.Repository.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class SubscriptionRenewPatchResponse {\n");
-            sb.Append("  Terms: ").Append(Terms).Append("\n");
+            sb.Append("class OrderActionRemoveSubscriptionPlan {\n");
             sb.Append("}\n");
             return sb.ToString();
         }

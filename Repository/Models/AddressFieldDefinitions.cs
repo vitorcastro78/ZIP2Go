@@ -41,6 +41,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "line2", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line2")]
         public string Line2 { get; set; }
+
         /// <summary>
         /// ZIP or postal code.
         /// </summary>
@@ -56,6 +57,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "state", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

@@ -33,6 +33,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "identity_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "identity_number")]
         public string IdentityNumber { get; set; }
+
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>

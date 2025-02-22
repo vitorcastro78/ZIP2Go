@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -71,6 +71,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "scheduled_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "scheduled_date")]
         public DateTime? ScheduledDate { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

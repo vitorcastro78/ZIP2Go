@@ -10,6 +10,8 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BillRun
     {
+        public Guid InternalId { get; set; }
+
         /// <summary>
         /// Identifier of the customer account to bill.
         /// </summary>

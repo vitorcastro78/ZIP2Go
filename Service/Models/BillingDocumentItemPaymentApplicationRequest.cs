@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     ///
@@ -25,6 +25,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
+
         /// <summary>
         /// The identifier of a taxation item.
         /// </summary>

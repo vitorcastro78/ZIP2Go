@@ -1,16 +1,13 @@
 using EasyCaching.SQLite;
 using Service.Client;
 using Service.Interfaces;
-using ZIP2GO.Client;
 using ZIP2GO.Service;
 using ZIP2GO.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 var options = new ZuoraOptions();
 builder.Configuration.GetSection("Zuora").Get<ZuoraOptions>();
-
 
 // Add Dependency Injection to the container.
 AddDependencyInjection(builder);
@@ -34,7 +31,6 @@ static void AddDependencyInjection(WebApplicationBuilder builder)
     builder.Services.AddScoped<IBillingDocumentItemsService, BillingDocumentItemsService>();
     builder.Services.AddScoped<IBillingDocumentsService, BillingDocumentsService>();
     builder.Services.AddScoped<IWorkflowsService, WorkflowsService>();
-
 }
 
 static void ConfigureServices(IServiceCollection services)

@@ -18,7 +18,14 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "action_id")]
         public string ActionId { get; set; }
 
-      
+        /// <summary>
+        /// Specify this field to add subscription plans to existing subscriptions.
+        /// </summary>
+        /// <value>Specify this field to add subscription plans to existing subscriptions.</value>
+        [DataMember(Name = "add_subscription_plan", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "add_subscription_plan")]
+        public SubscriptionAddPlan AddSubscriptionPlan { get; set; }
+
         /// <summary>
         /// Specify this field to cancel an existing subscription.
         /// </summary>
@@ -33,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to pause an existing subscription.</value>
         [DataMember(Name = "pause", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause")]
-        public AllOforderActionPause Pause { get; set; }
+        public SubscriptionPause Pause { get; set; }
 
         /// <summary>
         /// Specify this field to remove subscription plans from existing subscriptions.
@@ -41,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to remove subscription plans from existing subscriptions.</value>
         [DataMember(Name = "remove_subscription_plan", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remove_subscription_plan")]
-        public AllOforderActionRemoveSubscriptionPlan RemoveSubscriptionPlan { get; set; }
+        public SubscriptionRemovePlan RemoveSubscriptionPlan { get; set; }
 
         /// <summary>
         /// Specify this field to renew an existing subscription.
@@ -49,7 +56,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to renew an existing subscription.</value>
         [DataMember(Name = "renew", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "renew")]
-        public AllOforderActionRenew Renew { get; set; }
+        public SubscriptionRenew Renew { get; set; }
 
         /// <summary>
         /// Specify this field to replace existing subscription plans with new plans.
@@ -57,7 +64,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to replace existing subscription plans with new plans.</value>
         [DataMember(Name = "replace_subscription_plan", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "replace_subscription_plan")]
-        public AllOforderActionReplaceSubscriptionPlan ReplaceSubscriptionPlan { get; set; }
+        public SubscriptionReplacePlan ReplaceSubscriptionPlan { get; set; }
 
         /// <summary>
         /// Specify this field to resume a paused subscription.
@@ -65,7 +72,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to resume a paused subscription.</value>
         [DataMember(Name = "resume", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resume")]
-        public AllOforderActionResume Resume { get; set; }
+        public SubscriptionResume Resume { get; set; }
 
         /// <summary>
         /// The sequence number of the action.
@@ -80,7 +87,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "start_on", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_on")]
-        public StartOnResponse StartOn { get; set; }
+        public StartOn StartOn { get; set; }
 
         /// <summary>
         /// Specify this field to add new plans to the new subscription.
@@ -88,14 +95,14 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to add new plans to the new subscription.</value>
         [DataMember(Name = "subscription_plans", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plans")]
-        public AllOforderActionSubscriptionPlans SubscriptionPlans { get; set; }
+        public List<SubscriptionPlan> SubscriptionPlans { get; set; }
 
         /// <summary>
         /// Gets or Sets Terms
         /// </summary>
         [DataMember(Name = "terms", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
-        public AllOforderActionTerms Terms { get; set; }
+        public SubscriptionTermPatchResponse Terms { get; set; }
 
         /// <summary>
         /// The action associated with this metric.
@@ -111,7 +118,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Specify this field to update subscription plans on the existing subscriptions.</value>
         [DataMember(Name = "update_subscription_plan", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "update_subscription_plan")]
-        public AllOforderActionUpdateSubscriptionPlan UpdateSubscriptionPlan { get; set; }
+        public SubscriptionUpdatePlanPatchResponse UpdateSubscriptionPlan { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

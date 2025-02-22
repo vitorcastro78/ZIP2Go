@@ -14,7 +14,6 @@ using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 
@@ -200,7 +199,7 @@ namespace ZIP2GO.WebAPI.Controllers
             //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(504, default(ErrorResponse));
 
-            _accountsService.DeleteAccount(accountId, zuoraTrackId, _async, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding); 
+            _accountsService.DeleteAccount(accountId, zuoraTrackId, _async, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
 
             throw new NotImplementedException();
         }

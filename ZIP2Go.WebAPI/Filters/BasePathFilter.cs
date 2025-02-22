@@ -1,8 +1,6 @@
-using System.Linq;
-using System.Text.RegularExpressions;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text.RegularExpressions;
 
 namespace ZIP2GO.WebAPI.Filters
 {

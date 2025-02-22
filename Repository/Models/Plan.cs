@@ -56,7 +56,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfplanCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// An arbitrary string attached to the object. Often useful for displaying to users.
@@ -104,7 +104,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>A list of prices.</value>
         [DataMember(Name = "prices", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prices")]
-        public AllOfplanPrices Prices { get; set; }
+        public List<Price> Prices { get; set; }
 
         /// <summary>
         /// The product associated with this plan.
@@ -112,7 +112,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The product associated with this plan.</value>
         [DataMember(Name = "product", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product")]
-        public AllOfplanProduct Product { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// Identifier of the product associated with this plan.

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Service.Client
+﻿namespace Service.Client
 {
     public class ZuoraOptions
     {
@@ -81,7 +75,6 @@ namespace Service.Client
         public IDictionary<string, CountrySection> CountrySections { get; set; }
 
         public IDictionary<string, string> EndpointSpecificVersions { get; set; } = new Dictionary<string, string>();
-
 
         public string ZuoraEntityId { get; set; }
 

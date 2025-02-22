@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Prices for the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.</value>
         [DataMember(Name = "amounts", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amounts")]
-        public AllOftierAmounts Amounts { get; set; }
+        public Money Amounts { get; set; }
 
         /// <summary>
         /// Per unit prices for units in the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.
@@ -24,7 +24,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Per unit prices for units in the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.</value>
         [DataMember(Name = "unit_amounts", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amounts")]
-        public AllOftierUnitAmounts UnitAmounts { get; set; }
+        public Money UnitAmounts { get; set; }
 
         /// <summary>
         /// The upper bound of a tier. The lower bound of a tier is the upper bound of the previous tier plus one or some fraction of one, depending on the precision of the unit of measure.

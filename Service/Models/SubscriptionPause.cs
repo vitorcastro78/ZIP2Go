@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace ZIP2GO.Service.Modelos
 {
     /// <summary>
     /// Specify this field if you want to pause a subscription.
@@ -32,6 +32,7 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "pause_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_date")]
         public string PauseDate { get; set; }
+
         /// <summary>
         /// Unit in which the pause duration is defined. One of day, week, month or year.
         /// </summary>
@@ -47,12 +48,14 @@ namespace ZIP2GO.Service.Models
         [DataMember(Name = "pause_interval_count", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_interval_count")]
         public decimal? PauseIntervalCount { get; set; }
+
         /// <summary>
         /// Gets or Sets ResumeBehavior
         /// </summary>
         [DataMember(Name = "resume_behavior", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resume_behavior")]
         public ResumeSubscriptionRequest ResumeBehavior { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>

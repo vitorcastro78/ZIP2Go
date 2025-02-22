@@ -32,7 +32,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -40,7 +40,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfSubscriptionPlanCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// Unique identifier for the object.
@@ -64,7 +64,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The plan object associated with this subscription plan.</value>
         [DataMember(Name = "plan", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan")]
-        public AllOfSubscriptionPlanPlan Plan { get; set; }
+        public Plan Plan { get; set; }
 
         /// <summary>
         /// Identifier of the plan associated with this subscription plan.
@@ -80,7 +80,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The product associated with the subscription plan.</value>
         [DataMember(Name = "product", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product")]
-        public AllOfSubscriptionPlanProduct Product { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// Identifier of the product associated with this subscription plan.
@@ -96,7 +96,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The subscription to which this subscription plan belongs.</value>
         [DataMember(Name = "subscription", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription")]
-        public AllOfSubscriptionPlanSubscription Subscription { get; set; }
+        public Subscription Subscription { get; set; }
 
         /// <summary>
         /// Identifier of the subscription this subscription plan belongs to.
@@ -112,7 +112,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of subscription items.</value>
         [DataMember(Name = "subscription_items", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_items")]
-        public AllOfSubscriptionPlanSubscriptionItems SubscriptionItems { get; set; }
+        public List<SubscriptionItem> SubscriptionItems { get; set; }
 
         /// <summary>
         /// Unique identifier of the Zuora user who last updated the object

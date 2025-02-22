@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The customer account associated with this payment method.</value>
         [DataMember(Name = "account", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public AllOfPaymentMethodAccount Account { get; set; }
+        public Account Account { get; set; }
 
         /// <summary>
         /// A customer account identifier.
@@ -133,7 +133,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The custom objects associated with a Zuora standard object.</value>
         [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
-        public OneOfPaymentMethodCustomObjects CustomObjects { get; set; }
+        public CustomObject CustomObjects { get; set; }
 
         /// <summary>
         /// The custom type of the payment method from Universal Payment Connector.

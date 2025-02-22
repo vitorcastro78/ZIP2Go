@@ -8,7 +8,7 @@ namespace ZIP2GO.Repository.Models
     /// Specify this field if you want to resume a subscription.
     /// </summary>
     [DataContract]
-    public class SubscriptionResumePatchResponse
+    public class SubscriptionResume
     {
         /// <summary>
         /// Gets or Sets CustomFields

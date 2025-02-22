@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 

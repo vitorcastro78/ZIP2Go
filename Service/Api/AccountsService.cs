@@ -2,7 +2,7 @@
 using RestSharp;
 using Service.Interfaces;
 using ZIP2GO.Client;
-using ZIP2GO.Service.Models;
+using ZIP2GO.Service.Modelos;
 
 namespace ZIP2GO.Service
 {
@@ -34,11 +34,11 @@ namespace ZIP2GO.Service
         /// <returns></returns>
         public AccountsService(string basePath)
         {
-            this.ApiClient = new ApiClient(_cache,basePath);
+            this.ApiClient = new ApiClient(basePath);
         }
 
         /// <summary>
-        /// Gets or sets the API client.
+        /// Gets or sets the API client
         /// </summary>
         /// <value>An instance of the ApiClient</value>
         public ApiClient ApiClient { get; set; }

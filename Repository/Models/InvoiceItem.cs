@@ -143,7 +143,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The order line item associated with this invoice item. EXPANDABLE</value>
         [DataMember(Name = "line_item", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_item")]
-        public OrderLineItem LineItem { get; set; }
+        public OrderItem LineItem { get; set; }
 
         /// <summary>
         /// Name of the invoice item displayed to customers on billing documents.

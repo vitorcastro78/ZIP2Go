@@ -33,6 +33,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
+
         /// <summary>
         /// The id of invoice this payment will apply to.      Note: When `collect_payment` is true, this field is required.      Only one invoice can be paid; for scenarios where you want to pay for multiple invoices, set collect_payment to false and use [Create Payment](#operation/createPayment) API separately.
         /// </summary>
