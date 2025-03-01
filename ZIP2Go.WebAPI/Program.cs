@@ -1,4 +1,5 @@
 using EasyCaching.SQLite;
+using Microsoft.OpenApi.Models;
 using Service.Client;
 using Service.Interfaces;
 using ZIP2GO.Service;
@@ -35,10 +36,29 @@ static void AddDependencyInjection(WebApplicationBuilder builder)
 
 static void ConfigureServices(IServiceCollection services)
 {
-    services.AddControllers();
+    services.AddControllers().AddNewtonsoftJson();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     services.AddEndpointsApiExplorer();
-    services.AddSwaggerGen();
+
+    services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1",
+
+      new OpenApiInfo
+      {
+          Title = "Zuora Integration Plataform",
+          Version = "v1",
+          Description = "Api Methods for Zuora Billing Integration",
+          Contact = new OpenApiContact
+          {
+              Name = "Vitor Castro",
+              Url = new Uri("https://www.zuora.com"),
+              Email = "vitorcastro78@gmail.com"
+          }
+      });
+
+    });
+
 
     services.AddEasyCaching(option =>
     {
@@ -61,11 +81,10 @@ static void ConfigureServices(IServiceCollection services)
 static void ConfigureWebApp(WebApplication app)
 {
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+    
+    app.UseSwagger();
+    app.UseStaticFiles();
+    app.UseSwaggerUI();
 
     app.UseHttpsRedirection();
 
