@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Modelos
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// The account that owns the refund

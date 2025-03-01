@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Modelos
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// The mandate information for the Credit Card, Credit Card Reference Transaction, ACH, or Bank Transfer payment method.

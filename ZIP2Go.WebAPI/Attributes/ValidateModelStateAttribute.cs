@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

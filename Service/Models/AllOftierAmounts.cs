@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Modelos
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// Prices for the tier. Only set if &#x60;charge_model&#x60; is &#x60;tiered&#x60;, &#x60;tiered_overage&#x60;, or &#x60;highwatermark_tiered&#x60;.

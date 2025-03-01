@@ -2,7 +2,7 @@ using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
 using ZIP2GO.Client;
-using ZIP2GO.Service.Modelos;
+using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Service
 {

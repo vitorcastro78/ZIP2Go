@@ -9,11 +9,11 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-using ZIP2GO.Service.Modelos;
+
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 
