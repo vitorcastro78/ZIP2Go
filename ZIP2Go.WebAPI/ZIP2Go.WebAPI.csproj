@@ -7,6 +7,7 @@
     <UserSecretsId>881edb0d-69f5-4b00-b7dc-959d0acaae9e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\vitor\source\repos\vitorcastro78\ZIP2Go\ZIP2Go.WebAPI\zip2go.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
