@@ -56,7 +56,8 @@ static void ConfigureServices(IServiceCollection services)
               Email = "vitorcastro78@gmail.com"
           }
       });
-
+        var filePath = Path.Combine(AppContext.BaseDirectory, "zip2go.xml");
+        c.IncludeXmlComments(filePath);
     });
 
 
