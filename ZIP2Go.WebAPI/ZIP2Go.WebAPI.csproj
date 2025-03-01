@@ -5,8 +5,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>881edb0d-69f5-4b00-b7dc-959d0acaae9e</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Dockerfile.original" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EasyCaching.SQLite" Version="1.9.2" />
@@ -27,6 +31,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Repository\Repository.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
 </Project>
