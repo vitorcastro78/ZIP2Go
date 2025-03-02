@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// Credit Card Reference Transaction. See Supported payment methods for payment gateways that support this type of payment method.
@@ -22,7 +22,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

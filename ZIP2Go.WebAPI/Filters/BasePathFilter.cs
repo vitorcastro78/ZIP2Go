@@ -1,10 +1,8 @@
-using System.Linq;
-using System.Text.RegularExpressions;
-using Swashbuckle.AspNetCore.Swagger;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text.RegularExpressions;
 
-namespace ZIP2Go.WebAPI.Filters
+namespace ZIP2GO.WebAPI.Filters
 {
     /// <summary>
     /// BasePath Document Filter sets BasePath property of Swagger and removes it from the individual URL paths

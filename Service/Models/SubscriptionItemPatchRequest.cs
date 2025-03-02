@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     ///
@@ -141,6 +141,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "subscription_item_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_number")]
         public string SubscriptionItemNumber { get; set; }
+
         /// <summary>
         /// Information of all tiers if you want to override the original price with a tiered price.
         /// </summary>
@@ -164,6 +165,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "unit_amount", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amount")]
         public decimal? UnitAmount { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>
@@ -176,7 +178,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

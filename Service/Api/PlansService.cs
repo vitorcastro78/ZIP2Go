@@ -1,9 +1,9 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2Go.Client;
-using ZIP2Go.Models;
+using ZIP2GO.Client;
+using ZIP2GO.Service.Models;
 
-namespace ZIP2Go.Service
+namespace ZIP2GO.Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
@@ -27,7 +27,7 @@ namespace ZIP2Go.Service
         /// Initializes a new instance of the <see cref="PlansService"/> class.
         /// </summary>
         /// <returns></returns>
-        public PlansService(String basePath)
+        public PlansService(string basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }
@@ -63,11 +63,11 @@ namespace ZIP2Go.Service
             var path = "/plans";
             path = path.Replace("{format}", "json");
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
 
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
@@ -84,7 +84,7 @@ namespace ZIP2Go.Service
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
@@ -117,11 +117,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "plan_id" + "}", ApiClient.ParameterToString(planId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
@@ -131,7 +131,7 @@ namespace ZIP2Go.Service
             if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
@@ -149,7 +149,7 @@ namespace ZIP2Go.Service
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public String GetBasePath(String basePath)
+        public string GetBasePath(string basePath)
         {
             return this.ApiClient.BasePath;
         }
@@ -179,11 +179,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "plan_id" + "}", ApiClient.ParameterToString(planId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
 
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
@@ -198,7 +198,7 @@ namespace ZIP2Go.Service
             if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
@@ -233,11 +233,11 @@ namespace ZIP2Go.Service
             var path = "/plans";
             path = path.Replace("{format}", "json");
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
 
             if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
             if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
@@ -254,7 +254,7 @@ namespace ZIP2Go.Service
             if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
@@ -272,7 +272,7 @@ namespace ZIP2Go.Service
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public void SetBasePath(String basePath)
+        public void SetBasePath(string basePath)
         {
             this.ApiClient.BasePath = basePath;
         }
@@ -306,11 +306,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "plan_id" + "}", ApiClient.ParameterToString(planId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String postBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string postBody = null;
 
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
@@ -327,7 +327,7 @@ namespace ZIP2Go.Service
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);

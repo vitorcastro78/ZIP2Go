@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// Account data that is used for the subscription preview. If you specify this field, do not specify &#x60;account_id&#x60;. Note that this operation is only for preview and no subscription is created.
@@ -67,7 +67,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace ZIP2Go.WebAPI.Attributes
+namespace ZIP2GO.WebAPI.Attributes
 {
     /// <summary>
     /// Model state validation attribute

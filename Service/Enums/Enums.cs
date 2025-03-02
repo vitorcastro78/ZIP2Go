@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace ZIP2Go.Service.Enums
+namespace ZIP2GO.Service.Enums
 {
     /// <summary>
     /// The action associated with this metric.

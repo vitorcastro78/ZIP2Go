@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     ///
@@ -32,6 +32,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "description", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
+
         /// <summary>
         /// The unique identifier of the invoice item.
         /// </summary>
@@ -95,6 +96,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>
@@ -107,7 +109,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

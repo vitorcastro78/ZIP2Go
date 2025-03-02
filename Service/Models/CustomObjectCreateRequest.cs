@@ -2,13 +2,13 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     ///
     /// </summary>
     [DataContract]
-    public class CustomObjectCreateRequest : Dictionary<String, Object>
+    public class CustomObjectCreateRequest : Dictionary<string, Object>
     {
         /// <summary>
         /// Get the JSON string presentation of the object
@@ -22,7 +22,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

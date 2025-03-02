@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     /// If the &#x60;type&#x60; of the payment method is &#x60;betalings_debit&#x60;, this hash contains details about the Betalingsservice bank account.
@@ -33,6 +33,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "identity_number", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "identity_number")]
         public string IdentityNumber { get; set; }
+
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
@@ -52,7 +53,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();

@@ -1,22 +1,31 @@
+using EasyCaching.Core;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace ZIP2Go.Client
+namespace ZIP2GO.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
     /// </summary>
     public class ApiClient
     {
-        private readonly Dictionary<String, String> _defaultHeaderMap = new Dictionary<String, String>();
+        private string zuoraTrackId;
+        private bool? _allowAsync;
+        private string zuoraEntityIds;
+        private string idempotencyKey;
+        private string acceptEncoding;
+        private string contentEncoding;
+
+        private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
+        private readonly IEasyCachingProvider _cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath = "https://rest.sandbox.na.zuora.com/v2")
+        public ApiClient(string basePath = "https://rest.sandbox.na.zuora.com/v2")
         {
             BasePath = basePath;
             RestClient = new RestClient(BasePath);
@@ -31,7 +40,7 @@ namespace ZIP2Go.Client
         /// <summary>
         /// Gets the default header.
         /// </summary>
-        public Dictionary<String, String> DefaultHeader
+        public Dictionary<string, string> DefaultHeader
         {
             get { return _defaultHeaderMap; }
         }
@@ -45,7 +54,7 @@ namespace ZIP2Go.Client
         /// <summary>
         /// Encode string in base64 format.
         /// </summary>
-        /// <param name="text">String to be encoded.</param>
+        /// <param name="text">string to be encoded.</param>
         /// <returns>Encoded string.</returns>
         public static string Base64Encode(string text)
         {
@@ -87,12 +96,12 @@ namespace ZIP2Go.Client
         /// <param name="fileParams">File parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
         /// <returns>Object</returns>
-        public Object CallApi(String path, RestSharp.Method method, Dictionary<String, String> queryParams, String postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, String[] authSettings)
+        public Object CallApi(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody,
+            Dictionary<string, string> headerParams, Dictionary<string, string> formParams,
+            Dictionary<string, FileParameter> fileParams, string[] authSettings)
         {
             var request = new RestRequest(path, method);
-
+            var response = new Object();
             UpdateParamsForAuth(queryParams, headerParams, authSettings);
 
             // add default header, if any
@@ -118,7 +127,59 @@ namespace ZIP2Go.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-            return (Object)RestClient.Execute(request);
+            return Deserialize(RestClient.Execute(request).Content, typeof(Object));
+        }
+
+        public T CallApi<T>(string Id, string path, RestSharp.Method method, Dictionary<string, string>? queryParams = null, string? postBody = null,
+            Dictionary<string, string>? headerParams = null, Dictionary<string, string>? formParams = null,
+            Dictionary<string, FileParameter>? fileParams = null, string[]? authSettings = null)
+        {
+            headerParams.Add("zuora-track-id", zuoraTrackId); // header parameter
+            headerParams.Add("async", _allowAsync.ToString()); // header parameter
+            headerParams.Add("zuora-entity-ids", zuoraEntityIds); // header parameter
+            headerParams.Add("idempotency-key", idempotencyKey); // header parameter
+            headerParams.Add("accept-encoding", acceptEncoding); // header parameter
+            headerParams.Add("content-encoding", contentEncoding); // header parameter
+
+            var request = new RestRequest(path, method);
+            var response = new RestResponse();
+            UpdateParamsForAuth(queryParams, headerParams, authSettings);
+
+            // add default header, if any
+            foreach (var defaultHeader in _defaultHeaderMap)
+                request.AddHeader(defaultHeader.Key, defaultHeader.Value);
+
+            // add header parameter, if any
+            foreach (var param in headerParams)
+                request.AddHeader(param.Key, param.Value);
+
+            // add query parameter, if any
+            foreach (var param in queryParams)
+                request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
+
+            // add form parameter, if any
+            foreach (var param in formParams)
+                request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
+
+            // add file parameter, if any
+            //// foreach(var param in fileParams)
+            ////    request.AddFile(param.Value.Name, param.Value, param.Value.FileName, param.Value.ContentType);
+
+            if (postBody != null) // http body (model) parameter
+                request.AddParameter("application/json", postBody, ParameterType.RequestBody);
+
+            var cachingTrigger = new CachingTrigger(_cache);
+
+            if (method != Method.Get)
+            {
+                var result = (T)Deserialize(RestClient.Execute(request).Content, typeof(T));
+                cachingTrigger.SetCachingTrigger<T>(method, response);
+                return result;
+            }
+            else
+            {
+                return cachingTrigger.GetCachingTrigger<T>(Id);
+            }
         }
 
         /// <summary>
@@ -137,7 +198,7 @@ namespace ZIP2Go.Client
 
             if (type == typeof(Stream))
             {
-                var filePath = String.IsNullOrEmpty(Configuration.TempFolderPath)
+                var filePath = string.IsNullOrEmpty(Configuration.TempFolderPath)
                     ? Path.GetTempPath()
                     : Configuration.TempFolderPath;
 
@@ -158,7 +219,7 @@ namespace ZIP2Go.Client
                 return DateTime.Parse(content, null, System.Globalization.DateTimeStyles.RoundtripKind);
             }
 
-            if (type == typeof(String) || type.Name.StartsWith("System.Nullable")) // return primitive type
+            if (type == typeof(string) || type.Name.StartsWith("System.Nullable")) // return primitive type
             {
                 return ConvertType(content, type);
             }
@@ -177,7 +238,7 @@ namespace ZIP2Go.Client
         /// <summary>
         /// Escape string (url-encoded).
         /// </summary>
-        /// <param name="str">String to be escaped.</param>
+        /// <param name="str">string to be escaped.</param>
         /// <returns>Escaped string.</returns>
         public string EscapeString(string str)
         {
@@ -230,7 +291,7 @@ namespace ZIP2Go.Client
                 // For example: 2009-06-15T13:45:30.0000000
                 return ((DateTime)obj).ToString(Configuration.DateTimeFormat);
             else if (obj is List<string>)
-                return String.Join(",", (obj as List<string>).ToArray());
+                return string.Join(",", (obj as List<string>).ToArray());
             else
                 return Convert.ToString(obj);
         }
@@ -258,7 +319,7 @@ namespace ZIP2Go.Client
         /// <param name="queryParams">Query parameters.</param>
         /// <param name="headerParams">Header parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
-        public void UpdateParamsForAuth(Dictionary<String, String> queryParams, Dictionary<String, String> headerParams, string[] authSettings)
+        public void UpdateParamsForAuth(Dictionary<string, string> queryParams, Dictionary<string, string> headerParams, string[] authSettings)
         {
             if (authSettings == null || authSettings.Length == 0)
                 return;

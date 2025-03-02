@@ -1,10 +1,14 @@
 using EasyCaching.SQLite;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.OpenApi.Models;
+using Service.Client;
 using Service.Interfaces;
-using ZIP2Go.Service;
-using ZIP2Go.WebAPI.Filters;
+using ZIP2GO.Service;
+using ZIP2GO.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var options = new ZuoraOptions();
+builder.Configuration.GetSection("Zuora").Get<ZuoraOptions>();
 
 // Add Dependency Injection to the container.
 AddDependencyInjection(builder);
@@ -20,15 +24,42 @@ static void AddDependencyInjection(WebApplicationBuilder builder)
     builder.Services.AddScoped<IInvoicesService, InvoicesService>();
     builder.Services.AddScoped<ISubscriptionsService, SubscriptionsService>();
     builder.Services.AddScoped<ISubscriptionItemsService, SubscriptionItemsService>();
+    builder.Services.AddScoped<ISubscriptionPlansService, SubscriptionPlansService>();
     builder.Services.AddScoped<IOrdersService, OrdersService>();
+    builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
+    builder.Services.AddScoped<IProductsService, ProductsService>();
+    builder.Services.AddScoped<IContactsService, ContactsService>();
+    builder.Services.AddScoped<IBillingDocumentItemsService, BillingDocumentItemsService>();
+    builder.Services.AddScoped<IBillingDocumentsService, BillingDocumentsService>();
+    builder.Services.AddScoped<IWorkflowsService, WorkflowsService>();
 }
 
 static void ConfigureServices(IServiceCollection services)
 {
-    services.AddControllers();
+    services.AddControllers().AddNewtonsoftJson();
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    // services.AddEndpointsServiceExplorer();
-    services.AddSwaggerGen();
+    services.AddEndpointsApiExplorer();
+
+    services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1",
+
+      new OpenApiInfo
+      {
+          Title = "Zuora Integration Plataform",
+          Version = "v1",
+          Description = "Api Methods for Zuora Billing Integration",
+          Contact = new OpenApiContact
+          {
+              Name = "Vitor Castro",
+              Url = new Uri("https://www.zuora.com"),
+              Email = "vitorcastro78@gmail.com"
+          }
+      });
+        var filePath = Path.Combine(AppContext.BaseDirectory, "zip2go.xml");
+        c.IncludeXmlComments(filePath);
+    });
+
 
     services.AddEasyCaching(option =>
     {
@@ -51,19 +82,10 @@ static void ConfigureServices(IServiceCollection services)
 static void ConfigureWebApp(WebApplication app)
 {
     // Configure the HTTP request pipeline.
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI(config =>
-        {
-            config.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object>
-            {
-                ["activated"] = false
-            };
-        });
-    }
-    app.MapSwagger().RequireAuthorization();
-
+    
+    app.UseSwagger();
+    app.UseStaticFiles();
+    app.UseSwaggerUI();
 
     app.UseHttpsRedirection();
 

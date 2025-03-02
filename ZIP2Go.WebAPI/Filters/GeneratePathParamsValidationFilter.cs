@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.ComponentModel.DataAnnotations;
 
-namespace ZIP2Go.WebAPI.Filters
+namespace ZIP2GO.WebAPI.Filters
 {
     /// <summary>
     /// Path Parameter Validation Rules Filter
@@ -46,7 +45,7 @@ namespace ZIP2Go.WebAPI.Filters
                         }
                     }
 
-                    // String Length [StringLength]
+                    // string Length [StringLength]
                     int? minLenght = null, maxLength = null;
                     var stringLengthAttr = attributes.FirstOrDefault(p => p.AttributeType == typeof(StringLengthAttribute));
                     if (stringLengthAttr != null)

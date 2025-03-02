@@ -1,10 +1,10 @@
 ﻿using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
-using ZIP2Go.Client;
-using ZIP2Go.Models;
+using ZIP2GO.Client;
+using ZIP2GO.Service.Models;
 
-namespace ZIP2Go.Service
+namespace ZIP2GO.Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
@@ -32,13 +32,13 @@ namespace ZIP2Go.Service
         /// Initializes a new instance of the <see cref="AccountsService"/> class.
         /// </summary>
         /// <returns></returns>
-        public AccountsService(String basePath)
+        public AccountsService(string basePath)
         {
             this.ApiClient = new ApiClient(basePath);
         }
 
         /// <summary>
-        /// Gets or sets the API client.
+        /// Gets or sets the API client
         /// </summary>
         /// <value>An instance of the ApiClient</value>
         public ApiClient ApiClient { get; set; }
@@ -84,11 +84,11 @@ namespace ZIP2Go.Service
             var path = "/accounts";
             path = path.Replace("{format}", "json");
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
@@ -121,7 +121,7 @@ namespace ZIP2Go.Service
             PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
@@ -154,11 +154,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
@@ -168,7 +168,7 @@ namespace ZIP2Go.Service
             if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
@@ -204,11 +204,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
@@ -219,7 +219,7 @@ namespace ZIP2Go.Service
             PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
@@ -273,11 +273,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
@@ -308,17 +308,17 @@ namespace ZIP2Go.Service
             if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
+            return ApiClient.CallApi<Account>(accountId, path, Method.Get);
 
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.ErrorMessage, response.ErrorMessage);
+            //if (((int)response.StatusCode) >= 400)
+            //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
+            //else if (((int)response.StatusCode) == 0)
+            //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
+            //return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
         }
 
         /// <summary>
@@ -359,11 +359,11 @@ namespace ZIP2Go.Service
             var path = "/accounts";
             path = path.Replace("{format}", "json");
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
             if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
@@ -396,7 +396,7 @@ namespace ZIP2Go.Service
             if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
@@ -414,7 +414,7 @@ namespace ZIP2Go.Service
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public String GetBasePath(String basePath)
+        public string GetBasePath(string basePath)
         {
             return this.ApiClient.BasePath;
         }
@@ -442,11 +442,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
@@ -457,7 +457,7 @@ namespace ZIP2Go.Service
             PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
@@ -475,7 +475,7 @@ namespace ZIP2Go.Service
         /// </summary>
         /// <param name="basePath">The base path</param>
         /// <value>The base path</value>
-        public void SetBasePath(String basePath)
+        public void SetBasePath(string basePath)
         {
             this.ApiClient.BasePath = basePath;
         }
@@ -525,11 +525,11 @@ namespace ZIP2Go.Service
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
 
-            var queryParams = new Dictionary<String, String>();
-            var headerParams = new Dictionary<String, String>();
-            var formParams = new Dictionary<String, String>();
-            var fileParams = new Dictionary<String, FileParameter>();
-            String PostBody = null;
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+            var formParams = new Dictionary<string, string>();
+            var fileParams = new Dictionary<string, FileParameter>();
+            string PostBody = null;
 
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (subscriptionsFields != null) queryParams.Add("subscriptions.fields[]", ApiClient.ParameterToString(subscriptionsFields)); // query parameter
@@ -562,7 +562,7 @@ namespace ZIP2Go.Service
             PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
-            String[] authSettings = new String[] { "bearerAuth" };
+            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, PostBody, headerParams, formParams, fileParams, authSettings);
@@ -632,26 +632,26 @@ namespace ZIP2Go.Service
         //    return allSubscriptions;
         //}
 
-        private async Task<Account> GetAccountCache(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
-        {
-            string cachekey = $"GetAccount-{accountId}";
-            var accountResp = new Account();
-            _cache.Set<bool>(cachekey, true, TimeSpan.FromMinutes(20));
-            if (!_cache.Exists(cachekey))
-            {
-                var account = GetAccount(accountId, fields, subscriptionsFields, subscriptionPlansFields, subscriptionItemsFields, invoiceOwnerAccountFields, planFields, paymentMethodsFields, paymentsFields, billingDocumentsFields, billingDocumentItemsFields, billToFields, soldToFields, defaultPaymentMethodFields, usageRecordsFields, invoicesFields, creditMemosFields, debitMemosFields, prepaidBalanceFields, transactionsFields, expand, filter, pageSize, zuoraTrackId, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
+        //private async Task<Account> GetAccountCache(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        //{
+        //    string cachekey = $"GetAccount-{accountId}";
+        //    var accountResp = new Account();
+        //    _cache.Set<bool>(cachekey, true, TimeSpan.FromMinutes(20));
+        //    if (!_cache.Exists(cachekey))
+        //    {
+        //        var account = GetAccount(accountId, fields, subscriptionsFields, subscriptionPlansFields, subscriptionItemsFields, invoiceOwnerAccountFields, planFields, paymentMethodsFields, paymentsFields, billingDocumentsFields, billingDocumentItemsFields, billToFields, soldToFields, defaultPaymentMethodFields, usageRecordsFields, invoicesFields, creditMemosFields, debitMemosFields, prepaidBalanceFields, transactionsFields, expand, filter, pageSize, zuoraTrackId, zuoraEntityIds, idempotencyKey, acceptEncoding, contentEncoding);
 
-                if (account != null)
-                {
-                    _cache.Set(cachekey, account, TimeSpan.FromMinutes(20));
-                }
-            }
-            else
-            {
-                accountResp = _cache.Get<Account>(cachekey).Value;
-            }
+        //        if (account != null)
+        //        {
+        //            _cache.Set(cachekey, account, TimeSpan.FromMinutes(20));
+        //        }
+        //    }
+        //    else
+        //    {
+        //        accountResp = _cache.Get<Account>(cachekey).Value;
+        //    }
 
-            return accountResp;
-        }
+        //    return accountResp;
+        //}
     }
 }

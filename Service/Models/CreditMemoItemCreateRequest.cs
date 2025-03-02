@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2Go.Models
+namespace ZIP2GO.Service.Models
 {
     /// <summary>
     ///
@@ -48,6 +48,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "description", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
+
         /// <summary>
         /// The identifier of the invoice item associated with this credit memo item.    **Required when creating credit memos from an invoice.**
         /// </summary>
@@ -111,6 +112,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "revenue_recognition_rule_name", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue_recognition_rule_name")]
         public string RevenueRecognitionRuleName { get; set; }
+
         /// <summary>
         /// The end date of the service period associated with this credit memo item. If the price for the associated subscription item is a one-time fee, then this date is the date of that subscription item.
         /// </summary>
@@ -174,6 +176,7 @@ namespace ZIP2Go.Models
         [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>
@@ -186,7 +189,7 @@ namespace ZIP2Go.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>String presentation of the object</returns>
+        /// <returns>string presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
