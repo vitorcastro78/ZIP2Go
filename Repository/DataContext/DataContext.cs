@@ -45,6 +45,7 @@ namespace Repository.DataContext
         public DbSet<DebitMemo> DebitMemos { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Product> Products{ get; set; }
         public DbSet<TaxIdentifier> TaxIdentifiers { get; set; }
         public DbSet<BillingDocumentItem> BillingDocumentItems { get; set; }
         public DbSet<PaymentScheduleItem> PaymentScheduleItems { get; set; }

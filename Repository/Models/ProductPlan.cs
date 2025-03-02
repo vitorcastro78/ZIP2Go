@@ -5,18 +5,26 @@ using System.Text;
 namespace ZIP2GO.Repository.Models
 {
     /// <summary>
-    /// Product information.
+    /// Plan information.
     /// </summary>
     [DataContract]
-    public class Product
+    public class ProductPlan
     {
         /// <summary>
-        /// Whether the product can be used for new purchases.
+        /// Whether the plan can be used for new purchases.
         /// </summary>
-        /// <value>Whether the product can be used for new purchases.</value>
+        /// <value>Whether the plan can be used for new purchases.</value>
         [DataMember(Name = "active", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "active")]
         public bool? Active { get; set; }
+
+        /// <summary>
+        /// A list of 3-letter ISO-standard currency codes representing active currencies for the plan.
+        /// </summary>
+        /// <value>A list of 3-letter ISO-standard currency codes representing active currencies for the plan.</value>
+        [DataMember(Name = "active_currencies", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "active_currencies")]
+        public List<string> ActiveCurrencies { get; set; }
 
         /// <summary>
         /// Unique identifier of the Zuora user who created the object
@@ -59,9 +67,9 @@ namespace ZIP2GO.Repository.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// The date on which the product can no longer be used for new purchases.
+        /// The date on which the plan can no longer be used for new purchases.
         /// </summary>
-        /// <value>The date on which the product can no longer be used for new purchases.</value>
+        /// <value>The date on which the plan can no longer be used for new purchases.</value>
         [DataMember(Name = "end_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
@@ -75,44 +83,60 @@ namespace ZIP2GO.Repository.Models
         public string Id { get; set; }
 
         /// <summary>
-        /// The name of the product.
+        /// The name of the plan.
         /// </summary>
-        /// <value>The name of the product.</value>
+        /// <value>The name of the plan.</value>
         [DataMember(Name = "name", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
-        /// A list of plans.
+        /// Human-readable identifier of the plan. It can be user-supplied.
         /// </summary>
-        /// <value>A list of plans.</value>
-        [DataMember(Name = "plans", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plans")]
-        public List<ProductPlan> Plans { get; set; }
+        /// <value>Human-readable identifier of the plan. It can be user-supplied.</value>
+        [DataMember(Name = "plan_number", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan_number")]
+        public string PlanNumber { get; set; }
 
         /// <summary>
-        /// The sku identifier of the product.
+        /// A list of prices.
         /// </summary>
-        /// <value>The sku identifier of the product.</value>
+        /// <value>A list of prices.</value>
+        [DataMember(Name = "prices", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prices")]
+        public List<ProductPrice> Prices { get; set; }
+
+        /// <summary>
+        /// The product associated with this plan.
+        /// </summary>
+        /// <value>The product associated with this plan.</value>
+        [DataMember(Name = "product", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product")]
+        public Product Product { get; set; }
+
+        /// <summary>
+        /// Identifier of the product associated with this plan.
+        /// </summary>
+        /// <value>Identifier of the product associated with this plan.</value>
+        [DataMember(Name = "product_id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product_id")]
+        public string ProductId { get; set; }
+
+        /// <summary>
+        /// The product sku. This field is only availble for customers using high speed cache.
+        /// </summary>
+        /// <value>The product sku. This field is only availble for customers using high speed cache.</value>
         [DataMember(Name = "sku", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
         public string Sku { get; set; }
 
         /// <summary>
-        /// The date from which the product can be used for new purchases.
+        /// The date from which the plan can be used for new purchases.
         /// </summary>
-        /// <value>The date from which the product can be used for new purchases.</value>
+        /// <value>The date from which the plan can be used for new purchases.</value>
         [DataMember(Name = "start_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
-
-        /// <summary>
-        /// The type of product.
-        /// </summary>
-        /// <value>The type of product.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
-        public string Type { get; set; }
 
         /// <summary>
         /// Unique identifier of the Zuora user who last updated the object
@@ -146,7 +170,7 @@ namespace ZIP2GO.Repository.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Product {\n");
+            sb.Append("class Plan {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  UpdatedById: ").Append(UpdatedById).Append("\n");
             sb.Append("  UpdatedTime: ").Append(UpdatedTime).Append("\n");
@@ -157,11 +181,14 @@ namespace ZIP2GO.Repository.Models
             sb.Append("  StartDate: ").Append(StartDate).Append("\n");
             sb.Append("  EndDate: ").Append(EndDate).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Type: ").Append(Type).Append("\n");
-            sb.Append("  Sku: ").Append(Sku).Append("\n");
+            sb.Append("  PlanNumber: ").Append(PlanNumber).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  ActiveCurrencies: ").Append(ActiveCurrencies).Append("\n");
+            sb.Append("  ProductId: ").Append(ProductId).Append("\n");
             sb.Append("  Active: ").Append(Active).Append("\n");
-            sb.Append("  Plans: ").Append(Plans).Append("\n");
+            sb.Append("  Product: ").Append(Product).Append("\n");
+            sb.Append("  Sku: ").Append(Sku).Append("\n");
+            sb.Append("  Prices: ").Append(Prices).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
