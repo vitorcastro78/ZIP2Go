@@ -1,0 +1,6 @@
+@ZIP2Go.WorkServices_HostAddress = http://localhost:5103
+
+GET {{ZIP2Go.WorkServices_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZIP2Go.WebAPI", "ZIP2Go.Web
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{CC4984CB-284E-4A47-91A6-122F6C8B651C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZIP2Go.WorkServices", "ZIP2Go.WorkServices\ZIP2Go.WorkServices.csproj", "{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

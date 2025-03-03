@@ -1,26 +1,26 @@
 ﻿using Service.Interfaces;
 
-namespace ZIP2GO.WebAPI.HostedService
+namespace ZIP2Go.WorkServices.HostedService
 {
-    public class SubscriptionItemsHostedService : BackgroundService
+    public class InvoicesHostedService : BackgroundService
     {
-        private readonly ILogger<SubscriptionsHostedService> _logger;
+        private readonly ILogger<InvoicesHostedService> _logger;
 
         private Timer? _timer = null;
 
         private int CountRound = 0;
 
-        public SubscriptionItemsHostedService(
+        public InvoicesHostedService(
             IServiceProvider services,
-            ILogger<SubscriptionsHostedService> logger)
+            ILogger<InvoicesHostedService> logger)
         {
             Services = services;
             _logger = logger;
         }
 
-        public IServiceProvider Services { get; }
+        public IInvoicesService InvoicesService { get; }
 
-        public ISubscriptionItemsService SubscriptionItemsService { get; }
+        public IServiceProvider Services { get; }
 
         public override async Task StopAsync(CancellationToken stoppingToken)
         {

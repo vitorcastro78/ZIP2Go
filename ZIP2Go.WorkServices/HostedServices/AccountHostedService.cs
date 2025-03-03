@@ -1,6 +1,6 @@
 ﻿using Service.Interfaces;
 
-namespace ZIP2GO.WebAPI.HostedService
+namespace ZIP2Go.WorkServices.HostedService
 {
     public class AccountHostedService : BackgroundService
     {
