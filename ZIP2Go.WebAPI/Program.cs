@@ -20,6 +20,7 @@ ConfigureWebApp(app);
 
 static void AddDependencyInjection(WebApplicationBuilder builder)
 {
+    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     builder.Services.AddScoped<IAccountsService, AccountsService>();
     builder.Services.AddScoped<IInvoicesService, InvoicesService>();
     builder.Services.AddScoped<ISubscriptionsService, SubscriptionsService>();
