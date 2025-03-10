@@ -10,6 +10,10 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class Card
     {
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Card brand.
         /// </summary>

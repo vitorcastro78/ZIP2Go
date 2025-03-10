@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class StartOn
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Effective contract date for this subscription, in the `yyyy-mm-dd` format.
         /// </summary>
         /// <value>Effective contract date for this subscription, in the `yyyy-mm-dd` format.</value>

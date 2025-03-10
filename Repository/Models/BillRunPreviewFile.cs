@@ -10,6 +10,11 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BillRunPreviewFile
     {
+
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// The URL from which a zipped CSV file may be downloaded. This file contains the preview invoice item data and credit memo item data for the specified customer accounts.
         /// </summary>

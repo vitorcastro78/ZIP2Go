@@ -10,6 +10,15 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class GatewayStateTransitions
     {
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// The date and time (ISO 8601 UTC format) when the payment was marked for submission.
         /// </summary>

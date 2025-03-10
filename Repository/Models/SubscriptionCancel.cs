@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class SubscriptionCancel
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.
         /// </summary>
         /// <value>The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.</value>

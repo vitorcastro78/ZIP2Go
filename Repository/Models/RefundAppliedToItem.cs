@@ -10,6 +10,7 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class RefundAppliedToItem
     {
+
         /// <summary>
         /// The amount of the payment that is applied to the specific billing document item.
         /// </summary>
@@ -32,7 +33,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the payment application item.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// Identifier of a taxation item.

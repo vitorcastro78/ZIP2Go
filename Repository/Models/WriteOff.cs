@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class WriteOff
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// The total billing document amount that is written off.
         /// </summary>
         /// <value>The total billing document amount that is written off.</value>

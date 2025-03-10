@@ -26,6 +26,10 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
         public List<CreditMemo> CreditMemos { get; set; }
 
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// The related invoice numbers.
         /// </summary>

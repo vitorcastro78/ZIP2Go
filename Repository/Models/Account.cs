@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -127,7 +128,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -151,6 +152,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>The default payment method for the customer.</value>
         [DataMember(Name = "default_payment_method", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_payment_method")]
+        [NotMapped]
         public PaymentMethod DefaultPaymentMethod { get; set; }
 
         /// <summary>
@@ -183,7 +185,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// List of invoices
@@ -223,7 +225,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer payment methods.</value>
         [DataMember(Name = "payment_methods", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_methods")]
-        public PaymentMethod PaymentMethods { get; set; }
+        public List<PaymentMethod> PaymentMethods { get; set; }
 
         /// <summary>
         /// List of customer payments.
@@ -231,7 +233,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer payments.</value>
         [DataMember(Name = "payments", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
-        public Payment Payments { get; set; }
+        public List<Payment> Payments { get; set; }
 
         /// <summary>
         /// Payment terms configured in **Billing Settings > Payment Terms** of your Zuora tenant.
@@ -311,6 +313,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer subscriptions.</value>
         [DataMember(Name = "subscriptions", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscriptions")]
+        [NotMapped]
         public List<Subscription> Subscriptions { get; set; }
 
         /// <summary>
@@ -349,7 +352,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>List of customer usages.</value>
         [DataMember(Name = "usage_records", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "usage_records")]
-        public Usage UsageRecords { get; set; }
+        public List<Usage> UsageRecords { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

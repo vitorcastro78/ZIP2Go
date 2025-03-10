@@ -10,6 +10,10 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class AuBecsDebit
     {
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// The bank account number of the account holder.
         /// </summary>

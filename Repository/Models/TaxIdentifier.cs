@@ -16,7 +16,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Value Added Tax (VAT) ID. Each VAT ID must begin with the code of the country code and followed by a block of digits or characters.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

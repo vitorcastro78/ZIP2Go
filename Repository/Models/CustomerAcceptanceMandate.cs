@@ -24,7 +24,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>A reference to the consent agreement you have with your customer.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

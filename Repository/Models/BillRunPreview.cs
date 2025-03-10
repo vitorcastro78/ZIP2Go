@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class BillRunPreview
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Indicates whether to generate a preview of future invoice items and credit memo items with the assumption that the subscriptions are renewed. **all**: The assumption is applied to all the subscriptions. Zuora generates preview invoice item data and credit memo item data from the first day of the customer's next billing period to the target date. **auto_renew_only**: The assumption is applied to the subscriptions that have auto_renew enabled. Zuora generates preview invoice item data and credit memo item data from the first day of the customer's next billing period to the target date.
         /// </summary>
         /// <value>Indicates whether to generate a preview of future invoice items and credit memo items with the assumption that the subscriptions are renewed. **all**: The assumption is applied to all the subscriptions. Zuora generates preview invoice item data and credit memo item data from the first day of the customer's next billing period to the target date. **auto_renew_only**: The assumption is applied to the subscriptions that have auto_renew enabled. Zuora generates preview invoice item data and credit memo item data from the first day of the customer's next billing period to the target date.</value>
@@ -64,7 +72,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -81,13 +89,6 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "file")]
         public BillRunPreviewFile File { get; set; }
 
-        /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
 
         /// <summary>
         /// If true, draft items will be included in this bill run preview.

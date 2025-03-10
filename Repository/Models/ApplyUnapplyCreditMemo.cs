@@ -10,6 +10,10 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class ApplyUnapplyCreditMemo
     {
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Array of billing documents to apply this credit memo to.
         /// </summary>

@@ -11,12 +11,20 @@ namespace ZIP2GO.Repository.Models
     public class GooglePayCreate
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// The complete JSON Object representing the encrypted payment token payload returned in the response from the Google Pay session.
         /// </summary>
         /// <value>The complete JSON Object representing the encrypted payment token payload returned in the response from the Google Pay session.</value>
         [DataMember(Name = "customer_token", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "customer_token")]
-        public Dictionary<string, Object> CustomerToken { get; set; }
+        public CustomerToken  CustomerToken { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

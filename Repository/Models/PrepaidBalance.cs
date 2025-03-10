@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class PrepaidBalance
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// End date of the fund effective period.
         /// </summary>
         /// <value>End date of the fund effective period.</value>

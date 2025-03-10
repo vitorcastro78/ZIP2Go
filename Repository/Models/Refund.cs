@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class Refund
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// The account that owns the refund
         /// </summary>
         /// <value>The account that owns the refund</value>
@@ -87,7 +95,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -126,7 +134,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "gateway_options", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
-        public Dictionary<string, string> GatewayOptions { get; set; }
+        public GatewayOptions GatewayOptions { get; set; }
 
         /// <summary>
         /// Gateway reconciliation reason.
@@ -168,12 +176,6 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_state")]
         public string GatewayState { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Id
-        /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
 
         /// <summary>
         /// An active account in your Zuora Chart of Accounts.

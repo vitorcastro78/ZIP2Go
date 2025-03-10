@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class PaymentRunStateTransitions
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Gets or Sets Completed
         /// </summary>
         [DataMember(Name = "completed", EmitDefaultValue = false)]

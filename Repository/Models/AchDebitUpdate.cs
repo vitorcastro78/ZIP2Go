@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class AchDebitUpdate
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// The nine-digit routing number or ABA number used by banks.
         /// </summary>
         /// <value>The nine-digit routing number or ABA number used by banks.</value>

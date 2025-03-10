@@ -80,7 +80,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -96,7 +96,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the taxation item related to the invoice. Only applicable for credit memos created from invoices.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// The jurisdiction that applies the tax or VAT. This value is typically a state, province, county, or city.

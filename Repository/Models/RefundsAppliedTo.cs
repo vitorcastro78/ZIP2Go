@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the refund application.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// The related credit memo item.

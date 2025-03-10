@@ -10,6 +10,15 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class InvoiceItem
     {
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Gets or Sets AccountingCode
         /// </summary>
@@ -71,7 +80,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -112,14 +121,6 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "document_item_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_item_date")]
         public DateTime? DocumentItemDate { get; set; }
-
-        /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
 
         /// <summary>
         /// The invoice the item belongs to. EXPANDABLE

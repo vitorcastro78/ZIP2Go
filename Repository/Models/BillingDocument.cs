@@ -10,13 +10,13 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BillingDocument
     {
-        /// <summary>
-        /// The account that owns the billing document. EXPANDABLE
-        /// </summary>
-        /// <value>The account that owns the billing document. EXPANDABLE</value>
-        [DataMember(Name = "account", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
-        public Account Account { get; set; }
+        ///// <summary>
+        ///// The account that owns the billing document. EXPANDABLE
+        ///// </summary>
+        ///// <value>The account that owns the billing document. EXPANDABLE</value>
+        //[DataMember(Name = "account", EmitDefaultValue = false)]
+        //[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
+        //public Account Account { get; set; }
 
         /// <summary>
         /// Identifier of the account that owns the billing document.
@@ -88,7 +88,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The custom objects associated with a Zuora standard object.
@@ -136,7 +136,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The identifier of the invoice billing document from which this credit memo or debit memo billing document is created. This field is applicable only if the `type` field is set to `credit_memo` or `debit_memo`.
@@ -313,7 +313,7 @@ namespace ZIP2GO.Repository.Models
             sb.Append("  StateTransitions: ").Append(StateTransitions).Append("\n");
             sb.Append("  PostedById: ").Append(PostedById).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
-            sb.Append("  Account: ").Append(Account).Append("\n");
+          //  sb.Append("  Account: ").Append(Account).Append("\n");
             sb.Append("  Items: ").Append(Items).Append("\n");
             sb.Append("  Total: ").Append(Total).Append("\n");
             sb.Append("  Subtotal: ").Append(Subtotal).Append("\n");

@@ -10,6 +10,10 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class ArTransactionsOrders
     {
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// The numbers of related credit memos.
         /// </summary>

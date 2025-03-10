@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// The name of the subscription plan.

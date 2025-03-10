@@ -5,11 +5,20 @@ using System.Text;
 namespace ZIP2GO.Repository.Models
 {
     /// <summary>
-    /// Per unit prices for units in the tier. Only set if &#x60;charge_model&#x60; is &#x60;tiered&#x60;, &#x60;tiered_overage&#x60;, or &#x60;highwatermark_tiered&#x60;.
+    /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
     /// </summary>
     [DataContract]
-    public class AllOftierUnitAmounts : Money
+    public class GatewayOptions : Dictionary<string, string>
     {
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Get the JSON string presentation of the object
         /// </summary>
@@ -22,11 +31,11 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Get the string presentation of the object
         /// </summary>
-        /// <returns>string presentation of the object</returns>
+        /// <returns>String presentation of the object</returns>
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AllOftierUnitAmounts {\n");
+            sb.Append("class CustomFields {\n");
             sb.Append("}\n");
             return sb.ToString();
         }

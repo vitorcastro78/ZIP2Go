@@ -10,6 +10,8 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class PaymentsAppliedTo
     {
+
+
         /// <summary>
         /// The amount of the payment that is applied to the specific billing document item or taxation item.
         /// </summary>
@@ -48,7 +50,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the payment application.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// The related billing document item.

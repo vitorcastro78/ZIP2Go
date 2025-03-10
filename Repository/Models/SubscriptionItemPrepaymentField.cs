@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class SubscriptionItemPrepaymentField
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// The number of units included in a prepayment charge.
         /// </summary>
         /// <value>The number of units included in a prepayment charge.</value>

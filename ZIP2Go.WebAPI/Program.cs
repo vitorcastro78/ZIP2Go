@@ -1,7 +1,10 @@
 using EasyCaching.SQLite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Repository.DataContext;
 using Service.Client;
 using Service.Interfaces;
+using System;
 using ZIP2GO.Service;
 using ZIP2GO.WebAPI.Filters;
 
@@ -60,6 +63,7 @@ static void ConfigureServices(IServiceCollection services)
         c.IncludeXmlComments(filePath);
     });
 
+    // services.AddDbContext<AppDataContext>(options => options.UseSqlite("Database\\subscription.db"));
 
     services.AddEasyCaching(option =>
     {
@@ -84,7 +88,9 @@ static void ConfigureWebApp(WebApplication app)
     // Configure the HTTP request pipeline.
     
     app.UseSwagger();
+
     app.UseStaticFiles();
+
     app.UseSwaggerUI();
 
     app.UseHttpsRedirection();

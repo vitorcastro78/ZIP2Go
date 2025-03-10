@@ -15,7 +15,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "detail", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
-        public Dictionary<string, string> Detail { get; set; }
+        public Detail Detail { get; set; }
 
         /// <summary>
         /// Gets or Sets Type

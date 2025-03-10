@@ -31,7 +31,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "amounts", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amounts")]
-        public Dictionary<string, decimal?> Amounts { get; set; }
+        public Amounts Amounts { get; set; }
 
         /// <summary>
         /// Any combination of one_time, recurring and plan.
@@ -87,7 +87,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
         [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public Dictionary<string, Object> CustomFields { get; set; }
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// Name of the custom field that will be used to set a total amount under the `Pre-Rated` charge model
@@ -126,7 +126,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "discount_amounts", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_amounts")]
-        public Dictionary<string, decimal?> DiscountAmounts { get; set; }
+        public Amounts DiscountAmounts { get; set; }
 
         /// <summary>
         /// Specifies at what level a discount should be applied: account, subscription, or plan.
@@ -157,7 +157,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// The maximum quantity for a price. Specify this field and the `min_quantity` field to create a range of quantities allowed in a price.
@@ -319,7 +319,7 @@ namespace ZIP2GO.Repository.Models
         /// </summary>
         [DataMember(Name = "unit_amounts", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amounts")]
-        public Dictionary<string, decimal?> UnitAmounts { get; set; }
+        public Amounts UnitAmounts { get; set; }
 
         /// <summary>
         /// A configured unit of measure. This field is required for per-unit prices.

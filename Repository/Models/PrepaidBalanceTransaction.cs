@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class PrepaidBalanceTransaction
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Quantity of the prepaid balance transaction.
         /// </summary>
         /// <value>Quantity of the prepaid balance transaction.</value>

@@ -11,6 +11,14 @@ namespace ZIP2GO.Repository.Models
     public class FulfillmentProcessingOption
     {
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Date on which the billing document is created or paid.
         /// </summary>
         /// <value>Date on which the billing document is created or paid.</value>

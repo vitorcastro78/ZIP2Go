@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the tax exemption certificate.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public string Id { get; set; }
+       public Guid Id { get; set; }
 
         /// <summary>
         /// Typically, this is a state or government agency
