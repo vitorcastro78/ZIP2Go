@@ -1,0 +1,78 @@
+﻿@page
+@model ZIP2Go.Admin.Pages.Admin.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0]._async)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].acceptEncoding)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].contentEncoding)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].idempotencyKey)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].zuoraEntityIds)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestHeaders[0].zuoraTrackId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.RequestHeaders) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item._async)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.acceptEncoding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.contentEncoding)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idempotencyKey)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zuoraEntityIds)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zuoraTrackId)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

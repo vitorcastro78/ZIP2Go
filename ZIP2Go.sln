@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZIP2Go.WorkServices", "ZIP2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZIP2Go.Admin", "ZIP2Go.Admin\ZIP2Go.Admin.csproj", "{1411E090-76BE-419B-94BF-23AEC58B7322}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.Repository", "Admin.Repository\Admin.Repository.csproj", "{5F6A7691-90AE-4335-945B-96D0DB6232AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.Service", "Admin.Service\Admin.Service.csproj", "{950DEDA5-61FB-4133-B83D-39CE8009140A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{1411E090-76BE-419B-94BF-23AEC58B7322}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1411E090-76BE-419B-94BF-23AEC58B7322}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1411E090-76BE-419B-94BF-23AEC58B7322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

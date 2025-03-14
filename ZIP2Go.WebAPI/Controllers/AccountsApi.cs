@@ -10,7 +10,8 @@
 
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
+using Microsoft.AspNetCore.Mvc; 
+using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -18,6 +19,7 @@ using System.ComponentModel.DataAnnotations;
 
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
+using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {

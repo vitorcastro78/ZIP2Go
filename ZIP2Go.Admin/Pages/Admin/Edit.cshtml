@@ -1,0 +1,65 @@
+﻿@page
+@model ZIP2Go.Admin.Pages.Admin.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>RequestHeaders</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="RequestHeaders.Id" />
+            <div class="form-group">
+                <label asp-for="RequestHeaders.Name" class="control-label"></label>
+                <input asp-for="RequestHeaders.Name" class="form-control" />
+                <span asp-validation-for="RequestHeaders.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestHeaders._async" class="control-label"></label>
+                <input asp-for="RequestHeaders._async" class="form-control" />
+                <span asp-validation-for="RequestHeaders._async" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestHeaders.acceptEncoding" class="control-label"></label>
+                <input asp-for="RequestHeaders.acceptEncoding" class="form-control" />
+                <span asp-validation-for="RequestHeaders.acceptEncoding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestHeaders.contentEncoding" class="control-label"></label>
+                <input asp-for="RequestHeaders.contentEncoding" class="form-control" />
+                <span asp-validation-for="RequestHeaders.contentEncoding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestHeaders.idempotencyKey" class="control-label"></label>
+                <input asp-for="RequestHeaders.idempotencyKey" class="form-control" />
+                <span asp-validation-for="RequestHeaders.idempotencyKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestHeaders.zuoraEntityIds" class="control-label"></label>
+                <input asp-for="RequestHeaders.zuoraEntityIds" class="form-control" />
+                <span asp-validation-for="RequestHeaders.zuoraEntityIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequestHeaders.zuoraTrackId" class="control-label"></label>
+                <input asp-for="RequestHeaders.zuoraTrackId" class="form-control" />
+                <span asp-validation-for="RequestHeaders.zuoraTrackId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
