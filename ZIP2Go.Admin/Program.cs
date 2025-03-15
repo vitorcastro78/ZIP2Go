@@ -1,12 +1,20 @@
 using Admin.Repository.DataContext;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Admin.Repository.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("ZIP2GoAdminContextConnection") ?? throw new InvalidOperationException("Connection string 'ZIP2GoAdminContextConnection' not found.");
+
+builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlite(connectionString));
+
+builder.Services.AddDefaultIdentity<AdminUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddSingleton<AdminDataContext>(options => new AdminDataContext("Data Source=.\\Database\\admin.db"));
+builder.Services.AddSingleton<AdminDataContext>(options => new AdminDataContext(connectionString));
+builder.Services.AddSingleton<IdentityContext>(options => new IdentityContext(connectionString));
 
 var app = builder.Build();
 
