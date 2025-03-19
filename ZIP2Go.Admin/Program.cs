@@ -4,17 +4,18 @@ using Microsoft.AspNetCore.Identity;
 using Admin.Repository.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("ZIP2GoAdminContextConnection") ?? throw new InvalidOperationException("Connection string 'ZIP2GoAdminContextConnection' not found.");
+var adminconnectionString = builder.Configuration.GetConnectionString("AdminContextConnection") ?? throw new InvalidOperationException("Connection string 'AdminContextConnection' not found.");
+var userconnectionString = builder.Configuration.GetConnectionString("UserContextConnection") ?? throw new InvalidOperationException("Connection string 'UserContextConnection' not found.");
 
-builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlite(connectionString));
+builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlite(adminconnectionString));
 
 builder.Services.AddDefaultIdentity<AdminUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityContext>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddSingleton<AdminDataContext>(options => new AdminDataContext(connectionString));
-builder.Services.AddSingleton<IdentityContext>(options => new IdentityContext(connectionString));
+builder.Services.AddSingleton<AdminDataContext>(options => new AdminDataContext(adminconnectionString));
+builder.Services.AddSingleton<IdentityContext>(options => new IdentityContext(userconnectionString));
 
 var app = builder.Build();
 

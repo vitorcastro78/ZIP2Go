@@ -9,6 +9,12 @@ public class IdentityContext : IdentityDbContext<AdminUser>
 {
     private readonly string _connectionString;
 
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite(_connectionString);
+    }
+
     public IdentityContext(string connectionString)
     {
         _connectionString = connectionString;
@@ -19,6 +25,7 @@ public class IdentityContext : IdentityDbContext<AdminUser>
     }
 
     public DbSet<AdminUser> AdminUsers { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
