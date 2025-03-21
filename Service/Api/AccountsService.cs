@@ -266,6 +266,10 @@ namespace ZIP2GO.Service
         /// <returns>Account</returns>
         public Account GetAccount(string accountId, List<string> fields, List<string> subscriptionsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> paymentMethodsFields, List<string> paymentsFields, List<string> billingDocumentsFields, List<string> billingDocumentItemsFields, List<string> billToFields, List<string> soldToFields, List<string> defaultPaymentMethodFields, List<string> usageRecordsFields, List<string> invoicesFields, List<string> creditMemosFields, List<string> debitMemosFields, List<string> prepaidBalanceFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
         {
+            //        private const string APIV2_GET_ALL_SUBSCRIPTIONS = "/v2/subscriptions?expand%5B%5D=account.bill_to&expand%5B%5D=account.sold_to&expand%5B%5D=subscription_plans.subscription_items&filter%5B%5D=Status.EQ:{0}&filter%5B%5D=InvoiceOwnerId.EQ:{1}&filter%5B%5D=latest_version.EQ:true&page_size=95"; // "/v2/subscriptions?expand%5B%5D=account.bill_to&expand%5B%5D=account.sold_to&expand%5B%5D=subscription_plans.subscription_items&filter%5B%5D=InvoiceOwnerId.EQ:{0}&filter%5B%5D=latest_version.EQ:true&page_size=95";
+
+
+
             // verify the required parameter 'accountId' is set
             if (accountId == null) throw new ApiException(400, "Missing required parameter 'accountId' when calling GetAccount");
 
