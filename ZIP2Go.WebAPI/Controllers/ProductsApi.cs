@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class ProductsApiController : ControllerBase
+    public class ProductsApiController : ControllerBaseApi
     {
         /// <summary>
         /// Create a product

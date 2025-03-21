@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class PaymentMethodsApiController : ControllerBase
+    public class PaymentMethodsApiController : ControllerBaseApi
     {
         /// <summary>
         /// Create a payment authorization

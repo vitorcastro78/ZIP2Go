@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class PaymentSchedulesApiController : ControllerBase
+    public class PaymentSchedulesApiController : ControllerBaseApi
     {
         /// <summary>
         /// Cancel a payment schedule

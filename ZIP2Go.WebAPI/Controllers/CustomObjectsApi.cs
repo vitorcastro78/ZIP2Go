@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class CustomObjectsApiController : ControllerBase
+    public class CustomObjectsApiController : ControllerBaseApi
     {
         /// <summary>
         /// Create a custom object

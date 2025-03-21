@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class QueryRunsApiController : ControllerBase
+    public class QueryRunsApiController : ControllerBaseApi
     {
         /// <summary>
         /// Cancel a query run

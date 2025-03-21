@@ -9,410 +9,214 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using ZIP2GO.Service.Models;
+using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller para gerenciamento de itens de tributação
     /// </summary>
     [ApiController]
-    public class TaxationItemsApiController : ControllerBase
+    public class TaxationItemsController : ControllerBaseApi
     {
+        private readonly ITaxationItemsService _taxationItemsService;
+
+        public TaxationItemsController(
+            ITaxationItemsService taxationItemsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<TaxationItemsController> logger) : base(httpContext, cache, logger)
+        {
+            _taxationItemsService = taxationItemsService ?? throw new ArgumentNullException(nameof(taxationItemsService));
+        }
+
         /// <summary>
-        /// Create a taxation item
+        /// Cria um novo item de tributação
         /// </summary>
-        /// <remarks>Creates a taxation item.</remarks>
-        /// <param name="body"></param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <response code="201">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <remarks>Cria um novo item de tributação com os dados fornecidos.</remarks>
         [HttpPost]
         [Route("/v2/taxation_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateTaxationItem")]
-        [SwaggerResponse(statusCode: 201, type: typeof(TaxationItem), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateTaxationItem([FromBody] TaxationItemCreateRequest body, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        [SwaggerResponse(statusCode: 201, type: typeof(TaxationItem), description: "Item de tributação criado com sucesso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        public virtual async Task<IActionResult> CreateTaxationItem(
+            [FromBody] TaxationItemCreateRequest request,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(TaxationItem));
+            if (request == null)
+            {
+                _logger.LogWarning("Tentativa de criar item de tributação com corpo nulo");
+                return BadRequest(new ErrorResponse { Message = "O corpo da requisição é obrigatório" });
+            }
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+            return await ExecuteWithErrorHandlingAsync(async () =>
+            {
+                var result = await _taxationItemsService.CreateTaxationItemAsync(
+                    request, fields, expand, filter, pageSize,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey);
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"amount_paid\" : 4.145608029883936,\n  \"sales_tax_payable_account\" : \"sales_tax_payable_account\",\n  \"jurisdiction\" : \"jurisdiction\",\n  \"tax_rate\" : 7.061401241503109,\n  \"amount_refunded\" : 7.386281948385884,\n  \"on_account_account\" : \"on_account_account\",\n  \"location_code\" : \"location_code\",\n  \"id\" : \"id\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"amount_exempt\" : 9.301444243932576,\n  \"amount\" : 2.3021358869347655,\n  \"source_tax_item_id\" : \"source_tax_item_id\",\n  \"remaining_balance\" : 3.616076749251911,\n  \"custom_fields\" : \"\",\n  \"tax_inclusive\" : true,\n  \"tax_rate_type\" : \"percent\",\n  \"amount_applied\" : 1.2315135367772556,\n  \"tax_date\" : \"2022-01-01T00:00:00.000+00:00\",\n  \"tax_code\" : \"tax_code\",\n  \"custom_objects\" : \"\",\n  \"amount_credited\" : 2.027123023002322,\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"tax_code_name\" : \"tax_code_name\",\n  \"created_by_id\" : \"created_by_id\",\n  \"tax_rate_name\" : \"tax_rate_name\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<TaxationItem>(exampleJson)
-            : default(TaxationItem);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                _logger.LogInformation("Item de tributação criado com sucesso: {TaxationItemId}", result.Id);
+                return CreatedAtAction(nameof(GetTaxationItem), new { taxationItemId = result.Id }, result);
+            });
         }
 
         /// <summary>
-        /// Delete a taxation item
+        /// Exclui um item de tributação
         /// </summary>
-        /// <remarks>Permanently deletes a taxation item. This operation cannot be undone once it is performed.</remarks>
-        /// <param name="taxationItemId">ID of the taxation item.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="204">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <remarks>Exclui permanentemente um item de tributação. Esta operação não pode ser desfeita.</remarks>
         [HttpDelete]
         [Route("/v2/taxation_items/{taxation_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteTaxationItem")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult DeleteTaxationItem([FromRoute][Required] string taxationItemId, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        [SwaggerResponse(statusCode: 204, description: "Item de tributação excluído com sucesso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> DeleteTaxationItem(
+            [FromRoute][Required] string taxationItemId,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
+            ValidateResourceId(taxationItemId, "item de tributação");
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+            return await ExecuteWithErrorHandlingAsync(async () =>
+            {
+                await _taxationItemsService.DeleteTaxationItemAsync(
+                    taxationItemId, zuoraTrackId, zuoraEntityIds, idempotencyKey);
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-
-            throw new NotImplementedException();
+                _logger.LogInformation("Item de tributação excluído com sucesso: {TaxationItemId}", taxationItemId);
+                return NoContent();
+            });
         }
 
         /// <summary>
-        /// Retrieve a taxation item
+        /// Obtém um item de tributação específico
         /// </summary>
-        /// <remarks>Retrieves the taxation item with the given ID.</remarks>
-        /// <param name="taxationItemId">ID of the taxation item.</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <remarks>Retorna os detalhes de um item de tributação específico.</remarks>
         [HttpGet]
         [Route("/v2/taxation_items/{taxation_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetTaxationItem")]
-        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetTaxationItem([FromRoute][Required] string taxationItemId, [FromQuery] List<string> fields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Item de tributação")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> GetTaxationItem(
+            [FromRoute][Required] string taxationItemId,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(TaxationItem));
+            ValidateResourceId(taxationItemId, "item de tributação");
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"amount_paid\" : 4.145608029883936,\n  \"sales_tax_payable_account\" : \"sales_tax_payable_account\",\n  \"jurisdiction\" : \"jurisdiction\",\n  \"tax_rate\" : 7.061401241503109,\n  \"amount_refunded\" : 7.386281948385884,\n  \"on_account_account\" : \"on_account_account\",\n  \"location_code\" : \"location_code\",\n  \"id\" : \"id\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"amount_exempt\" : 9.301444243932576,\n  \"amount\" : 2.3021358869347655,\n  \"source_tax_item_id\" : \"source_tax_item_id\",\n  \"remaining_balance\" : 3.616076749251911,\n  \"custom_fields\" : \"\",\n  \"tax_inclusive\" : true,\n  \"tax_rate_type\" : \"percent\",\n  \"amount_applied\" : 1.2315135367772556,\n  \"tax_date\" : \"2022-01-01T00:00:00.000+00:00\",\n  \"tax_code\" : \"tax_code\",\n  \"custom_objects\" : \"\",\n  \"amount_credited\" : 2.027123023002322,\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"tax_code_name\" : \"tax_code_name\",\n  \"created_by_id\" : \"created_by_id\",\n  \"tax_rate_name\" : \"tax_rate_name\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<TaxationItem>(exampleJson)
-            : default(TaxationItem);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            var cacheKey = $"taxation_item_{taxationItemId}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _taxationItemsService.GetTaxationItemAsync(
+                    taxationItemId, fields, expand, filter, pageSize,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey));
         }
 
         /// <summary>
-        /// List taxation items
+        /// Obtém itens de tributação
         /// </summary>
-        /// <remarks>Returns an array of taxation items. Each entry in the array is a separate Taxation Item object. If no more taxation items are available, the resulting array will be empty. This request should never return an error.</remarks>
-        /// <param name="cursor">A cursor for use in pagination. A cursor defines the starting place in a list. For instance, if you make a list request and receive 100 objects, ending with &#x60;next_page&#x3D;W3sib3JkZXJ&#x3D;&#x60;, your subsequent call can include &#x60;cursor&#x3D;W3sib3JkZXJ&#x3D;&#x60; in order to fetch the next page of the list.</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="sort">A case-sensitive query parameter that specifies the sort order of the list, which can be either ascending (e.g. &#x60;account_number.asc&#x60;) or descending (e.g. &#x60;account_number.desc&#x60;). You cannot sort on properties that are arrays. If the array-type properties are specified for the &#x60;sort[]&#x60; parameter, they are ignored.</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <remarks>Retorna uma lista de itens de tributação com base nos filtros especificados.</remarks>
         [HttpGet]
         [Route("/v2/taxation_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetTaxationItems")]
-        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItemListResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetTaxationItems([FromQuery] string cursor, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery] List<string> sort, [FromQuery][Range(1, 99)] int? pageSize, [FromQuery] List<string> fields, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItemListResponse), description: "Lista de itens de tributação")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> GetTaxationItems(
+            [FromQuery] string cursor,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery] List<string> sort,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromQuery] List<string> fields,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(TaxationItemListResponse));
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"amount_paid\" : 4.145608029883936,\n    \"sales_tax_payable_account\" : \"sales_tax_payable_account\",\n    \"jurisdiction\" : \"jurisdiction\",\n    \"tax_rate\" : 7.061401241503109,\n    \"amount_refunded\" : 7.386281948385884,\n    \"on_account_account\" : \"on_account_account\",\n    \"location_code\" : \"location_code\",\n    \"id\" : \"id\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"amount_exempt\" : 9.301444243932576,\n    \"amount\" : 2.3021358869347655,\n    \"source_tax_item_id\" : \"source_tax_item_id\",\n    \"remaining_balance\" : 3.616076749251911,\n    \"custom_fields\" : \"\",\n    \"tax_inclusive\" : true,\n    \"tax_rate_type\" : \"percent\",\n    \"amount_applied\" : 1.2315135367772556,\n    \"tax_date\" : \"2022-01-01T00:00:00.000+00:00\",\n    \"tax_code\" : \"tax_code\",\n    \"custom_objects\" : \"\",\n    \"amount_credited\" : 2.027123023002322,\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"tax_code_name\" : \"tax_code_name\",\n    \"created_by_id\" : \"created_by_id\",\n    \"tax_rate_name\" : \"tax_rate_name\"\n  }, {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"amount_paid\" : 4.145608029883936,\n    \"sales_tax_payable_account\" : \"sales_tax_payable_account\",\n    \"jurisdiction\" : \"jurisdiction\",\n    \"tax_rate\" : 7.061401241503109,\n    \"amount_refunded\" : 7.386281948385884,\n    \"on_account_account\" : \"on_account_account\",\n    \"location_code\" : \"location_code\",\n    \"id\" : \"id\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"amount_exempt\" : 9.301444243932576,\n    \"amount\" : 2.3021358869347655,\n    \"source_tax_item_id\" : \"source_tax_item_id\",\n    \"remaining_balance\" : 3.616076749251911,\n    \"custom_fields\" : \"\",\n    \"tax_inclusive\" : true,\n    \"tax_rate_type\" : \"percent\",\n    \"amount_applied\" : 1.2315135367772556,\n    \"tax_date\" : \"2022-01-01T00:00:00.000+00:00\",\n    \"tax_code\" : \"tax_code\",\n    \"custom_objects\" : \"\",\n    \"amount_credited\" : 2.027123023002322,\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"tax_code_name\" : \"tax_code_name\",\n    \"created_by_id\" : \"created_by_id\",\n    \"tax_rate_name\" : \"tax_rate_name\"\n  } ]\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<TaxationItemListResponse>(exampleJson)
-            : default(TaxationItemListResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            var cacheKey = $"taxation_items_{cursor}_{string.Join(",", filter ?? new List<string>())}_{pageSize}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _taxationItemsService.GetTaxationItemsAsync(
+                    cursor, expand, filter, sort, pageSize, fields,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey));
         }
 
         /// <summary>
-        /// Update a taxation item
+        /// Atualiza um item de tributação
         /// </summary>
-        /// <remarks>Updates a taxation item by setting the values of the specified fields. Any fields not provided in the request remain unchanged.</remarks>
-        /// <param name="body"></param>
-        /// <param name="taxationItemId">ID of the taxation item.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <remarks>Atualiza um item de tributação existente com os dados fornecidos.</remarks>
         [HttpPatch]
         [Route("/v2/taxation_items/{taxation_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateTaxationItem")]
-        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult UpdateTaxationItem([FromBody] TaxationItemPatchRequest body, [FromRoute][Required] string taxationItemId, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Item de tributação atualizado com sucesso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> UpdateTaxationItem(
+            [FromBody] TaxationItemPatchRequest request,
+            [FromRoute][Required] string taxationItemId,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(TaxationItem));
+            if (request == null)
+            {
+                _logger.LogWarning("Tentativa de atualizar item de tributação com corpo nulo");
+                return BadRequest(new ErrorResponse { Message = "O corpo da requisição é obrigatório" });
+            }
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+            ValidateResourceId(taxationItemId, "item de tributação");
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
+            return await ExecuteWithErrorHandlingAsync(async () =>
+            {
+                var result = await _taxationItemsService.UpdateTaxationItemAsync(
+                    request, taxationItemId, fields, expand, filter, pageSize,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey);
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"amount_paid\" : 4.145608029883936,\n  \"sales_tax_payable_account\" : \"sales_tax_payable_account\",\n  \"jurisdiction\" : \"jurisdiction\",\n  \"tax_rate\" : 7.061401241503109,\n  \"amount_refunded\" : 7.386281948385884,\n  \"on_account_account\" : \"on_account_account\",\n  \"location_code\" : \"location_code\",\n  \"id\" : \"id\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"amount_exempt\" : 9.301444243932576,\n  \"amount\" : 2.3021358869347655,\n  \"source_tax_item_id\" : \"source_tax_item_id\",\n  \"remaining_balance\" : 3.616076749251911,\n  \"custom_fields\" : \"\",\n  \"tax_inclusive\" : true,\n  \"tax_rate_type\" : \"percent\",\n  \"amount_applied\" : 1.2315135367772556,\n  \"tax_date\" : \"2022-01-01T00:00:00.000+00:00\",\n  \"tax_code\" : \"tax_code\",\n  \"custom_objects\" : \"\",\n  \"amount_credited\" : 2.027123023002322,\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"tax_code_name\" : \"tax_code_name\",\n  \"created_by_id\" : \"created_by_id\",\n  \"tax_rate_name\" : \"tax_rate_name\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<TaxationItem>(exampleJson)
-            : default(TaxationItem);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                _logger.LogInformation("Item de tributação atualizado com sucesso: {TaxationItemId}", taxationItemId);
+                return Ok(result);
+            });
         }
     }
 }

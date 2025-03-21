@@ -23,8 +23,26 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class SubscriptionsApiController : ControllerBase
+    public class SubscriptionsApiController : ControllerBaseApi 
     {
+        private readonly ISubscriptionsService _subscriptionsService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<SubscriptionsApiController> _logger;
+
+        public SubscriptionsApiController( 
+            ISubscriptionsService subscriptionsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<SubscriptionsApiController> logger) : base(httpContext, cache)
+        {
+            _subscriptionsService = subscriptionsService;   
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }
+        
+
         /// <summary>
         /// Activate a subscription
         /// </summary>
@@ -111,7 +129,7 @@ namespace ZIP2GO.WebAPI.Controllers
             // return StatusCode(504, default(ErrorResponse));
             string exampleJson = null;
             exampleJson = "{\n  \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"customer_acceptance\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"bill_to\" : \"\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"invoice_items\" : \"\",\n  \"contracted_mrr\" : \"contracted_mrr\",\n  \"service_activation\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"order_number\" : \"order_number\",\n  \"description\" : \"description\",\n  \"prepaid_balance\" : [ {\n    \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n    \"total_balance\" : 6.027456183070403,\n    \"remaining_balance\" : 1.4658129805029452,\n    \"transactions\" : [ {\n      \"transaction_date\" : \"transaction_date\",\n      \"quantity\" : 5.962133916683182,\n      \"type\" : \"prepayment\"\n    }, {\n      \"transaction_date\" : \"transaction_date\",\n      \"quantity\" : 5.962133916683182,\n      \"type\" : \"prepayment\"\n    } ],\n    \"prepaid_UOM\" : \"prepaid_UOM\",\n    \"start_date\" : \"2022-01-01T00:00:00.000+00:00\"\n  }, {\n    \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n    \"total_balance\" : 6.027456183070403,\n    \"remaining_balance\" : 1.4658129805029452,\n    \"transactions\" : [ {\n      \"transaction_date\" : \"transaction_date\",\n      \"quantity\" : 5.962133916683182,\n      \"type\" : \"prepayment\"\n    }, {\n      \"transaction_date\" : \"transaction_date\",\n      \"quantity\" : 5.962133916683182,\n      \"type\" : \"prepayment\"\n    } ],\n    \"prepaid_UOM\" : \"prepaid_UOM\",\n    \"start_date\" : \"2022-01-01T00:00:00.000+00:00\"\n  } ],\n  \"invoice_owner_account\" : \"\",\n  \"payment_terms\" : \"payment_terms\",\n  \"initial_term\" : \"\",\n  \"invoice_owner_account_id\" : \"invoice_owner_account_id\",\n  \"latest_version\" : true,\n  \"billing_document_settings\" : \"\",\n  \"renewal_term\" : \"\",\n  \"currency\" : \"currency\",\n  \"id\" : \"id\",\n  \"state\" : \"draft\",\n  \"start_date\" : \"2020-01-01T00:00:00.000+00:00\",\n  \"invoice_separately\" : true,\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"subscription_number\" : \"subscription_number\",\n  \"contract_effective\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"custom_fields\" : \"\",\n  \"bill_to_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"last_booking_date\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"version\" : 0,\n  \"sold_to\" : \"\",\n  \"cancel_reason\" : \"cancel_reason\",\n  \"account_id\" : \"account_id\",\n  \"auto_renew\" : true,\n  \"custom_objects\" : \"\",\n  \"subscription_plans\" : \"\",\n  \"prepaid_balances\" : [ {\n    \"validity_periods\" : [ {\n      \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n      \"total_balance\" : 5.637376656633329,\n      \"overage_rated_quantity\" : 9.301444243932576,\n      \"remaining_balance\" : 2.3021358869347655,\n      \"overage_rated_amount\" : 7.061401241503109,\n      \"transactions\" : [ null, null ],\n      \"prepaid_UOM\" : \"prepaid_UOM\",\n      \"start_date\" : \"2022-01-01T00:00:00.000+00:00\"\n    }, {\n      \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n      \"total_balance\" : 5.637376656633329,\n      \"overage_rated_quantity\" : 9.301444243932576,\n      \"remaining_balance\" : 2.3021358869347655,\n      \"overage_rated_amount\" : 7.061401241503109,\n      \"transactions\" : [ null, null ],\n      \"prepaid_UOM\" : \"prepaid_UOM\",\n      \"start_date\" : \"2022-01-01T00:00:00.000+00:00\"\n    } ]\n  }, {\n    \"validity_periods\" : [ {\n      \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n      \"total_balance\" : 5.637376656633329,\n      \"overage_rated_quantity\" : 9.301444243932576,\n      \"remaining_balance\" : 2.3021358869347655,\n      \"overage_rated_amount\" : 7.061401241503109,\n      \"transactions\" : [ null, null ],\n      \"prepaid_UOM\" : \"prepaid_UOM\",\n      \"start_date\" : \"2022-01-01T00:00:00.000+00:00\"\n    }, {\n      \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n      \"total_balance\" : 5.637376656633329,\n      \"overage_rated_quantity\" : 9.301444243932576,\n      \"remaining_balance\" : 2.3021358869347655,\n      \"overage_rated_amount\" : 7.061401241503109,\n      \"transactions\" : [ null, null ],\n      \"prepaid_UOM\" : \"prepaid_UOM\",\n      \"start_date\" : \"2022-01-01T00:00:00.000+00:00\"\n    } ]\n  } ],\n  \"updated_by_id\" : \"updated_by_id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"account\" : \"\",\n  \"sold_to_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"current_term\" : \"\"\n}";
-
+await _subscriptionsService.ActivateSubscriptionAsync(body)
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Subscription>(exampleJson)
             : default(Subscription);            //TODO: Change the data returned
@@ -1105,4 +1123,5 @@ namespace ZIP2GO.WebAPI.Controllers
             return new ObjectResult(example);
         }
     }
+}
 }

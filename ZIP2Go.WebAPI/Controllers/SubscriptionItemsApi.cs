@@ -23,8 +23,22 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class SubscriptionItemsApiController : ControllerBase
+    public class SubscriptionItemsApiController : ControllerBaseApi
     {
+
+               private readonly ISubscriptionItemsService _subscriptionItemsService;
+        private readonly ILogger<SubscriptionItemsController> _logger;
+
+        public SubscriptionItemsController(
+            ISubscriptionItemsService subscriptionItemsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<SubscriptionItemsController> logger) : base(httpContext, cache, logger)
+        {
+            _subscriptionItemsService = subscriptionItemsService ?? throw new ArgumentNullException(nameof(subscriptionItemsService));
+            _logger = logger;
+        }
+        
         /// <summary>
         /// List subscription items
         /// </summary>

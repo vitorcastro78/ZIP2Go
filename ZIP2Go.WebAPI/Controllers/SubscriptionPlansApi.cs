@@ -25,6 +25,23 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class SubscriptionPlansApiController : ControllerBase
     {
+        private readonly ISubscriptionPlansService _subscriptionPlansService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<SubscriptionPlansApiController> _logger;
+
+        public SubscriptionPlansApiController(
+            ISubscriptionPlansService subscriptionPlansService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<SubscriptionPlansApiController> logger) : base(httpContext, cache, logger)
+        {
+            _subscriptionPlansService = subscriptionPlansService;
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }   
+
         /// <summary>
         /// Retrieve a subscription plan
         /// </summary>

@@ -23,8 +23,25 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class BillRunPreviewsApiController : ControllerBase
+    public class BillRunPreviewsApiController : ControllerBaseApi
     {
+        private readonly IBillRunPreviewsService _billRunPreviewsService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<BillRunPreviewsApiController> _logger;
+
+        public BillRunPreviewsApiController(
+            IBillRunPreviewsService billRunPreviewsService, 
+            IHttpContextAccessor httpContext, 
+            IEasyCachingProvider cache, 
+            ILogger<BillRunPreviewsApiController> logger) : base(httpContext, cache)
+        {
+            _billRunPreviewsService = billRunPreviewsService;
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }   
+
         /// <summary>
         /// Create a bill run preview
         /// </summary>

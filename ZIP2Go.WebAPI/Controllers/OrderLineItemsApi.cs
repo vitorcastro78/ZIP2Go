@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class OrderLineItemsApiController : ControllerBase
+    public class OrderLineItemsApiController : ControllerBaseApi
     {
         /// <summary>
         /// Retrieve an order line item

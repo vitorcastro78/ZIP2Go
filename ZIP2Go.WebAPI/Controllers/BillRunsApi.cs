@@ -23,8 +23,26 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class BillRunsApiController : ControllerBase
+    public class BillRunsApiController : ControllerBaseApi
     {
+        private readonly IBillRunsService  _billRunsService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<BillRunsApiController> _logger;
+
+        public BillRunsApiController(
+            IBillRunsService billRunsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<BillRunsApiController> logger) : base(httpContext, cache)
+        {
+            _billRunsService = billRunsService;
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }   
+
+
         /// <summary>
         /// Cancel a bill run
         /// </summary>

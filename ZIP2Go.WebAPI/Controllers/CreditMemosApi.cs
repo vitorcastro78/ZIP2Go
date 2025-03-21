@@ -23,8 +23,25 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class CreditMemosApiController : ControllerBase
+    public class CreditMemosApiController : ControllerBaseApi
     {
+        private readonly ICreditMemosService _creditMemosService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<CreditMemosApiController> _logger;
+
+        public CreditMemosApiController(
+            ICreditMemosService creditMemosService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<CreditMemosApiController> logger) : base(httpContext, cache)
+        {
+            _creditMemosService = creditMemosService;   
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }   
+
         /// <summary>
         /// Apply a credit memo
         /// </summary>

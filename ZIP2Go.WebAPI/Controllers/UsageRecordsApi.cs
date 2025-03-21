@@ -9,414 +9,136 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using ZIP2GO.Service.Models;
+using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller para gerenciamento de registros de uso
     /// </summary>
     [ApiController]
-    public class UsageRecordsApiController : ControllerBase
+    public class UsageRecordsController : ControllerBaseApi
     {
-        /// <summary>
-        /// Create a usage record
-        /// </summary>
-        /// <remarks>Creates a new Usage object.</remarks>
-        /// <param name="body"></param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;account_number&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subscription_item_number&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_number&#x60;, &#x60;unit_of_measure&#x60;, &#x60;description&#x60;, &#x60;end_time&#x60;, &#x60;state&#x60;, &#x60;start_time&#x60;, &#x60;quantity&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <response code="201">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpPost]
-        [Route("/v2/usage_records")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("CreateUsage")]
-        [SwaggerResponse(statusCode: 201, type: typeof(Usage), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateUsage([FromBody] UsageCreateRequest body, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> accountFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        private readonly IUsageRecordsService _usageRecordsService;
+
+        public UsageRecordsController(
+            IUsageRecordsService usageRecordsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<UsageRecordsController> logger) : base(httpContext, cache, logger)
         {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(Usage));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_number\" : \"A-100001\",\n  \"quantity\" : 0.8008281904610115,\n  \"subscription_item_id\" : \"subscription_item_id\",\n  \"subscription_number\" : \"subscription_number\",\n  \"custom_fields\" : \"\",\n  \"end_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"subscription_item_number\" : \"subscription_item_number\",\n  \"description\" : \"description of test account\",\n  \"subscription_id\" : \"subscription_id\",\n  \"start_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_id\" : \"account_id\",\n  \"custom_objects\" : \"\",\n  \"unit_of_measure\" : \"unit_of_measure\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"id\" : \"id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"state\" : \"pending\",\n  \"account\" : \"\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Usage>(exampleJson)
-            : default(Usage);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            _usageRecordsService = usageRecordsService ?? throw new ArgumentNullException(nameof(usageRecordsService));
         }
 
         /// <summary>
-        /// Delete a usage record
+        /// Obtém registros de uso
         /// </summary>
-        /// <remarks>Permanently deletes a usage object. It cannot be undone.</remarks>
-        /// <param name="id">Usage Id</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="204">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpDelete]
-        [Route("/v2/usage_records/{id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("DeleteUsage")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult DeleteUsage([FromRoute][Required] string id, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
-        {
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Retrieve a usage record
-        /// </summary>
-        /// <remarks>Retrieves the usage with the given ID.</remarks>
-        /// <param name="id">Usage Id</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;account_number&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subscription_item_number&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_number&#x60;, &#x60;unit_of_measure&#x60;, &#x60;description&#x60;, &#x60;end_time&#x60;, &#x60;state&#x60;, &#x60;start_time&#x60;, &#x60;quantity&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <remarks>Retorna uma lista de registros de uso com base nos filtros especificados.</remarks>
         [HttpGet]
-        [Route("/v2/usage_records/{id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("GetUsage")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Usage), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetUsage([FromRoute][Required] string id, [FromQuery] List<string> fields, [FromQuery] List<string> accountFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
-        {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Usage));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_number\" : \"A-100001\",\n  \"quantity\" : 0.8008281904610115,\n  \"subscription_item_id\" : \"subscription_item_id\",\n  \"subscription_number\" : \"subscription_number\",\n  \"custom_fields\" : \"\",\n  \"end_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"subscription_item_number\" : \"subscription_item_number\",\n  \"description\" : \"description of test account\",\n  \"subscription_id\" : \"subscription_id\",\n  \"start_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_id\" : \"account_id\",\n  \"custom_objects\" : \"\",\n  \"unit_of_measure\" : \"unit_of_measure\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"id\" : \"id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"state\" : \"pending\",\n  \"account\" : \"\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Usage>(exampleJson)
-            : default(Usage);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
-
-        /// <summary>
-        /// List usage records
-        /// </summary>
-        /// <remarks>Returns an array of usage records. Each entry in the array is a separate Usage object.         If no more usages are available, the resulting array will be empty. This request should never return an error.</remarks>
-        /// <param name="cursor">A cursor for use in pagination. A cursor defines the starting place in a list. For instance, if you make a list request and receive 100 objects, ending with &#x60;next_page&#x3D;W3sib3JkZXJ&#x3D;&#x60;, your subsequent call can include &#x60;cursor&#x3D;W3sib3JkZXJ&#x3D;&#x60; in order to fetch the next page of the list.</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="sort">A case-sensitive query parameter that specifies the sort order of the list, which can be either ascending (e.g. &#x60;account_number.asc&#x60;) or descending (e.g. &#x60;account_number.desc&#x60;). You cannot sort on properties that are arrays. If the array-type properties are specified for the &#x60;sort[]&#x60; parameter, they are ignored.</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;account_number&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subscription_item_number&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_number&#x60;, &#x60;unit_of_measure&#x60;, &#x60;description&#x60;, &#x60;end_time&#x60;, &#x60;state&#x60;, &#x60;start_time&#x60;, &#x60;quantity&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpGet]
-        [Route("/v2/usage_records")]
+        [Route("/v2/usage-records")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetUsageRecords")]
-        [SwaggerResponse(statusCode: 200, type: typeof(ListUsageResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetUsageRecords([FromQuery] string cursor, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery] List<string> sort, [FromQuery][Range(1, 99)] int? pageSize, [FromQuery] List<string> fields, [FromQuery] List<string> accountFields, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        [SwaggerResponse(statusCode: 200, type: typeof(UsageRecordListResponse), description: "Lista de registros de uso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> GetUsageRecords(
+            [FromQuery] string cursor,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery] List<string> sort,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromQuery] List<string> fields,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(ListUsageResponse));
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"account_number\" : \"A-100001\",\n    \"quantity\" : 0.8008281904610115,\n    \"subscription_item_id\" : \"subscription_item_id\",\n    \"subscription_number\" : \"subscription_number\",\n    \"custom_fields\" : \"\",\n    \"end_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"subscription_item_number\" : \"subscription_item_number\",\n    \"description\" : \"description of test account\",\n    \"subscription_id\" : \"subscription_id\",\n    \"start_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"account_id\" : \"account_id\",\n    \"custom_objects\" : \"\",\n    \"unit_of_measure\" : \"unit_of_measure\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"id\" : \"id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"state\" : \"pending\",\n    \"account\" : \"\"\n  }, {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"account_number\" : \"A-100001\",\n    \"quantity\" : 0.8008281904610115,\n    \"subscription_item_id\" : \"subscription_item_id\",\n    \"subscription_number\" : \"subscription_number\",\n    \"custom_fields\" : \"\",\n    \"end_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"subscription_item_number\" : \"subscription_item_number\",\n    \"description\" : \"description of test account\",\n    \"subscription_id\" : \"subscription_id\",\n    \"start_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"account_id\" : \"account_id\",\n    \"custom_objects\" : \"\",\n    \"unit_of_measure\" : \"unit_of_measure\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"id\" : \"id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"state\" : \"pending\",\n    \"account\" : \"\"\n  } ]\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<ListUsageResponse>(exampleJson)
-            : default(ListUsageResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            var cacheKey = $"usage_records_{cursor}_{string.Join(",", filter ?? new List<string>())}_{pageSize}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _usageRecordsService.GetUsageRecordsAsync(
+                    cursor, expand, filter, sort, pageSize, fields,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey));
         }
 
         /// <summary>
-        /// Update a usage record
+        /// Obtém um registro de uso específico
         /// </summary>
-        /// <remarks>Updates the usage record. Any fields on the object not provided in the request are not changed.</remarks>
-        /// <param name="body"></param>
-        /// <param name="id">Usage Id</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;account_number&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subscription_item_number&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_number&#x60;, &#x60;unit_of_measure&#x60;, &#x60;description&#x60;, &#x60;end_time&#x60;, &#x60;state&#x60;, &#x60;start_time&#x60;, &#x60;quantity&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpPatch]
-        [Route("/v2/usage_records/{id}")]
+        /// <remarks>Retorna os detalhes de um registro de uso específico.</remarks>
+        [HttpGet]
+        [Route("/v2/usage-records/{usage_record_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
-        [SwaggerOperation("UpdateUsage")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Usage), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult UpdateUsage([FromBody] UsagePatchRequest body, [FromRoute][Required] string id, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> accountFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        [SwaggerOperation("GetUsageRecord")]
+        [SwaggerResponse(statusCode: 200, type: typeof(UsageRecord), description: "Registro de uso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> GetUsageRecord(
+            [FromRoute][Required] string usageRecordId,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Usage));
+            ValidateResourceId(usageRecordId, "registro de uso");
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+            var cacheKey = $"usage_record_{usageRecordId}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _usageRecordsService.GetUsageRecordAsync(
+                    usageRecordId, fields, expand, filter, pageSize,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey));
+        }
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
+        /// <summary>
+        /// Cria um novo registro de uso
+        /// </summary>
+        /// <remarks>Cria um novo registro de uso com os dados fornecidos.</remarks>
+        [HttpPost]
+        [Route("/v2/usage-records")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("CreateUsageRecord")]
+        [SwaggerResponse(statusCode: 201, type: typeof(UsageRecord), description: "Registro de uso criado com sucesso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        public virtual async Task<IActionResult> CreateUsageRecord(
+            [FromBody] UsageRecordCreateRequest request,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
+        {
+            if (request == null)
+            {
+                _logger.LogWarning("Tentativa de criar registro de uso com corpo nulo");
+                return BadRequest(new ErrorResponse { Message = "O corpo da requisição é obrigatório" });
+            }
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
+            return await ExecuteWithErrorHandlingAsync(async () =>
+            {
+                var result = await _usageRecordsService.CreateUsageRecordAsync(
+                    request, fields, expand, zuoraTrackId, zuoraEntityIds, idempotencyKey);
 
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_number\" : \"A-100001\",\n  \"quantity\" : 0.8008281904610115,\n  \"subscription_item_id\" : \"subscription_item_id\",\n  \"subscription_number\" : \"subscription_number\",\n  \"custom_fields\" : \"\",\n  \"end_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"subscription_item_number\" : \"subscription_item_number\",\n  \"description\" : \"description of test account\",\n  \"subscription_id\" : \"subscription_id\",\n  \"start_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_id\" : \"account_id\",\n  \"custom_objects\" : \"\",\n  \"unit_of_measure\" : \"unit_of_measure\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"id\" : \"id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"state\" : \"pending\",\n  \"account\" : \"\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Usage>(exampleJson)
-            : default(Usage);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                _logger.LogInformation("Registro de uso criado com sucesso: {UsageRecordId}", result.Id);
+                return CreatedAtAction(nameof(GetUsageRecord), new { usageRecordId = result.Id }, result);
+            });
         }
     }
 }

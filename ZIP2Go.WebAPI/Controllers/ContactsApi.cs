@@ -23,8 +23,26 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class ContactsApiController : ControllerBase
+    public class ContactsApiController : ControllerBaseApi
     {
+        
+        private readonly IContactsService _contactsService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<ContactsApiController> _logger;
+
+        public ContactsApiController(
+            IContactsService contactsService,           
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<ContactsApiController> logger) : base(httpContext, cache)
+        {
+            _contactsService = contactsService;
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }
+
         /// <summary>
         /// Create a contact
         /// </summary>

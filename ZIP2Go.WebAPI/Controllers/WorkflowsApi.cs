@@ -9,97 +9,136 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using ZIP2GO.Service.Models;
+using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller para gerenciamento de fluxos de trabalho
     /// </summary>
     [ApiController]
-    public class WorkflowsApiController : ControllerBase
+    public class WorkflowsController : ControllerBaseApi
     {
+        private readonly IWorkflowsService _workflowsService;
+
+        public WorkflowsController(
+            IWorkflowsService workflowsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<WorkflowsController> logger) : base(httpContext, cache, logger)
+        {
+            _workflowsService = workflowsService ?? throw new ArgumentNullException(nameof(workflowsService));
+        }
+
         /// <summary>
-        /// Run a workflow
+        /// Obtém fluxos de trabalho
         /// </summary>
-        /// <remarks>Run a specified workflow. In the request body, you can include parameters that you want to pass to the workflow. For the parameters to be recognized and picked up by tasks in the workflow, you need to define the parameters first.</remarks>
-        /// <param name="body"></param>
-        /// <param name="workflowId">Workflow Id</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="201">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpPost]
-        [Route("/v2/workflows/{workflow_id}/run")]
+        /// <remarks>Retorna uma lista de fluxos de trabalho com base nos filtros especificados.</remarks>
+        [HttpGet]
+        [Route("/v2/workflows")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
-        [SwaggerOperation("RunWorkflow")]
-        [SwaggerResponse(statusCode: 201, type: typeof(WorkflowRun), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult RunWorkflow([FromBody] RunWorkflowRequest body, [FromRoute][Required] int? workflowId, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        [SwaggerOperation("GetWorkflows")]
+        [SwaggerResponse(statusCode: 200, type: typeof(WorkflowListResponse), description: "Lista de fluxos de trabalho")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> GetWorkflows(
+            [FromQuery] string cursor,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery] List<string> sort,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromQuery] List<string> fields,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
         {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(WorkflowRun));
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+            var cacheKey = $"workflows_{cursor}_{string.Join(",", filter ?? new List<string>())}_{pageSize}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _workflowsService.GetWorkflowsAsync(
+                    cursor, expand, filter, sort, pageSize, fields,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey));
+        }
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
+        /// <summary>
+        /// Obtém um fluxo de trabalho específico
+        /// </summary>
+        /// <remarks>Retorna os detalhes de um fluxo de trabalho específico.</remarks>
+        [HttpGet]
+        [Route("/v2/workflows/{workflow_id}")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("GetWorkflow")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Workflow), description: "Fluxo de trabalho")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        public virtual async Task<IActionResult> GetWorkflow(
+            [FromRoute][Required] string workflowId,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
+        {
+            ValidateResourceId(workflowId, "fluxo de trabalho");
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
+            var cacheKey = $"workflow_{workflowId}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _workflowsService.GetWorkflowAsync(
+                    workflowId, fields, expand, filter, pageSize,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey));
+        }
 
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
+        /// <summary>
+        /// Cria um novo fluxo de trabalho
+        /// </summary>
+        /// <remarks>Cria um novo fluxo de trabalho com os dados fornecidos.</remarks>
+        [HttpPost]
+        [Route("/v2/workflows")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("CreateWorkflow")]
+        [SwaggerResponse(statusCode: 201, type: typeof(Workflow), description: "Fluxo de trabalho criado com sucesso")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        public virtual async Task<IActionResult> CreateWorkflow(
+            [FromBody] WorkflowCreateRequest request,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey)
+        {
+            if (request == null)
+            {
+                _logger.LogWarning("Tentativa de criar fluxo de trabalho com corpo nulo");
+                return BadRequest(new ErrorResponse { Message = "O corpo da requisição é obrigatório" });
+            }
 
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
+            return await ExecuteWithErrorHandlingAsync(async () =>
+            {
+                var result = await _workflowsService.CreateWorkflowAsync(
+                    request, fields, expand, zuoraTrackId, zuoraEntityIds, idempotencyKey);
 
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"original_workflow_id\" : 6,\n  \"name\" : \"name\",\n  \"id\" : 0,\n  \"state\" : \"queued\",\n  \"type\" : \"setup\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<WorkflowRun>(exampleJson)
-            : default(WorkflowRun);            //TODO: Change the data returned
-            return new ObjectResult(example);
+                _logger.LogInformation("Fluxo de trabalho criado com sucesso: {WorkflowId}", result.Id);
+                return CreatedAtAction(nameof(GetWorkflow), new { workflowId = result.Id }, result);
+            });
         }
     }
 }

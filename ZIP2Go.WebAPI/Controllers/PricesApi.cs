@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class PricesApiController : ControllerBase
+    public class PricesApiController : ControllerBaseApi
     {
         /// <summary>
         /// Create a price

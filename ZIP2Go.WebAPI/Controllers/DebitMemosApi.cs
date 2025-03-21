@@ -23,7 +23,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class DebitMemosApiController : ControllerBase
+    public class DebitMemosApiController : ControllerBaseApi
     {
         /// <summary>
         /// Cancel a debit memo

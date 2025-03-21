@@ -24,8 +24,25 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class PaymentsApiController : ControllerBase
+    public class PaymentsApiController : ControllerBaseApi
     {
+        private readonly IPaymentsService _paymentsService;
+        private readonly IHttpContextAccessor _httpContext;
+        private readonly IEasyCachingProvider _cache;
+        private readonly ILogger<PaymentsApiController> _logger;
+
+        public PaymentsApiController(
+            IPaymentsService paymentsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<PaymentsApiController> logger) : base(httpContext, cache)
+        {
+            _paymentsService = paymentsService;
+            _httpContext = httpContext;
+            _cache = cache;
+            _logger = logger;
+        }
+
         /// <summary>
         /// Apply a payment
         /// </summary>

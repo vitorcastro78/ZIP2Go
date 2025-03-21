@@ -9,26 +9,38 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using ZIP2GO.Service.Models;
+using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller para gerenciamento de itens de documentos de faturamento
     /// </summary>
     [ApiController]
-    public class BillingDocumentItemsApiController : ControllerBase
+    public class BillingDocumentItemsController : ControllerBaseApi
     {
+        private readonly IBillingDocumentItemsService _billingDocumentItemsService;
+
+        public BillingDocumentItemsController(
+            IBillingDocumentItemsService billingDocumentItemsService,
+            IHttpContextAccessor httpContext,
+            IEasyCachingProvider cache,
+            ILogger<BillingDocumentItemsController> logger) : base(httpContext, cache, logger)
+        {
+            _billingDocumentItemsService = billingDocumentItemsService ?? throw new ArgumentNullException(nameof(billingDocumentItemsService));
+        }
+
         /// <summary>
-        /// List billing document items
+        /// Obtém itens de documentos de faturamento
         /// </summary>
-        /// <remarks>List billing document items</remarks>
+        /// <remarks>Retorna uma lista de itens de documentos de faturamento com base nos filtros especificados.</remarks>
         /// <param name="cursor">A cursor for use in pagination. A cursor defines the starting place in a list. For instance, if you make a list request and receive 100 objects, ending with &#x60;next_page&#x3D;W3sib3JkZXJ&#x3D;&#x60;, your subsequent call can include &#x60;cursor&#x3D;W3sib3JkZXJ&#x3D;&#x60; in order to fetch the next page of the list.</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorials for detailed instructions.</param>
@@ -41,10 +53,10 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
+        /// <response code="200">Lista de itens de documentos de faturamento</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="401">Não autorizado</response>
+        /// <response code="404">Não encontrado</response>
         /// <response code="405">Method Not Allowed</response>
         /// <response code="429">Too Many Requests</response>
         /// <response code="500">Internal Server Error</response>
@@ -52,58 +64,106 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/billing_document_items")]
+        [Route("/v2/billing-document-items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetBillingDocumentItems")]
-        [SwaggerResponse(statusCode: 200, type: typeof(BillingDocumentItemListResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
+        [SwaggerResponse(statusCode: 200, type: typeof(BillingDocumentItemListResponse), description: "Lista de itens de documentos de faturamento")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
         [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
         [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
         [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetBillingDocumentItems([FromQuery] string cursor, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery] List<string> sort, [FromQuery][Range(1, 99)] int? pageSize, [FromQuery] List<string> fields, [FromQuery] List<string> taxationItemsFields, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        public virtual async Task<IActionResult> GetBillingDocumentItems(
+            [FromQuery] string cursor,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery] List<string> sort,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> taxationItemsFields,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey,
+            [FromHeader] string acceptEncoding,
+            [FromHeader] string contentEncoding)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(BillingDocumentItemListResponse));
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+            var cacheKey = $"billing_document_items_{cursor}_{string.Join(",", filter ?? new List<string>())}_{pageSize}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _billingDocumentItemsService.GetBillingDocumentItemsAsync(
+                    cursor, expand, filter, sort, pageSize, fields,
+                    taxationItemsFields, zuoraTrackId, zuoraEntityIds,
+                    idempotencyKey, acceptEncoding, contentEncoding));
+        }
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
+        /// <summary>
+        /// Obtém um item de documento de faturamento específico
+        /// </summary>
+        /// <remarks>Retorna os detalhes de um item de documento de faturamento específico.</remarks>
+        /// <param name="billingDocumentItemId">O ID do item de documento de faturamento</param>
+        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;tax&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;          &lt;/details&gt;</param>
+        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
+        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorials for detailed instructions.</param>
+        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
+        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
+        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
+        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
+        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
+        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
+        /// <response code="200">Item de documento de faturamento</response>
+        /// <response code="400">Requisição inválida</response>
+        /// <response code="401">Não autorizado</response>
+        /// <response code="404">Não encontrado</response>
+        /// <response code="405">Method Not Allowed</response>
+        /// <response code="429">Too Many Requests</response>
+        /// <response code="500">Internal Server Error</response>
+        /// <response code="502">Bad Gateway</response>
+        /// <response code="503">Service Unavailable</response>
+        /// <response code="504">Gateway Timeout</response>
+        [HttpGet]
+        [Route("/v2/billing-document-items/{billing_document_item_id}")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("GetBillingDocumentItem")]
+        [SwaggerResponse(statusCode: 200, type: typeof(BillingDocumentItem), description: "Item de documento de faturamento")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Requisição inválida")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Não autorizado")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Não encontrado")]
+        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
+        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
+        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
+        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
+        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
+        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
+        public virtual async Task<IActionResult> GetBillingDocumentItem(
+            [FromRoute][Required] string billingDocumentItemId,
+            [FromQuery] List<string> fields,
+            [FromQuery] List<string> expand,
+            [FromQuery] List<string> filter,
+            [FromQuery][Range(1, 99)] int? pageSize,
+            [FromHeader] string zuoraTrackId,
+            [FromHeader] string zuoraEntityIds,
+            [FromHeader] string idempotencyKey,
+            [FromHeader] string acceptEncoding,
+            [FromHeader] string contentEncoding)
+        {
+            ValidateResourceId(billingDocumentItemId, "item de documento de faturamento");
+            ValidatePaginationParameters(pageSize);
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"billing_document\" : \"\",\n    \"accounts_receivable_account\" : \"accounts_receivable_account\",\n    \"service_end\" : \"service_end\",\n    \"subscription_item_id\" : \"subscription_item_id\",\n    \"revenue_recognition_rule_name\" : \"revenue_recognition_rule_name\",\n    \"price_id\" : \"price_id\",\n    \"description\" : \"description\",\n    \"subscription\" : \"\",\n    \"type\" : \"credit_memo\",\n    \"applied_to_item_id\" : \"applied_to_item_id\",\n    \"on_account_account\" : \"on_account_account\",\n    \"subscription_id\" : \"subscription_id\",\n    \"subscription_item\" : \"\",\n    \"deferred_revenue_account\" : \"deferred_revenue_account\",\n    \"unit_of_measure\" : \"unit_of_measure\",\n    \"purchase_order_number\" : \"purchase_order_number\",\n    \"price_description\" : \"price_description\",\n    \"id\" : \"id\",\n    \"sku\" : \"sku\",\n    \"discount_item\" : true,\n    \"service_start\" : \"service_start\",\n    \"billing_document_id\" : \"billing_document_id\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"recognized_revenue_account\" : \"recognized_revenue_account\",\n    \"amount\" : 0.8008281904610115,\n    \"quantity\" : 1.4658129805029452,\n    \"remaining_balance\" : 5.962133916683182,\n    \"custom_fields\" : \"\",\n    \"invoice_item_id\" : \"invoice_item_id\",\n    \"tax_inclusive\" : true,\n    \"booking_reference\" : \"booking_reference\",\n    \"tax\" : 2.3021358869347655,\n    \"unit_amount\" : 5.637376656633329,\n    \"product_name\" : \"product_name\",\n    \"accounting_code\" : \"accounting_code\",\n    \"tax_code\" : \"tax_code\",\n    \"document_item_date\" : \"2022-01-01T07:08:12-07:00\",\n    \"custom_objects\" : \"\",\n    \"subtotal\" : 6.027456183070403,\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"taxation_items\" : \"\"\n  }, {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"billing_document\" : \"\",\n    \"accounts_receivable_account\" : \"accounts_receivable_account\",\n    \"service_end\" : \"service_end\",\n    \"subscription_item_id\" : \"subscription_item_id\",\n    \"revenue_recognition_rule_name\" : \"revenue_recognition_rule_name\",\n    \"price_id\" : \"price_id\",\n    \"description\" : \"description\",\n    \"subscription\" : \"\",\n    \"type\" : \"credit_memo\",\n    \"applied_to_item_id\" : \"applied_to_item_id\",\n    \"on_account_account\" : \"on_account_account\",\n    \"subscription_id\" : \"subscription_id\",\n    \"subscription_item\" : \"\",\n    \"deferred_revenue_account\" : \"deferred_revenue_account\",\n    \"unit_of_measure\" : \"unit_of_measure\",\n    \"purchase_order_number\" : \"purchase_order_number\",\n    \"price_description\" : \"price_description\",\n    \"id\" : \"id\",\n    \"sku\" : \"sku\",\n    \"discount_item\" : true,\n    \"service_start\" : \"service_start\",\n    \"billing_document_id\" : \"billing_document_id\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"recognized_revenue_account\" : \"recognized_revenue_account\",\n    \"amount\" : 0.8008281904610115,\n    \"quantity\" : 1.4658129805029452,\n    \"remaining_balance\" : 5.962133916683182,\n    \"custom_fields\" : \"\",\n    \"invoice_item_id\" : \"invoice_item_id\",\n    \"tax_inclusive\" : true,\n    \"booking_reference\" : \"booking_reference\",\n    \"tax\" : 2.3021358869347655,\n    \"unit_amount\" : 5.637376656633329,\n    \"product_name\" : \"product_name\",\n    \"accounting_code\" : \"accounting_code\",\n    \"tax_code\" : \"tax_code\",\n    \"document_item_date\" : \"2022-01-01T07:08:12-07:00\",\n    \"custom_objects\" : \"\",\n    \"subtotal\" : 6.027456183070403,\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"taxation_items\" : \"\"\n  } ]\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<BillingDocumentItemListResponse>(exampleJson)
-            : default(BillingDocumentItemListResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            var cacheKey = $"billing_document_item_{billingDocumentItemId}";
+            return await ExecuteWithCacheAsync(
+                cacheKey,
+                async () => await _billingDocumentItemsService.GetBillingDocumentItemAsync(
+                    billingDocumentItemId, fields, expand, filter, pageSize,
+                    zuoraTrackId, zuoraEntityIds, idempotencyKey,
+                    acceptEncoding, contentEncoding));
         }
     }
 }
