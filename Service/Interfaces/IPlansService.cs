@@ -24,7 +24,7 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Plan</returns>
-        Plan CreatePlan(PlanCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> pricesFields, List<string> productFields, List<string> expand, List<string> filter, int? pageSize);
+        Plan CreatePlan(PlanCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> pricesFields, List<string> productFields, List<string> expand, List<string> filter, int? pageSize);
 
         /// <summary>
         /// Delete a plan Permanently deletes a plan. It cannot be undone.
@@ -37,7 +37,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
-        void DeletePlan(string planId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        void DeletePlan(string planId, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Retrieve a plan Retrieves the plan with the given ID.
@@ -55,7 +55,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Plan</returns>
-        Plan GetPlan(string planId, List<string> fields, List<string> pricesFields, List<string> productFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        Plan GetPlan(string planId, List<string> fields, List<string> pricesFields, List<string> productFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId);
 
         /// <summary>
         /// List plans Returns a dictionary with a data property that contains an array of plans, starting after the cursor, if used. Each entry in the array is a separate plan object. If no more plans are available, the resulting array will be empty. This request should never return an error.
@@ -74,7 +74,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PlanListResponse</returns>
-        PlanListResponse GetPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> pricesFields, List<string> productFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        PlanListResponse GetPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> pricesFields, List<string> productFields, string zuoraTrackId);
 
         /// <summary>
         /// Update a plan Updates the specified plan by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -94,6 +94,6 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Plan</returns>
-        Plan UpdatePlan(PlanPatchRequest body, string planId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> pricesFields, List<string> productFields, List<string> expand, List<string> filter, int? pageSize);
+        Plan UpdatePlan(PlanPatchRequest body, string planId, string zuoraTrackId, bool? async, List<string> fields, List<string> pricesFields, List<string> productFields, List<string> expand, List<string> filter, int? pageSize);
     }
 }

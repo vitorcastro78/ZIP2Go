@@ -47,7 +47,7 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>DebitMemo</returns>
-        DebitMemo CreateDebitMemo(DebitMemoCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+        DebitMemo CreateDebitMemo(DebitMemoCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
 
         /// <summary>
         /// Delete a debit memo Permanently deletes a debit memo. This operation cannot be undone once it is performed.
@@ -60,7 +60,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
-        void DeleteDebitMemo(string debitMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        void DeleteDebitMemo(string debitMemoId, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Retrieve a debit memo Retrieves the debit memo with the given ID.
@@ -80,7 +80,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>DebitMemo</returns>
-        DebitMemo GetDebitMemo(string debitMemoId, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        DebitMemo GetDebitMemo(string debitMemoId, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId);
 
         /// <summary>
         /// List debit memos Returns a dictionary with a data property that contains an array of debit memoes, starting after cursor. Each entry in the array is a separate invoice object. If no more invoices are available, the resulting array will be empty. This request should never return an error.
@@ -101,7 +101,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>DebitMemoListResponse</returns>
-        DebitMemoListResponse GetDebitMemoes(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        DebitMemoListResponse GetDebitMemoes(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, string zuoraTrackId);
 
         /// <summary>
         /// List debit memo items Lists item information on all or a subset of debit memos.
@@ -119,7 +119,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>DebitMemoItemListResponse</returns>
-        DebitMemoItemListResponse GetDebitMemoItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        DebitMemoItemListResponse GetDebitMemoItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, string zuoraTrackId);
 
         /// <summary>
         /// Update a debit memo Updates a debit memo by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
@@ -141,7 +141,7 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>DebitMemo</returns>
-        DebitMemo PatchDebitMemo(DebitMemoPatchRequest body, string debitMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+        DebitMemo PatchDebitMemo(DebitMemoPatchRequest body, string debitMemoId, string zuoraTrackId, bool? async, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
 
         /// <summary>
         /// Pay a debit memo Pays a debit memo using an existing payment method.
@@ -163,7 +163,7 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>DebitMemo</returns>
-        DebitMemo PayDebitMemo(PayDebitMemoRequest body, string debitMemoId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
+        DebitMemo PayDebitMemo(PayDebitMemoRequest body, string debitMemoId, string zuoraTrackId, bool? async, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize);
 
         /// <summary>
         /// Post a debit memo Opens a draft debit memo.

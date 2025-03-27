@@ -14,7 +14,7 @@ namespace ZIP2Go.WebAPI.Controllers
             _httpContext = httpContextFeature;
             _cache = cache;
             new Context().SubscriptionApiKey = _httpContext.HttpContext.Request.Headers.FirstOrDefault(f => f.Key == "subscription-api-key").Value;
-            _cache.Set<string>("subscription-api-key", "subscription-api-key", TimeSpan.MaxValue);
+            _cache.Set<string>("subscription-api-key", "subscription-api-key", TimeSpan.FromMinutes(20));
         }
 
        

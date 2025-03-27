@@ -19,6 +19,6 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>WorkflowRun</returns>
-        WorkflowRun RunWorkflow(RunWorkflowRequest body, int? workflowId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        WorkflowRun RunWorkflow(RunWorkflowRequest body, int? workflowId, string zuoraTrackId, bool? async);
     }
 }

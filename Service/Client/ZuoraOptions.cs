@@ -1,4 +1,4 @@
-﻿namespace Service.Client
+﻿namespace ZIP2GO.Service.Client
 {
     public class ZuoraOptions
     {
@@ -77,6 +77,10 @@
         public IDictionary<string, string> EndpointSpecificVersions { get; set; } = new Dictionary<string, string>();
 
         public string ZuoraEntityId { get; set; }
+
+        public string ZuoraIdempotencyKey { get; set; }
+
+        public Guid ZuoraTrackId { get; set; } = Guid.NewGuid();
 
         public string ClientDefaultZuoraVersion { get; set; }
 

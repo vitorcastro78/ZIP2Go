@@ -1,7 +1,7 @@
 using EasyCaching.Core;
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Client;
+using ZIP2GO.Service.Client;
 using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Service
@@ -34,7 +34,7 @@ namespace ZIP2GO.Service
         /// <returns></returns>
         public BillingDocumentItemsService(string basePath)
         {
-            this.ApiClient = new ApiClient(basePath);
+            this.ApiClient = new ApiClient();
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>BillingDocumentItemListResponse</returns>
-        public BillingDocumentItemListResponse GetBillingDocumentItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public BillingDocumentItemListResponse GetBillingDocumentItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, string zuoraTrackId)
         {
             var path = "/billing_document_items";
             path = path.Replace("{format}", "json");
@@ -88,16 +88,16 @@ namespace ZIP2GO.Service
             if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetBillingDocumentItems: " + response.Content, response.Content);

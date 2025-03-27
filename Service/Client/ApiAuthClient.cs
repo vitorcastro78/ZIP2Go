@@ -4,14 +4,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestSharp;
-using Service.Client;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace ZIP2GO.Client
+namespace ZIP2GO.Service.Client
 {
+
     /// <summary>
     /// API client is mainly responsible for making the HTTP call to the API backend.
     /// </summary>
@@ -38,10 +38,18 @@ namespace ZIP2GO.Client
         /// <param name="cache">The cache provider.</param>
         /// <param name="zuoraOptionsAccessor">The Zuora options accessor.</param>
         /// <param name="basePath">The base path.</param>
-        public ApiAuthClient(IEasyCachingProvider cache, IOptionsMonitor<ZuoraOptions> zuoraOptionsAccessor, string basePath = "https://rest.sandbox.na.zuora.com/v2")
+        public ApiAuthClient(IEasyCachingProvider cache)
         {
-            Options = zuoraOptionsAccessor.CurrentValue;
-            BasePath = basePath;
+
+            using (StreamReader r = new StreamReader(Directory.GetCurrentDirectory() + $"\\config.json"))
+            {
+                var tst = r.ReadToEnd().ToString();
+                Options = JsonConvert.DeserializeObject<ZuoraOptions>(tst);
+            }
+
+
+           // Options = zuoraOptionsAccessor.CurrentValue;
+            BasePath = Options.BaseUrl;
             RestClient = new RestClient(BasePath);
             _cache = cache;
             SetDefaultZuoraVersion();
@@ -67,7 +75,7 @@ namespace ZIP2GO.Client
         /// <summary>
         /// Gets or sets the Zuora Entity Ids.
         /// </summary>
-        protected virtual HttpClient OAuthClient
+        public HttpClient OAuthClient
         {
             get
             {
@@ -80,7 +88,7 @@ namespace ZIP2GO.Client
         /// <summary>
         /// Gets or sets the Zuora Entity Ids.
         /// </summary>
-        protected virtual HttpClient OAuthClientWithoutVersion
+        public HttpClient OAuthClientWithoutVersion
         {
             get
             {
@@ -332,7 +340,7 @@ namespace ZIP2GO.Client
             return httpClient;
         }
 
-        private string GetToken()
+        public string GetToken()
         {
             if (_memCache.TryGetValue("ZuoraToken", out ZuoraToken token) && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
             {
@@ -446,4 +454,5 @@ namespace ZIP2GO.Client
             return new FileStream(fileName, FileMode.Open);
         }
     }
+
 }

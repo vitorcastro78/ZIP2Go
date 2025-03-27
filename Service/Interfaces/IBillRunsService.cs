@@ -39,7 +39,7 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>BillRun</returns>
-        BillRun CreateBillRun(BillRunCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+        BillRun CreateBillRun(BillRunCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
 
         /// <summary>
         /// Delete a bill run Deletes a bill run. Only the bill runs with the &#x60;canceled&#x60; status can be deleted.
@@ -52,7 +52,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
-        void DeleteBillRun(string billRunId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        void DeleteBillRun(string billRunId, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Retrieve a bill run Retrieves the bill run information with the given ID.
@@ -68,7 +68,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>BillRun</returns>
-        BillRun GetBillRun(string billRunId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        BillRun GetBillRun(string billRunId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId);
 
         /// <summary>
         /// List bill runs Returns an array of bill runs. Each entry in the array is a separate bill run object.       If no more bill runs are available, the resulting array will be empty. This request should never return an error.
@@ -85,7 +85,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>BillRunListResponse</returns>
-        BillRunListResponse GetBillRuns(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        BillRunListResponse GetBillRuns(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId);
 
         /// <summary>
         /// Post a bill run Posts a bill run. Only the bill runs with the &#x60;completed&#x60; status can be posted.
@@ -103,6 +103,6 @@ namespace Service.Interfaces
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>BillRun</returns>
-        BillRun PostBillRun(BillRunPostRequest body, string billRunId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
+        BillRun PostBillRun(BillRunPostRequest body, string billRunId, string zuoraTrackId, bool? async, List<string> fields, List<string> expand, List<string> filter, int? pageSize);
     }
 }

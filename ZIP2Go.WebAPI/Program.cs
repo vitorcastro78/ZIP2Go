@@ -1,11 +1,11 @@
 using EasyCaching.SQLite;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.OpenApi.Models;
-using Repository.DataContext;
-using Service.Client;
+using Newtonsoft.Json;
 using Service.Interfaces;
-using System;
 using ZIP2GO.Service;
+using ZIP2GO.Service.Client;
+using ZIP2GO.Service.Client.Auth0Management;
 using ZIP2GO.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,6 +23,7 @@ ConfigureWebApp(app);
 
 static void AddDependencyInjection(WebApplicationBuilder builder)
 {
+
     builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     builder.Services.AddScoped<IAccountsService, AccountsService>();
     builder.Services.AddScoped<IInvoicesService, InvoicesService>();
@@ -84,15 +85,32 @@ static void ConfigureServices(IServiceCollection services)
     });
 }
 
+static void ConfigureAuth0Service(IServiceCollection services, IConfiguration configuration)
+{
+    services.Configure<Auth0Options>(configuration.GetSection(ConfigSections.AUTH0));
+    services.AddScoped<IAuth0Service, Auth0Service>();
+}
 static void ConfigureWebApp(WebApplication app)
 {
     // Configure the HTTP request pipeline.
-    
+
+
+    JsonSerializerSettings defaultJsonSettings = JsonConvert.DefaultSettings != null ? JsonConvert.DefaultSettings() : new JsonSerializerSettings();
+    defaultJsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+    JsonConvert.DefaultSettings = () => defaultJsonSettings;
+
+
     app.UseSwagger();
 
     app.UseStaticFiles();
 
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(config =>
+    {
+        config.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object>
+        {
+            ["activated"] = false
+        };
+    });
 
     app.UseHttpsRedirection();
 
@@ -102,3 +120,4 @@ static void ConfigureWebApp(WebApplication app)
 
     app.Run();
 }
+

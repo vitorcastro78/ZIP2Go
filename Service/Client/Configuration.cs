@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace ZIP2GO.Client
+namespace ZIP2GO.Service.Client
 {
     /// <summary>
     /// Represents a set of configuration settings
@@ -29,7 +29,7 @@ namespace ZIP2GO.Client
         /// Gets or sets the default API client for making HTTP calls.
         /// </summary>
         /// <value>The API client.</value>
-        public static ApiClient DefaultApiClient = new ApiClient();
+        private static ApiClient defaultApiClient = new ApiClient();
 
         private const string ISO8601_DATETIME_FORMAT = "o";
 
@@ -106,6 +106,7 @@ namespace ZIP2GO.Client
         /// </summary>
         /// <value>The username.</value>
         public static string Username { get; set; }
+        public static ApiClient DefaultApiClient { get => defaultApiClient; set => defaultApiClient = value; }
 
         /// <summary>
         /// Returns a string with essential information for debugging.

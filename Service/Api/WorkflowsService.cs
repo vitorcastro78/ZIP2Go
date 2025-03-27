@@ -1,6 +1,6 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Client;
+using ZIP2GO.Service.Client;
 using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Service
@@ -60,7 +60,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>WorkflowRun</returns>
-        public WorkflowRun RunWorkflow(RunWorkflowRequest body, int? workflowId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public WorkflowRun RunWorkflow(RunWorkflowRequest body, int? workflowId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling RunWorkflow");
@@ -79,17 +79,17 @@ namespace ZIP2GO.Service
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling RunWorkflow: " + response.Content, response.Content);

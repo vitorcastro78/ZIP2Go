@@ -1,6 +1,6 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Client;
+using ZIP2GO.Service.Client;
 using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Service
@@ -68,7 +68,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlan</returns>
-        public SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId)
         {
             // verify the required parameter 'subscriptionPlanId' is set
             if (subscriptionPlanId == null) throw new ApiException(400, "Missing required parameter 'subscriptionPlanId' when calling GetSubscriptionPlan");
@@ -94,16 +94,16 @@ namespace ZIP2GO.Service
             if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionPlan: " + response.Content, response.Content);
@@ -134,7 +134,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlanListResponse</returns>
-        public SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, string zuoraTrackId)
         {
             var path = "/subscription_plans";
             path = path.Replace("{format}", "json");
@@ -158,16 +158,16 @@ namespace ZIP2GO.Service
             if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
             if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionPlans: " + response.Content, response.Content);

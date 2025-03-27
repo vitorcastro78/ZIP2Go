@@ -1,6 +1,6 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Client;
+using ZIP2GO.Service.Client;
 using ZIP2GO.Service.Models;
 
 namespace ZIP2GO.Service
@@ -66,7 +66,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
-        public Subscription ActivateSubscription(SubscriptionActivateRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Subscription ActivateSubscription(SubscriptionActivateRequest body, string subscriptionId, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling ActivateSubscription");
@@ -101,17 +101,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ActivateSubscription: " + response.Content, response.Content);
@@ -149,7 +149,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>SubscriptionCancelResponse</returns>
-        public SubscriptionCancelResponse CancelSubscription(CancelSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public SubscriptionCancelResponse CancelSubscription(CancelSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CancelSubscription");
@@ -184,17 +184,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelSubscription: " + response.Content, response.Content);
@@ -231,7 +231,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
-        public Subscription CreateSubscription(SubscriptionCreateRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Subscription CreateSubscription(SubscriptionCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateSubscription");
@@ -263,17 +263,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateSubscription: " + response.Content, response.Content);
@@ -319,7 +319,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Subscription</returns>
-        public Subscription GetSubscriptionByKey(string subscriptionId, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public Subscription GetSubscriptionByKey(string subscriptionId, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId)
         {
             // verify the required parameter 'subscriptionId' is set
             if (subscriptionId == null) throw new ApiException(400, "Missing required parameter 'subscriptionId' when calling GetSubscriptionByKey");
@@ -351,16 +351,16 @@ namespace ZIP2GO.Service
             if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionByKey: " + response.Content, response.Content);
@@ -399,7 +399,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionVersionListResponse</returns>
-        public SubscriptionVersionListResponse GetSubscriptionByVersion(string subscriptionId, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> actionsFields, string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionVersionListResponse GetSubscriptionByVersion(string subscriptionId, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> actionsFields, string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, string zuoraTrackId)
         {
             // verify the required parameter 'subscriptionId' is set
             if (subscriptionId == null) throw new ApiException(400, "Missing required parameter 'subscriptionId' when calling GetSubscriptionByVersion");
@@ -434,16 +434,16 @@ namespace ZIP2GO.Service
             if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionByVersion: " + response.Content, response.Content);
@@ -480,7 +480,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionListResponse</returns>
-        public SubscriptionListResponse GetSubscriptions(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, string zuoraTrackId, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionListResponse GetSubscriptions(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, string zuoraTrackId)
         {
             var path = "/subscriptions";
             path = path.Replace("{format}", "json");
@@ -510,16 +510,16 @@ namespace ZIP2GO.Service
             if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
             if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptions: " + response.Content, response.Content);
@@ -557,7 +557,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
-        public Subscription PatchSubscription(SubscriptionPatchRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Subscription PatchSubscription(SubscriptionPatchRequest body, string subscriptionId, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PatchSubscription");
@@ -592,17 +592,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchSubscription: " + response.Content, response.Content);
@@ -640,7 +640,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
-        public Subscription PauseSubscription(PauseSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Subscription PauseSubscription(PauseSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PauseSubscription");
@@ -675,17 +675,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PauseSubscription: " + response.Content, response.Content);
@@ -707,7 +707,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPreviewResponse</returns>
-        public SubscriptionPreviewResponse PreviewExistingSubscription(SubscriptionPreviewExistingRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionPreviewResponse PreviewExistingSubscription(SubscriptionPreviewExistingRequest body, string subscriptionId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PreviewExistingSubscription");
@@ -726,17 +726,17 @@ namespace ZIP2GO.Service
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewExistingSubscription: " + response.Content, response.Content);
@@ -757,7 +757,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPreviewResponse</returns>
-        public SubscriptionPreviewResponse PreviewSubscription(SubscriptionPreviewRequest body, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public SubscriptionPreviewResponse PreviewSubscription(SubscriptionPreviewRequest body, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PreviewSubscription");
@@ -773,17 +773,17 @@ namespace ZIP2GO.Service
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewSubscription: " + response.Content, response.Content);
@@ -821,7 +821,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
-        public Subscription ResumeSubscription(ResumeSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Subscription ResumeSubscription(ResumeSubscriptionRequest body, string subscriptionId, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling ResumeSubscription");
@@ -856,17 +856,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ResumeSubscription: " + response.Content, response.Content);
@@ -914,7 +914,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Subscription</returns>
-        public Subscription UncancelSubscription(SubscriptionPatchRequest body, string subscriptionId, string zuoraTrackId, bool? async, string zuoraEntityIds, string idempotencyKey, string acceptEncoding, string contentEncoding, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
+        public Subscription UncancelSubscription(SubscriptionPatchRequest body, string subscriptionId, string zuoraTrackId, bool? async, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, List<string> expand, List<string> filter, int? pageSize)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling UncancelSubscription");
@@ -949,17 +949,17 @@ namespace ZIP2GO.Service
             if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityIds != null) headerParams.Add("zuora-entity-ids", ApiClient.ParameterToString(zuoraEntityIds)); // header parameter
-            if (idempotencyKey != null) headerParams.Add("idempotency-key", ApiClient.ParameterToString(idempotencyKey)); // header parameter
-            if (acceptEncoding != null) headerParams.Add("accept-encoding", ApiClient.ParameterToString(acceptEncoding)); // header parameter
-            if (contentEncoding != null) headerParams.Add("content-encoding", ApiClient.ParameterToString(contentEncoding)); // header parameter
+           
+           
+           
+           
             postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // authentication setting, if any
             string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody, headerParams, formParams, fileParams, authSettings);
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UncancelSubscription: " + response.Content, response.Content);

@@ -1,7 +1,7 @@
 ﻿using EasyCaching.Core;
 using RestSharp;
 
-namespace ZIP2GO.Client
+namespace ZIP2GO.Service.Client
 {
     public class CachingTrigger
     {
