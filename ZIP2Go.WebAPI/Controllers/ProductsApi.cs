@@ -24,16 +24,24 @@ using ZIP2Go.WebAPI.Controllers;
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller responsible for managing products in the system.
+    /// Provides endpoints for creating, updating, deleting, and querying products.
     /// </summary>
     [ApiController]
-    public class ProductsApiController : ControllerBaseApi
+    public class ProductsController : ControllerBaseApi
     {
         private readonly IProductsService _productsService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
 
-        public ProductsApiController(
+        /// <summary>
+        /// Initializes a new instance of the products controller.
+        /// </summary>
+        /// <param name="productsService">Service for managing products</param>
+        /// <param name="httpContextAccessor">HTTP context accessor</param>
+        /// <param name="cache">Cache provider</param>
+        /// <exception cref="ArgumentNullException">Thrown when any dependency is null</exception>
+        public ProductsController(
             IProductsService productsService,
             IHttpContextAccessor httpContextAccessor,
             IEasyCachingProvider cache) : base(httpContextAccessor, cache)
@@ -44,10 +52,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a new product in the system
+        /// Creates a new product.
         /// </summary>
-        /// <param name="body">The product data to create</param>
-        /// <returns>The created product with its assigned ID</returns>
+        /// <param name="body">Product data to create</param>
+        /// <returns>The newly created product</returns>
+        /// <response code="201">Product created successfully</response>
+        /// <response code="400">Invalid product data</response>
         [HttpPost]
         [Route("/v2/products")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -158,10 +168,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieves a specific product by its ID
+        /// Retrieves a product by its ID.
         /// </summary>
-        /// <param name="productId">The ID of the product to retrieve</param>
-        /// <returns>The product if found, otherwise returns NotFound</returns>
+        /// <param name="productId">The unique identifier of the product</param>
+        /// <returns>The requested product details</returns>
+        /// <response code="200">Product found and returned</response>
+        /// <response code="404">Product not found</response>
         [HttpGet]
         [Route("/v2/products/{product_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -218,9 +230,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Lists all products in the system
+        /// Retrieves a list of all products.
         /// </summary>
-        /// <returns>A list of products with pagination information</returns>
+        /// <returns>A paginated list of products</returns>
+        /// <response code="200">List of products retrieved successfully</response>
         [HttpGet]
         [Route("/v2/products")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -277,11 +290,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Updates an existing product
+        /// Updates an existing product.
         /// </summary>
-        /// <param name="body">The product data to update</param>
-        /// <param name="productId">The ID of the product to update</param>
-        /// <returns>The updated product details</returns>
+        /// <param name="body">Updated product data</param>
+        /// <param name="productId">ID of the product to update</param>
+        /// <returns>The updated product information</returns>
+        /// <response code="200">Product updated successfully</response>
+        /// <response code="404">Product not found</response>
         [HttpPatch]
         [Route("/v2/products/{product_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]

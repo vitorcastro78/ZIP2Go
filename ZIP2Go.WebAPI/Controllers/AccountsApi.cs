@@ -52,10 +52,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a new account in the system
+        /// Creates a new account in the system.
         /// </summary>
-        /// <param name="body">The account data to create</param>
-        /// <returns>The created account with its assigned ID</returns>
+        /// <param name="body">Account data to create</param>
+        /// <returns>The newly created account</returns>
+        /// <response code="201">Account created successfully</response>
+        /// <response code="400">Invalid account data</response>
         [HttpPost]
         [Route("/v2/accounts")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -231,12 +233,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieves a specific account by ID
+        /// Retrieves an account by its ID.
         /// </summary>
-        /// <param name="accountId">The ID of the account to retrieve</param>
-        /// <param name="zuoraTrackId">The Zuora track ID for tracking the request</param>
-        /// <param name="async">Whether to perform the operation asynchronously</param>
+        /// <param name="accountId">The unique identifier of the account</param>
         /// <returns>The requested account details</returns>
+        /// <response code="200">Account found and returned</response>
+        /// <response code="404">Account not found</response>
         [HttpGet]
         [Route("/v2/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -293,11 +295,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Lists all accounts in the system
+        /// Retrieves a list of all accounts.
         /// </summary>
-        /// <returns>A list of accounts with pagination information</returns>
+        /// <returns>A paginated list of accounts</returns>
+        /// <response code="200">List of accounts retrieved successfully</response>
         [HttpGet]
         [Route("/v2/accounts")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccounts")]
         [SwaggerResponse(statusCode: 200, type: typeof(ListAccountResponse), description: "Default Response")]
@@ -355,13 +359,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Updates an existing account
+        /// Updates an existing account's information.
         /// </summary>
-        /// <param name="body">The account data to update</param>
-        /// <param name="accountId">The ID of the account to update</param>
-        /// <param name="zuoraTrackId">The Zuora track ID for tracking the request</param>
-        /// <param name="async">Whether to perform the operation asynchronously</param>
-        /// <returns>The updated account details</returns>
+        /// <param name="body">Updated account data</param>
+        /// <param name="accountId">ID of the account to update</param>
+        /// <returns>The updated account information</returns>
+        /// <response code="200">Account updated successfully</response>
+        /// <response code="404">Account not found</response>
         [HttpPatch]
         [Route("/v2/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]

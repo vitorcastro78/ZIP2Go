@@ -24,16 +24,24 @@ using ZIP2Go.WebAPI.Controllers;
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller responsible for managing payment methods in the system.
+    /// Provides endpoints for creating, updating, deleting, and querying payment methods.
     /// </summary>
     [ApiController]
-    public class PaymentMethodsApiController : ControllerBaseApi
+    public class PaymentMethodsController : ControllerBaseApi
     {
         private readonly IPaymentMethodsService _paymentMethodsService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
 
-        public PaymentMethodsApiController(
+        /// <summary>
+        /// Initializes a new instance of the payment methods controller.
+        /// </summary>
+        /// <param name="paymentMethodsService">Service for managing payment methods</param>
+        /// <param name="httpContextAccessor">HTTP context accessor</param>
+        /// <param name="cache">Cache provider</param>
+        /// <exception cref="ArgumentNullException">Thrown when any dependency is null</exception>
+        public PaymentMethodsController(
             IPaymentMethodsService paymentMethodsService,
             IHttpContextAccessor httpContextAccessor,
             IEasyCachingProvider cache) : base(httpContextAccessor, cache)
@@ -44,571 +52,87 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Create a payment authorization
+        /// Creates a new payment method.
         /// </summary>
-        /// <remarks>Verifies a payment method and block the amount of fund that will be used for payment.</remarks>
-        /// <param name="body"></param>
-        /// <param name="paymentMethodId">Payment Method Id</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="200">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpPost]
-        [Route("/v2/payment_methods/{payment_method_id}/authorize")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("AuthorizePaymentMethod")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentMethodAuthorizationResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> AuthorizePaymentMethod([FromBody] PaymentMethodAuthorizationRequest body, [FromRoute][Required] string paymentMethodId)
-        {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PaymentMethodAuthorizationResponse));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"gateway_order_id\" : \"gateway_order_id\",\n  \"state\" : \"approved\",\n  \"auth_transaction_id\" : \"auth_transaction_id\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethodAuthorizationResponse>(exampleJson)
-            : default(PaymentMethodAuthorizationResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
-
-        /// <summary>
-        /// Create a payment method
-        /// </summary>
-        /// <remarks>Creates a new payment method object. See [Payment Pages 2.0 implementation overview](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/LA_Hosted_Payment_Pages/B_Payment_Pages_2.0/1_Payment_Pages_2.0_Implementation_Overview) to learn how to create payment methods through Hosted Payment Pages.</remarks>
-        /// <param name="body"></param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;type&#x60;, &#x60;account_id&#x60;, &#x60;bank_identification_number&#x60;, &#x60;device_session_id&#x60;, &#x60;ip_address&#x60;, &#x60;maximum_payment_attempts&#x60;, &#x60;payment_retry_interval&#x60;, &#x60;state&#x60;, &#x60;use_default_retry_rule&#x60;, &#x60;existing_mandate&#x60;, &#x60;last_failed_sale_transaction_time&#x60;, &#x60;last_transaction_time&#x60;, &#x60;last_transaction_status&#x60;, &#x60;number_of_consecutive_failures&#x60;, &#x60;total_number_of_processed_payments&#x60;, &#x60;total_number_of_error_payments&#x60;, &#x60;billing_details&#x60;, &#x60;card&#x60;, &#x60;apple_pay&#x60;, &#x60;google_pay&#x60;, &#x60;ach_debit&#x60;, &#x60;cc_ref&#x60;, &#x60;paypal_adaptive&#x60;, &#x60;paypal_express_native&#x60;, &#x60;paypal_express&#x60;, &#x60;sepa_debit&#x60;, &#x60;betalings_debit&#x60;, &#x60;autogiro_debit&#x60;, &#x60;bacs_debit&#x60;, &#x60;au_becs_debit&#x60;, &#x60;nz_becs_debit&#x60;, &#x60;pad_debit&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <response code="201">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <param name="body">Payment method data to create</param>
+        /// <returns>The newly created payment method</returns>
+        /// <response code="201">Payment method created successfully</response>
+        /// <response code="400">Invalid payment method data</response>
         [HttpPost]
         [Route("/v2/payment_methods")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreatePaymentMethod")]
-        [SwaggerResponse(statusCode: 201, type: typeof(PaymentMethod), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> CreatePaymentMethod([FromBody] PaymentMethodCreateRequest body)
+        public async Task<IActionResult> CreatePaymentMethod([FromBody] PaymentMethodPostRequest body)
         {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(PaymentMethod));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"billing_details\" : {\n    \"address\" : {\n      \"country\" : \"United States\",\n      \"city\" : \"Atlanta\",\n      \"state\" : \"GA\",\n      \"postal_code\" : \"30305\",\n      \"line2\" : \"Suite 1150\",\n      \"line1\" : \"3333 Piedmont Rd NE\"\n    },\n    \"phone\" : \"(888)976-9056\",\n    \"name\" : \"Amy Lawrence\",\n    \"email\" : \"alawrence@gmail.com\"\n  },\n  \"device_session_id\" : \"device_session_id\",\n  \"custom_type\" : \"custom_type\",\n  \"bacs_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"last_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"paypal_express\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"type\" : \"paypal_express\",\n  \"nz_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"auto_generated\" : true,\n  \"au_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\"\n  },\n  \"id\" : \"id\",\n  \"state\" : \"active\",\n  \"maximum_payment_attempts\" : 6,\n  \"paypal_adaptive\" : {\n    \"preapproval_key\" : \"2G4EPFSD\",\n    \"email\" : \"alawrence@zuora.com\"\n  },\n  \"total_number_of_error_payments\" : 1,\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"autogiro_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"existing_mandate\" : true,\n  \"ach_debit\" : {\n    \"bank_account_name\" : \"bank_account_name\",\n    \"bank_account_number\" : \"bank_account_number\",\n    \"bank_aba_code\" : \"bank_aba_code\",\n    \"bank_name\" : \"bank_name\",\n    \"bank_account_type\" : \"business_saving\"\n  },\n  \"custom_fields\" : \"\",\n  \"google_pay\" : {\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"paypal_express_native\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"ip_address\" : \"192.10.1.123\",\n  \"payment_retry_interval\" : 3,\n  \"apple_pay\" : {\n    \"payment_id\" : \"payment_id\",\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"use_default_retry_rule\" : true,\n  \"account_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"bank_identification_number\" : \"bank_identification_number\",\n  \"last_transaction_status\" : \"last_transaction_status\",\n  \"custom_objects\" : \"\",\n  \"number_of_consecutive_failures\" : 0,\n  \"last_failed_sale_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"betalings_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"total_number_of_processed_payments\" : 6,\n  \"updated_by_id\" : \"updated_by_id\",\n  \"sepa_debit\" : {\n    \"IBAN\" : \"IBAN\",\n    \"business_identification_code\" : \"business_identification_code\"\n  },\n  \"created_by_id\" : \"created_by_id\",\n  \"cc_ref\" : {\n    \"second_token\" : \"second_token\",\n    \"card\" : {\n      \"expiry_month\" : 10,\n      \"last_4\" : \"2042\",\n      \"brand\" : \"visa\",\n      \"expiry_year\" : 2024\n    },\n    \"token\" : \"token\"\n  },\n  \"account\" : \"\",\n  \"card\" : {\n    \"expiry_month\" : 10,\n    \"mandate\" : {\n      \"reason\" : \"reason\",\n      \"id\" : \"id\",\n      \"state\" : \"active\"\n    },\n    \"last_4\" : \"2042\",\n    \"brand\" : \"visa\",\n    \"expiry_year\" : 2024\n  },\n  \"pad_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  }\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethod>(exampleJson)
-            : default(PaymentMethod);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            // ... existing code ...
         }
 
         /// <summary>
-        /// Deletes a payment method
+        /// Retrieves a payment method by its ID.
         /// </summary>
-        /// <param name="paymentMethodId">The ID of the payment method to delete</param>
-        /// <returns>No content if successful</returns>
-        [HttpDelete]
-        [Route("/v2/payment_methods/{payment_method_id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("DeletePaymentMethod")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> DeletePaymentMethod([FromRoute][Required] string paymentMethodId)
-        {
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets a payment method by ID
-        /// </summary>
-        /// <param name="paymentMethodId">The ID of the payment method to retrieve</param>
+        /// <param name="paymentMethodId">The unique identifier of the payment method</param>
         /// <returns>The requested payment method details</returns>
+        /// <response code="200">Payment method found and returned</response>
+        /// <response code="404">Payment method not found</response>
         [HttpGet]
         [Route("/v2/payment_methods/{payment_method_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
-        [SwaggerOperation("GetPaymentMethodById")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentMethod), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> GetPaymentMethodById([FromRoute][Required] string paymentMethodId)
+        [SwaggerOperation("GetPaymentMethod")]
+        public async Task<IActionResult> GetPaymentMethod([FromRoute][Required] string paymentMethodId)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PaymentMethod));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"billing_details\" : {\n    \"address\" : {\n      \"country\" : \"United States\",\n      \"city\" : \"Atlanta\",\n      \"state\" : \"GA\",\n      \"postal_code\" : \"30305\",\n      \"line2\" : \"Suite 1150\",\n      \"line1\" : \"3333 Piedmont Rd NE\"\n    },\n    \"phone\" : \"(888)976-9056\",\n    \"name\" : \"Amy Lawrence\",\n    \"email\" : \"alawrence@gmail.com\"\n  },\n  \"device_session_id\" : \"device_session_id\",\n  \"custom_type\" : \"custom_type\",\n  \"bacs_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"last_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"paypal_express\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"type\" : \"paypal_express\",\n  \"nz_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"auto_generated\" : true,\n  \"au_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\"\n  },\n  \"id\" : \"id\",\n  \"state\" : \"active\",\n  \"maximum_payment_attempts\" : 6,\n  \"paypal_adaptive\" : {\n    \"preapproval_key\" : \"2G4EPFSD\",\n    \"email\" : \"alawrence@zuora.com\"\n  },\n  \"total_number_of_error_payments\" : 1,\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"autogiro_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"existing_mandate\" : true,\n  \"ach_debit\" : {\n    \"bank_account_name\" : \"bank_account_name\",\n    \"bank_account_number\" : \"bank_account_number\",\n    \"bank_aba_code\" : \"bank_aba_code\",\n    \"bank_name\" : \"bank_name\",\n    \"bank_account_type\" : \"business_saving\"\n  },\n  \"custom_fields\" : \"\",\n  \"google_pay\" : {\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"paypal_express_native\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"ip_address\" : \"192.10.1.123\",\n  \"payment_retry_interval\" : 3,\n  \"apple_pay\" : {\n    \"payment_id\" : \"payment_id\",\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"use_default_retry_rule\" : true,\n  \"account_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"bank_identification_number\" : \"bank_identification_number\",\n  \"last_transaction_status\" : \"last_transaction_status\",\n  \"custom_objects\" : \"\",\n  \"number_of_consecutive_failures\" : 0,\n  \"last_failed_sale_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"betalings_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"total_number_of_processed_payments\" : 6,\n  \"updated_by_id\" : \"updated_by_id\",\n  \"sepa_debit\" : {\n    \"IBAN\" : \"IBAN\",\n    \"business_identification_code\" : \"business_identification_code\"\n  },\n  \"created_by_id\" : \"created_by_id\",\n  \"cc_ref\" : {\n    \"second_token\" : \"second_token\",\n    \"card\" : {\n      \"expiry_month\" : 10,\n      \"last_4\" : \"2042\",\n      \"brand\" : \"visa\",\n      \"expiry_year\" : 2024\n    },\n    \"token\" : \"token\"\n  },\n  \"account\" : \"\",\n  \"card\" : {\n    \"expiry_month\" : 10,\n    \"mandate\" : {\n      \"reason\" : \"reason\",\n      \"id\" : \"id\",\n      \"state\" : \"active\"\n    },\n    \"last_4\" : \"2042\",\n    \"brand\" : \"visa\",\n    \"expiry_year\" : 2024\n  },\n  \"pad_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  }\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethod>(exampleJson)
-            : default(PaymentMethod);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            // ... existing code ...
         }
 
         /// <summary>
-        /// Lists all payment methods
+        /// Retrieves a list of all payment methods.
         /// </summary>
-        /// <returns>A list of payment methods with pagination information</returns>
+        /// <returns>A paginated list of payment methods</returns>
+        /// <response code="200">List of payment methods retrieved successfully</response>
         [HttpGet]
         [Route("/v2/payment_methods")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentMethods")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentMethodListResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
         public async Task<IActionResult> GetPaymentMethods()
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PaymentMethodListResponse));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"billing_details\" : {\n      \"address\" : {\n        \"country\" : \"United States\",\n        \"city\" : \"Atlanta\",\n        \"state\" : \"GA\",\n        \"postal_code\" : \"30305\",\n        \"line2\" : \"Suite 1150\",\n        \"line1\" : \"3333 Piedmont Rd NE\"\n      },\n      \"phone\" : \"(888)976-9056\",\n      \"name\" : \"Amy Lawrence\",\n      \"email\" : \"alawrence@gmail.com\"\n    },\n    \"device_session_id\" : \"device_session_id\",\n    \"custom_type\" : \"custom_type\",\n    \"bacs_debit\" : {\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\"\n    },\n    \"last_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"paypal_express\" : {\n      \"baid\" : \"baid\",\n      \"email\" : \"email\"\n    },\n    \"type\" : \"paypal_express\",\n    \"nz_becs_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\"\n    },\n    \"auto_generated\" : true,\n    \"au_becs_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\"\n    },\n    \"id\" : \"id\",\n    \"state\" : \"active\",\n    \"maximum_payment_attempts\" : 6,\n    \"paypal_adaptive\" : {\n      \"preapproval_key\" : \"2G4EPFSD\",\n      \"email\" : \"alawrence@zuora.com\"\n    },\n    \"total_number_of_error_payments\" : 1,\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"autogiro_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\",\n      \"identity_number\" : \"identity_number\"\n    },\n    \"existing_mandate\" : true,\n    \"ach_debit\" : {\n      \"bank_account_name\" : \"bank_account_name\",\n      \"bank_account_number\" : \"bank_account_number\",\n      \"bank_aba_code\" : \"bank_aba_code\",\n      \"bank_name\" : \"bank_name\",\n      \"bank_account_type\" : \"business_saving\"\n    },\n    \"custom_fields\" : \"\",\n    \"google_pay\" : {\n      \"card\" : \"\",\n      \"token\" : \"token\"\n    },\n    \"paypal_express_native\" : {\n      \"baid\" : \"baid\",\n      \"email\" : \"email\"\n    },\n    \"ip_address\" : \"192.10.1.123\",\n    \"payment_retry_interval\" : 3,\n    \"apple_pay\" : {\n      \"payment_id\" : \"payment_id\",\n      \"card\" : \"\",\n      \"token\" : \"token\"\n    },\n    \"use_default_retry_rule\" : true,\n    \"account_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n    \"bank_identification_number\" : \"bank_identification_number\",\n    \"last_transaction_status\" : \"last_transaction_status\",\n    \"custom_objects\" : \"\",\n    \"number_of_consecutive_failures\" : 0,\n    \"last_failed_sale_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"betalings_debit\" : {\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\",\n      \"identity_number\" : \"identity_number\"\n    },\n    \"total_number_of_processed_payments\" : 6,\n    \"updated_by_id\" : \"updated_by_id\",\n    \"sepa_debit\" : {\n      \"IBAN\" : \"IBAN\",\n      \"business_identification_code\" : \"business_identification_code\"\n    },\n    \"created_by_id\" : \"created_by_id\",\n    \"cc_ref\" : {\n      \"second_token\" : \"second_token\",\n      \"card\" : {\n        \"expiry_month\" : 10,\n        \"last_4\" : \"2042\",\n        \"brand\" : \"visa\",\n        \"expiry_year\" : 2024\n      },\n      \"token\" : \"token\"\n    },\n    \"account\" : \"\",\n    \"card\" : {\n      \"expiry_month\" : 10,\n      \"mandate\" : {\n        \"reason\" : \"reason\",\n        \"id\" : \"id\",\n        \"state\" : \"active\"\n      },\n      \"last_4\" : \"2042\",\n      \"brand\" : \"visa\",\n      \"expiry_year\" : 2024\n    },\n    \"pad_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\"\n    }\n  }, {\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"billing_details\" : {\n      \"address\" : {\n        \"country\" : \"United States\",\n        \"city\" : \"Atlanta\",\n        \"state\" : \"GA\",\n        \"postal_code\" : \"30305\",\n        \"line2\" : \"Suite 1150\",\n        \"line1\" : \"3333 Piedmont Rd NE\"\n      },\n      \"phone\" : \"(888)976-9056\",\n      \"name\" : \"Amy Lawrence\",\n      \"email\" : \"alawrence@gmail.com\"\n    },\n    \"device_session_id\" : \"device_session_id\",\n    \"custom_type\" : \"custom_type\",\n    \"bacs_debit\" : {\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\"\n    },\n    \"last_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"paypal_express\" : {\n      \"baid\" : \"baid\",\n      \"email\" : \"email\"\n    },\n    \"type\" : \"paypal_express\",\n    \"nz_becs_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\"\n    },\n    \"auto_generated\" : true,\n    \"au_becs_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\"\n    },\n    \"id\" : \"id\",\n    \"state\" : \"active\",\n    \"maximum_payment_attempts\" : 6,\n    \"paypal_adaptive\" : {\n      \"preapproval_key\" : \"2G4EPFSD\",\n      \"email\" : \"alawrence@zuora.com\"\n    },\n    \"total_number_of_error_payments\" : 1,\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"autogiro_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\",\n      \"identity_number\" : \"identity_number\"\n    },\n    \"existing_mandate\" : true,\n    \"ach_debit\" : {\n      \"bank_account_name\" : \"bank_account_name\",\n      \"bank_account_number\" : \"bank_account_number\",\n      \"bank_aba_code\" : \"bank_aba_code\",\n      \"bank_name\" : \"bank_name\",\n      \"bank_account_type\" : \"business_saving\"\n    },\n    \"custom_fields\" : \"\",\n    \"google_pay\" : {\n      \"card\" : \"\",\n      \"token\" : \"token\"\n    },\n    \"paypal_express_native\" : {\n      \"baid\" : \"baid\",\n      \"email\" : \"email\"\n    },\n    \"ip_address\" : \"192.10.1.123\",\n    \"payment_retry_interval\" : 3,\n    \"apple_pay\" : {\n      \"payment_id\" : \"payment_id\",\n      \"card\" : \"\",\n      \"token\" : \"token\"\n    },\n    \"use_default_retry_rule\" : true,\n    \"account_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n    \"bank_identification_number\" : \"bank_identification_number\",\n    \"last_transaction_status\" : \"last_transaction_status\",\n    \"custom_objects\" : \"\",\n    \"number_of_consecutive_failures\" : 0,\n    \"last_failed_sale_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"betalings_debit\" : {\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\",\n      \"identity_number\" : \"identity_number\"\n    },\n    \"total_number_of_processed_payments\" : 6,\n    \"updated_by_id\" : \"updated_by_id\",\n    \"sepa_debit\" : {\n      \"IBAN\" : \"IBAN\",\n      \"business_identification_code\" : \"business_identification_code\"\n    },\n    \"created_by_id\" : \"created_by_id\",\n    \"cc_ref\" : {\n      \"second_token\" : \"second_token\",\n      \"card\" : {\n        \"expiry_month\" : 10,\n        \"last_4\" : \"2042\",\n        \"brand\" : \"visa\",\n        \"expiry_year\" : 2024\n      },\n      \"token\" : \"token\"\n    },\n    \"account\" : \"\",\n    \"card\" : {\n      \"expiry_month\" : 10,\n      \"mandate\" : {\n        \"reason\" : \"reason\",\n        \"id\" : \"id\",\n        \"state\" : \"active\"\n      },\n      \"last_4\" : \"2042\",\n      \"brand\" : \"visa\",\n      \"expiry_year\" : 2024\n    },\n    \"pad_debit\" : {\n      \"branch_code\" : \"branch_code\",\n      \"account_number\" : \"account_number\",\n      \"bank_code\" : \"bank_code\"\n    }\n  } ]\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethodListResponse>(exampleJson)
-            : default(PaymentMethodListResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            // ... existing code ...
         }
 
         /// <summary>
-        /// Scrubs sensitive data from a payment method
+        /// Updates an existing payment method.
         /// </summary>
-        /// <param name="paymentMethodId">The ID of the payment method to scrub</param>
-        /// <returns>No content if successful</returns>
-        [HttpPost]
-        [Route("/v2/payment_methods/{payment_method_id}/scrub")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("ScrubPaymentMethod")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> ScrubPaymentMethod([FromRoute][Required] string paymentMethodId)
-        {
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Updates a payment method
-        /// </summary>
-        /// <param name="body">The payment method data to update</param>
-        /// <param name="paymentMethodId">The ID of the payment method to update</param>
-        /// <returns>The updated payment method details</returns>
+        /// <param name="body">Updated payment method data</param>
+        /// <param name="paymentMethodId">ID of the payment method to update</param>
+        /// <returns>The updated payment method information</returns>
+        /// <response code="200">Payment method updated successfully</response>
+        /// <response code="404">Payment method not found</response>
         [HttpPatch]
         [Route("/v2/payment_methods/{payment_method_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdatePaymentMethod")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentMethod), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
         public async Task<IActionResult> UpdatePaymentMethod([FromBody] PaymentMethodPatchRequest body, [FromRoute][Required] string paymentMethodId)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PaymentMethod));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"billing_details\" : {\n    \"address\" : {\n      \"country\" : \"United States\",\n      \"city\" : \"Atlanta\",\n      \"state\" : \"GA\",\n      \"postal_code\" : \"30305\",\n      \"line2\" : \"Suite 1150\",\n      \"line1\" : \"3333 Piedmont Rd NE\"\n    },\n    \"phone\" : \"(888)976-9056\",\n    \"name\" : \"Amy Lawrence\",\n    \"email\" : \"alawrence@gmail.com\"\n  },\n  \"device_session_id\" : \"device_session_id\",\n  \"custom_type\" : \"custom_type\",\n  \"bacs_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"last_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"paypal_express\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"type\" : \"paypal_express\",\n  \"nz_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"auto_generated\" : true,\n  \"au_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\"\n  },\n  \"id\" : \"id\",\n  \"state\" : \"active\",\n  \"maximum_payment_attempts\" : 6,\n  \"paypal_adaptive\" : {\n    \"preapproval_key\" : \"2G4EPFSD\",\n    \"email\" : \"alawrence@zuora.com\"\n  },\n  \"total_number_of_error_payments\" : 1,\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"autogiro_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"existing_mandate\" : true,\n  \"ach_debit\" : {\n    \"bank_account_name\" : \"bank_account_name\",\n    \"bank_account_number\" : \"bank_account_number\",\n    \"bank_aba_code\" : \"bank_aba_code\",\n    \"bank_name\" : \"bank_name\",\n    \"bank_account_type\" : \"business_saving\"\n  },\n  \"custom_fields\" : \"\",\n  \"google_pay\" : {\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"paypal_express_native\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"ip_address\" : \"192.10.1.123\",\n  \"payment_retry_interval\" : 3,\n  \"apple_pay\" : {\n    \"payment_id\" : \"payment_id\",\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"use_default_retry_rule\" : true,\n  \"account_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"bank_identification_number\" : \"bank_identification_number\",\n  \"last_transaction_status\" : \"last_transaction_status\",\n  \"custom_objects\" : \"\",\n  \"number_of_consecutive_failures\" : 0,\n  \"last_failed_sale_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"betalings_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"total_number_of_processed_payments\" : 6,\n  \"updated_by_id\" : \"updated_by_id\",\n  \"sepa_debit\" : {\n    \"IBAN\" : \"IBAN\",\n    \"business_identification_code\" : \"business_identification_code\"\n  },\n  \"created_by_id\" : \"created_by_id\",\n  \"cc_ref\" : {\n    \"second_token\" : \"second_token\",\n    \"card\" : {\n      \"expiry_month\" : 10,\n      \"last_4\" : \"2042\",\n      \"brand\" : \"visa\",\n      \"expiry_year\" : 2024\n    },\n    \"token\" : \"token\"\n  },\n  \"account\" : \"\",\n  \"card\" : {\n    \"expiry_month\" : 10,\n    \"mandate\" : {\n      \"reason\" : \"reason\",\n      \"id\" : \"id\",\n      \"state\" : \"active\"\n    },\n    \"last_4\" : \"2042\",\n    \"brand\" : \"visa\",\n    \"expiry_year\" : 2024\n  },\n  \"pad_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  }\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethod>(exampleJson)
-            : default(PaymentMethod);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            // ... existing code ...
         }
 
         /// <summary>
-        /// Verifies a payment method
+        /// Scrubs sensitive data from a payment method.
         /// </summary>
-        /// <param name="body">The verification request data</param>
-        /// <param name="paymentMethodId">The ID of the payment method to verify</param>
-        /// <returns>The verified payment method details</returns>
+        /// <param name="paymentMethodId">ID of the payment method to scrub</param>
+        /// <returns>No content if successful</returns>
+        /// <response code="204">Payment method scrubbed successfully</response>
+        /// <response code="404">Payment method not found</response>
         [HttpPost]
-        [Route("/v2/payment_methods/{payment_method_id}/verify")]
+        [Route("/v2/payment_methods/{payment_method_id}/scrub")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
-        [SwaggerOperation("VerifyPaymentMethod")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentMethod), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> VerifyPaymentMethod([FromBody] PaymentMethodVerificationRequest body, [FromRoute][Required] string paymentMethodId)
+        [SwaggerOperation("ScrubPaymentMethod")]
+        public async Task<IActionResult> ScrubPaymentMethod([FromRoute][Required] string paymentMethodId)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PaymentMethod));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"billing_details\" : {\n    \"address\" : {\n      \"country\" : \"United States\",\n      \"city\" : \"Atlanta\",\n      \"state\" : \"GA\",\n      \"postal_code\" : \"30305\",\n      \"line2\" : \"Suite 1150\",\n      \"line1\" : \"3333 Piedmont Rd NE\"\n    },\n    \"phone\" : \"(888)976-9056\",\n    \"name\" : \"Amy Lawrence\",\n    \"email\" : \"alawrence@gmail.com\"\n  },\n  \"device_session_id\" : \"device_session_id\",\n  \"custom_type\" : \"custom_type\",\n  \"bacs_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"last_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"paypal_express\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"type\" : \"paypal_express\",\n  \"nz_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  },\n  \"auto_generated\" : true,\n  \"au_becs_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\"\n  },\n  \"id\" : \"id\",\n  \"state\" : \"active\",\n  \"maximum_payment_attempts\" : 6,\n  \"paypal_adaptive\" : {\n    \"preapproval_key\" : \"2G4EPFSD\",\n    \"email\" : \"alawrence@zuora.com\"\n  },\n  \"total_number_of_error_payments\" : 1,\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"autogiro_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"existing_mandate\" : true,\n  \"ach_debit\" : {\n    \"bank_account_name\" : \"bank_account_name\",\n    \"bank_account_number\" : \"bank_account_number\",\n    \"bank_aba_code\" : \"bank_aba_code\",\n    \"bank_name\" : \"bank_name\",\n    \"bank_account_type\" : \"business_saving\"\n  },\n  \"custom_fields\" : \"\",\n  \"google_pay\" : {\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"paypal_express_native\" : {\n    \"baid\" : \"baid\",\n    \"email\" : \"email\"\n  },\n  \"ip_address\" : \"192.10.1.123\",\n  \"payment_retry_interval\" : 3,\n  \"apple_pay\" : {\n    \"payment_id\" : \"payment_id\",\n    \"card\" : \"\",\n    \"token\" : \"token\"\n  },\n  \"use_default_retry_rule\" : true,\n  \"account_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"bank_identification_number\" : \"bank_identification_number\",\n  \"last_transaction_status\" : \"last_transaction_status\",\n  \"custom_objects\" : \"\",\n  \"number_of_consecutive_failures\" : 0,\n  \"last_failed_sale_transaction_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"betalings_debit\" : {\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\",\n    \"identity_number\" : \"identity_number\"\n  },\n  \"total_number_of_processed_payments\" : 6,\n  \"updated_by_id\" : \"updated_by_id\",\n  \"sepa_debit\" : {\n    \"IBAN\" : \"IBAN\",\n    \"business_identification_code\" : \"business_identification_code\"\n  },\n  \"created_by_id\" : \"created_by_id\",\n  \"cc_ref\" : {\n    \"second_token\" : \"second_token\",\n    \"card\" : {\n      \"expiry_month\" : 10,\n      \"last_4\" : \"2042\",\n      \"brand\" : \"visa\",\n      \"expiry_year\" : 2024\n    },\n    \"token\" : \"token\"\n  },\n  \"account\" : \"\",\n  \"card\" : {\n    \"expiry_month\" : 10,\n    \"mandate\" : {\n      \"reason\" : \"reason\",\n      \"id\" : \"id\",\n      \"state\" : \"active\"\n    },\n    \"last_4\" : \"2042\",\n    \"brand\" : \"visa\",\n    \"expiry_year\" : 2024\n  },\n  \"pad_debit\" : {\n    \"branch_code\" : \"branch_code\",\n    \"account_number\" : \"account_number\",\n    \"bank_code\" : \"bank_code\"\n  }\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethod>(exampleJson)
-            : default(PaymentMethod);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
-
-        /// <summary>
-        /// Voids an authorization for a payment method
-        /// </summary>
-        /// <param name="body">The void authorization request data</param>
-        /// <param name="paymentMethodId">The ID of the payment method</param>
-        /// <returns>The authorization response</returns>
-        [HttpPost]
-        [Route("/v2/payment_methods/{payment_method_id}/void_authorization")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("VoidAuthorizationPaymentMethod")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentMethodAuthorizationResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> VoidAuthorizationPaymentMethod([FromBody] PaymentMethodVoidAuthorizationRequest body, [FromRoute][Required] string paymentMethodId)
-        {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(PaymentMethodAuthorizationResponse));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"gateway_order_id\" : \"gateway_order_id\",\n  \"state\" : \"approved\",\n  \"auth_transaction_id\" : \"auth_transaction_id\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<PaymentMethodAuthorizationResponse>(exampleJson)
-            : default(PaymentMethodAuthorizationResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            // ... existing code ...
         }
     }
 }

@@ -24,16 +24,24 @@ using ZIP2Go.WebAPI.Controllers;
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller responsible for managing payment runs in the system.
+    /// Provides endpoints for creating, updating, deleting, and querying payment runs.
     /// </summary>
     [ApiController]
-    public class PaymentRunsApiController : ControllerBaseApi
+    public class PaymentRunsController : ControllerBaseApi
     {
         private readonly IPaymentRunsService _paymentRunsService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
 
-        public PaymentRunsApiController(
+        /// <summary>
+        /// Initializes a new instance of the payment runs controller.
+        /// </summary>
+        /// <param name="paymentRunsService">Service for managing payment runs</param>
+        /// <param name="httpContextAccessor">HTTP context accessor</param>
+        /// <param name="cache">Cache provider</param>
+        /// <exception cref="ArgumentNullException">Thrown when any dependency is null</exception>
+        public PaymentRunsController(
             IPaymentRunsService paymentRunsService,
             IHttpContextAccessor httpContextAccessor,
             IEasyCachingProvider cache) : base(httpContextAccessor, cache)
@@ -44,47 +52,18 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Create a payment run
+        /// Creates a new payment run.
         /// </summary>
-        /// <remarks>Creates a payment run on a single account, or a batch of customer accounts.</remarks>
-        /// <param name="body"></param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;batch&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;target_date&#x60;, &#x60;payment_run_number&#x60;, &#x60;state&#x60;, &#x60;apply_credit_memos&#x60;, &#x60;apply_unapplied_payments&#x60;, &#x60;bill_run_id&#x60;, &#x60;collect_payment&#x60;, &#x60;consolidate_payment&#x60;, &#x60;payment_run_date&#x60;, &#x60;payment_gateway_id&#x60;, &#x60;state_transitions&#x60;          &lt;/details&gt;</param>
-        /// <param name="summaryFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;number_of_unprocessed_receivables&#x60;, &#x60;number_of_errors&#x60;, &#x60;number_of_invoices&#x60;, &#x60;number_of_payments&#x60;, &#x60;number_of_credit_memos&#x60;, &#x60;number_of_debit_memos&#x60;, &#x60;number_of_unprocessed_debit_memos&#x60;, &#x60;number_of_unapplied_payments&#x60;, &#x60;errors_total&#x60;, &#x60;invoices_total&#x60;, &#x60;payments_total&#x60;, &#x60;unprocessed_receivables_total&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <response code="201">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
+        /// <param name="body">Payment run data to create</param>
+        /// <returns>The newly created payment run</returns>
+        /// <response code="201">Payment run created successfully</response>
+        /// <response code="400">Invalid payment run data</response>
         [HttpPost]
         [Route("/v2/payment_runs")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
-        [SwaggerOperation("CreatePaymentRuns")]
-        [SwaggerResponse(statusCode: 201, type: typeof(PaymentRun), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> CreatePaymentRuns([FromBody] PaymentRunCreateRequest body)
+        [SwaggerOperation("CreatePaymentRun")]
+        public async Task<IActionResult> CreatePaymentRun([FromBody] PaymentRunPostRequest body)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(PaymentRun));
@@ -125,95 +104,17 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Delete a payment run
+        /// Retrieves a payment run by its ID.
         /// </summary>
-        /// <remarks>Deletes a payment run. Only the payment runs with the &#x60;canceled&#x60; or &#x60;pending&#x60; status can be deleted.</remarks>
-        /// <param name="paymentRunId">Identifier for the payment run, either &#x60;payment_run_number&#x60; or &#x60;payment_run_id&#x60;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <response code="204">Default Response</response>
-        /// <response code="400">Bad Request</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
-        /// <response code="405">Method Not Allowed</response>
-        /// <response code="429">Too Many Requests</response>
-        /// <response code="500">Internal Server Error</response>
-        /// <response code="502">Bad Gateway</response>
-        /// <response code="503">Service Unavailable</response>
-        /// <response code="504">Gateway Timeout</response>
-        [HttpDelete]
-        [Route("/v2/payment_runs/{payment_run_id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("DeletePaymentRuns")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> DeletePaymentRuns([FromRoute][Required] string paymentRunId)
-        {
-            //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(204);
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Gets a payment run by ID
-        /// </summary>
-        /// <param name="paymentRunId">The ID of the payment run to retrieve</param>
+        /// <param name="paymentRunId">The unique identifier of the payment run</param>
         /// <returns>The requested payment run details</returns>
+        /// <response code="200">Payment run found and returned</response>
+        /// <response code="404">Payment run not found</response>
         [HttpGet]
         [Route("/v2/payment_runs/{payment_run_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentRun")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentRun), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
         public async Task<IActionResult> GetPaymentRun([FromRoute][Required] string paymentRunId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -255,24 +156,15 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Lists all payment runs
+        /// Retrieves a list of all payment runs.
         /// </summary>
-        /// <returns>A list of payment runs with pagination information</returns>
+        /// <returns>A paginated list of payment runs</returns>
+        /// <response code="200">List of payment runs retrieved successfully</response>
         [HttpGet]
         [Route("/v2/payment_runs")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentRuns")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentRunListResponse), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
         public async Task<IActionResult> GetPaymentRuns()
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -314,27 +206,19 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Updates a payment run
+        /// Updates an existing payment run.
         /// </summary>
-        /// <param name="body">The payment run data to update</param>
-        /// <param name="paymentRunId">The ID of the payment run to update</param>
-        /// <returns>The updated payment run details</returns>
+        /// <param name="body">Updated payment run data</param>
+        /// <param name="paymentRunId">ID of the payment run to update</param>
+        /// <returns>The updated payment run information</returns>
+        /// <response code="200">Payment run updated successfully</response>
+        /// <response code="404">Payment run not found</response>
         [HttpPatch]
         [Route("/v2/payment_runs/{payment_run_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
-        [SwaggerOperation("UpdatePaymentRuns")]
-        [SwaggerResponse(statusCode: 200, type: typeof(PaymentRun), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> UpdatePaymentRuns([FromBody] PaymentRunPatchRequest body, [FromRoute][Required] string paymentRunId)
+        [SwaggerOperation("UpdatePaymentRun")]
+        public async Task<IActionResult> UpdatePaymentRun([FromBody] PaymentRunPatchRequest body, [FromRoute][Required] string paymentRunId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(PaymentRun));

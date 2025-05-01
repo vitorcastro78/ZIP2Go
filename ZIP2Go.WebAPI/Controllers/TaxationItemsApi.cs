@@ -24,7 +24,8 @@ using ZIP2Go.WebAPI.Controllers;
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller responsible for managing taxation items in the system.
+    /// Provides endpoints for creating, updating, deleting, and querying taxation items.
     /// </summary>
     [ApiController]
     public class TaxationItemsController : ControllerBaseApi
@@ -33,6 +34,13 @@ namespace ZIP2GO.WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the taxation items controller.
+        /// </summary>
+        /// <param name="taxationItemsService">Service for managing taxation items</param>
+        /// <param name="httpContextAccessor">HTTP context accessor</param>
+        /// <param name="cache">Cache provider</param>
+        /// <exception cref="ArgumentNullException">Thrown when any dependency is null</exception>
         public TaxationItemsController(
             ITaxationItemsService taxationItemsService,
             IHttpContextAccessor httpContextAccessor,
@@ -44,12 +52,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Create a taxation item
+        /// Creates a new taxation item.
         /// </summary>
-        /// <remarks>Creates a taxation item.</remarks>
-        /// <param name="body"></param>
-        /// <response code="201">Default Response</response>
-        /// <response code="400">Bad Request</response>
+        /// <param name="body">Taxation item data to create</param>
+        /// <returns>The newly created taxation item</returns>
+        /// <response code="201">Taxation item created successfully</response>
+        /// <response code="400">Invalid taxation item data</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Not Found</response>
         /// <response code="405">Method Not Allowed</response>
@@ -63,8 +71,8 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateTaxationItem")]
-        [SwaggerResponse(statusCode: 201, type: typeof(TaxationItem), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
+        [SwaggerResponse(statusCode: 201, type: typeof(TaxationItem), description: "Taxation item created successfully")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Invalid taxation item data")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
         [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
@@ -79,14 +87,14 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Delete a taxation item
+        /// Deletes a taxation item.
         /// </summary>
         /// <remarks>Permanently deletes a taxation item. This operation cannot be undone once it is performed.</remarks>
         /// <param name="taxationItemId">ID of the taxation item.</param>
-        /// <response code="204">Default Response</response>
+        /// <response code="204">Taxation item deleted successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
+        /// <response code="404">Taxation item not found</response>
         /// <response code="405">Method Not Allowed</response>
         /// <response code="429">Too Many Requests</response>
         /// <response code="500">Internal Server Error</response>
@@ -98,9 +106,10 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteTaxationItem")]
+        [SwaggerResponse(statusCode: 204, description: "Taxation item deleted successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Taxation item not found")]
         [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
         [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
         [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
@@ -113,14 +122,14 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieve a taxation item
+        /// Retrieves a taxation item by its ID.
         /// </summary>
-        /// <remarks>Retrieves the taxation item with the given ID.</remarks>
-        /// <param name="taxationItemId">ID of the taxation item.</param>
-        /// <response code="200">Default Response</response>
+        /// <param name="taxationItemId">The unique identifier of the taxation item</param>
+        /// <returns>The requested taxation item details</returns>
+        /// <response code="200">Taxation item found and returned</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
+        /// <response code="404">Taxation item not found</response>
         /// <response code="405">Method Not Allowed</response>
         /// <response code="429">Too Many Requests</response>
         /// <response code="500">Internal Server Error</response>
@@ -132,10 +141,10 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetTaxationItem")]
-        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Default Response")]
+        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Taxation item found and returned")]
         [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Taxation item not found")]
         [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
         [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
         [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
@@ -148,10 +157,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// List taxation items
+        /// Retrieves a list of all taxation items.
         /// </summary>
-        /// <remarks>Returns an array of taxation items. Each entry in the array is a separate Taxation Item object. If no more taxation items are available, the resulting array will be empty. This request should never return an error.</remarks>
-        /// <response code="200">Default Response</response>
+        /// <returns>A paginated list of taxation items</returns>
+        /// <response code="200">List of taxation items retrieved successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
         /// <response code="404">Not Found</response>
@@ -166,7 +175,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetTaxationItems")]
-        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItemListResponse), description: "Default Response")]
+        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItemListResponse), description: "List of taxation items retrieved successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
@@ -182,15 +191,15 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Update a taxation item
+        /// Updates an existing taxation item.
         /// </summary>
-        /// <remarks>Updates a taxation item by setting the values of the specified fields. Any fields not provided in the request remain unchanged.</remarks>
-        /// <param name="body"></param>
-        /// <param name="taxationItemId">ID of the taxation item.</param>
-        /// <response code="200">Default Response</response>
+        /// <param name="body">Updated taxation item data</param>
+        /// <param name="taxationItemId">ID of the taxation item to update</param>
+        /// <returns>The updated taxation item information</returns>
+        /// <response code="200">Taxation item updated successfully</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
-        /// <response code="404">Not Found</response>
+        /// <response code="404">Taxation item not found</response>
         /// <response code="405">Method Not Allowed</response>
         /// <response code="429">Too Many Requests</response>
         /// <response code="500">Internal Server Error</response>
@@ -202,10 +211,10 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateTaxationItem")]
-        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Default Response")]
+        [SwaggerResponse(statusCode: 200, type: typeof(TaxationItem), description: "Taxation item updated successfully")]
         [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Taxation item not found")]
         [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
         [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
         [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]

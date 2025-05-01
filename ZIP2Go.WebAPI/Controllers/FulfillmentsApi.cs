@@ -24,7 +24,8 @@ using ZIP2Go.WebAPI.Controllers;
 namespace ZIP2GO.WebAPI.Controllers
 {
     /// <summary>
-    ///
+    /// Controller responsible for managing fulfillments in the system.
+    /// Provides endpoints for creating, updating, deleting, and querying fulfillments.
     /// </summary>
     [ApiController]
     public class FulfillmentsApiController : ControllerBaseApi
@@ -33,6 +34,13 @@ namespace ZIP2GO.WebAPI.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the fulfillments controller.
+        /// </summary>
+        /// <param name="fulfillmentsService">Service for managing fulfillments</param>
+        /// <param name="httpContextAccessor">HTTP context accessor</param>
+        /// <param name="cache">Cache provider</param>
+        /// <exception cref="ArgumentNullException">Thrown when any dependency is null</exception>
         public FulfillmentsApiController(
             IFulfillmentsService fulfillmentsService,
             IHttpContextAccessor httpContextAccessor,
@@ -44,10 +52,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a new fulfillment
+        /// Creates a new fulfillment.
         /// </summary>
-        /// <param name="body">The fulfillment data to create</param>
-        /// <returns>The created fulfillment</returns>
+        /// <param name="body">Fulfillment data to create</param>
+        /// <returns>The newly created fulfillment</returns>
+        /// <response code="201">Fulfillment created successfully</response>
+        /// <response code="400">Invalid fulfillment data</response>
         [HttpPost]
         [Route("/v2/fulfillments")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -218,10 +228,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Gets a fulfillment by ID
+        /// Retrieves a fulfillment by its ID.
         /// </summary>
-        /// <param name="fulfillmentId">The ID of the fulfillment to retrieve</param>
+        /// <param name="fulfillmentId">The unique identifier of the fulfillment</param>
         /// <returns>The requested fulfillment details</returns>
+        /// <response code="200">Fulfillment found and returned</response>
+        /// <response code="404">Fulfillment not found</response>
         [HttpGet]
         [Route("/v2/fulfillments/{fulfillment_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -278,9 +290,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Lists all fulfillments
+        /// Retrieves a list of all fulfillments.
         /// </summary>
-        /// <returns>A list of fulfillments with pagination information</returns>
+        /// <returns>A paginated list of fulfillments</returns>
+        /// <response code="200">List of fulfillments retrieved successfully</response>
         [HttpGet]
         [Route("/v2/fulfillments")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -337,11 +350,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Updates a fulfillment
+        /// Updates an existing fulfillment.
         /// </summary>
-        /// <param name="body">The fulfillment data to update</param>
-        /// <param name="fulfillmentId">The ID of the fulfillment to update</param>
-        /// <returns>The updated fulfillment details</returns>
+        /// <param name="body">Updated fulfillment data</param>
+        /// <param name="fulfillmentId">ID of the fulfillment to update</param>
+        /// <returns>The updated fulfillment information</returns>
+        /// <response code="200">Fulfillment updated successfully</response>
+        /// <response code="404">Fulfillment not found</response>
         [HttpPatch]
         [Route("/v2/fulfillments/{fulfillment_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
