@@ -44,10 +44,17 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Cancel a debit memo
+        /// Cancels a debit memo
         /// </summary>
-        /// <remarks>Cancels a debit memo. Only the debit memos with the &#x60;draft&#x60; status can be canceled.</remarks>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
+        /// <remarks>
+        /// Cancels a debit memo. Only debit memos with the 'draft' status can be canceled.
+        /// </remarks>
+        /// <param name="debitMemoId">The identifier of the debit memo to cancel</param>
+        /// <returns>The canceled debit memo</returns>
+        /// <response code="200">Returns the canceled debit memo</response>
+        /// <response code="400">If the debit memo cannot be canceled</response>
+        /// <response code="401">If the user is not authorized</response>
+        /// <response code="404">If the debit memo is not found</response>
         /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
         /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
         /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
@@ -128,10 +135,17 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Create a debit memo
+        /// Creates a new debit memo
         /// </summary>
-        /// <remarks>Creates debit memo</remarks>
-        /// <param name="body"></param>
+        /// <remarks>
+        /// Creates a new debit memo with the provided data
+        /// </remarks>
+        /// <param name="body">The debit memo data to create</param>
+        /// <returns>The created debit memo</returns>
+        /// <response code="201">Returns the newly created debit memo</response>
+        /// <response code="400">If the debit memo data is invalid</response>
+        /// <response code="401">If the user is not authorized</response>
+        /// <response code="404">If related resources are not found</response>
         /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
         /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
         /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
@@ -212,10 +226,17 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Delete a debit memo
+        /// Deletes a debit memo
         /// </summary>
-        /// <remarks>Permanently deletes a debit memo. This operation cannot be undone once it is performed.</remarks>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
+        /// <remarks>
+        /// Deletes a debit memo by its identifier
+        /// </remarks>
+        /// <param name="debitMemoId">The identifier of the debit memo to delete</param>
+        /// <returns>No content if successful</returns>
+        /// <response code="204">If the debit memo was successfully deleted</response>
+        /// <response code="400">If the debit memo cannot be deleted</response>
+        /// <response code="401">If the user is not authorized</response>
+        /// <response code="404">If the debit memo is not found</response>
         /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
         /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
         /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
@@ -615,11 +636,18 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Pay a debit memo
+        /// Pays a debit memo
         /// </summary>
-        /// <remarks>Pays a debit memo using an existing payment method.</remarks>
-        /// <param name="body"></param>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
+        /// <remarks>
+        /// Processes payment for a specific debit memo
+        /// </remarks>
+        /// <param name="body">The payment details</param>
+        /// <param name="debitMemoId">The identifier of the debit memo to pay</param>
+        /// <returns>The paid debit memo</returns>
+        /// <response code="200">Returns the paid debit memo</response>
+        /// <response code="400">If the payment details are invalid</response>
+        /// <response code="401">If the user is not authorized</response>
+        /// <response code="404">If the debit memo is not found</response>
         /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
         /// <param name="_async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
         /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>

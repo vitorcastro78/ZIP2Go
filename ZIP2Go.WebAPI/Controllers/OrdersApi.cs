@@ -44,8 +44,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Activate an order
+        /// Activates an order
         /// </summary>
+        /// <param name="orderId">The ID of the order to activate</param>
+        /// <returns>The activated order details</returns>
+        [HttpPost]
+        [Route("/v2/orders/{order_id}/activate")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         /// <remarks>Activates a draft order.</remarks>
         /// <param name="orderId">Identifier for the order, either &#x60;order_number&#x60; or &#x60;order_id&#x60;</param>
         /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;order_number&#x60;, &#x60;order_date&#x60;, &#x60;state&#x60;, &#x60;category&#x60;, &#x60;description&#x60;, &#x60;line_items&#x60;, &#x60;subscriptions&#x60;          &lt;/details&gt;</param>

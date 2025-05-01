@@ -44,10 +44,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Create a usage record
+        /// Creates a new usage record
         /// </summary>
-        /// <remarks>Creates a new Usage object.</remarks>
-        /// <param name="body"></param>
+        /// <param name="body">The usage record data to create</param>
+        /// <returns>The created usage record</returns>
         /// <response code="201">Default Response</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
@@ -114,10 +114,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Delete a usage record
+        /// Deletes a usage record
         /// </summary>
-        /// <remarks>Permanently deletes a usage object. It cannot be undone.</remarks>
-        /// <param name="id">Usage Id</param>
+        /// <param name="id">The ID of the usage record to delete</param>
+        /// <returns>No content if successful</returns>
         /// <response code="204">Default Response</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
@@ -178,10 +178,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieve a usage record
+        /// Gets a usage record by ID
         /// </summary>
-        /// <remarks>Retrieves the usage with the given ID.</remarks>
-        /// <param name="id">Usage Id</param>
+        /// <param name="usageRecordId">The ID of the usage record to retrieve</param>
+        /// <returns>The requested usage record details</returns>
         /// <response code="200">Default Response</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
@@ -248,9 +248,9 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// List usage records
+        /// Lists all usage records
         /// </summary>
-        /// <remarks>Returns an array of usage records. Each entry in the array is a separate Usage object.         If no more usages are available, the resulting array will be empty. This request should never return an error.</remarks>
+        /// <returns>A list of usage records with pagination information</returns>
         /// <response code="200">Default Response</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>
@@ -317,11 +317,11 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Update a usage record
+        /// Updates a usage record
         /// </summary>
-        /// <remarks>Updates the usage record. Any fields on the object not provided in the request are not changed.</remarks>
-        /// <param name="body"></param>
-        /// <param name="id">Usage Id</param>
+        /// <param name="body">The usage record data to update</param>
+        /// <param name="id">The ID of the usage record to update</param>
+        /// <returns>The updated usage record details</returns>
         /// <response code="200">Default Response</response>
         /// <response code="400">Bad Request</response>
         /// <response code="401">Unauthorized</response>

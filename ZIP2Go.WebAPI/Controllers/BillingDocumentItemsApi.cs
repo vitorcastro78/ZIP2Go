@@ -123,5 +123,115 @@ namespace ZIP2GO.WebAPI.Controllers
             : default(BillingDocumentItemListResponse);            //TODO: Change the data returned
             return new ObjectResult(example);
         }
+
+        /// <summary>
+        /// Cancels a draft invoice
+        /// </summary>
+        /// <param name="invoiceId">The ID of the invoice to cancel</param>
+        /// <returns>The cancelled invoice details</returns>
+        /// <response code="200">Returns the cancelled invoice</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">Invoice not found</response>
+        /// <response code="405">Method not allowed</response>
+        /// <response code="429">Too many requests</response>
+        /// <response code="500">Internal server error</response>
+        [HttpPost]
+        [Route("/v2/billing_document_items/{invoiceId}/cancel")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("CancelBillingDocumentItem")]
+        [SwaggerResponse(statusCode: 200, type: typeof(BillingDocumentItem), description: "Returns the cancelled invoice")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Invoice not found")]
+        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method not allowed")]
+        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too many requests")]
+        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal server error")]
+        public async Task<IActionResult> CancelBillingDocumentItem([FromRoute] string invoiceId)
+        {
+            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(200, default(BillingDocumentItem));
+
+            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(400, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(401, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(405, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(429, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(500, default(ErrorResponse));
+            string exampleJson = null;
+            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"billing_document\" : \"\",\n  \"accounts_receivable_account\" : \"accounts_receivable_account\",\n  \"service_end\" : \"service_end\",\n  \"subscription_item_id\" : \"subscription_item_id\",\n  \"revenue_recognition_rule_name\" : \"revenue_recognition_rule_name\",\n  \"price_id\" : \"price_id\",\n  \"description\" : \"description\",\n  \"subscription\" : \"\",\n  \"type\" : \"credit_memo\",\n  \"applied_to_item_id\" : \"applied_to_item_id\",\n  \"on_account_account\" : \"on_account_account\",\n  \"subscription_id\" : \"subscription_id\",\n  \"subscription_item\" : \"\",\n  \"deferred_revenue_account\" : \"deferred_revenue_account\",\n  \"unit_of_measure\" : \"unit_of_measure\",\n  \"purchase_order_number\" : \"purchase_order_number\",\n  \"price_description\" : \"price_description\",\n  \"id\" : \"id\",\n  \"sku\" : \"sku\",\n  \"discount_item\" : true,\n  \"service_start\" : \"service_start\",\n  \"billing_document_id\" : \"billing_document_id\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"recognized_revenue_account\" : \"recognized_revenue_account\",\n  \"amount\" : 0.8008281904610115,\n  \"quantity\" : 1.4658129805029452,\n  \"remaining_balance\" : 5.962133916683182,\n  \"custom_fields\" : \"\",\n  \"invoice_item_id\" : \"invoice_item_id\",\n  \"tax_inclusive\" : true,\n  \"booking_reference\" : \"booking_reference\",\n  \"tax\" : 2.3021358869347655,\n  \"unit_amount\" : 5.637376656633329,\n  \"product_name\" : \"product_name\",\n  \"accounting_code\" : \"accounting_code\",\n  \"tax_code\" : \"tax_code\",\n  \"document_item_date\" : \"2022-01-01T07:08:12-07:00\",\n  \"custom_objects\" : \"\",\n  \"subtotal\" : 6.027456183070403,\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"taxation_items\" : \"\"\n}";
+
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<BillingDocumentItem>(exampleJson)
+            : default(BillingDocumentItem);            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
+        /// Creates a new invoice
+        /// </summary>
+        /// <param name="body">The invoice creation request details</param>
+        /// <returns>The created invoice</returns>
+        /// <response code="201">Returns the created invoice</response>
+        /// <response code="400">Bad Request</response>
+        /// <response code="401">Unauthorized</response>
+        /// <response code="404">Not found</response>
+        /// <response code="405">Method not allowed</response>
+        /// <response code="429">Too many requests</response>
+        /// <response code="500">Internal server error</response>
+        [HttpPost]
+        [Route("/v2/billing_document_items")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("CreateBillingDocumentItem")]
+        [SwaggerResponse(statusCode: 201, type: typeof(BillingDocumentItem), description: "Returns the created invoice")]
+        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
+        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
+        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not found")]
+        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method not allowed")]
+        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too many requests")]
+        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal server error")]
+        public async Task<IActionResult> CreateBillingDocumentItem([FromBody] BillingDocumentItem body)
+        {
+            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(201, default(BillingDocumentItem));
+
+            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(400, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(401, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(405, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(429, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(500, default(ErrorResponse));
+            string exampleJson = null;
+            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"billing_document\" : \"\",\n  \"accounts_receivable_account\" : \"accounts_receivable_account\",\n  \"service_end\" : \"service_end\",\n  \"subscription_item_id\" : \"subscription_item_id\",\n  \"revenue_recognition_rule_name\" : \"revenue_recognition_rule_name\",\n  \"price_id\" : \"price_id\",\n  \"description\" : \"description\",\n  \"subscription\" : \"\",\n  \"type\" : \"credit_memo\",\n  \"applied_to_item_id\" : \"applied_to_item_id\",\n  \"on_account_account\" : \"on_account_account\",\n  \"subscription_id\" : \"subscription_id\",\n  \"subscription_item\" : \"\",\n  \"deferred_revenue_account\" : \"deferred_revenue_account\",\n  \"unit_of_measure\" : \"unit_of_measure\",\n  \"purchase_order_number\" : \"purchase_order_number\",\n  \"price_description\" : \"price_description\",\n  \"id\" : \"id\",\n  \"sku\" : \"sku\",\n  \"discount_item\" : true,\n  \"service_start\" : \"service_start\",\n  \"billing_document_id\" : \"billing_document_id\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"recognized_revenue_account\" : \"recognized_revenue_account\",\n  \"amount\" : 0.8008281904610115,\n  \"quantity\" : 1.4658129805029452,\n  \"remaining_balance\" : 5.962133916683182,\n  \"custom_fields\" : \"\",\n  \"invoice_item_id\" : \"invoice_item_id\",\n  \"tax_inclusive\" : true,\n  \"booking_reference\" : \"booking_reference\",\n  \"tax\" : 2.3021358869347655,\n  \"unit_amount\" : 5.637376656633329,\n  \"product_name\" : \"product_name\",\n  \"accounting_code\" : \"accounting_code\",\n  \"tax_code\" : \"tax_code\",\n  \"document_item_date\" : \"2022-01-01T07:08:12-07:00\",\n  \"custom_objects\" : \"\",\n  \"subtotal\" : 6.027456183070403,\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"taxation_items\" : \"\"\n}";
+
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<BillingDocumentItem>(exampleJson)
+            : default(BillingDocumentItem);            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
     }
 }

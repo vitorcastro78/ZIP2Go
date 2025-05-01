@@ -52,15 +52,10 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Creates a new account in the system.
+        /// Creates a new account in the system
         /// </summary>
-        /// <param name="body">Account data to be created</param>
-        /// <param name="zuoraTrackId">Custom identifier for tracking API requests</param>
-        /// <param name="_async">Indicates if the operation should be asynchronous</param>
-        /// <returns>Returns the created account or appropriate error</returns>
-        /// <response code="201">Account created successfully</response>
-        /// <response code="400">Invalid data provided</response>
-        /// <response code="401">Unauthorized</response>
+        /// <param name="body">The account data to create</param>
+        /// <returns>The created account with its assigned ID</returns>
         [HttpPost]
         [Route("/v2/accounts")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -115,15 +110,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Deletes an existing account from the system.
+        /// Deletes an account from the system
         /// </summary>
-        /// <remarks>This operation is permanent and cannot be undone.</remarks>
-        /// <param name="accountId">ID of the account to be deleted</param>
-        /// <param name="zuoraTrackId">Custom identifier for tracking API requests</param>
-        /// <param name="_async">Indicates if the operation should be asynchronous</param>
-        /// <returns>Returns success or appropriate error</returns>
-        /// <response code="204">Account deleted successfully</response>
-        /// <response code="404">Account not found</response>
+        /// <param name="accountId">The ID of the account to delete</param>
+        /// <param name="zuoraTrackId">The Zuora track ID for tracking the request</param>
+        /// <param name="async">Whether to perform the operation asynchronously</param>
+        /// <returns>NoContent if successful</returns>
         [HttpDelete]
         [Route("/v2/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -176,13 +168,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Generates billing documents for a specific account.
+        /// Generates billing documents for an account
         /// </summary>
-        /// <param name="body">Data for document generation</param>
-        /// <param name="accountId">ID of the account</param>
-        /// <returns>Returns the generated documents or appropriate error</returns>
-        /// <response code="200">Documents generated successfully</response>
-        /// <response code="404">Account not found</response>
+        /// <param name="body">The request body containing billing document generation parameters</param>
+        /// <param name="accountId">The ID of the account</param>
+        /// <param name="zuoraTrackId">The Zuora track ID for tracking the request</param>
+        /// <param name="async">Whether to perform the operation asynchronously</param>
+        /// <returns>The generated billing documents response</returns>
         [HttpPost]
         [Route("/v2/accounts/{accountId}/bill")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -239,14 +231,12 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Retrieves details of a specific account.
+        /// Retrieves a specific account by ID
         /// </summary>
-        /// <param name="accountId">ID of the account to retrieve</param>
-        /// <param name="fields">Specific fields to return</param>
-        /// <param name="expand">Relationships to expand</param>
-        /// <returns>Returns account details or appropriate error</returns>
-        /// <response code="200">Account details retrieved successfully</response>
-        /// <response code="404">Account not found</response>
+        /// <param name="accountId">The ID of the account to retrieve</param>
+        /// <param name="zuoraTrackId">The Zuora track ID for tracking the request</param>
+        /// <param name="async">Whether to perform the operation asynchronously</param>
+        /// <returns>The requested account details</returns>
         [HttpGet]
         [Route("/v2/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
@@ -303,16 +293,11 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Lists all accounts in the system with pagination and filtering support.
+        /// Lists all accounts in the system
         /// </summary>
-        /// <param name="cursor">Cursor for pagination</param>
-        /// <param name="pageSize">Size of the page</param>
-        /// <param name="filter">Filters to apply</param>
-        /// <returns>Returns paginated list of accounts or appropriate error</returns>
-        /// <response code="200">List of accounts retrieved successfully</response>
+        /// <returns>A list of accounts with pagination information</returns>
         [HttpGet]
         [Route("/v2/accounts")]
-       // [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccounts")]
         [SwaggerResponse(statusCode: 200, type: typeof(ListAccountResponse), description: "Default Response")]
@@ -370,13 +355,13 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Updates an existing account's data.
+        /// Updates an existing account
         /// </summary>
-        /// <param name="body">Updated account data</param>
-        /// <param name="accountId">ID of the account to update</param>
-        /// <returns>Returns the updated account or appropriate error</returns>
-        /// <response code="200">Account updated successfully</response>
-        /// <response code="404">Account not found</response>
+        /// <param name="body">The account data to update</param>
+        /// <param name="accountId">The ID of the account to update</param>
+        /// <param name="zuoraTrackId">The Zuora track ID for tracking the request</param>
+        /// <param name="async">Whether to perform the operation asynchronously</param>
+        /// <returns>The updated account details</returns>
         [HttpPatch]
         [Route("/v2/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
