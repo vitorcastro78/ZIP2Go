@@ -7,37 +7,45 @@ using ZIP2GO.Service;
 using ZIP2GO.Service.Client;
 using ZIP2GO.Service.Client.Auth0Management;
 using ZIP2GO.WebAPI.Filters;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using ZIP2Go.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var options = new ZuoraOptions();
 builder.Configuration.GetSection("Zuora").Get<ZuoraOptions>();
 
-// Add Dependency Injection to the container.
-AddDependencyInjection(builder);
 // Add services to the container.
 ConfigureServices(builder.Services);
-var app = builder.Build();
-// Configure WebApp
-ConfigureWebApp(app);
 
-static void AddDependencyInjection(WebApplicationBuilder builder)
+// Registrar os serviços da aplicação
+builder.Services.AddApplicationServices();
+
+// Registrar o HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
+// Registrar o EasyCaching
+builder.Services.AddEasyCaching(options => 
 {
+    options.UseInMemory("default");
+});
 
-    builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-    builder.Services.AddScoped<IAccountsService, AccountsService>();
-    builder.Services.AddScoped<IInvoicesService, InvoicesService>();
-    builder.Services.AddScoped<ISubscriptionsService, SubscriptionsService>();
-    builder.Services.AddScoped<ISubscriptionItemsService, SubscriptionItemsService>();
-    builder.Services.AddScoped<ISubscriptionPlansService, SubscriptionPlansService>();
-    builder.Services.AddScoped<IOrdersService, OrdersService>();
-    builder.Services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
-    builder.Services.AddScoped<IProductsService, ProductsService>();
-    builder.Services.AddScoped<IContactsService, ContactsService>();
-    builder.Services.AddScoped<IBillingDocumentItemsService, BillingDocumentItemsService>();
-    builder.Services.AddScoped<IBillingDocumentsService, BillingDocumentsService>();
-    builder.Services.AddScoped<IWorkflowsService, WorkflowsService>();
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.Run();
 
 static void ConfigureServices(IServiceCollection services)
 {
@@ -48,24 +56,21 @@ static void ConfigureServices(IServiceCollection services)
     services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1",
-
-      new OpenApiInfo
-      {
-          Title = "Zuora Integration Plataform",
-          Version = "v1",
-          Description = "Api Methods for Zuora Billing Integration",
-          Contact = new OpenApiContact
-          {
-              Name = "Vitor Castro",
-              Url = new Uri("https://www.zuora.com"),
-              Email = "vitorcastro78@gmail.com"
-          }
-      });
+        new OpenApiInfo
+        {
+            Title = "Zuora Integration Plataform",
+            Version = "v1",
+            Description = "Api Methods for Zuora Billing Integration",
+            Contact = new OpenApiContact
+            {
+                Name = "Vitor Castro",
+                Url = new Uri("https://www.zuora.com"),
+                Email = "vitorcastro78@gmail.com"
+            }
+        });
         var filePath = Path.Combine(AppContext.BaseDirectory, "zip2go.xml");
         c.IncludeXmlComments(filePath);
     });
-
-    // services.AddDbContext<AppDataContext>(options => options.UseSqlite("Database\\subscription.db"));
 
     services.AddEasyCaching(option =>
     {
@@ -76,12 +81,11 @@ static void ConfigureServices(IServiceCollection services)
         });
     });
 
-    // Adiciona servi�os do framework
+    // Adiciona serviços do framework
     services.AddMvc(options =>
     {
-        //adicionado por inst�ncia
+        //adicionado por instância
         options.Filters.Add(new ActionFilter());
-        //adicionado por tipo
     });
 }
 
@@ -89,35 +93,5 @@ static void ConfigureAuth0Service(IServiceCollection services, IConfiguration co
 {
     services.Configure<Auth0Options>(configuration.GetSection(ConfigSections.AUTH0));
     services.AddScoped<IAuth0Service, Auth0Service>();
-}
-static void ConfigureWebApp(WebApplication app)
-{
-    // Configure the HTTP request pipeline.
-
-
-    JsonSerializerSettings defaultJsonSettings = JsonConvert.DefaultSettings != null ? JsonConvert.DefaultSettings() : new JsonSerializerSettings();
-    defaultJsonSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-    JsonConvert.DefaultSettings = () => defaultJsonSettings;
-
-
-    app.UseSwagger();
-
-    app.UseStaticFiles();
-
-    app.UseSwaggerUI(config =>
-    {
-        config.ConfigObject.AdditionalItems["syntaxHighlight"] = new Dictionary<string, object>
-        {
-            ["activated"] = false
-        };
-    });
-
-    app.UseHttpsRedirection();
-
-    app.UseAuthorization();
-
-    app.MapControllers();
-
-    app.Run();
 }
 

@@ -1,0 +1,50 @@
+using Microsoft.Extensions.DependencyInjection;
+using Service.Interfaces;
+using Service.Services;
+
+namespace ZIP2Go.WebAPI.Extensions
+{
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        {
+            // Registrar todos os serviços como scoped
+            services.AddScoped<IAccountsService, AccountsService>();
+            services.AddScoped<IPlansService, PlansService>();
+            services.AddScoped<ITaxationItemsService, TaxationItemsService>();
+            services.AddScoped<ICreditMemosService, CreditMemosService>();
+            services.AddScoped<IDebitMemosService, DebitMemosService>();
+            services.AddScoped<IContactsService, ContactsService>();
+            services.AddScoped<IPricesService, PricesService>();
+            services.AddScoped<IQueryRunsService, QueryRunsService>();
+            
+            // Adicionando os serviços que faltavam
+            services.AddScoped<IInvoicesService, InvoicesService>();
+            services.AddScoped<ISubscriptionsService, SubscriptionsService>();
+            services.AddScoped<ISubscriptionItemsService, SubscriptionItemsService>();
+            services.AddScoped<ISubscriptionPlansService, SubscriptionPlansService>();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddScoped<IPaymentMethodsService, PaymentMethodsService>();
+            services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<IBillingDocumentItemsService, BillingDocumentItemsService>();
+            services.AddScoped<IBillingDocumentsService, BillingDocumentsService>();
+            services.AddScoped<IWorkflowsService, WorkflowsService>();
+            
+            // Adicionando os serviços restantes
+            services.AddScoped<IUsageRecordsService, UsageRecordsService>();
+            services.AddScoped<IRefundsService, RefundsService>();
+            services.AddScoped<IPaymentsService, PaymentsService>();
+            services.AddScoped<IPaymentSchedulesService, PaymentSchedulesService>();
+            services.AddScoped<IPaymentScheduleItemsService, PaymentScheduleItemsService>();
+            services.AddScoped<IPaymentRunsService, PaymentRunsService>();
+            services.AddScoped<IOrderLineItemsService, OrderLineItemsService>();
+            services.AddScoped<IFulfillmentsService, FulfillmentsService>();
+            services.AddScoped<IFulfillmentItemsService, FulfillmentItemsService>();
+            services.AddScoped<ICustomObjectsService, CustomObjectsService>();
+            services.AddScoped<IBillRunsService, BillRunsService>();
+            services.AddScoped<IBillRunPreviewsService, BillRunPreviewsService>();
+
+            return services;
+        }
+    }
+} 

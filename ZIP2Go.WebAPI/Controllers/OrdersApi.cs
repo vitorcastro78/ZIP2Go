@@ -23,8 +23,22 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class OrdersApiController : ControllerBase
+    public class OrdersApiController : : ControllerBaseApi
     {
+        private readonly IOrdersService _ordersService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IEasyCachingProvider _cacheProvider;
+
+        public OrdersApiController(
+            IOrdersService ordersService,
+            IHttpContextAccessor httpContextAccessor,
+            IEasyCachingProvider cache) : base(httpContextAccessor, cache)
+        {
+            _ordersService = ordersService ?? throw new ArgumentNullException(nameof(ordersService));
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+            _cacheProvider = cache ?? throw new ArgumentNullException(nameof(cache));
+        }
+
         /// <summary>
         /// Activate an order
         /// </summary>
