@@ -27,13 +27,13 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class SubscriptionPlansApiController : ControllerBaseApi
+    public class SubscriptionPlansController : ControllerBaseApi
     {
         private readonly ISubscriptionPlansService _subscriptionPlansService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
 
-        public SubscriptionPlansApiController(
+        public SubscriptionPlansController(
             ISubscriptionPlansService subscriptionPlansService,
             IHttpContextAccessor httpContextAccessor,
             IEasyCachingProvider cache) : base(httpContextAccessor, cache)
@@ -88,44 +88,9 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetSubscriptionPlan([FromRoute][Required] string subscriptionPlanId, [FromQuery] List<string> fields, [FromQuery] List<string> subscriptionFields, [FromQuery] List<string> subscriptionItemsFields, [FromQuery] List<string> planFields, [FromQuery] List<string> productFields, [FromQuery] List<string> accountFields, [FromQuery] List<string> priceFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        public virtual IActionResult GetSubscriptionPlan([FromRoute][Required] string subscriptionPlanId)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(SubscriptionPlan));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"subscription_items\" : \"\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"product\" : \"\",\n  \"custom_fields\" : \"\",\n  \"subscription\" : \"\",\n  \"subscription_id\" : \"subscription_id\",\n  \"custom_objects\" : \"\",\n  \"product_id\" : \"product_id\",\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"id\" : \"id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"plan\" : \"\",\n  \"plan_id\" : \"plan_id\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<SubscriptionPlan>(exampleJson)
-            : default(SubscriptionPlan);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ObjectResult(null);
         }
 
         /// <summary>
@@ -174,44 +139,9 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetSubscriptionPlans([FromQuery] string cursor, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery] List<string> sort, [FromQuery][Range(1, 99)] int? pageSize, [FromQuery] List<string> fields, [FromQuery] List<string> subscriptionFields, [FromQuery] List<string> subscriptionItemsFields, [FromQuery] List<string> planFields, [FromQuery] List<string> productFields, [FromQuery] List<string> accountFields, [FromQuery] List<string> priceFields, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        public virtual IActionResult GetSubscriptionPlans()
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(SubscriptionPlanListResponse));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"subscription_items\" : \"\",\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"product\" : \"\",\n    \"custom_fields\" : \"\",\n    \"subscription\" : \"\",\n    \"subscription_id\" : \"subscription_id\",\n    \"custom_objects\" : \"\",\n    \"product_id\" : \"product_id\",\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"id\" : \"id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"plan\" : \"\",\n    \"plan_id\" : \"plan_id\"\n  }, {\n    \"subscription_items\" : \"\",\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"product\" : \"\",\n    \"custom_fields\" : \"\",\n    \"subscription\" : \"\",\n    \"subscription_id\" : \"subscription_id\",\n    \"custom_objects\" : \"\",\n    \"product_id\" : \"product_id\",\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"id\" : \"id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"plan\" : \"\",\n    \"plan_id\" : \"plan_id\"\n  } ]\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<SubscriptionPlanListResponse>(exampleJson)
-            : default(SubscriptionPlanListResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ObjectResult(null);
         }
     }
 }

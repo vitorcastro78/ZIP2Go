@@ -80,7 +80,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult RunWorkflow([FromBody] RunWorkflowRequest body, [FromRoute][Required] int? workflowId, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        public virtual IActionResult RunWorkflow([FromBody] RunWorkflowRequest body, [FromRoute][Required] int? workflowId)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(WorkflowRun));
