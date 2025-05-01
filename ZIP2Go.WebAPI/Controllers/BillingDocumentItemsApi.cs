@@ -84,7 +84,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetBillingDocumentItems([FromQuery] string cursor, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery] List<string> sort, [FromQuery][Range(1, 99)] int? pageSize, [FromQuery] List<string> fields, [FromQuery] List<string> taxationItemsFields, [FromHeader] string zuoraTrackId, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding)
+        public virtual IActionResult GetBillingDocumentItems()
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(BillingDocumentItemListResponse));

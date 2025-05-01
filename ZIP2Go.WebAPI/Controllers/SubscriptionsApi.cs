@@ -42,7 +42,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult ActivateSubscription([FromBody] SubscriptionActivateRequest body, [FromRoute][Required] string subscriptionId, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> subscriptionPlansFields, [FromQuery] List<string> subscriptionItemsFields, [FromQuery] List<string> accountFields, [FromQuery] List<string> invoiceOwnerAccountFields, [FromQuery] List<string> planFields, [FromQuery] List<string> productFields, [FromQuery] List<string> priceFields, [FromQuery] List<string> billToFields, [FromQuery] List<string> prepaidBalanceFields, [FromQuery] List<string> prepaidBalancesFields, [FromQuery] List<string> validityPeriodFields, [FromQuery] List<string> transactionsFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        public virtual IActionResult ActivateSubscription([FromBody] SubscriptionActivateRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -62,7 +62,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CancelSubscription([FromBody] CancelSubscriptionRequest body, [FromRoute][Required] string subscriptionId, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> subscriptionPlansFields, [FromQuery] List<string> subscriptionItemsFields, [FromQuery] List<string> accountFields, [FromQuery] List<string> invoiceOwnerAccountFields, [FromQuery] List<string> planFields, [FromQuery] List<string> productFields, [FromQuery] List<string> priceFields, [FromQuery] List<string> billToFields, [FromQuery] List<string> prepaidBalanceFields, [FromQuery] List<string> prepaidBalancesFields, [FromQuery] List<string> validityPeriodFields, [FromQuery] List<string> transactionsFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        public virtual IActionResult CancelSubscription([FromBody] CancelSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -82,7 +82,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateSubscription([FromBody] SubscriptionCreateRequest body, [FromHeader] string zuoraTrackId, [FromHeader] bool? _async, [FromHeader] string zuoraEntityIds, [FromHeader] string idempotencyKey, [FromHeader] string acceptEncoding, [FromHeader] string contentEncoding, [FromQuery] List<string> fields, [FromQuery] List<string> subscriptionPlansFields, [FromQuery] List<string> subscriptionItemsFields, [FromQuery] List<string> accountFields, [FromQuery] List<string> invoiceOwnerAccountFields, [FromQuery] List<string> planFields, [FromQuery] List<string> productFields, [FromQuery] List<string> priceFields, [FromQuery] List<string> billToFields, [FromQuery] List<string> prepaidBalanceFields, [FromQuery] List<string> prepaidBalancesFields, [FromQuery] List<string> validityPeriodFields, [FromQuery] List<string> transactionsFields, [FromQuery] List<string> expand, [FromQuery] List<string> filter, [FromQuery][Range(1, 99)] int? pageSize)
+        public virtual IActionResult CreateSubscription([FromBody] SubscriptionCreateRequest body)
         {
             return new ObjectResult(null);
         }

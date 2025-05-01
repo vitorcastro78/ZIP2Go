@@ -1,4 +1,4 @@
-﻿using EasyCaching.Core;
+using EasyCaching.Core;
 using Microsoft.AspNetCore.Http.Connections.Features;
 using Microsoft.AspNetCore.Mvc;
 
