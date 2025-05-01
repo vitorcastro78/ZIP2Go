@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Service.Interfaces;
-using Service.Services;
+using ZIP2GO.Service;
 
 namespace ZIP2Go.WebAPI.Extensions
 {
@@ -17,8 +17,6 @@ namespace ZIP2Go.WebAPI.Extensions
             services.AddScoped<IContactsService, ContactsService>();
             services.AddScoped<IPricesService, PricesService>();
             services.AddScoped<IQueryRunsService, QueryRunsService>();
-            
-            // Adicionando os serviços que faltavam
             services.AddScoped<IInvoicesService, InvoicesService>();
             services.AddScoped<ISubscriptionsService, SubscriptionsService>();
             services.AddScoped<ISubscriptionItemsService, SubscriptionItemsService>();
@@ -29,8 +27,6 @@ namespace ZIP2Go.WebAPI.Extensions
             services.AddScoped<IBillingDocumentItemsService, BillingDocumentItemsService>();
             services.AddScoped<IBillingDocumentsService, BillingDocumentsService>();
             services.AddScoped<IWorkflowsService, WorkflowsService>();
-            
-            // Adicionando os serviços restantes
             services.AddScoped<IUsageRecordsService, UsageRecordsService>();
             services.AddScoped<IRefundsService, RefundsService>();
             services.AddScoped<IPaymentsService, PaymentsService>();
@@ -38,7 +34,7 @@ namespace ZIP2Go.WebAPI.Extensions
             services.AddScoped<IPaymentScheduleItemsService, PaymentScheduleItemsService>();
             services.AddScoped<IPaymentRunsService, PaymentRunsService>();
             services.AddScoped<IOrderLineItemsService, OrderLineItemsService>();
-            services.AddScoped<IFulfillmentsService, FulfillmentsService>();
+            services.AddScoped<IFulfillmentsService, FulfillmentService>();
             services.AddScoped<IFulfillmentItemsService, FulfillmentItemsService>();
             services.AddScoped<ICustomObjectsService, CustomObjectsService>();
             services.AddScoped<IBillRunsService, BillRunsService>();

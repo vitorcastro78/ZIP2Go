@@ -84,7 +84,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreatePlan([FromBody] PlanCreateRequest body)
+        public async Task<IActionResult> CreatePlan([FromBody] PlanCreateRequest body)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Plan));
@@ -159,7 +159,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult DeletePlan([FromRoute][Required] string planId)
+        public async Task<IActionResult> DeletePlan([FromRoute][Required] string planId)
         {
             //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(204);
@@ -235,7 +235,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetPlan([FromRoute][Required] string planId, 99)] int? pageSize)
+        public async Task<IActionResult> GetPlan([FromRoute][Required] string planId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Plan));
@@ -317,7 +317,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetPlans(, 99)] int? pageSize)
+        public async Task<IActionResult> GetPlans()
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(PlanListResponse));
@@ -400,7 +400,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult UpdatePlan([FromBody] PlanPatchRequest body, [FromRoute][Required] string planId, 99)] int? pageSize)
+        public async Task<IActionResult> UpdatePlan([FromBody] PlanPatchRequest body, [FromRoute][Required] string planId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Plan));

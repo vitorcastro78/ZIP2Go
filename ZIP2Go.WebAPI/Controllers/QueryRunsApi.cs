@@ -73,7 +73,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CancelQueryRun([FromRoute][Required] string queryRunId)
+        public async Task<IActionResult> CancelQueryRun([FromRoute][Required] string queryRunId)
         {
             return new ObjectResult(null);
         }
@@ -108,7 +108,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateQueryRun([FromBody] QueryRunCreateRequest body)
+        public async Task<IActionResult> CreateQueryRun([FromBody] QueryRunCreateRequest body)
         {
             return new ObjectResult(null);
         }
@@ -143,7 +143,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetQueryRun([FromRoute][Required] string queryRunId)
+        public async Task<IActionResult> GetQueryRun([FromRoute][Required] string queryRunId)
         {
             return new ObjectResult(null);
         }

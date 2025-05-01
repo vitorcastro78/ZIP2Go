@@ -85,7 +85,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateCustomObject([FromBody] Dictionary<string, Object> body, [FromRoute][Required] string customObjectType, 99)] int? pageSize)
+        public async Task<IActionResult> CreateCustomObject([FromBody] Dictionary<string, Object> body, [FromRoute][Required] string customObjectType)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(CustomObject));
@@ -161,7 +161,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult DeleteCustomObject([FromRoute][Required] string customObjectType, [FromRoute][Required] string customObjectId)
+        public async Task<IActionResult> DeleteCustomObject([FromRoute][Required] string customObjectType, [FromRoute][Required] string customObjectId)
         {
             //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(204);
@@ -237,7 +237,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetCustomObject([FromRoute][Required] string customObjectType, [FromRoute][Required] string customObjectId, 99)] int? pageSize)
+        public async Task<IActionResult> GetCustomObject([FromRoute][Required] string customObjectType, [FromRoute][Required] string customObjectId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(CustomObject));
@@ -319,7 +319,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetCustomObjects([FromRoute][Required] string customObjectType, 99)] int? pageSize)
+        public async Task<IActionResult> GetCustomObjects([FromRoute][Required] string customObjectType)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(ListCustomObjectResponse));
@@ -402,7 +402,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult UpdateCustomObject([FromBody] Dictionary<string, Object> body, [FromRoute][Required] string customObjectType, [FromRoute][Required] string customObjectId, 99)] int? pageSize)
+        public async Task<IActionResult> UpdateCustomObject([FromBody] Dictionary<string, Object> body, [FromRoute][Required] string customObjectType, [FromRoute][Required] string customObjectId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(CustomObject));

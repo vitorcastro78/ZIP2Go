@@ -88,7 +88,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetSubscriptionPlan([FromRoute][Required] string subscriptionPlanId)
+        public async Task<IActionResult> GetSubscriptionPlan([FromRoute][Required] string subscriptionPlanId)
         {
             return new ObjectResult(null);
         }
@@ -139,7 +139,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetSubscriptionPlans()
+        public async Task<IActionResult> GetSubscriptionPlans()
         {
             return new ObjectResult(null);
         }

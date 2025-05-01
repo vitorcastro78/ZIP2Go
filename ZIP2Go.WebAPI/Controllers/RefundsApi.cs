@@ -35,7 +35,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CancelRefund")]
-        public virtual IActionResult CancelRefund([FromRoute][Required] string refundId)
+        public async Task<IActionResult> CancelRefund([FromRoute][Required] string refundId)
         {
             return new ObjectResult(null);
         }
@@ -45,7 +45,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateRefund")]
-        public virtual IActionResult CreateRefund([FromBody] RefundCreateRequest body)
+        public async Task<IActionResult> CreateRefund([FromBody] RefundCreateRequest body)
         {
             return new ObjectResult(null);
         }
@@ -55,7 +55,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteRefund")]
-        public virtual IActionResult DeleteRefund([FromRoute][Required] string refundId)
+        public async Task<IActionResult> DeleteRefund([FromRoute][Required] string refundId)
         {
             return new ObjectResult(null);
         }
@@ -65,7 +65,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetRefund")]
-        public virtual IActionResult GetRefund([FromRoute][Required] string refundId)
+        public async Task<IActionResult> GetRefund([FromRoute][Required] string refundId)
         {
             return new ObjectResult(null);
         }
@@ -75,7 +75,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetRefunds")]
-        public virtual IActionResult GetRefunds()
+        public async Task<IActionResult> GetRefunds()
         {
             return new ObjectResult(null);
         }

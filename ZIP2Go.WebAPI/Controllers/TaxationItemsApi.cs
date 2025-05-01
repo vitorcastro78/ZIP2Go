@@ -73,7 +73,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateTaxationItem([FromBody] TaxationItemCreateRequest body)
+        public async Task<IActionResult> CreateTaxationItem([FromBody] TaxationItemCreateRequest body)
         {
             return new ObjectResult(null);
         }
@@ -107,7 +107,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult DeleteTaxationItem([FromRoute][Required] string taxationItemId)
+        public async Task<IActionResult> DeleteTaxationItem([FromRoute][Required] string taxationItemId)
         {
             return new ObjectResult(null);
         }
@@ -142,7 +142,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetTaxationItem([FromRoute][Required] string taxationItemId)
+        public async Task<IActionResult> GetTaxationItem([FromRoute][Required] string taxationItemId)
         {
             return new ObjectResult(null);
         }
@@ -176,7 +176,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetTaxationItems()
+        public async Task<IActionResult> GetTaxationItems()
         {
             return new ObjectResult(null);
         }
@@ -212,7 +212,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult UpdateTaxationItem([FromBody] TaxationItemPatchRequest body, [FromRoute][Required] string taxationItemId)
+        public async Task<IActionResult> UpdateTaxationItem([FromBody] TaxationItemPatchRequest body, [FromRoute][Required] string taxationItemId)
         {
             return new ObjectResult(null);
         }

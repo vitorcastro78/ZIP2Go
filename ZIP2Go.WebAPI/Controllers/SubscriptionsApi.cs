@@ -7,6 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
+using Service.Interfaces;
+using EasyCaching.Core;
+using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -42,7 +45,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult ActivateSubscription([FromBody] SubscriptionActivateRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> ActivateSubscription([FromBody] SubscriptionActivateRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -62,7 +65,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CancelSubscription([FromBody] CancelSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> CancelSubscription([FromBody] CancelSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -82,7 +85,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateSubscription([FromBody] SubscriptionCreateRequest body)
+        public async Task<IActionResult> CreateSubscription([FromBody] SubscriptionCreateRequest body)
         {
             return new ObjectResult(null);
         }
@@ -92,7 +95,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetSubscriptionByKey")]
-        public virtual IActionResult GetSubscriptionByKey([FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> GetSubscriptionByKey([FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -102,7 +105,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetSubscriptionByVersion")]
-        public virtual IActionResult GetSubscriptionByVersion([FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> GetSubscriptionByVersion([FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -112,7 +115,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetSubscriptions")]
-        public virtual IActionResult GetSubscriptions()
+        public async Task<IActionResult> GetSubscriptions()
         {
             return new ObjectResult(null);
         }
@@ -122,7 +125,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("PatchSubscription")]
-        public virtual IActionResult PatchSubscription([FromBody] SubscriptionPatchRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> PatchSubscription([FromBody] SubscriptionPatchRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -132,7 +135,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("PauseSubscription")]
-        public virtual IActionResult PauseSubscription([FromBody] PauseSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> PauseSubscription([FromBody] PauseSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -142,7 +145,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("PreviewExistingSubscription")]
-        public virtual IActionResult PreviewExistingSubscription([FromBody] SubscriptionPreviewExistingRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> PreviewExistingSubscription([FromBody] SubscriptionPreviewExistingRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -152,7 +155,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("PreviewSubscription")]
-        public virtual IActionResult PreviewSubscription([FromBody] SubscriptionPreviewRequest body)
+        public async Task<IActionResult> PreviewSubscription([FromBody] SubscriptionPreviewRequest body)
         {
             return new ObjectResult(null);
         }
@@ -162,7 +165,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("ResumeSubscription")]
-        public virtual IActionResult ResumeSubscription([FromBody] ResumeSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> ResumeSubscription([FromBody] ResumeSubscriptionRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }
@@ -172,7 +175,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UncancelSubscription")]
-        public virtual IActionResult UncancelSubscription([FromBody] SubscriptionPatchRequest body, [FromRoute][Required] string subscriptionId)
+        public async Task<IActionResult> UncancelSubscription([FromBody] SubscriptionPatchRequest body, [FromRoute][Required] string subscriptionId)
         {
             return new ObjectResult(null);
         }

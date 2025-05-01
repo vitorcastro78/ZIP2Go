@@ -9,13 +9,17 @@
  */
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; using ZIP2GO.Service.Models;
+using Microsoft.AspNetCore.Mvc; 
+using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
+using ZIP2Go.WebAPI.Controllers;
+using Service.Interfaces;
+using EasyCaching.Core;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -23,7 +27,7 @@ namespace ZIP2GO.WebAPI.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class OrdersApiController : : ControllerBaseApi
+    public class OrdersApiController : ControllerBaseApi
     {
         private readonly IOrdersService _ordersService;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -85,7 +89,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult ActivateOrder([FromRoute][Required] string orderId, 99)] int? pageSize)
+        public async Task<IActionResult> ActivateOrder([FromRoute][Required] string orderId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Order));
@@ -172,7 +176,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CancelOrder([FromBody] OrderCancellationRequest body, [FromRoute][Required] string orderId, 99)] int? pageSize)
+        public async Task<IActionResult> CancelOrder([FromBody] OrderCancellationRequest body, [FromRoute][Required] string orderId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(OrderCancelResponse));
@@ -258,7 +262,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateOrder([FromBody] OrderCreateRequest body, 99)] int? pageSize)
+        public async Task<IActionResult> CreateOrder([FromBody] OrderCreateRequest body)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Order));
@@ -334,7 +338,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateOrderPreview([FromBody] OrderPreviewCreateRequest body)
+        public async Task<IActionResult> CreateOrderPreview([FromBody] OrderPreviewCreateRequest body)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(OrderPreviewResponse));
@@ -409,7 +413,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult DeleteOrder([FromRoute][Required] string orderId)
+        public async Task<IActionResult> DeleteOrder([FromRoute][Required] string orderId)
         {
             //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(204);
@@ -489,7 +493,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetOrder([FromRoute][Required] string orderId, 99)] int? pageSize)
+        public async Task<IActionResult> GetOrder([FromRoute][Required] string orderId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Order));
@@ -575,7 +579,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetOrders(, 99)] int? pageSize)
+        public async Task<IActionResult> GetOrders()
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(OrderListResponse));

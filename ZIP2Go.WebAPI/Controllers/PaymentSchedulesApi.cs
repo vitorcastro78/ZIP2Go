@@ -85,7 +85,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CancelPaymentSchedule([FromBody] PaymentScheduleCancel body, [FromRoute][Required] string paymentScheduleId, 99)] int? pageSize)
+        public async Task<IActionResult> CancelPaymentSchedule([FromBody] PaymentScheduleCancel body, [FromRoute][Required] string paymentScheduleId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(PaymentSchedule));
@@ -166,7 +166,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreatePaymentSchedule([FromBody] PaymentScheduleCreateRequest body, 99)] int? pageSize)
+        public async Task<IActionResult> CreatePaymentSchedule([FromBody] PaymentScheduleCreateRequest body)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(PaymentSchedule));
@@ -246,7 +246,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetPaymentSchedule([FromRoute][Required] string paymentScheduleId, 99)] int? pageSize)
+        public async Task<IActionResult> GetPaymentSchedule([FromRoute][Required] string paymentScheduleId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(PaymentSchedule));
@@ -328,7 +328,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult UpdatePaymentSchedule([FromBody] PaymentSchedulePatchRequest body, [FromRoute][Required] string paymentScheduleId, 99)] int? pageSize)
+        public async Task<IActionResult> UpdatePaymentSchedule([FromBody] PaymentSchedulePatchRequest body, [FromRoute][Required] string paymentScheduleId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(PaymentSchedule));

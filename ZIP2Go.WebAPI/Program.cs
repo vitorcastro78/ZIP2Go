@@ -29,7 +29,7 @@ builder.Services.AddHttpContextAccessor();
 // Registrar o EasyCaching
 builder.Services.AddEasyCaching(options => 
 {
-    options.UseInMemory("default");
+    options.UseSQLite(builder.Configuration);
 });
 
 var app = builder.Build();

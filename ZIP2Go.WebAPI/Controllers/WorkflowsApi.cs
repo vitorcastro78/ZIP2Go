@@ -80,7 +80,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult RunWorkflow([FromBody] RunWorkflowRequest body, [FromRoute][Required] int? workflowId)
+        public async Task<IActionResult> RunWorkflow([FromBody] RunWorkflowRequest body, [FromRoute][Required] int? workflowId)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(WorkflowRun));
@@ -135,60 +135,60 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="502">Bad Gateway</response>
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
-        [HttpPost]
-        [Route("/v2/workflows")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("CreateWorkflow")]
-        [SwaggerResponse(statusCode: 201, type: typeof(Workflow), description: "Default Response")]
-        [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
-        [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
-        [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
-        [SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
-        [SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
-        [SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
-        [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
-        [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
-        [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult CreateWorkflow([FromBody] WorkflowCreateRequest body)
-        {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(Workflow));
+        //[HttpPost]
+        //[Route("/v2/workflows")]
+        //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        //[ValidateModelState]
+        //[SwaggerOperation("CreateWorkflow")]
+        //[SwaggerResponse(statusCode: 201, type: typeof(Workflow), description: "Default Response")]
+        //[SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
+        //[SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
+        //[SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
+        //[SwaggerResponse(statusCode: 405, type: typeof(ErrorResponse), description: "Method Not Allowed")]
+        //[SwaggerResponse(statusCode: 429, type: typeof(ErrorResponse), description: "Too Many Requests")]
+        //[SwaggerResponse(statusCode: 500, type: typeof(ErrorResponse), description: "Internal Server Error")]
+        //[SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
+        //[SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
+        //[SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
+        //public async Task<IActionResult> CreateWorkflow([FromBody] RunWorkflowRequest body)
+        //{
+        //    //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(201, default(Workflow));
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(400, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(401, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(404, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(405, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(429, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(500, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(502, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
+        //    //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(503, default(ErrorResponse));
 
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"original_workflow_id\" : 6,\n  \"name\" : \"name\",\n  \"id\" : 0,\n  \"state\" : \"queued\",\n  \"type\" : \"setup\"\n}";
+        //    //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+        //    // return StatusCode(504, default(ErrorResponse));
+        //    string exampleJson = null;
+        //    exampleJson = "{\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"original_workflow_id\" : 6,\n  \"name\" : \"name\",\n  \"id\" : 0,\n  \"state\" : \"queued\",\n  \"type\" : \"setup\"\n}";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Workflow>(exampleJson)
-            : default(Workflow);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
+        //    var example = exampleJson != null
+        //    ? JsonConvert.DeserializeObject<Workflow>(exampleJson)
+        //    : default(Workflow);            //TODO: Change the data returned
+        //    return new ObjectResult(example);
+        //}
 
         /// <summary>
         /// Get a workflow
@@ -210,7 +210,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetWorkflow")]
-        [SwaggerResponse(statusCode: 200, type: typeof(Workflow), description: "Default Response")]
+        //[SwaggerResponse(statusCode: 200, type: typeof(dynamic), description: "Default Response")]
         [SwaggerResponse(statusCode: 400, type: typeof(ErrorResponse), description: "Bad Request")]
         [SwaggerResponse(statusCode: 401, type: typeof(ErrorResponse), description: "Unauthorized")]
         [SwaggerResponse(statusCode: 404, type: typeof(ErrorResponse), description: "Not Found")]
@@ -220,7 +220,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetWorkflow([FromRoute][Required] string workflowId)
+        public async Task<IActionResult> GetWorkflow([FromRoute][Required] string workflowId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Workflow));
@@ -255,8 +255,8 @@ namespace ZIP2GO.WebAPI.Controllers
             exampleJson = "{\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"original_workflow_id\" : 6,\n  \"name\" : \"name\",\n  \"id\" : 0,\n  \"state\" : \"queued\",\n  \"type\" : \"setup\"\n}";
 
             var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Workflow>(exampleJson)
-            : default(Workflow);            //TODO: Change the data returned
+            ? JsonConvert.DeserializeObject<dynamic>(exampleJson)
+            : default(dynamic);            //TODO: Change the data returned
             return new ObjectResult(example);
         }
     }

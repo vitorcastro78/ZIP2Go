@@ -84,7 +84,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult GetOrderLineItem([FromRoute][Required] string orderLineItemId)
+        public async Task<IActionResult> GetOrderLineItem([FromRoute][Required] string orderLineItemId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(OrderLineItem));
@@ -167,7 +167,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public virtual IActionResult PatchOrderLineItem([FromBody] LineItemPatchRequest body, [FromRoute][Required] string orderLineItemId, 99)] int? pageSize)
+        public async Task<IActionResult> PatchOrderLineItem([FromBody] LineItemPatchRequest body, [FromRoute][Required] string orderLineItemId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(OrderLineItem));
