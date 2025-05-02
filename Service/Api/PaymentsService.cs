@@ -2,6 +2,7 @@ using RestSharp;
 using Service.Interfaces;
 using Service.Client;
 using Service.Models;
+using EasyCaching.Core;
 
 namespace Service
 {
@@ -10,33 +11,20 @@ namespace Service
     /// </summary>
     public class PaymentsService : IPaymentsService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly ApiClient _apiClient;
         /// <summary>
-        /// Initializes a new instance of the <see cref="PaymentsService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
         public PaymentsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-           
-            else
-                this.ApiClient = apiClient;
+
+            _apiClient = apiClient;
+            _cache = cache;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PaymentsService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public PaymentsService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath, _cache);
-        }
-
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Apply a payment Applies a payment to one or more invoices or debit memos.
@@ -67,7 +55,7 @@ namespace Service
 
             var path = "/payments/{payment_id}/apply";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "payment_id" + "}", ApiClient.ParameterToString(paymentId));
+            path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -83,20 +71,20 @@ namespace Service
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Put, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Put, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ApplyPayment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling ApplyPayment: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Payment)ApiClient.Deserialize(response.Content, typeof(Payment));
+            return (Payment)_apiClient.Deserialize(response.Content, typeof(Payment));
         }
 
         /// <summary>
@@ -125,7 +113,7 @@ namespace Service
 
             var path = "/payments/{payment_id}/cancel";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "payment_id" + "}", ApiClient.ParameterToString(paymentId));
+            path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -141,19 +129,19 @@ namespace Service
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelPayment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelPayment: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Payment)ApiClient.Deserialize(response.Content, typeof(Payment));
+            return (Payment)_apiClient.Deserialize(response.Content, typeof(Payment));
         }
 
         /// <summary>
@@ -197,20 +185,20 @@ namespace Service
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePayment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePayment: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Payment)ApiClient.Deserialize(response.Content, typeof(Payment));
+            return (Payment)_apiClient.Deserialize(response.Content, typeof(Payment));
         }
 
         /// <summary>
@@ -220,7 +208,7 @@ namespace Service
         /// <value>The base path</value>
         public string GetBasePath(string basePath)
         {
-            return this.ApiClient.BasePath;
+            return this._apiClient.BasePath;
         }
 
         /// <summary>
@@ -248,7 +236,7 @@ namespace Service
 
             var path = "/payments/{payment_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "payment_id" + "}", ApiClient.ParameterToString(paymentId));
+            path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -264,17 +252,17 @@ namespace Service
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetPayment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetPayment: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Payment)ApiClient.Deserialize(response.Content, typeof(Payment));
+            return (Payment)_apiClient.Deserialize(response.Content, typeof(Payment));
         }
 
         /// <summary>
@@ -307,7 +295,7 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
@@ -317,17 +305,17 @@ namespace Service
             //if (paymentMethodFields != null) queryParams.Add("payment_method.fields[]", ApiClient.ParameterToString(paymentMethodFields)); // query parameter
             //if (paymentAppliedToFields != null) queryParams.Add("payment_applied_to.fields[]", ApiClient.ParameterToString(paymentAppliedToFields)); // query parameter
             //if (paymentAppliedToItemsFields != null) queryParams.Add("payment_applied_to_items.fields[]", ApiClient.ParameterToString(paymentAppliedToItemsFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetPayments: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetPayments: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (PaymentListResponse)ApiClient.Deserialize(response.Content, typeof(PaymentListResponse));
+            return (PaymentListResponse)_apiClient.Deserialize(response.Content, typeof(PaymentListResponse));
         }
 
         /// <summary>
@@ -337,7 +325,7 @@ namespace Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
 
         /// <summary>
@@ -369,7 +357,7 @@ namespace Service
 
             var path = "/payments/{payment_id}/unapply";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "payment_id" + "}", ApiClient.ParameterToString(paymentId));
+            path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -385,20 +373,20 @@ namespace Service
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Put, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Put, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnapplyPayment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UnapplyPayment: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Payment)ApiClient.Deserialize(response.Content, typeof(Payment));
+            return (Payment)_apiClient.Deserialize(response.Content, typeof(Payment));
         }
 
         /// <summary>
@@ -430,7 +418,7 @@ namespace Service
 
             var path = "/payments/{payment_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "payment_id" + "}", ApiClient.ParameterToString(paymentId));
+            path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -446,20 +434,20 @@ namespace Service
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePayment: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePayment: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Payment)ApiClient.Deserialize(response.Content, typeof(Payment));
+            return (Payment)_apiClient.Deserialize(response.Content, typeof(Payment));
         }
     }
 }

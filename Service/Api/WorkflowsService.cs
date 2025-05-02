@@ -2,6 +2,7 @@ using RestSharp;
 using Service.Interfaces;
 using Service.Client;
 using Service.Models;
+using EasyCaching.Core;
 
 namespace Service
 {
@@ -10,43 +11,21 @@ namespace Service
     /// </summary>
     public class WorkflowsService : IWorkflowsService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly ApiClient _apiClient;
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowsService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
         public WorkflowsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-           
-            else
-                this.ApiClient = apiClient;
+
+            _apiClient = apiClient;
+            _cache = cache;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowsService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public WorkflowsService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath, _cache);
-        }
-
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
-
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public string GetBasePath(string basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
+     
 
         /// <summary>
         /// Run a workflow Run a specified workflow. In the request body, you can include parameters that you want to pass to the workflow. For the parameters to be recognized and picked up by tasks in the workflow, you need to define the parameters first.
@@ -69,7 +48,7 @@ namespace Service
 
             var path = "/workflows/{workflow_id}/run";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "workflow_id" + "}", ApiClient.ParameterToString(workflowId));
+            path = path.Replace("{" + "workflow_id" + "}", _apiClient.ParameterToString(workflowId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -77,20 +56,20 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling RunWorkflow: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling RunWorkflow: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (WorkflowRun)ApiClient.Deserialize(response.Content, typeof(WorkflowRun));
+            return (WorkflowRun)_apiClient.Deserialize(response.Content, typeof(WorkflowRun));
         }
 
         /// <summary>
@@ -100,7 +79,7 @@ namespace Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
     }
 }
