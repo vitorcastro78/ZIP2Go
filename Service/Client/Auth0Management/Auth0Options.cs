@@ -1,4 +1,4 @@
-﻿namespace ZIP2GO.Service.Client.Auth0Management
+﻿namespace Service.Client.Auth0Management
 {
     public class Auth0Options
     {

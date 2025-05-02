@@ -30,7 +30,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.AccountsController.CreateAccount(ZIP2GO.Service.Models.AccountCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.AccountsController.CreateAccount(Service.Models.AccountCreateRequest)">
             <summary>
             Creates a new account in the system.
             </summary>
@@ -48,7 +48,7 @@
             <param name="async">Whether to perform the operation asynchronously</param>
             <returns>NoContent if successful</returns>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.AccountsController.GenerateBillingDocuments(ZIP2GO.Service.Models.GenerateBillingDocumentsAccountRequest,System.String,System.String,System.Boolean)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.AccountsController.GenerateBillingDocuments(Service.Models.GenerateBillingDocumentsAccountRequest,System.String,System.String,System.Boolean)">
             <summary>
             Generates billing documents for an account
             </summary>
@@ -74,7 +74,7 @@
             <returns>A paginated list of accounts</returns>
             <response code="200">List of accounts retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.AccountsController.UpdateAccount(ZIP2GO.Service.Models.AccountPatchRequest,System.String,System.String,System.Boolean)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.AccountsController.UpdateAccount(Service.Models.AccountPatchRequest,System.String,System.String,System.Boolean)">
             <summary>
             Updates an existing account's information.
             </summary>
@@ -103,7 +103,7 @@
             <response code="429">Too many requests</response>
             <response code="500">Internal server error</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.BillingDocumentItemsApiController.CreateBillingDocumentItem(ZIP2GO.Service.Models.BillingDocumentItem)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.BillingDocumentItemsApiController.CreateBillingDocumentItem(Service.Models.BillingDocumentItem)">
             <summary>
             Creates a new invoice
             </summary>
@@ -160,7 +160,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.BillingDocumentsApiController.CreateBillingDocument(ZIP2GO.Service.Models.BillingDocumentCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.BillingDocumentsApiController.CreateBillingDocument(Service.Models.BillingDocumentCreateRequest)">
             <summary>
             Creates a new billing document.
             </summary>
@@ -190,7 +190,7 @@
             
              </summary>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.BillRunPreviewsApiController.CreateBillRunPreview(ZIP2GO.Service.Models.BillRunPreviewCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.BillRunPreviewsApiController.CreateBillRunPreview(Service.Models.BillRunPreviewCreateRequest)">
             <summary>
             Create a bill run preview
             </summary>
@@ -275,7 +275,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.BillRunsApiController.CreateBillRun(ZIP2GO.Service.Models.BillRunCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.BillRunsApiController.CreateBillRun(Service.Models.BillRunCreateRequest)">
             <summary>
             Create a bill run
             </summary>
@@ -378,7 +378,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.BillRunsApiController.PostBillRun(ZIP2GO.Service.Models.BillRunCreateRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.BillRunsApiController.PostBillRun(Service.Models.BillRunCreateRequest,System.String)">
             <summary>
             Post a bill run
             </summary>
@@ -421,7 +421,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.ContactsApiController.CreateContact(ZIP2GO.Service.Models.ContactCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.ContactsApiController.CreateContact(Service.Models.ContactCreateRequest)">
             <summary>
             Creates a new contact.
             </summary>
@@ -496,7 +496,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.ContactsApiController.UpdateContact(ZIP2GO.Service.Models.ContactPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.ContactsApiController.UpdateContact(Service.Models.ContactPatchRequest,System.String)">
             <summary>
             Updates an existing contact's information.
             </summary>
@@ -512,7 +512,7 @@
             Provides endpoints for creating, updating, deleting, and querying credit memos.
             </summary>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.CreditMemosController.#ctor(ZIP2GO.Service.ICreditMemosService,Microsoft.AspNetCore.Http.IHttpContextAccessor,EasyCaching.Core.IEasyCachingProvider)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.CreditMemosController.#ctor(Service.ICreditMemosService,Microsoft.AspNetCore.Http.IHttpContextAccessor,EasyCaching.Core.IEasyCachingProvider)">
             <summary>
             Initializes a new instance of the credit memos controller.
             </summary>
@@ -521,7 +521,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.CreditMemosController.CreateCreditMemo(ZIP2GO.Service.Models.CreditMemoCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.CreditMemosController.CreateCreditMemo(Service.Models.CreditMemoCreateRequest)">
             <summary>
             Creates a new credit memo.
             </summary>
@@ -546,7 +546,7 @@
             <returns>A paginated list of credit memos</returns>
             <response code="200">List of credit memos retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.CreditMemosController.UpdateCreditMemo(ZIP2GO.Service.Models.CreditMemoPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.CreditMemosController.UpdateCreditMemo(Service.Models.CreditMemoPatchRequest,System.String)">
             <summary>
             Updates an existing credit memo.
             </summary>
@@ -716,7 +716,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.DebitMemosController.CreateDebitMemo(ZIP2GO.Service.Models.DebitMemoCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.DebitMemosController.CreateDebitMemo(Service.Models.DebitMemoCreateRequest)">
             <summary>
             Creates a new debit memo.
             </summary>
@@ -741,7 +741,7 @@
             <returns>A paginated list of debit memos</returns>
             <response code="200">List of debit memos retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.DebitMemosController.UpdateDebitMemo(ZIP2GO.Service.Models.DebitMemoPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.DebitMemosController.UpdateDebitMemo(Service.Models.DebitMemoPatchRequest,System.String)">
             <summary>
             Updates an existing debit memo.
             </summary>
@@ -766,7 +766,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentItemsController.CreateFulfillmentItem(ZIP2GO.Service.Models.FulfillmentItemCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentItemsController.CreateFulfillmentItem(Service.Models.FulfillmentItemCreateRequest)">
             <summary>
             Creates a new fulfillment item.
             </summary>
@@ -791,7 +791,7 @@
             <returns>A paginated list of fulfillment items</returns>
             <response code="200">List of fulfillment items retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentItemsController.UpdateFulfillmentItem(ZIP2GO.Service.Models.FulfillmentItemPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentItemsController.UpdateFulfillmentItem(Service.Models.FulfillmentItemPatchRequest,System.String)">
             <summary>
             Updates an existing fulfillment item.
             </summary>
@@ -816,7 +816,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentsApiController.CreateFulfillment(ZIP2GO.Service.Models.FulfillmentCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentsApiController.CreateFulfillment(Service.Models.FulfillmentCreateRequest)">
             <summary>
             Creates a new fulfillment.
             </summary>
@@ -825,7 +825,7 @@
             <response code="201">Fulfillment created successfully</response>
             <response code="400">Invalid fulfillment data</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentsApiController.CreateFulfillments(ZIP2GO.Service.Models.FulfillmentCreateBulkRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentsApiController.CreateFulfillments(Service.Models.FulfillmentCreateBulkRequest)">
             <summary>
             Creates multiple fulfillments
             </summary>
@@ -855,7 +855,7 @@
             <returns>A paginated list of fulfillments</returns>
             <response code="200">List of fulfillments retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentsApiController.UpdateFulfillment(ZIP2GO.Service.Models.FulfillmentPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.FulfillmentsApiController.UpdateFulfillment(Service.Models.FulfillmentPatchRequest,System.String)">
             <summary>
             Updates an existing fulfillment.
             </summary>
@@ -902,7 +902,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.CreateInvoice(ZIP2GO.Service.Models.InvoiceCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.CreateInvoice(Service.Models.InvoiceCreateRequest)">
             <summary>
             Create an invoice
             </summary>
@@ -1072,7 +1072,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.PatchInvoice(ZIP2GO.Service.Models.InvoicePatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.PatchInvoice(Service.Models.InvoicePatchRequest,System.String)">
             <summary>
             Update an invoice
             </summary>
@@ -1105,7 +1105,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.PayInvoice(ZIP2GO.Service.Models.PayInvoiceRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.PayInvoice(Service.Models.PayInvoiceRequest,System.String)">
             <summary>
             Pay an invoice
             </summary>
@@ -1170,7 +1170,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.ReverseInvoice(ZIP2GO.Service.Models.InvoiceReverseRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.ReverseInvoice(Service.Models.InvoiceReverseRequest,System.String)">
             <summary>
             Reverse an invoice
             </summary>
@@ -1235,7 +1235,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.WriteOffInvoice(ZIP2GO.Service.Models.WriteOffRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.InvoicesApiController.WriteOffInvoice(Service.Models.WriteOffRequest,System.String)">
             <summary>
             Write off an invoice
             </summary>
@@ -1301,7 +1301,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.OrderLineItemsApiController.PatchOrderLineItem(ZIP2GO.Service.Models.LineItemPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.OrderLineItemsApiController.PatchOrderLineItem(Service.Models.LineItemPatchRequest,System.String)">
             <summary>
             Update an order line item
             </summary>
@@ -1371,7 +1371,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.OrdersApiController.CancelOrder(ZIP2GO.Service.Models.OrderCancellationRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.OrdersApiController.CancelOrder(Service.Models.OrderCancellationRequest,System.String)">
             <summary>
             Cancel an order
             </summary>
@@ -1405,7 +1405,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.OrdersApiController.CreateOrder(ZIP2GO.Service.Models.OrderCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.OrdersApiController.CreateOrder(Service.Models.OrderCreateRequest)">
             <summary>
             Create an order
             </summary>
@@ -1438,7 +1438,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.OrdersApiController.CreateOrderPreview(ZIP2GO.Service.Models.OrderPreviewCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.OrdersApiController.CreateOrderPreview(Service.Models.OrderPreviewCreateRequest)">
             <summary>
             Preview an order
             </summary>
@@ -1564,7 +1564,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentMethodsController.CreatePaymentMethod(ZIP2GO.Service.Models.PaymentMethodCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentMethodsController.CreatePaymentMethod(Service.Models.PaymentMethodCreateRequest)">
             <summary>
             Creates a new payment method.
             </summary>
@@ -1598,7 +1598,7 @@
             <response code="204">Payment method scrubbed successfully</response>
             <response code="404">Payment method not found</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentMethodsController.UpdatePaymentMethod(ZIP2GO.Service.Models.PaymentMethodPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentMethodsController.UpdatePaymentMethod(Service.Models.PaymentMethodPatchRequest,System.String)">
             <summary>
             Updates an existing payment method.
             </summary>
@@ -1623,7 +1623,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentRunsController.CreatePaymentRun(ZIP2GO.Service.Models.PaymentRunCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentRunsController.CreatePaymentRun(Service.Models.PaymentRunCreateRequest)">
             <summary>
             Creates a new payment run.
             </summary>
@@ -1648,7 +1648,7 @@
             <returns>A paginated list of payment runs</returns>
             <response code="200">List of payment runs retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentRunsController.UpdatePaymentRun(ZIP2GO.Service.Models.PaymentRunPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentRunsController.UpdatePaymentRun(Service.Models.PaymentRunPatchRequest,System.String)">
             <summary>
             Updates an existing payment run.
             </summary>
@@ -1673,7 +1673,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentsController.CreatePayment(ZIP2GO.Service.Models.PaymentCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentsController.CreatePayment(Service.Models.PaymentCreateRequest)">
             <summary>
             Creates a new payment.
             </summary>
@@ -1698,7 +1698,7 @@
             <returns>A paginated list of payments</returns>
             <response code="200">List of payments retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentsController.UpdatePayment(ZIP2GO.Service.Models.PaymentPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentsController.UpdatePayment(Service.Models.PaymentPatchRequest,System.String)">
             <summary>
             Updates an existing payment.
             </summary>
@@ -1741,7 +1741,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentScheduleItemsApiController.CreatePaymentScheduleItem(ZIP2GO.Service.Models.PaymentScheduleItemCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentScheduleItemsApiController.CreatePaymentScheduleItem(Service.Models.PaymentScheduleItemCreateRequest)">
             <summary>
             Create a payment schedule item
             </summary>
@@ -1776,7 +1776,7 @@
             <param name="paymentScheduleItemId">The ID of the payment schedule item to retrieve</param>
             <returns>The requested payment schedule item details</returns>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentScheduleItemsApiController.RetryPaymentScheduleItem(ZIP2GO.Service.Models.PaymentScheduleItemRetry,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentScheduleItemsApiController.RetryPaymentScheduleItem(Service.Models.PaymentScheduleItemRetry,System.String)">
             <summary>
             Retries a failed payment schedule item
             </summary>
@@ -1791,7 +1791,7 @@
             <param name="paymentScheduleItemId">The ID of the payment schedule item to skip</param>
             <returns>The skipped payment schedule item</returns>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentScheduleItemsApiController.UpdatePaymentScheduleItem(ZIP2GO.Service.Models.PaymentScheduleItemPatch,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentScheduleItemsApiController.UpdatePaymentScheduleItem(Service.Models.PaymentScheduleItemPatch,System.String)">
             <summary>
             Updates a payment schedule item
             </summary>
@@ -1804,7 +1804,7 @@
             
              </summary>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentSchedulesApiController.CancelPaymentSchedule(ZIP2GO.Service.Models.PaymentScheduleCancel,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentSchedulesApiController.CancelPaymentSchedule(Service.Models.PaymentScheduleCancel,System.String)">
             <summary>
             Cancel a payment schedule
             </summary>
@@ -1833,7 +1833,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentSchedulesApiController.CreatePaymentSchedule(ZIP2GO.Service.Models.PaymentScheduleCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentSchedulesApiController.CreatePaymentSchedule(Service.Models.PaymentScheduleCreateRequest)">
             <summary>
             Create a payment schedule
             </summary>
@@ -1888,7 +1888,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentSchedulesApiController.UpdatePaymentSchedule(ZIP2GO.Service.Models.PaymentSchedulePatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PaymentSchedulesApiController.UpdatePaymentSchedule(Service.Models.PaymentSchedulePatchRequest,System.String)">
             <summary>
             Update a payment schedule
             </summary>
@@ -1922,7 +1922,7 @@
             
              </summary>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PlansApiController.CreatePlan(ZIP2GO.Service.Models.PlanCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PlansApiController.CreatePlan(Service.Models.PlanCreateRequest)">
             <summary>
             Create a plan
             </summary>
@@ -2031,7 +2031,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PlansApiController.UpdatePlan(ZIP2GO.Service.Models.PlanPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PlansApiController.UpdatePlan(Service.Models.PlanPatchRequest,System.String)">
             <summary>
             Update a plan
             </summary>
@@ -2066,7 +2066,7 @@
             
              </summary>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PricesController.CreatePrice(ZIP2GO.Service.Models.PriceCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PricesController.CreatePrice(Service.Models.PriceCreateRequest)">
             <summary>
             Create a price
             </summary>
@@ -2169,7 +2169,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.PricesController.PatchPrice(ZIP2GO.Service.Models.PricePatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.PricesController.PatchPrice(Service.Models.PricePatchRequest,System.String)">
             <summary>
             Update a price
             </summary>
@@ -2212,7 +2212,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.ProductsController.CreateProduct(ZIP2GO.Service.Models.ProductCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.ProductsController.CreateProduct(Service.Models.ProductCreateRequest)">
             <summary>
             Creates a new product.
             </summary>
@@ -2244,7 +2244,7 @@
             <returns>A paginated list of products</returns>
             <response code="200">List of products retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.ProductsController.UpdateProduct(ZIP2GO.Service.Models.ProductPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.ProductsController.UpdateProduct(Service.Models.ProductPatchRequest,System.String)">
             <summary>
             Updates an existing product.
             </summary>
@@ -2276,7 +2276,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.QueryRunsController.CreateQueryRun(ZIP2GO.Service.Models.QueryRunCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.QueryRunsController.CreateQueryRun(Service.Models.QueryRunCreateRequest)">
             <summary>
             Create a query run
             </summary>
@@ -2325,7 +2325,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.RefundsController.CreateRefund(ZIP2GO.Service.Models.RefundCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.RefundsController.CreateRefund(Service.Models.RefundCreateRequest)">
             <summary>
             Creates a new refund.
             </summary>
@@ -2350,7 +2350,7 @@
             <returns>A paginated list of refunds</returns>
             <response code="200">List of refunds retrieved successfully</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.RefundsController.UpdateRefund(ZIP2GO.Service.Models.RefundPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.RefundsController.UpdateRefund(Service.Models.RefundPatchRequest,System.String)">
             <summary>
             Updates an existing refund.
             </summary>
@@ -2492,7 +2492,7 @@
             <response code="404">Subscription not found</response>
             <response code="400">Subscription cannot be cancelled</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.SubscriptionsController.CreateSubscription(ZIP2GO.Service.Models.SubscriptionCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.SubscriptionsController.CreateSubscription(Service.Models.SubscriptionCreateRequest)">
             <summary>
             Creates a new subscription.
             </summary>
@@ -2527,7 +2527,7 @@
             <response code="404">Subscription not found</response>
             <response code="400">Subscription cannot be renewed</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.SubscriptionsController.UpdateSubscription(ZIP2GO.Service.Models.SubscriptionPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.SubscriptionsController.UpdateSubscription(Service.Models.SubscriptionPatchRequest,System.String)">
             <summary>
             Updates an existing subscription.
             </summary>
@@ -2552,7 +2552,7 @@
             <param name="cache">Cache provider</param>
             <exception cref="T:System.ArgumentNullException">Thrown when any dependency is null</exception>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.TaxationItemsController.CreateTaxationItem(ZIP2GO.Service.Models.TaxationItemCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.TaxationItemsController.CreateTaxationItem(Service.Models.TaxationItemCreateRequest)">
             <summary>
             Creates a new taxation item.
             </summary>
@@ -2619,7 +2619,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.TaxationItemsController.UpdateTaxationItem(ZIP2GO.Service.Models.TaxationItemPatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.TaxationItemsController.UpdateTaxationItem(Service.Models.TaxationItemPatchRequest,System.String)">
             <summary>
             Updates an existing taxation item.
             </summary>
@@ -2642,7 +2642,7 @@
             
              </summary>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.UsageRecordsApiController.CreateUsageRecord(ZIP2GO.Service.Models.UsageCreateRequest)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.UsageRecordsApiController.CreateUsageRecord(Service.Models.UsageCreateRequest)">
             <summary>
             Creates a new usage record
             </summary>
@@ -2709,7 +2709,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.UsageRecordsApiController.UpdateUsage(ZIP2GO.Service.Models.UsagePatchRequest,System.String)">
+        <member name="M:ZIP2GO.WebAPI.Controllers.UsageRecordsApiController.UpdateUsage(Service.Models.UsagePatchRequest,System.String)">
             <summary>
             Updates a usage record
             </summary>
@@ -2749,7 +2749,7 @@
             <response code="503">Service Unavailable</response>
             <response code="504">Gateway Timeout</response>
         </member>
-        <member name="M:ZIP2GO.WebAPI.Controllers.WorkflowsApiController.RunWorkflow(ZIP2GO.Service.Models.RunWorkflowRequest,System.Nullable{System.Int32})">
+        <member name="M:ZIP2GO.WebAPI.Controllers.WorkflowsApiController.RunWorkflow(Service.Models.RunWorkflowRequest,System.Nullable{System.Int32})">
             <summary>
             Run a workflow
             </summary>

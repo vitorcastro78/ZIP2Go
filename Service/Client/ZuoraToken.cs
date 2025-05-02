@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace ZIP2GO.Service.Client
+namespace Service.Client
 {
     public class ZuoraToken
     {

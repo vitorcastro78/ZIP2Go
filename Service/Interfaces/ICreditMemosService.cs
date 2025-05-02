@@ -1,6 +1,6 @@
-﻿using ZIP2GO.Service.Models;
+﻿using Service.Models;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     public interface ICreditMemosService
     {

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// If the &#x60;type&#x60; of the payment method is &#x60;ach_debit&#x60;, this hash contains details about the ACH bank account.

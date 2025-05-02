@@ -1,9 +1,9 @@
 ﻿using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Service responsible for managing accounts in the system.
@@ -18,10 +18,10 @@ namespace ZIP2GO.Service
         /// <param name="cache">Cache provider for storing account data</param>
         /// <param name="apiClient">API client for making HTTP requests (optional)</param>
         /// <exception cref="ArgumentNullException">Thrown when cache provider is null</exception>
-        public AccountsService(ApiClient apiClient = null)
+        public AccountsService(ApiClient apiClient)
         {
             if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
+           
             else
                 this.ApiClient = apiClient;
 

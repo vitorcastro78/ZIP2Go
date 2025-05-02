@@ -3,12 +3,14 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using Service.Client;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace ZIP2GO.Service.Client
+
+namespace Service.Client
 {
     public static class AppSettings
     {
@@ -58,10 +60,10 @@ namespace ZIP2GO.Service.Client
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(string Basepath = "", IEasyCachingProvider _cache = null)
+        public ApiClient(string Basepath, IEasyCachingProvider cache)
         {
             // apiAuthClient = new ApiAuthClient(_cache);
-            this._cache = _cache;
+            this._cache = cache;
             using (StreamReader r = new StreamReader(Directory.GetCurrentDirectory() + $"\\config.json"))
             {
                 var tst = r.ReadToEnd().ToString();
@@ -320,7 +322,12 @@ namespace ZIP2GO.Service.Client
 
         public string GetToken()
         {
-            var token = _cache.Get<ZuoraToken>("ZuoraToken").Value;
+            var token = new ZuoraToken();
+
+            if (_cache != null && _cache.Exists("ZuoraToken"))
+            {
+                token = _cache.Get<ZuoraToken>("ZuoraToken").Value; 
+            }
             if (token != null && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
             {
                 // _logger.LogDebug($"Token expires in more than 60 seconds at {token.ExpiresAt}. Re-using token.");

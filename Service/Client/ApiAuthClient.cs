@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace ZIP2GO.Service.Client
+namespace Service.Client
 {
     /// <summary>
     /// API client is mainly responsible for making the HTTP call to the API backend.

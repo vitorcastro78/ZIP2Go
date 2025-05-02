@@ -1,9 +1,10 @@
 using EasyCaching.SQLite;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.OpenApi.Models;
+using Service.Client;
 using ZIP2Go.WebAPI.Extensions;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Client.Auth0Management;
+using Service.Client;
+using Service.Client.Auth0Management;
 using ZIP2GO.WebAPI.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,18 +14,6 @@ builder.Configuration.GetSection("Zuora").Get<ZuoraOptions>();
 
 // Add services to the container.
 ConfigureServices(builder.Services);
-
-// Registrar os serviços da aplicação
-builder.Services.AddApplicationServices();
-
-// Registrar o HttpContextAccessor
-builder.Services.AddHttpContextAccessor();
-
-// Registrar o EasyCaching
-builder.Services.AddEasyCaching(options =>
-{
-    options.UseSQLite(builder.Configuration);
-});
 
 var app = builder.Build();
 
@@ -81,6 +70,12 @@ static void ConfigureServices(IServiceCollection services)
         //adicionado por instância
         options.Filters.Add(new ActionFilter());
     });
+
+    // Registrar os serviços da aplicação
+    services.AddApplicationServices();
+
+    // Registrar o HttpContextAccessor
+    services.AddHttpContextAccessor();
 }
 
 static void ConfigureAuth0Service(IServiceCollection services, IConfiguration configuration)

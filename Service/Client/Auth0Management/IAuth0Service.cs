@@ -1,6 +1,6 @@
-﻿using ZIP2GO.Service.Client.Auth0Management.Models;
+﻿using Service.Client.Auth0Management.Models;
 
-namespace ZIP2GO.Service.Client.Auth0Management
+namespace Service.Client.Auth0Management
 {
     public interface IAuth0Service
     {

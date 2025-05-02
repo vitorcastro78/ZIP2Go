@@ -1,4 +1,4 @@
-﻿namespace ZIP2GO.Service.Client.Auth0Management.Models
+﻿namespace Service.Client.Auth0Management.Models
 {
     public class Auth0AccountResponse
     {

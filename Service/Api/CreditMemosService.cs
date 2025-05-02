@@ -1,41 +1,29 @@
+using EasyCaching.Core;
 using RestSharp;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public class CreditMemosService : ICreditMemosService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly ApiClient _apiClient;
         /// <summary>
-        /// Initializes a new instance of the <see cref="CreditMemosService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public CreditMemosService(ApiClient apiClient = null)
+        public CreditMemosService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
-            else
-                this.ApiClient = apiClient;
+
+            _apiClient = apiClient;
+            _cache = cache;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CreditMemosService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public CreditMemosService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath);
-        }
-
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Apply a credit memo Apply a credit memo to one or more other billing documents.
@@ -67,7 +55,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}/apply";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -75,20 +63,20 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ApplyCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling ApplyCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -118,7 +106,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}/cancel";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -126,18 +114,18 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -174,20 +162,20 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -208,7 +196,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -216,11 +204,11 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Delete, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling DeleteCreditMemo: " + response.Content, response.Content);
@@ -237,7 +225,7 @@ namespace ZIP2GO.Service
         /// <value>The base path</value>
         public string GetBasePath(string basePath)
         {
-            return this.ApiClient.BasePath;
+            return this._apiClient.BasePath;
         }
 
         /// <summary>
@@ -266,7 +254,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -276,18 +264,18 @@ namespace ZIP2GO.Service
 
             //// if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -317,18 +305,18 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCreditMemoItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCreditMemoItems: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemoItemListResponse)ApiClient.Deserialize(response.Content, typeof(CreditMemoItemListResponse));
+            return (CreditMemoItemListResponse)_apiClient.Deserialize(response.Content, typeof(CreditMemoItemListResponse));
         }
 
         /// <summary>
@@ -362,18 +350,18 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCreditMemos: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCreditMemos: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemoListResponse)ApiClient.Deserialize(response.Content, typeof(CreditMemoListResponse));
+            return (CreditMemoListResponse)_apiClient.Deserialize(response.Content, typeof(CreditMemoListResponse));
         }
 
         /// <summary>
@@ -406,7 +394,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -414,20 +402,20 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -457,7 +445,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}/post";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -465,18 +453,18 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PostCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -486,7 +474,7 @@ namespace ZIP2GO.Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
 
         /// <summary>
@@ -519,7 +507,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}/unapply";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -527,19 +515,19 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnapplyCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UnapplyCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
         /// <summary>
@@ -569,7 +557,7 @@ namespace ZIP2GO.Service
 
             var path = "/credit_memos/{credit_memo_id}/unpost";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "credit_memo_id" + "}", ApiClient.ParameterToString(creditMemoId));
+            path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -577,19 +565,19 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
             // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostCreditMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostCreditMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CreditMemo)ApiClient.Deserialize(response.Content, typeof(CreditMemo));
+            return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
     }
 }

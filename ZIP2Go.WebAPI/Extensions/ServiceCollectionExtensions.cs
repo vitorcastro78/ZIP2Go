@@ -1,5 +1,5 @@
 using Service.Interfaces;
-using ZIP2GO.Service;
+using Service;
 
 namespace ZIP2Go.WebAPI.Extensions
 {

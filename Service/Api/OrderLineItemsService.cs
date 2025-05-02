@@ -1,52 +1,30 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
+using EasyCaching.Core;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public class OrderLineItemsService : IOrderLineItemsService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly ApiClient _apiClient;
         /// <summary>
-        /// Initializes a new instance of the <see cref="OrderLineItemsService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public OrderLineItemsService(ApiClient apiClient = null)
+        public OrderLineItemsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
-            else
-                this.ApiClient = apiClient;
-        }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OrderLineItemsService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public OrderLineItemsService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath);
+            _apiClient = apiClient;
+            _cache = cache;
         }
-
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
-
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public string GetBasePath(string basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
+       
 
         /// <summary>
         /// Retrieve an order line item Use this operation to retrieve the detailed information about a specific order line item.
@@ -64,14 +42,14 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>OrderLineItem</returns>
-        public OrderLineItem GetOrderLineItem(string orderLineItemId, List<string> fields, List<string> lineItemFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async)
+        public OrderLineItem GetOrderLineItem(string orderLineItemId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'orderLineItemId' is set
             if (orderLineItemId == null) throw new ApiException(400, "Missing required parameter 'orderLineItemId' when calling GetOrderLineItem");
 
             var path = "/order_line_items/{order_line_item_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "order_line_item_id" + "}", ApiClient.ParameterToString(orderLineItemId));
+            path = path.Replace("{" + "order_line_item_id" + "}", _apiClient.ParameterToString(orderLineItemId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -79,23 +57,23 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (lineItemFields != null) queryParams.Add("line_item.fields[]", ApiClient.ParameterToString(lineItemFields)); // query parameter
-            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            //if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            //if (lineItemFields != null) queryParams.Add("line_item.fields[]", _apiClient.ParameterToString(lineItemFields)); // query parameter
+            //if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", _apiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            //if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetOrderLineItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetOrderLineItem: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (OrderLineItem)ApiClient.Deserialize(response.Content, typeof(OrderLineItem));
+            return (OrderLineItem)_apiClient.Deserialize(response.Content, typeof(OrderLineItem));
         }
 
         /// <summary>
@@ -116,7 +94,7 @@ namespace ZIP2GO.Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>OrderLineItem</returns>
-        public OrderLineItem PatchOrderLineItem(LineItemPatchRequest body, string orderLineItemId, string zuoraTrackId, bool? async, List<string> fields, List<string> lineItemFields, List<string> invoiceItemsFields, List<string> expand, List<string> filter, int? pageSize)
+        public OrderLineItem PatchOrderLineItem(LineItemPatchRequest body, string orderLineItemId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PatchOrderLineItem");
@@ -125,7 +103,7 @@ namespace ZIP2GO.Service
 
             var path = "/order_line_items/{order_line_item_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "order_line_item_id" + "}", ApiClient.ParameterToString(orderLineItemId));
+            path = path.Replace("{" + "order_line_item_id" + "}", _apiClient.ParameterToString(orderLineItemId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -133,26 +111,26 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (lineItemFields != null) queryParams.Add("line_item.fields[]", ApiClient.ParameterToString(lineItemFields)); // query parameter
-            if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", ApiClient.ParameterToString(invoiceItemsFields)); // query parameter
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            //if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            //if (lineItemFields != null) queryParams.Add("line_item.fields[]", _apiClient.ParameterToString(lineItemFields)); // query parameter
+            //if (invoiceItemsFields != null) queryParams.Add("invoice_items.fields[]", _apiClient.ParameterToString(invoiceItemsFields)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            //if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchOrderLineItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchOrderLineItem: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (OrderLineItem)ApiClient.Deserialize(response.Content, typeof(OrderLineItem));
+            return (OrderLineItem)_apiClient.Deserialize(response.Content, typeof(OrderLineItem));
         }
 
         /// <summary>
@@ -162,7 +140,7 @@ namespace ZIP2GO.Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
     }
 }

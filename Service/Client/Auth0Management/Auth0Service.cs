@@ -5,9 +5,9 @@ using Auth0.ManagementApi.Models;
 using Auth0.ManagementApi.Paging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
-using ZIP2GO.Service.Client.Auth0Management.Models;
+using Service.Client.Auth0Management.Models;
 
-namespace ZIP2GO.Service.Client.Auth0Management
+namespace Service.Client.Auth0Management
 {
     public class Auth0Service : IAuth0Service
     {

@@ -5,7 +5,7 @@ using System.Text;
 namespace ZIP2GO.Repository.Models
 {
     /// <summary>
-    /// If the &#x60;type&#x60; of the payment method is &#x60;bacs_debit&#x60;,, this hash contains details about the BACS bank account.
+    /// If the &#x60;type&#x60; of the payment method is &#x60;bacs_debit&#x60;, this hash contains details about the BACS bank account.
     /// </summary>
     [DataContract]
     public class BacsDebit
