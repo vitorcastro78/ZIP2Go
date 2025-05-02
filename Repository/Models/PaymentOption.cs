@@ -11,19 +11,19 @@ namespace ZIP2GO.Repository.Models
     public class PaymentOption
     {
         /// <summary>
+        /// Gets or Sets Detail
+        /// </summary>
+        [DataMember(Name = "detail", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
+        public Detail Detail { get; set; }
+
+        /// <summary>
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Detail
-        /// </summary>
-        [DataMember(Name = "detail", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
-        public Detail Detail { get; set; }
 
         /// <summary>
         /// Gets or Sets Type

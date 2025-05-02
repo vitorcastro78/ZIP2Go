@@ -96,7 +96,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the taxation item related to the invoice. Only applicable for credit memos created from invoices.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The jurisdiction that applies the tax or VAT. This value is typically a state, province, county, or city.

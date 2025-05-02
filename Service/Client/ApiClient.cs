@@ -1,38 +1,58 @@
 using EasyCaching.Core;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RestSharp;
-using System;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
 namespace ZIP2GO.Service.Client
 {
+    public static class AppSettings
+    {
+        private static IConfiguration _configuration;
+
+        static AppSettings()
+        {
+            // read JSON directly from a file
+        }
+
+        public static T GetSection<T>(string sectionName) where T : class, new()
+        {
+            return _configuration.GetSection(sectionName).Get<T>();
+        }
+
+        public static string GetValue(string key)
+        {
+            return _configuration[key];
+        }
+    }
+
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
     /// </summary>
-    public class ApiClient 
+    public class ApiClient
     {
-        private string zuoraTrackId;
-        private bool? _allowAsync;
-        private string zuoraEntityIds;
-        private string idempotencyKey;
-        private string acceptEncoding;
-        private string contentEncoding;
-        public string BasePath { get; set; }
+        private readonly IEasyCachingProvider _cache;
 
         private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
-        private readonly IEasyCachingProvider _cache;
-        private readonly ApiAuthClient apiAuthClient;
+
+        private bool? _allowAsync;
+
+        ///private readonly ApiAuthClient apiAuthClient;
         private ZuoraOptions _options;
+
+        private string acceptEncoding;
+
+        private string contentEncoding;
+
+        private string idempotencyKey;
+
+        private string zuoraEntityIds;
+
+        private string zuoraTrackId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
@@ -53,16 +73,14 @@ namespace ZIP2GO.Service.Client
                 idempotencyKey = _options.ZuoraIdempotencyKey;
                 RestClient = new RestClient(BasePath);
             }
-
-
         }
 
+        public string BasePath { get; set; }
 
         /// <summary>
         /// Gets or sets the base path.
         /// </summary>
         /// <value>The base path</value>
-
 
         /// <summary>
         /// Gets the default header.
@@ -125,58 +143,44 @@ namespace ZIP2GO.Service.Client
         /// <returns>Object</returns>
         public Object CallApi(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody, bool? async = true)
         {
-            Dictionary<string, string>? headerParams = new Dictionary<string, string>();
-
+            var headerParams = new Dictionary<string, string>();
+            var request = new RestRequest(path, method);
+            var response = new Object();
             //var auth = apiAuthClient.OAuthClient;
 
-            this.GetToken();
+            var token = this.GetToken();
 
             string[]? authSettings = null;
             if (!string.IsNullOrEmpty(_options.ZuoraTrackId.ToString()))
-                headerParams.Add("zuora-track-id", _options.ZuoraTrackId.ToString()); // header parameter
+                headerParams.Add("zuora-track-id", _options.ZuoraTrackId.ToString());
             if (!string.IsNullOrEmpty(async.ToString()))
-                headerParams.Add("async", async.ToString()); // header parameter
-            if(!string.IsNullOrEmpty(_options.ZuoraEntityId))
-            headerParams.Add("zuora-entity-ids", _options.ZuoraEntityId); // header parameter
-            
+                headerParams.Add("async", async.ToString());
+            if (!string.IsNullOrEmpty(_options.ZuoraEntityId))
+                headerParams.Add("zuora-entity-ids", _options.ZuoraEntityId);
+            if (!string.IsNullOrEmpty(token))
+                headerParams.Add("Authorization", "Bearer " + token);
+
             if (method == Method.Patch || method == Method.Post)
             {
                 if (!string.IsNullOrEmpty(_options.ZuoraIdempotencyKey))
                     headerParams.Add("idempotency-key", _options.ZuoraIdempotencyKey); // header parameter
             }
 
-            //headerParams.Add("accept-encoding", "gzip"); // header parameter
-            //headerParams.Add("content-encoding", "gzip "); // header parameter
-
-
-            var request = new RestRequest(path, method);
-            var response = new Object();
             UpdateParamsForAuth(queryParams, headerParams, authSettings);
 
-            // add default header, if any
             foreach (var defaultHeader in _defaultHeaderMap)
                 request.AddHeader(defaultHeader.Key, defaultHeader.Value);
 
-            // add header parameter, if any
             foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
 
-            // add query parameter, if any
             foreach (var param in queryParams)
                 request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add form parameter, if any
-            //foreach (var param in formParams)
-            //    request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add file parameter, if any
-            //// foreach(var param in fileParams)
-            ////    request.AddFile(param.Value.Name, param.Value, param.Value.FileName, param.Value.ContentType);
 
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-           var ret = Deserialize(RestClient.Execute(request).Content, typeof(Object));
+            var ret = Deserialize(RestClient.Execute(request).Content, typeof(Object));
 
             return RestClient.Execute(request);
         }
@@ -233,50 +237,6 @@ namespace ZIP2GO.Service.Client
             {
                 return cachingTrigger.GetCachingTrigger<T>(Id);
             }
-        }
-
-        public string GetToken()
-        {
-            var token = _cache.Get<ZuoraToken>("ZuoraToken").Value;
-            if (token != null && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
-            {
-               // _logger.LogDebug($"Token expires in more than 60 seconds at {token.ExpiresAt}. Re-using token.");
-                return token.Access_token;
-            }
-
-           // _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
-            var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
-            var nameValueCollection = new Dictionary<string, string>
-                {
-                    { "grant_type", "client_credentials" },
-                    { "client_id", _options.ClientID },
-                    { "client_secret", _options.ClientSecret }
-                };
-
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(_options.BaseUrl);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
-
-            var result = httpClient.PostAsync($"{_options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
-            if (!result.IsSuccessStatusCode)
-            {
-                var errorMessage = result.Content.ReadAsStringAsync().Result;
-                if (result.Headers.TryGetValues("zuora-request-id", out var values))
-                {
-                    errorMessage += $" Zuora-Request-Id: {string.Join(',', values)}";
-                }
-
-                throw new InvalidOperationException($"Get Zuora token failed. Details: {errorMessage}");
-            }
-
-            token = JsonConvert.DeserializeObject<ZuoraToken>(result.Content.ReadAsStringAsync().Result);
-            token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in);
-            _cache.Set("ZuoraToken", token, TimeSpan.FromSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in)
-            );
-
-            return token.Access_token;
         }
 
         /// <summary>
@@ -343,20 +303,6 @@ namespace ZIP2GO.Service.Client
         }
 
         /// <summary>
-        /// Create FileParameter based on Stream.
-        /// </summary>
-        /// <param name="name">Parameter name.</param>
-        /// <param name="stream">Input stream.</param>
-        /// <returns>FileParameter.</returns>
-        //public FileParameter ParameterToFile(string name, Stream stream, CancellationToken cancellationToken)
-        //{
-        //    if (stream is FileStream)
-        //        return FileParameter.Create(name, stream.(), Path.GetFileName(((FileStream)stream).Name));
-        //    else
-        //        return FileParameter.Create(name, stream.ReadAllBytes(), "no_file_name_provided");
-        //}
-
-        /// <summary>
         /// Get the API key with prefix.
         /// </summary>
         /// <param name="apiKeyIdentifier">API key identifier (authentication scheme).</param>
@@ -372,6 +318,63 @@ namespace ZIP2GO.Service.Client
                 return apiKeyValue;
         }
 
+        public string GetToken()
+        {
+            var token = _cache.Get<ZuoraToken>("ZuoraToken").Value;
+            if (token != null && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
+            {
+                // _logger.LogDebug($"Token expires in more than 60 seconds at {token.ExpiresAt}. Re-using token.");
+                return token.Access_token;
+            }
+
+            // _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
+            var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
+            var nameValueCollection = new Dictionary<string, string>
+                {
+                    { "grant_type", "client_credentials" },
+                    { "client_id", _options.ClientID },
+                    { "client_secret", _options.ClientSecret }
+                };
+
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_options.BaseUrl);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
+
+            var result = httpClient.PostAsync($"{_options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
+            if (!result.IsSuccessStatusCode)
+            {
+                var errorMessage = result.Content.ReadAsStringAsync().Result;
+                if (result.Headers.TryGetValues("zuora-request-id", out var values))
+                {
+                    errorMessage += $" Zuora-Request-Id: {string.Join(',', values)}";
+                }
+
+                throw new InvalidOperationException($"Get Zuora token failed. Details: {errorMessage}");
+            }
+
+            token = JsonConvert.DeserializeObject<ZuoraToken>(result.Content.ReadAsStringAsync().Result);
+            token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in);
+            _cache.Set("ZuoraToken", token, TimeSpan.FromSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in)
+            );
+
+            return token.Access_token;
+        }
+
+        /// <summary>
+        /// Create FileParameter based on Stream.
+        /// </summary>
+        /// <param name="name">Parameter name.</param>
+        /// <param name="stream">Input stream.</param>
+        /// <returns>FileParameter.</returns>
+        //public FileParameter ParameterToFile(string name, Stream stream, CancellationToken cancellationToken)
+        //{
+        //    if (stream is FileStream)
+        //        return FileParameter.Create(name, stream.(), Path.GetFileName(((FileStream)stream).Name));
+        //    else
+        //        return FileParameter.Create(name, stream.ReadAllBytes(), "no_file_name_provided");
+        //}
         /// <summary>
         /// If parameter is DateTime, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
         /// If parameter is a list of string, join the list with ",".
@@ -435,29 +438,6 @@ namespace ZIP2GO.Service.Client
                         break;
                 }
             }
-        }
-    }
-
-    public static class AppSettings
-    {
-        private static IConfiguration _configuration;
-
-        static AppSettings()
-        {
-            // read JSON directly from a file
-
-
-
-        }
-
-        public static string GetValue(string key)
-        {
-            return _configuration[key];
-        }
-
-        public static T GetSection<T>(string sectionName) where T : class, new()
-        {
-            return _configuration.GetSection(sectionName).Get<T>();
         }
     }
 }

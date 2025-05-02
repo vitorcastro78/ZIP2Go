@@ -70,23 +70,17 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (fulfillmentItemFields != null) queryParams.Add("fulfillment_item.fields[]", ApiClient.ParameterToString(fulfillmentItemFields)); // query parameter
             if (creditMemoItemFields != null) queryParams.Add("credit_memo_item.fields[]", ApiClient.ParameterToString(creditMemoItemFields)); // query parameter
             if (invoiceItemFields != null) queryParams.Add("invoice_item.fields[]", ApiClient.ParameterToString(invoiceItemFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
@@ -131,23 +125,17 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (fulfillmentItemFields != null) queryParams.Add("fulfillment_item.fields[]", ApiClient.ParameterToString(fulfillmentItemFields)); // query parameter
             if (creditMemoItemFields != null) queryParams.Add("credit_memo_item.fields[]", ApiClient.ParameterToString(creditMemoItemFields)); // query parameter
             if (invoiceItemFields != null) queryParams.Add("invoice_item.fields[]", ApiClient.ParameterToString(invoiceItemFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
@@ -188,13 +176,6 @@ namespace ZIP2GO.Service
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody);
@@ -234,7 +215,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Fulfillment</returns>
-        public Fulfillment GetFulfillment(string fulfillmentId, List<string> fields, List<string> fulfillmentItemFields, List<string> creditMemoItemFields, List<string> invoiceItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId)
+        public Fulfillment GetFulfillment(string fulfillmentId, List<string> fields, List<string> fulfillmentItemFields, List<string> creditMemoItemFields, List<string> invoiceItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'fulfillmentId' is set
             if (fulfillmentId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentId' when calling GetFulfillment");
@@ -249,21 +230,14 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (fulfillmentItemFields != null) queryParams.Add("fulfillment_item.fields[]", ApiClient.ParameterToString(fulfillmentItemFields)); // query parameter
             if (creditMemoItemFields != null) queryParams.Add("credit_memo_item.fields[]", ApiClient.ParameterToString(creditMemoItemFields)); // query parameter
             if (invoiceItemFields != null) queryParams.Add("invoice_item.fields[]", ApiClient.ParameterToString(invoiceItemFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
@@ -294,7 +268,7 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>FilfillmentListResponse</returns>
-        public FilfillmentListResponse GetFulfillments(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> fulfillmentItemFields, List<string> creditMemoItemFields, List<string> invoiceItemFields, string zuoraTrackId)
+        public FilfillmentListResponse GetFulfillments(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> fulfillmentItemFields, List<string> creditMemoItemFields, List<string> invoiceItemFields, string zuoraTrackId, bool? async)
         {
             var path = "/fulfillments";
             path = path.Replace("{format}", "json");
@@ -306,22 +280,15 @@ namespace ZIP2GO.Service
             string postBody = null;
 
             if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (fulfillmentItemFields != null) queryParams.Add("fulfillment_item.fields[]", ApiClient.ParameterToString(fulfillmentItemFields)); // query parameter
             if (creditMemoItemFields != null) queryParams.Add("credit_memo_item.fields[]", ApiClient.ParameterToString(creditMemoItemFields)); // query parameter
             if (invoiceItemFields != null) queryParams.Add("invoice_item.fields[]", ApiClient.ParameterToString(invoiceItemFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
@@ -380,23 +347,17 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
             if (fulfillmentItemFields != null) queryParams.Add("fulfillment_item.fields[]", ApiClient.ParameterToString(fulfillmentItemFields)); // query parameter
             if (creditMemoItemFields != null) queryParams.Add("credit_memo_item.fields[]", ApiClient.ParameterToString(creditMemoItemFields)); // query parameter
             if (invoiceItemFields != null) queryParams.Add("invoice_item.fields[]", ApiClient.ParameterToString(invoiceItemFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);

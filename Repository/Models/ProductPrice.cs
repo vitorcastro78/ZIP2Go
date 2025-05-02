@@ -157,7 +157,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The maximum quantity for a price. Specify this field and the `min_quantity` field to create a range of quantities allowed in a price.
@@ -191,14 +191,6 @@ namespace ZIP2GO.Repository.Models
         public Overage Overage { get; set; }
 
         /// <summary>
-        /// Specify the ID of a plan to which this price is associated.
-        /// </summary>
-        /// <value>Specify the ID of a plan to which this price is associated.</value>
-        [DataMember(Name = "plan_id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan_id")]
-        public string ProductPlanId { get; set; }
-
-        /// <summary>
         /// Specify the number of a plan to which this price is associated. This field is required if plan_id is not supplied
         /// </summary>
         /// <value>Specify the number of a plan to which this price is associated. This field is required if plan_id is not supplied</value>
@@ -220,6 +212,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "price_base_interval", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price_base_interval")]
         public string PriceBaseInterval { get; set; }
+
+        /// <summary>
+        /// Specify the ID of a plan to which this price is associated.
+        /// </summary>
+        /// <value>Specify the ID of a plan to which this price is associated.</value>
+        [DataMember(Name = "plan_id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan_id")]
+        public string ProductPlanId { get; set; }
 
         /// <summary>
         /// Quantity of the product to which your customers subscribe.

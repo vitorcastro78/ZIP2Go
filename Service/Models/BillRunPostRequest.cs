@@ -34,7 +34,7 @@ namespace ZIP2GO.Service.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class BillRunPostRequest {\n");
+            sb.Append("class BillRunCreateRequest {\n");
             sb.Append("  InvoiceDate: ").Append(InvoiceDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

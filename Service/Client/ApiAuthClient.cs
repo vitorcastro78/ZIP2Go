@@ -1,7 +1,6 @@
 using EasyCaching.Core;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RestSharp;
 using System.Net.Http.Headers;
@@ -11,25 +10,37 @@ using System.Web;
 
 namespace ZIP2GO.Service.Client
 {
-
     /// <summary>
     /// API client is mainly responsible for making the HTTP call to the API backend.
     /// </summary>
     public class ApiAuthClient
     {
         private readonly IEasyCachingProvider _cache;
+
         private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
+
         private readonly IHttpClientFactory _httpClientFactory;
+
         private readonly ILogger _logger;
+
         private readonly IMemoryCache _memCache;
-        private bool? _async;
-        private HttpClient _client;
-        private HttpClient _clientWithoutVersion;
+
         private string _acceptEncoding;
+
+        private bool? _async;
+
+        private HttpClient _client;
+
+        private HttpClient _clientWithoutVersion;
+
         private string _contentEncoding;
+
         private string _idempotencyKey;
+
         private string _zuoraDefaultVersion;
+
         private string _zuoraEntityIds;
+
         private string _zuoraTrackId;
 
         /// <summary>
@@ -40,15 +51,13 @@ namespace ZIP2GO.Service.Client
         /// <param name="basePath">The base path.</param>
         public ApiAuthClient(IEasyCachingProvider cache)
         {
-
             using (StreamReader r = new StreamReader(Directory.GetCurrentDirectory() + $"\\config.json"))
             {
                 var tst = r.ReadToEnd().ToString();
                 Options = JsonConvert.DeserializeObject<ZuoraOptions>(tst);
             }
 
-
-           // Options = zuoraOptionsAccessor.CurrentValue;
+            // Options = zuoraOptionsAccessor.CurrentValue;
             BasePath = Options.BaseUrl;
             RestClient = new RestClient(BasePath);
             _cache = cache;
@@ -64,13 +73,6 @@ namespace ZIP2GO.Service.Client
         /// Gets the default header.
         /// </summary>
         public Dictionary<string, string> DefaultHeader => _defaultHeaderMap;
-
-        public virtual ZuoraOptions Options { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the RestClient.
-        /// </summary>
-        public RestClient RestClient { get; set; }
 
         /// <summary>
         /// Gets or sets the Zuora Entity Ids.
@@ -97,6 +99,13 @@ namespace ZIP2GO.Service.Client
                 return _clientWithoutVersion;
             }
         }
+
+        public virtual ZuoraOptions Options { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the RestClient.
+        /// </summary>
+        public RestClient RestClient { get; set; }
 
         /// <summary>
         /// Encode string in base64 format.
@@ -238,6 +247,51 @@ namespace ZIP2GO.Service.Client
             return string.IsNullOrEmpty(apiKeyPrefix) ? apiKeyValue : $"{apiKeyPrefix} {apiKeyValue}";
         }
 
+        public string GetToken()
+        {
+            if (_memCache.TryGetValue("ZuoraToken", out ZuoraToken token) && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
+            {
+                _logger.LogDebug($"Token expires in more than 60 seconds at {token.ExpiresAt}. Re-using token.");
+                return token.Access_token;
+            }
+
+            _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
+            var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{Options.UserId}:{Options.Password}"));
+            var nameValueCollection = new Dictionary<string, string>
+                {
+                    { "grant_type", "client_credentials" },
+                    { "client_id", Options.ClientID },
+                    { "client_secret", Options.ClientSecret }
+                };
+
+            var httpClient = _httpClientFactory.CreateClient("zuora");
+            httpClient.BaseAddress = new Uri(Options.BaseUrl);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
+
+            var result = httpClient.PostAsync($"{Options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
+            if (!result.IsSuccessStatusCode)
+            {
+                var errorMessage = result.Content.ReadAsStringAsync().Result;
+                if (result.Headers.TryGetValues("zuora-request-id", out var values))
+                {
+                    errorMessage += $" Zuora-Request-Id: {string.Join(',', values)}";
+                }
+
+                throw new InvalidOperationException($"Get Zuora token failed. Details: {errorMessage}");
+            }
+
+            token = JsonConvert.DeserializeObject<ZuoraToken>(result.Content.ReadAsStringAsync().Result);
+            token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in);
+            _memCache.Set("ZuoraToken", token, new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in)
+            });
+
+            return token.Access_token;
+        }
+
         /// <summary>
         /// If parameter is DateTime, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
         /// If parameter is a list of string, join the list with ",".
@@ -319,6 +373,53 @@ namespace ZIP2GO.Service.Client
             return httpRequest;
         }
 
+        private void AddDefaultHeaders(Dictionary<string, string> headerParams)
+        {
+            headerParams.Add("zuora-track-id", _zuoraTrackId);
+            headerParams.Add("async", _async.ToString());
+            headerParams.Add("zuora-entity-ids", _zuoraEntityIds);
+            headerParams.Add("idempotency-key", _idempotencyKey);
+            headerParams.Add("accept-encoding", _acceptEncoding);
+            headerParams.Add("content-encoding", _contentEncoding);
+        }
+
+        private void AddHeadersToRequest(RestRequest request, Dictionary<string, string> headers)
+        {
+            if (headers == null) return;
+            foreach (var header in headers)
+            {
+                request.AddHeader(header.Key, header.Value);
+            }
+        }
+
+        private void AddParametersToRequest(RestRequest request, Dictionary<string, string> parameters, ParameterType parameterType)
+        {
+            if (parameters == null) return;
+            foreach (var param in parameters)
+            {
+                request.AddParameter(param.Key, param.Value, parameterType);
+            }
+        }
+
+        private FileStream CreateFileStream(string content, IList<Parameter> headers)
+        {
+            var filePath = string.IsNullOrEmpty(Configuration.TempFolderPath) ? Path.GetTempPath() : Configuration.TempFolderPath;
+            var fileName = filePath + Guid.NewGuid();
+
+            if (headers != null)
+            {
+                var regex = new Regex(@"Content-Disposition:.*filename=['""]?([^'""\s]+)['""]?$");
+                var match = regex.Match(headers.ToString());
+                if (match.Success)
+                {
+                    fileName = filePath + match.Value.Replace("\"", "").Replace("'", "");
+                }
+            }
+
+            File.WriteAllText(fileName, content);
+            return new FileStream(fileName, FileMode.Open);
+        }
+
         private HttpClient GetOAuthHttpClient()
         {
             var httpClient = _httpClientFactory.CreateClient("zuora");
@@ -338,51 +439,6 @@ namespace ZIP2GO.Service.Client
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GetToken());
             return httpClient;
-        }
-
-        public string GetToken()
-        {
-            if (_memCache.TryGetValue("ZuoraToken", out ZuoraToken token) && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
-            {
-                _logger.LogDebug($"Token expires in more than 60 seconds at {token.ExpiresAt}. Re-using token.");
-                return token.Access_token;
-            }
-
-            _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
-            var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{Options.UserId}:{Options.Password}"));
-            var nameValueCollection = new Dictionary<string, string>
-                {
-                    { "grant_type", "client_credentials" },
-                    { "client_id", Options.ClientID },
-                    { "client_secret", Options.ClientSecret }
-                };
-
-            var httpClient = _httpClientFactory.CreateClient("zuora");
-            httpClient.BaseAddress = new Uri(Options.BaseUrl);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
-
-            var result = httpClient.PostAsync($"{Options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
-            if (!result.IsSuccessStatusCode)
-            {
-                var errorMessage = result.Content.ReadAsStringAsync().Result;
-                if (result.Headers.TryGetValues("zuora-request-id", out var values))
-                {
-                    errorMessage += $" Zuora-Request-Id: {string.Join(',', values)}";
-                }
-
-                throw new InvalidOperationException($"Get Zuora token failed. Details: {errorMessage}");
-            }
-
-            token = JsonConvert.DeserializeObject<ZuoraToken>(result.Content.ReadAsStringAsync().Result);
-            token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in);
-            _memCache.Set("ZuoraToken", token, new MemoryCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in)
-            });
-
-            return token.Access_token;
         }
 
         private string RemoveSpecialChars(string input)
@@ -406,53 +462,5 @@ namespace ZIP2GO.Service.Client
                 httpClient.DefaultRequestHeaders.Add("zuora-entity-ids", Options.ZuoraEntityId);
             }
         }
-
-        private void AddHeadersToRequest(RestRequest request, Dictionary<string, string> headers)
-        {
-            if (headers == null) return;
-            foreach (var header in headers)
-            {
-                request.AddHeader(header.Key, header.Value);
-            }
-        }
-
-        private void AddParametersToRequest(RestRequest request, Dictionary<string, string> parameters, ParameterType parameterType)
-        {
-            if (parameters == null) return;
-            foreach (var param in parameters)
-            {
-                request.AddParameter(param.Key, param.Value, parameterType);
-            }
-        }
-
-        private void AddDefaultHeaders(Dictionary<string, string> headerParams)
-        {
-            headerParams.Add("zuora-track-id", _zuoraTrackId);
-            headerParams.Add("async", _async.ToString());
-            headerParams.Add("zuora-entity-ids", _zuoraEntityIds);
-            headerParams.Add("idempotency-key", _idempotencyKey);
-            headerParams.Add("accept-encoding", _acceptEncoding);
-            headerParams.Add("content-encoding", _contentEncoding);
-        }
-
-        private FileStream CreateFileStream(string content, IList<Parameter> headers)
-        {
-            var filePath = string.IsNullOrEmpty(Configuration.TempFolderPath) ? Path.GetTempPath() : Configuration.TempFolderPath;
-            var fileName = filePath + Guid.NewGuid();
-
-            if (headers != null)
-            {
-                var regex = new Regex(@"Content-Disposition:.*filename=['""]?([^'""\s]+)['""]?$");
-                var match = regex.Match(headers.ToString());
-                if (match.Success)
-                {
-                    fileName = filePath + match.Value.Replace("\"", "").Replace("'", "");
-                }
-            }
-
-            File.WriteAllText(fileName, content);
-            return new FileStream(fileName, FileMode.Open);
-        }
     }
-
 }

@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class Refund
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// The account that owns the refund
         /// </summary>
         /// <value>The account that owns the refund</value>
@@ -176,6 +168,13 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_state")]
         public string GatewayState { get; set; }
 
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// An active account in your Zuora Chart of Accounts.

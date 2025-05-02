@@ -10,15 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class Error
     {
-
-        /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Gets or Sets _Parameter
         /// </summary>
@@ -32,6 +23,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "code", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code")]
         public string Code { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Message

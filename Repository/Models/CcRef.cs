@@ -11,19 +11,19 @@ namespace ZIP2GO.Repository.Models
     public class CcRef
     {
         /// <summary>
+        /// Gets or Sets Card
+        /// </summary>
+        [DataMember(Name = "card", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
+        public CcRefCard Card { get; set; }
+
+        /// <summary>
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Card
-        /// </summary>
-        [DataMember(Name = "card", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
-        public CcRefCard Card { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate

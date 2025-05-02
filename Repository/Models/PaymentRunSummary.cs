@@ -11,20 +11,20 @@ namespace ZIP2GO.Repository.Models
     public class PaymentRunSummary
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// The total number of all receivables with payments not processed.
         /// </summary>
         /// <value>The total number of all receivables with payments not processed.</value>
         [DataMember(Name = "errors_total", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "errors_total")]
         public int? ErrorsTotal { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The total number of all invoices.

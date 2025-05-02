@@ -11,12 +11,13 @@ namespace ZIP2GO.Service.Client.Auth0Management
 {
     public class Auth0Service : IAuth0Service
     {
+        public const int MAX_AUTH0_PAGESIZE = 100;
+
         private readonly Auth0Options _auth0Options;
 
         private readonly AuthenticationApiClient _authClient;
+
         private readonly ManagementApiClient _managementClient;
-        public const int MAX_AUTH0_PAGESIZE = 100;
-        private AccessTokenResponse managementToken { get; set; }
 
         public Auth0Service(IOptionsSnapshot<Auth0Options> auth0Options)
         {
@@ -25,6 +26,8 @@ namespace ZIP2GO.Service.Client.Auth0Management
             _authClient = new AuthenticationApiClient(_auth0Options.Domain);
             _managementClient = GetManagementClient();
         }
+
+        private AccessTokenResponse managementToken { get; set; }
 
         public string CreateUser(Auth0AccountRequest userRequest)
         {
@@ -59,6 +62,49 @@ namespace ZIP2GO.Service.Client.Auth0Management
             {
                 throw new ArgumentException(ex.Message);
             }
+        }
+
+        public void DeleteUser(string auth0Id)
+        {
+            _managementClient.Users.DeleteAsync(auth0Id);
+        }
+
+        public async Task EnableUserAsync(Auth0AccountRequest userUpdate)
+        {
+            UserUpdateRequest userUpdateRequest = new UserUpdateRequest
+            {
+                Blocked = userUpdate.Blocked
+            };
+
+            await _managementClient.Users.UpdateAsync(userUpdate.Auth0Id, userUpdateRequest);
+        }
+
+        public async Task<Auth0AccountResponse> GetUserByAccountId(string accountId)
+        {
+            GetUsersRequest getUsersRequest = new GetUsersRequest()
+            {
+                Query = $"app_metadata.ResellerAdminAccountId:\"{accountId}\""
+            };
+
+            var auth0users = await _managementClient.Users.GetAllAsync(getUsersRequest, new PaginationInfo(pageNo: 0, perPage: 1));
+
+            var userResponse = auth0users.Select(u =>
+            {
+                string resellerAdminAuth0Id = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAuth0Id")?.ToString();
+                string resellerAdminAccountNumber = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountNumber")?.ToString();
+                string resellerAdminAccountId = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountId")?.ToString();
+                string resellerCurrency = ((JObject)u.AppMetadata)?.SelectToken("ResellerCurrency")?.ToString();
+
+                return new Auth0AccountResponse(u.UserId, u.Email, u.FullName, u.CreatedAt)
+                {
+                    Metadata = new Auth0AccountResponse.AppMetadata(resellerAdminAuth0Id, resellerAdminAccountNumber, resellerAdminAccountId, resellerCurrency),
+                    Firstname = u.FirstName,
+                    Lastname = u.LastName,
+                    Blocked = u.Blocked ?? false
+                };
+            });
+
+            return userResponse.FirstOrDefault();
         }
 
         public async Task<Auth0AccountResponse> GetUserByAuth0Id(string auth0Id)
@@ -113,19 +159,21 @@ namespace ZIP2GO.Service.Client.Auth0Management
             return userList; ;
         }
 
-        public IEnumerable<Auth0AccountResponse> GetUsersByRole(string role = null) // ResellerAdmin
+        public IEnumerable<Auth0AccountResponse> GetUsersByIds(string[] ids) // ResellerAdmin
         {
-            string roleId = (role != null ? GetRoleId(role) : string.Empty);
-            
-            var users = new List<AssignedUser>();
+            var users = new List<User>();
 
             bool loadMore = true;
             int pageNo = 0;
             while (loadMore)
             {
-                var pagedList = _managementClient.Roles.GetUsersAsync(roleId, new PaginationInfo(pageNo, perPage: 50, includeTotals: true)).Result;
+                var pagedList = _managementClient.Users.GetAllAsync(new GetUsersRequest
+                {
+                    Query = string.Join(" OR ", ids.Select(x => $"user_id:\"{x}\"").ToArray())
+                }, new PaginationInfo(pageNo, perPage: 50, includeTotals: true)).Result;
+
                 users.AddRange(pagedList);
-                
+
                 if (users.Count >= pagedList.Paging.Total)
                 {
                     break;
@@ -142,19 +190,52 @@ namespace ZIP2GO.Service.Client.Auth0Management
             return userList;
         }
 
-        public IEnumerable<Auth0AccountResponse> GetUsersByIds(string[] ids) // ResellerAdmin
+        public IEnumerable<Auth0AccountResponse> GetUsersByResellerAdminAuth0Id(string resellerAdminAuth0Id)
         {
-            var users = new List<User>();
+            return GetUsersByResellerAdminAuth0Id(resellerAdminAuth0Id, MAX_AUTH0_PAGESIZE, 1).Item1;
+        }
+
+        public (IEnumerable<Auth0AccountResponse>, int totalItems) GetUsersByResellerAdminAuth0Id(string resellerAdminAuth0Id, int pageSize, int page)
+        {
+            GetUsersRequest getUsersRequest = new GetUsersRequest()
+            {
+                Query = $"app_metadata.ResellerAdminAuth0Id:\"{resellerAdminAuth0Id}\" && app_metadata.Type:\"ResellerEmployee\""
+            };
+
+            PaginationInfo pagination = new PaginationInfo((page - 1), pageSize, includeTotals: true);
+
+            var auth0users = _managementClient.Users.GetAllAsync(getUsersRequest, pagination).Result;
+
+            var userResponse = auth0users.Select(u =>
+            {
+                string resellerAdminAuth0Id = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAuth0Id")?.ToString();
+                string resellerAdminAccountNumber = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountNumber")?.ToString();
+                string resellerAdminAccountId = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountId")?.ToString();
+                string resellerCurrency = ((JObject)u.AppMetadata)?.SelectToken("ResellerCurrency")?.ToString();
+
+                return new Auth0AccountResponse(u.UserId, u.Email, u.FullName, u.CreatedAt)
+                {
+                    Metadata = new Auth0AccountResponse.AppMetadata(resellerAdminAuth0Id, resellerAdminAccountNumber, resellerAdminAccountId, resellerCurrency),
+                    Firstname = u.FirstName,
+                    Lastname = u.LastName,
+                    Blocked = u.Blocked.Value
+                };
+            });
+
+            return (userResponse, auth0users.Paging.Total);
+        }
+
+        public IEnumerable<Auth0AccountResponse> GetUsersByRole(string role = null) // ResellerAdmin
+        {
+            string roleId = (role != null ? GetRoleId(role) : string.Empty);
+
+            var users = new List<AssignedUser>();
 
             bool loadMore = true;
             int pageNo = 0;
             while (loadMore)
             {
-                var pagedList = _managementClient.Users.GetAllAsync(new GetUsersRequest
-                {
-                    Query = string.Join(" OR ", ids.Select(x => $"user_id:\"{x}\"").ToArray())
-                }, new PaginationInfo(pageNo, perPage: 50, includeTotals: true)).Result;
-
+                var pagedList = _managementClient.Roles.GetUsersAsync(roleId, new PaginationInfo(pageNo, perPage: 50, includeTotals: true)).Result;
                 users.AddRange(pagedList);
 
                 if (users.Count >= pagedList.Paging.Total)
@@ -194,94 +275,15 @@ namespace ZIP2GO.Service.Client.Auth0Management
             {
                 var user = _managementClient.Users.UpdateAsync(userUpdate.Auth0Id, userUpdateRequest).Result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ArgumentException(ex.Message);
             }
         }
 
-        public void DeleteUser(string auth0Id)
-        {
-            _managementClient.Users.DeleteAsync(auth0Id);
-        }
-
-        public async Task EnableUserAsync(Auth0AccountRequest userUpdate)
-        {
-            UserUpdateRequest userUpdateRequest = new UserUpdateRequest
-            {
-                Blocked = userUpdate.Blocked
-            };
-
-            await _managementClient.Users.UpdateAsync(userUpdate.Auth0Id, userUpdateRequest);
-        }
-
-        public IEnumerable<Auth0AccountResponse> GetUsersByResellerAdminAuth0Id(string resellerAdminAuth0Id)
-        {
-            return GetUsersByResellerAdminAuth0Id(resellerAdminAuth0Id, MAX_AUTH0_PAGESIZE, 1).Item1;
-        }
-            
-
-        public (IEnumerable<Auth0AccountResponse>, int totalItems) GetUsersByResellerAdminAuth0Id(string resellerAdminAuth0Id, int pageSize, int page)
-        {
-            GetUsersRequest getUsersRequest = new GetUsersRequest()
-            {
-                Query = $"app_metadata.ResellerAdminAuth0Id:\"{resellerAdminAuth0Id}\" && app_metadata.Type:\"ResellerEmployee\""
-            };
-
-            PaginationInfo pagination = new PaginationInfo((page - 1), pageSize, includeTotals: true);
-
-            var auth0users = _managementClient.Users.GetAllAsync(getUsersRequest, pagination).Result;
-
-            var userResponse = auth0users.Select(u => 
-            {
-                string resellerAdminAuth0Id = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAuth0Id")?.ToString();
-                string resellerAdminAccountNumber = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountNumber")?.ToString();
-                string resellerAdminAccountId = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountId")?.ToString();
-                string resellerCurrency = ((JObject)u.AppMetadata)?.SelectToken("ResellerCurrency")?.ToString();
-
-                return new Auth0AccountResponse(u.UserId, u.Email, u.FullName, u.CreatedAt)
-                {
-                    Metadata = new Auth0AccountResponse.AppMetadata(resellerAdminAuth0Id, resellerAdminAccountNumber, resellerAdminAccountId, resellerCurrency),
-                    Firstname = u.FirstName,
-                    Lastname = u.LastName,
-                    Blocked = u.Blocked.Value
-                };
-            });
-
-            return (userResponse, auth0users.Paging.Total);
-        }
-
-        public async Task<Auth0AccountResponse> GetUserByAccountId(string accountId)
-        {
-            GetUsersRequest getUsersRequest = new GetUsersRequest()
-            {
-                Query = $"app_metadata.ResellerAdminAccountId:\"{accountId}\""
-            };
-
-            var auth0users = await _managementClient.Users.GetAllAsync(getUsersRequest, new PaginationInfo(pageNo: 0, perPage: 1));
-
-            var userResponse = auth0users.Select(u =>
-            {
-                string resellerAdminAuth0Id = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAuth0Id")?.ToString();
-                string resellerAdminAccountNumber = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountNumber")?.ToString();
-                string resellerAdminAccountId = ((JObject)u.AppMetadata)?.SelectToken("ResellerAdminAccountId")?.ToString();
-                string resellerCurrency = ((JObject)u.AppMetadata)?.SelectToken("ResellerCurrency")?.ToString();
-
-                return new Auth0AccountResponse(u.UserId, u.Email, u.FullName, u.CreatedAt)
-                {
-                    Metadata = new Auth0AccountResponse.AppMetadata(resellerAdminAuth0Id, resellerAdminAccountNumber, resellerAdminAccountId, resellerCurrency),
-                    Firstname = u.FirstName,
-                    Lastname = u.LastName,
-                    Blocked = u.Blocked ?? false
-                };
-            });
-
-            return userResponse.FirstOrDefault();
-        }
-
         #region ManagementAPISupport
 
-            private string GetRoleId(string role)
+        private string GetRoleId(string role)
         {
             var roleProp = _managementClient.Roles.GetAllAsync(new GetRolesRequest { NameFilter = role }).Result;
             return roleProp.First().Id;
@@ -290,6 +292,14 @@ namespace ZIP2GO.Service.Client.Auth0Management
         #endregion ManagementAPISupport
 
         #region ManagementAPIConfig
+
+        private ManagementApiClient GetManagementClient()
+        {
+            managementToken = managementToken ?? GetManagementToken().Result;
+            var managementApiClient = new ManagementApiClient(managementToken.AccessToken, _auth0Options.Domain);
+            return managementApiClient;
+        }
+
         private async Task<AccessTokenResponse> GetManagementToken()
         {
             AccessTokenResponse token = await _authClient.GetTokenAsync(new ClientCredentialsTokenRequest
@@ -302,12 +312,6 @@ namespace ZIP2GO.Service.Client.Auth0Management
             return token;
         }
 
-        private ManagementApiClient GetManagementClient()
-        {
-            managementToken = managementToken ?? GetManagementToken().Result;
-            var managementApiClient = new ManagementApiClient(managementToken.AccessToken, _auth0Options.Domain);
-            return managementApiClient;
-        }
         #endregion ManagementAPIConfig
     }
 }

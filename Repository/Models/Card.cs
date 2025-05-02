@@ -10,10 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class Card
     {
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Card brand.
         /// </summary>
@@ -45,6 +41,10 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "expiry_year", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expiry_year")]
         public decimal? ExpiryYear { get; set; }
+
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The last four digits of the card number.

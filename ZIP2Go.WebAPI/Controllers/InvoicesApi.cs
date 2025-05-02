@@ -11,15 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -29,9 +28,11 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class InvoicesApiController : ControllerBaseApi
     {
-        private readonly IInvoicesService _invoicesService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private readonly IInvoicesService _invoicesService;
 
         public InvoicesApiController(
             IInvoicesService invoicesService,

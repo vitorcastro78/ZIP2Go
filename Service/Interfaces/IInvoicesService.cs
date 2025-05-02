@@ -27,7 +27,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Invoice</returns>
-        Invoice CancelInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        Invoice CancelInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Create an invoice Creates an invoice for a subscription.
@@ -75,7 +75,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns></returns>
-        void EmailInvoice(string invoiceId, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        void EmailInvoice(string invoiceId, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Retrieve an invoice Retrieves the invoice with the given invoice ID.
@@ -96,7 +96,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Invoice</returns>
-        Invoice GetInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId);
+        Invoice GetInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// List invoice items Retrieves information about all items of invoices.
@@ -115,7 +115,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>InvoiceItemListResponse</returns>
-        InvoiceItemListResponse GetInvoiceItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, List<string> lineItemFields, string zuoraTrackId);
+        InvoiceItemListResponse GetInvoiceItems(string cursor, List<string> lineItemFields, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// List invoices Returns a dictionary with a data property that contains an array of invoices, starting after cursor. Each entry in the array is a separate invoice object. If no more invoices are available, the resulting array will be empty.
@@ -137,7 +137,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>InvoiceListResponse</returns>
-        InvoiceListResponse GetInvoices(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, string zuoraTrackId);
+        InvoiceListResponse GetInvoices(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Update an invoice Updates an invoice by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
@@ -205,7 +205,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Invoice</returns>
-        Invoice PostInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        Invoice PostInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Reverse an invoice Reverses a posted invoice.
@@ -250,7 +250,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Invoice</returns>
-        Invoice UnpostInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding);
+        Invoice UnpostInvoice(string invoiceId, List<string> fields, List<string> invoiceItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> lineItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Write off an invoice Writes off an invoice

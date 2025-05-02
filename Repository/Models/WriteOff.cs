@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class WriteOff
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// The total billing document amount that is written off.
         /// </summary>
         /// <value>The total billing document amount that is written off.</value>
@@ -41,6 +33,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "failed_reason", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed_reason")]
         public string FailedReason { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The related invoice.

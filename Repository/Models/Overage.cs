@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class Overage
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Indicates if the overage price is calculated at the end of the smoothing period.
         /// </summary>
         /// <value>Indicates if the overage price is calculated at the end of the smoothing period.</value>
@@ -33,6 +25,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "credit_unused_units", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_unused_units")]
         public bool? CreditUnusedUnits { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Specifies the included units to which overage charges do not apply.

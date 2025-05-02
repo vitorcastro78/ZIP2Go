@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Admin.Repository.DataContext;
+using Admin.Repository.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Admin.Repository.DataContext;
-using Admin.Repository.Models;
 
 namespace ZIP2Go.Admin.Pages.Admin
 {
@@ -19,7 +14,7 @@ namespace ZIP2Go.Admin.Pages.Admin
             _context = context;
         }
 
-        public IList<RequestHeaders> RequestHeaders { get;set; } = default!;
+        public IList<RequestHeaders> RequestHeaders { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

@@ -52,8 +52,7 @@ namespace Service.Interfaces
         /// <param name="expand">List of related objects to include in the response.</param>
         /// <param name="zuoraTrackId">A custom identifier for tracking API requests.</param>
         /// <returns>A paginated list of accounts.</returns>
-        ListAccountResponse GetAccounts(bool async, string zuoraTrackId);
-
+        ListAccountResponse GetAccounts(string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Previews an account before creation, showing future invoice and credit memo items.

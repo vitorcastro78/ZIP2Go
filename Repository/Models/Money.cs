@@ -10,7 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class Money : Dictionary<String, decimal>
     {
-
         /// <summary>
         /// Unique identifier for the object.
         /// </summary>

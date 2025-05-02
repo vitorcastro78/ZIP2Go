@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class SubscriptionTerm
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// If true, the subscription automatically renews at the end of the current term.
         /// </summary>
         /// <value>If true, the subscription automatically renews at the end of the current term.</value>
@@ -33,6 +25,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "current_term", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_term")]
         public Term CurrentTerm { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Renewal term information for the subscription.

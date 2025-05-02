@@ -157,7 +157,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The maximum quantity for a price. Specify this field and the `min_quantity` field to create a range of quantities allowed in a price.

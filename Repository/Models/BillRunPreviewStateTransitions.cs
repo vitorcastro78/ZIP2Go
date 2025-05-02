@@ -10,10 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BillRunPreviewStateTransitions
     {
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
         /// <summary>
         /// The time when the bill run preview completed.
         /// </summary>
@@ -21,6 +17,10 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "complete_time", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "complete_time")]
         public DateTime? CompleteTime { get; set; }
+
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The time when the bill run preview started.

@@ -56,7 +56,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CustomObject</returns>
-        CustomObject GetCustomObject(string customObjectType, string customObjectId, List<string> fields, List<string> customObjectCustomObjectTypeFields, List<string> filter, int? pageSize, List<string> expand, string zuoraTrackId);
+        CustomObject GetCustomObject(string customObjectType, string customObjectId, List<string> fields, List<string> customObjectCustomObjectTypeFields, List<string> filter, int? pageSize, List<string> expand, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// List custom objects Returns a list of your custom objects.
@@ -75,7 +75,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>ListCustomObjectResponse</returns>
-        ListCustomObjectResponse GetCustomObjects(string customObjectType, int? pageSize, List<string> expand, string cursor, List<string> filter, List<string> sort, List<string> fields, List<string> customObjectCustomObjectTypeFields, string zuoraTrackId);
+        ListCustomObjectResponse GetCustomObjects(string customObjectType, int? pageSize, List<string> expand, string cursor, List<string> filter, List<string> sort, List<string> fields, List<string> customObjectCustomObjectTypeFields, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Update a custom object Updates the specified custom object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

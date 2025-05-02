@@ -10,7 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class GatewayStateTransitions
     {
-
         /// <summary>
         /// Unique identifier for the object.
         /// </summary>

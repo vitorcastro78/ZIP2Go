@@ -2,21 +2,20 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Threading.Tasks;
 using Admin.Repository.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace ZIP2Go.Admin.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        private readonly UserManager<AdminUser> _userManager;
-        private readonly SignInManager<AdminUser> _signInManager;
         private readonly ILogger<ResetAuthenticatorModel> _logger;
+
+        private readonly SignInManager<AdminUser> _signInManager;
+
+        private readonly UserManager<AdminUser> _userManager;
 
         public ResetAuthenticatorModel(
             UserManager<AdminUser> userManager,

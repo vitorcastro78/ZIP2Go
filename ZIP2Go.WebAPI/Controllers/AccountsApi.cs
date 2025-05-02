@@ -10,16 +10,15 @@
 
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc; 
-using ZIP2GO.Service.Models;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -31,8 +30,10 @@ namespace ZIP2GO.WebAPI.Controllers
     public class AccountsController : ControllerBaseApi
     {
         private readonly IAccountsService _accountsService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the accounts controller.
@@ -73,7 +74,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> CreateAccount([FromBody]AccountCreateRequest body)
+        public async Task<IActionResult> CreateAccount([FromBody] AccountCreateRequest body)
         {
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Account));
@@ -132,7 +133,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> DeleteAccount([FromRoute][Required] string accountId,string zuoraTrackId, bool async = true)
+        public async Task<IActionResult> DeleteAccount([FromRoute][Required] string accountId, string zuoraTrackId, bool async = true)
         {
             //TODO: Uncomment the next line to return response 204 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(204);
@@ -192,7 +193,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> GenerateBillingDocuments([FromBody] GenerateBillingDocumentsAccountRequest body, [FromRoute][Required] string accountId,  string zuoraTrackId, bool async = true)
+        public async Task<IActionResult> GenerateBillingDocuments([FromBody] GenerateBillingDocumentsAccountRequest body, [FromRoute][Required] string accountId, string zuoraTrackId, bool async = true)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(GenerateBillingDocumentsAccountResponse));
@@ -254,7 +255,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> GetAccount([FromRoute][Required] string accountId,string zuoraTrackId, bool async = true)
+        public async Task<IActionResult> GetAccount([FromRoute][Required] string accountId, string zuoraTrackId, bool async = true)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Account));
@@ -287,7 +288,7 @@ namespace ZIP2GO.WebAPI.Controllers
             // return StatusCode(504, default(ErrorResponse));
             string exampleJson = null;
             exampleJson = "{\n  \"bill_to\" : \"\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_number\" : \"A-100001\",\n  \"subscriptions\" : \"\",\n  \"bill_cycle_day\" : 2,\n  \"payments\" : \"\",\n  \"description\" : \"description of test account\",\n  \"credit_memos\" : \"\",\n  \"payment_terms\" : \"Net 30\",\n  \"enabled\" : true,\n  \"payment_methods\" : \"\",\n  \"remaining_debit_memo_balance\" : 10,\n  \"invoices\" : \"\",\n  \"billing_document_settings\" : {\n    \"credit_memo_template_id\" : \"2c92c08b6a8c978f016a9e0084622b62\",\n    \"print_documents\" : false,\n    \"invoice_template_id\" : \"8f64d4d754739d85d0346e00ef77e50d\",\n    \"additional_email\" : \"jdoe@zuora.com\",\n    \"email_documents\" : false,\n    \"debit_memo_template_id\" : \"2c92c08c6a8c7e08016a9ec8d72f3ab5\"\n  },\n  \"currency\" : \"USD\",\n  \"debit_memos\" : \"\",\n  \"id\" : \"id\",\n  \"auto_pay\" : true,\n  \"usage_records\" : \"\",\n  \"default_payment_method_id\" : \"8a95b1946b6aeac8718c32aab8c395f\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"sales_rep\" : \"Max\",\n  \"remaining_payment_balance\" : 20,\n  \"payment_gateway\" : \"adyen gateway\",\n  \"billing_documents\" : \"\",\n  \"custom_fields\" : \"\",\n  \"bill_to_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n  \"default_payment_method\" : \"\",\n  \"batch\" : \"batch\",\n  \"communication_profile_id\" : \"2c92c0946a6dffc0016a7faab604299b\",\n  \"tax_identifier\" : {\n    \"id\" : \"id\"\n  },\n  \"tax_certificate\" : {\n    \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n    \"description\" : \"description\",\n    \"issuing_jurisdiction\" : \"Georgia\",\n    \"company_code\" : \"ABC\",\n    \"id\" : \"id\",\n    \"state\" : \"pending\",\n    \"tax_identifier\" : \"DE123456789\",\n    \"start_date\" : \"2022-01-01T00:00:00.000+00:00\",\n    \"entity_use_code\" : \"entity_use_code\"\n  },\n  \"sold_to\" : \"\",\n  \"custom_objects\" : \"\",\n  \"crm_id\" : \"1a2b3c4d5e\",\n  \"parent_account_id\" : \"8ad093f27d6eee80017d6effd7a66759\",\n  \"sequence_set_id\" : \"2c92a4204a6dffc0016a7faab723041c\",\n  \"name\" : \"test account\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"remaining_credit_memo_balance\" : 50,\n  \"sold_to_id\" : \"8ad0823f8040e52d0180433026b156fe\",\n  \"remaining_invoice_balance\" : 100\n}";
-            var result = _accountsService.GetAccount(accountId,zuoraTrackId,async);
+            var result = _accountsService.GetAccount(accountId, zuoraTrackId, async);
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Account>(exampleJson)
             : default(Account);            //TODO: Change the data returned
@@ -301,7 +302,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">List of accounts retrieved successfully</response>
         [HttpGet]
         [Route("/v2/accounts")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccounts")]
         [SwaggerResponse(statusCode: 200, type: typeof(ListAccountResponse), description: "Default Response")]
@@ -351,7 +352,7 @@ namespace ZIP2GO.WebAPI.Controllers
 
             string exampleJson = null;
             exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"bill_to\" : \"\",\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"account_number\" : \"A-100001\",\n    \"subscriptions\" : \"\",\n    \"bill_cycle_day\" : 2,\n    \"payments\" : \"\",\n    \"description\" : \"description of test account\",\n    \"credit_memos\" : \"\",\n    \"payment_terms\" : \"Net 30\",\n    \"enabled\" : true,\n    \"payment_methods\" : \"\",\n    \"remaining_debit_memo_balance\" : 10,\n    \"invoices\" : \"\",\n    \"billing_document_settings\" : {\n      \"credit_memo_template_id\" : \"2c92c08b6a8c978f016a9e0084622b62\",\n      \"print_documents\" : false,\n      \"invoice_template_id\" : \"8f64d4d754739d85d0346e00ef77e50d\",\n      \"additional_email\" : \"jdoe@zuora.com\",\n      \"email_documents\" : false,\n      \"debit_memo_template_id\" : \"2c92c08c6a8c7e08016a9ec8d72f3ab5\"\n    },\n    \"currency\" : \"USD\",\n    \"debit_memos\" : \"\",\n    \"id\" : \"id\",\n    \"auto_pay\" : true,\n    \"usage_records\" : \"\",\n    \"default_payment_method_id\" : \"8a95b1946b6aeac8718c32aab8c395f\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"sales_rep\" : \"Max\",\n    \"remaining_payment_balance\" : 20,\n    \"payment_gateway\" : \"adyen gateway\",\n    \"billing_documents\" : \"\",\n    \"custom_fields\" : \"\",\n    \"bill_to_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n    \"default_payment_method\" : \"\",\n    \"batch\" : \"batch\",\n    \"communication_profile_id\" : \"2c92c0946a6dffc0016a7faab604299b\",\n    \"tax_identifier\" : {\n      \"id\" : \"id\"\n    },\n    \"tax_certificate\" : {\n      \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n      \"description\" : \"description\",\n      \"issuing_jurisdiction\" : \"Georgia\",\n      \"company_code\" : \"ABC\",\n      \"id\" : \"id\",\n      \"state\" : \"pending\",\n      \"tax_identifier\" : \"DE123456789\",\n      \"start_date\" : \"2022-01-01T00:00:00.000+00:00\",\n      \"entity_use_code\" : \"entity_use_code\"\n    },\n    \"sold_to\" : \"\",\n    \"custom_objects\" : \"\",\n    \"crm_id\" : \"1a2b3c4d5e\",\n    \"parent_account_id\" : \"8ad093f27d6eee80017d6effd7a66759\",\n    \"sequence_set_id\" : \"2c92a4204a6dffc0016a7faab723041c\",\n    \"name\" : \"test account\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"remaining_credit_memo_balance\" : 50,\n    \"sold_to_id\" : \"8ad0823f8040e52d0180433026b156fe\",\n    \"remaining_invoice_balance\" : 100\n  }, {\n    \"bill_to\" : \"\",\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"account_number\" : \"A-100001\",\n    \"subscriptions\" : \"\",\n    \"bill_cycle_day\" : 2,\n    \"payments\" : \"\",\n    \"description\" : \"description of test account\",\n    \"credit_memos\" : \"\",\n    \"payment_terms\" : \"Net 30\",\n    \"enabled\" : true,\n    \"payment_methods\" : \"\",\n    \"remaining_debit_memo_balance\" : 10,\n    \"invoices\" : \"\",\n    \"billing_document_settings\" : {\n      \"credit_memo_template_id\" : \"2c92c08b6a8c978f016a9e0084622b62\",\n      \"print_documents\" : false,\n      \"invoice_template_id\" : \"8f64d4d754739d85d0346e00ef77e50d\",\n      \"additional_email\" : \"jdoe@zuora.com\",\n      \"email_documents\" : false,\n      \"debit_memo_template_id\" : \"2c92c08c6a8c7e08016a9ec8d72f3ab5\"\n    },\n    \"currency\" : \"USD\",\n    \"debit_memos\" : \"\",\n    \"id\" : \"id\",\n    \"auto_pay\" : true,\n    \"usage_records\" : \"\",\n    \"default_payment_method_id\" : \"8a95b1946b6aeac8718c32aab8c395f\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"sales_rep\" : \"Max\",\n    \"remaining_payment_balance\" : 20,\n    \"payment_gateway\" : \"adyen gateway\",\n    \"billing_documents\" : \"\",\n    \"custom_fields\" : \"\",\n    \"bill_to_id\" : \"2c92c0f86a8dd422016a9e7a70116b0d\",\n    \"default_payment_method\" : \"\",\n    \"batch\" : \"batch\",\n    \"communication_profile_id\" : \"2c92c0946a6dffc0016a7faab604299b\",\n    \"tax_identifier\" : {\n      \"id\" : \"id\"\n    },\n    \"tax_certificate\" : {\n      \"end_date\" : \"2023-01-01T00:00:00.000+00:00\",\n      \"description\" : \"description\",\n      \"issuing_jurisdiction\" : \"Georgia\",\n      \"company_code\" : \"ABC\",\n      \"id\" : \"id\",\n      \"state\" : \"pending\",\n      \"tax_identifier\" : \"DE123456789\",\n      \"start_date\" : \"2022-01-01T00:00:00.000+00:00\",\n      \"entity_use_code\" : \"entity_use_code\"\n    },\n    \"sold_to\" : \"\",\n    \"custom_objects\" : \"\",\n    \"crm_id\" : \"1a2b3c4d5e\",\n    \"parent_account_id\" : \"8ad093f27d6eee80017d6effd7a66759\",\n    \"sequence_set_id\" : \"2c92a4204a6dffc0016a7faab723041c\",\n    \"name\" : \"test account\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"remaining_credit_memo_balance\" : 50,\n    \"sold_to_id\" : \"8ad0823f8040e52d0180433026b156fe\",\n    \"remaining_invoice_balance\" : 100\n  } ]\n}";
-            var result = _accountsService.GetAccounts(async, zuoraTrackId);
+            var result = _accountsService.GetAccounts(zuoraTrackId, async);
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<ListAccountResponse>(exampleJson)
             : default(ListAccountResponse);            //TODO: Change the data returned

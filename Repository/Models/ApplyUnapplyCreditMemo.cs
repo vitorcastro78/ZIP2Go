@@ -10,10 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class ApplyUnapplyCreditMemo
     {
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Array of billing documents to apply this credit memo to.
         /// </summary>
@@ -29,6 +25,10 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "effective_date", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "effective_date")]
         public DateTime? EffectiveDate { get; set; }
+
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

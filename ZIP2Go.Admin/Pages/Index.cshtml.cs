@@ -14,7 +14,6 @@ namespace ZIP2Go.Admin.Pages
 
         public void OnGet()
         {
-
         }
     }
 }

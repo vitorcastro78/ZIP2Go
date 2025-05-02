@@ -72,7 +72,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Unique identifier of the Zuora user who last updated the object

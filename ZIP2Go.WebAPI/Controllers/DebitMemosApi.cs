@@ -11,15 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -30,9 +29,11 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class DebitMemosController : ControllerBaseApi
     {
-        private readonly IDebitMemosService _debitMemosService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IDebitMemosService _debitMemosService;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the debit memos controller.
@@ -63,9 +64,13 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateDebitMemo")]
-        public async Task<IActionResult> CreateDebitMemo([FromBody] DebitMemoPostRequest body)
+        public async Task<IActionResult> CreateDebitMemo([FromBody] DebitMemoCreateRequest body)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _debitMemosService.CreateDebitMemo(body, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -82,7 +87,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetDebitMemo")]
         public async Task<IActionResult> GetDebitMemo([FromRoute][Required] string debitMemoId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _debitMemosService.GetDebitMemo(debitMemoId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -97,7 +106,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetDebitMemos")]
         public async Task<IActionResult> GetDebitMemos()
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _debitMemosService.GetDebitMemos("cursor", zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -115,7 +128,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("UpdateDebitMemo")]
         public async Task<IActionResult> UpdateDebitMemo([FromBody] DebitMemoPatchRequest body, [FromRoute][Required] string debitMemoId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _debitMemosService.PatchDebitMemo(body, debitMemoId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
     }
 }

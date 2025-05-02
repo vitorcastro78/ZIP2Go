@@ -11,19 +11,19 @@ namespace ZIP2GO.Repository.Models
     public class SubscriptionPause
     {
         /// <summary>
+        /// Gets or Sets CustomFields
+        /// </summary>
+        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
+        public CustomFields CustomFields { get; set; }
+
+        /// <summary>
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets CustomFields
-        /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// Can be either the end of the current billing period or a specific date.

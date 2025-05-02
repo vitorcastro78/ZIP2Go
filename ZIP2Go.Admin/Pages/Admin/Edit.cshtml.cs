@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Admin.Repository.DataContext;
+using Admin.Repository.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Admin.Repository.DataContext;
-using Admin.Repository.Models;
 
 namespace ZIP2Go.Admin.Pages.Admin
 {
@@ -30,7 +25,7 @@ namespace ZIP2Go.Admin.Pages.Admin
                 return NotFound();
             }
 
-            var requestheaders =  await _context.RequestHeaders.FirstOrDefaultAsync(m => m.Id == id);
+            var requestheaders = await _context.RequestHeaders.FirstOrDefaultAsync(m => m.Id == id);
             if (requestheaders == null)
             {
                 return NotFound();

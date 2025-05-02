@@ -10,6 +10,12 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class SubscriptionReplacePlan
     {
+        /// <summary>
+        /// Gets or Sets CustomFields
+        /// </summary>
+        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
+        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// Unique identifier for the object.
@@ -18,13 +24,6 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets CustomFields
-        /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
-        public CustomFields CustomFields { get; set; }
 
         /// <summary>
         /// The id of the subscription plan to be updated. It can be the latest version or any history version id.

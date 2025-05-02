@@ -11,19 +11,19 @@ namespace ZIP2GO.Repository.Models
     public class StateTransitions
     {
         /// <summary>
+        /// Gets or Sets CanceledTime
+        /// </summary>
+        [DataMember(Name = "canceled_time", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
+        public string CanceledTime { get; set; }
+
+        /// <summary>
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets CanceledTime
-        /// </summary>
-        [DataMember(Name = "canceled_time", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
-        public string CanceledTime { get; set; }
 
         /// <summary>
         /// Gets or Sets PostedTime

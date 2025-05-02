@@ -11,15 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -30,9 +29,11 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class PaymentsController : ControllerBaseApi
     {
-        private readonly IPaymentsService _paymentsService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private readonly IPaymentsService _paymentsService;
 
         /// <summary>
         /// Initializes a new instance of the payments controller.
@@ -63,9 +64,13 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreatePayment")]
-        public async Task<IActionResult> CreatePayment([FromBody] PaymentPostRequest body)
+        public async Task<IActionResult> CreatePayment([FromBody] PaymentCreateRequest body)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentsService.CreatePayment(body, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -82,7 +87,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetPayment")]
         public async Task<IActionResult> GetPayment([FromRoute][Required] string paymentId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentsService.GetPayment(paymentId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -95,9 +104,13 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPayments")]
-        public async Task<IActionResult> GetPayments()
+        public async Task<IActionResult> GetPayments([FromRoute][Required] string accountId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentsService.GetPayments(accountId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -115,7 +128,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("UpdatePayment")]
         public async Task<IActionResult> UpdatePayment([FromBody] PaymentPatchRequest body, [FromRoute][Required] string paymentId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentsService.UpdatePayment(body, paymentId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
     }
 }

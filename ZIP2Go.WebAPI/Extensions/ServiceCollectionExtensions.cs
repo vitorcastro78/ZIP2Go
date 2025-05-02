@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Service.Interfaces;
 using ZIP2GO.Service;
 
@@ -43,4 +42,4 @@ namespace ZIP2Go.WebAPI.Extensions
             return services;
         }
     }
-} 
+}

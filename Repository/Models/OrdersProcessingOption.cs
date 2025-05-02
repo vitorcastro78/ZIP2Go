@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class OrdersProcessingOption
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Specifies whether to just create an invoice, or to create an invoice and collect payment.
         /// </summary>
         /// <value>Specifies whether to just create an invoice, or to create an invoice and collect payment.</value>
@@ -40,6 +32,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "draft_invoice", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "draft_invoice")]
         public bool? DraftInvoice { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.

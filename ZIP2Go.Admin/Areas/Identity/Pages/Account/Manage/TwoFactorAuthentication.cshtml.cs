@@ -2,21 +2,20 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Threading.Tasks;
 using Admin.Repository.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace ZIP2Go.Admin.Areas.Identity.Pages.Account.Manage
 {
     public class TwoFactorAuthenticationModel : PageModel
     {
-        private readonly UserManager<AdminUser> _userManager;
-        private readonly SignInManager<AdminUser> _signInManager;
         private readonly ILogger<TwoFactorAuthenticationModel> _logger;
+
+        private readonly SignInManager<AdminUser> _signInManager;
+
+        private readonly UserManager<AdminUser> _userManager;
 
         public TwoFactorAuthenticationModel(
             UserManager<AdminUser> userManager, SignInManager<AdminUser> signInManager, ILogger<TwoFactorAuthenticationModel> logger)
@@ -36,12 +35,6 @@ namespace ZIP2Go.Admin.Areas.Identity.Pages.Account.Manage
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public int RecoveryCodesLeft { get; set; }
-
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public bool Is2faEnabled { get; set; }
 
@@ -50,6 +43,12 @@ namespace ZIP2Go.Admin.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public bool IsMachineRemembered { get; set; }
+
+        /// <summary>
+        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+        ///     directly from your code. This API may change or be removed in future releases.
+        /// </summary>
+        public int RecoveryCodesLeft { get; set; }
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

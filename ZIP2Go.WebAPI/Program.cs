@@ -1,16 +1,10 @@
 using EasyCaching.SQLite;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using Service.Interfaces;
-using ZIP2GO.Service;
+using ZIP2Go.WebAPI.Extensions;
 using ZIP2GO.Service.Client;
 using ZIP2GO.Service.Client.Auth0Management;
 using ZIP2GO.WebAPI.Filters;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ZIP2Go.WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,7 +21,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddHttpContextAccessor();
 
 // Registrar o EasyCaching
-builder.Services.AddEasyCaching(options => 
+builder.Services.AddEasyCaching(options =>
 {
     options.UseSQLite(builder.Configuration);
 });
@@ -94,4 +88,3 @@ static void ConfigureAuth0Service(IServiceCollection services, IConfiguration co
     services.Configure<Auth0Options>(configuration.GetSection(ConfigSections.AUTH0));
     services.AddScoped<IAuth0Service, Auth0Service>();
 }
-

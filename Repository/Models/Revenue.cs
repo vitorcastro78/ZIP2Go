@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class Revenue
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// If set to `true`, any associated billing document items are excluded from the revenue accounting.
         /// </summary>
         /// <value>If set to `true`, any associated billing document items are excluded from the revenue accounting.</value>
@@ -33,6 +25,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "exclude_item_booking_from_revenue_accounting", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude_item_booking_from_revenue_accounting")]
         public bool? ExcludeItemBookingFromRevenueAccounting { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

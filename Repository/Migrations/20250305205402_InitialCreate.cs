@@ -9,6 +9,299 @@ namespace Repository.Migrations
     public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Accounts_BillingDocumentSettings_BillingDocumentSettingsId",
+                table: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "BillingDocumentStateTransitions");
+
+            migrationBuilder.DropTable(
+                name: "CreditMemoAppliedTo");
+
+            migrationBuilder.DropTable(
+                name: "ItemTier");
+
+            migrationBuilder.DropTable(
+                name: "PaymentOption");
+
+            migrationBuilder.DropTable(
+                name: "PaymentScheduleItemPayments");
+
+            migrationBuilder.DropTable(
+                name: "PrepaidBalanceTransaction");
+
+            migrationBuilder.DropTable(
+                name: "ProductTier");
+
+            migrationBuilder.DropTable(
+                name: "RefundAppliedToItem");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionCancels");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionPauses");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionRemovePlans");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionRenews");
+
+            migrationBuilder.DropTable(
+                name: "TaxationItems");
+
+            migrationBuilder.DropTable(
+                name: "Tier");
+
+            migrationBuilder.DropTable(
+                name: "Usages");
+
+            migrationBuilder.DropTable(
+                name: "Detail");
+
+            migrationBuilder.DropTable(
+                name: "PaymentScheduleItems");
+
+            migrationBuilder.DropTable(
+                name: "PrepaidBalance");
+
+            migrationBuilder.DropTable(
+                name: "ValidityPeriod");
+
+            migrationBuilder.DropTable(
+                name: "ProductPrice");
+
+            migrationBuilder.DropTable(
+                name: "RefundsAppliedTo");
+
+            migrationBuilder.DropTable(
+                name: "ResumeSubscription");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionTerms");
+
+            migrationBuilder.DropTable(
+                name: "BillingDocumentItems");
+
+            migrationBuilder.DropTable(
+                name: "CreditMemoItems");
+
+            migrationBuilder.DropTable(
+                name: "DebitMemoItems");
+
+            migrationBuilder.DropTable(
+                name: "InvoiceItems");
+
+            migrationBuilder.DropTable(
+                name: "Money");
+
+            migrationBuilder.DropTable(
+                name: "PaymentSchedule");
+
+            migrationBuilder.DropTable(
+                name: "PrepaidBalances");
+
+            migrationBuilder.DropTable(
+                name: "ProductPlan");
+
+            migrationBuilder.DropTable(
+                name: "Refunds");
+
+            migrationBuilder.DropTable(
+                name: "PaymentsAppliedTo");
+
+            migrationBuilder.DropTable(
+                name: "DebitMemos");
+
+            migrationBuilder.DropTable(
+                name: "Invoices");
+
+            migrationBuilder.DropTable(
+                name: "OrderLineItems");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionItems");
+
+            migrationBuilder.DropTable(
+                name: "RefundStateTransitions");
+
+            migrationBuilder.DropTable(
+                name: "RefundTransactions");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
+                name: "OrderLineItemRevenue");
+
+            migrationBuilder.DropTable(
+                name: "Price");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionAddPlans");
+
+            migrationBuilder.DropTable(
+                name: "SubscriptionPlans");
+
+            migrationBuilder.DropTable(
+                name: "GatewayOptions");
+
+            migrationBuilder.DropTable(
+                name: "GatewayStateTransitions");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethods");
+
+            migrationBuilder.DropTable(
+                name: "PaymentStateTransitions");
+
+            migrationBuilder.DropTable(
+                name: "PaymentTransactions");
+
+            migrationBuilder.DropTable(
+                name: "Amounts");
+
+            migrationBuilder.DropTable(
+                name: "Drawdown");
+
+            migrationBuilder.DropTable(
+                name: "Overage");
+
+            migrationBuilder.DropTable(
+                name: "Prepayment");
+
+            migrationBuilder.DropTable(
+                name: "Recurring");
+
+            migrationBuilder.DropTable(
+                name: "Revenue");
+
+            migrationBuilder.DropTable(
+                name: "Plan");
+
+            migrationBuilder.DropTable(
+                name: "Subscriptions");
+
+            migrationBuilder.DropTable(
+                name: "AchDebit");
+
+            migrationBuilder.DropTable(
+                name: "ApplePay");
+
+            migrationBuilder.DropTable(
+                name: "AuBecsDebit");
+
+            migrationBuilder.DropTable(
+                name: "AutogiroDebit");
+
+            migrationBuilder.DropTable(
+                name: "BacsDebit");
+
+            migrationBuilder.DropTable(
+                name: "BetalingsDebit");
+
+            migrationBuilder.DropTable(
+                name: "BillingDetails");
+
+            migrationBuilder.DropTable(
+                name: "CcRef");
+
+            migrationBuilder.DropTable(
+                name: "GetCardList");
+
+            migrationBuilder.DropTable(
+                name: "GooglePay");
+
+            migrationBuilder.DropTable(
+                name: "NzBecsDebit");
+
+            migrationBuilder.DropTable(
+                name: "PadDebit");
+
+            migrationBuilder.DropTable(
+                name: "PaypalAdaptive");
+
+            migrationBuilder.DropTable(
+                name: "PaypalExpressNative");
+
+            migrationBuilder.DropTable(
+                name: "PaypalExpress");
+
+            migrationBuilder.DropTable(
+                name: "SepaDebit");
+
+            migrationBuilder.DropTable(
+                name: "TransactionsState");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Order");
+
+            migrationBuilder.DropTable(
+                name: "Term");
+
+            migrationBuilder.DropTable(
+                name: "AddressFieldDefinitions");
+
+            migrationBuilder.DropTable(
+                name: "CcRefCard");
+
+            migrationBuilder.DropTable(
+                name: "Card");
+
+            migrationBuilder.DropTable(
+                name: "Mandate");
+
+            migrationBuilder.DropTable(
+                name: "CardMandate");
+
+            migrationBuilder.DropTable(
+                name: "CustomerAcceptanceMandate");
+
+            migrationBuilder.DropTable(
+                name: "BillingDocumentSettings");
+
+            migrationBuilder.DropTable(
+                name: "CreditMemos");
+
+            migrationBuilder.DropTable(
+                name: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "ArTransactions");
+
+            migrationBuilder.DropTable(
+                name: "StateTransitions");
+
+            migrationBuilder.DropTable(
+                name: "BillingDocuments");
+
+            migrationBuilder.DropTable(
+                name: "Contacts");
+
+            migrationBuilder.DropTable(
+                name: "TaxCertificates");
+
+            migrationBuilder.DropTable(
+                name: "TaxIdentifiers");
+
+            migrationBuilder.DropTable(
+                name: "Address");
+
+            migrationBuilder.DropTable(
+                name: "CustomFields");
+
+            migrationBuilder.DropTable(
+                name: "CustomObjects");
+        }
+
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -4524,299 +4817,6 @@ namespace Repository.Migrations
                 principalTable: "BillingDocumentSettings",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Accounts_BillingDocumentSettings_BillingDocumentSettingsId",
-                table: "Accounts");
-
-            migrationBuilder.DropTable(
-                name: "BillingDocumentStateTransitions");
-
-            migrationBuilder.DropTable(
-                name: "CreditMemoAppliedTo");
-
-            migrationBuilder.DropTable(
-                name: "ItemTier");
-
-            migrationBuilder.DropTable(
-                name: "PaymentOption");
-
-            migrationBuilder.DropTable(
-                name: "PaymentScheduleItemPayments");
-
-            migrationBuilder.DropTable(
-                name: "PrepaidBalanceTransaction");
-
-            migrationBuilder.DropTable(
-                name: "ProductTier");
-
-            migrationBuilder.DropTable(
-                name: "RefundAppliedToItem");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionCancels");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionPauses");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionRemovePlans");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionRenews");
-
-            migrationBuilder.DropTable(
-                name: "TaxationItems");
-
-            migrationBuilder.DropTable(
-                name: "Tier");
-
-            migrationBuilder.DropTable(
-                name: "Usages");
-
-            migrationBuilder.DropTable(
-                name: "Detail");
-
-            migrationBuilder.DropTable(
-                name: "PaymentScheduleItems");
-
-            migrationBuilder.DropTable(
-                name: "PrepaidBalance");
-
-            migrationBuilder.DropTable(
-                name: "ValidityPeriod");
-
-            migrationBuilder.DropTable(
-                name: "ProductPrice");
-
-            migrationBuilder.DropTable(
-                name: "RefundsAppliedTo");
-
-            migrationBuilder.DropTable(
-                name: "ResumeSubscription");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionTerms");
-
-            migrationBuilder.DropTable(
-                name: "BillingDocumentItems");
-
-            migrationBuilder.DropTable(
-                name: "CreditMemoItems");
-
-            migrationBuilder.DropTable(
-                name: "DebitMemoItems");
-
-            migrationBuilder.DropTable(
-                name: "InvoiceItems");
-
-            migrationBuilder.DropTable(
-                name: "Money");
-
-            migrationBuilder.DropTable(
-                name: "PaymentSchedule");
-
-            migrationBuilder.DropTable(
-                name: "PrepaidBalances");
-
-            migrationBuilder.DropTable(
-                name: "ProductPlan");
-
-            migrationBuilder.DropTable(
-                name: "Refunds");
-
-            migrationBuilder.DropTable(
-                name: "PaymentsAppliedTo");
-
-            migrationBuilder.DropTable(
-                name: "DebitMemos");
-
-            migrationBuilder.DropTable(
-                name: "Invoices");
-
-            migrationBuilder.DropTable(
-                name: "OrderLineItems");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionItems");
-
-            migrationBuilder.DropTable(
-                name: "RefundStateTransitions");
-
-            migrationBuilder.DropTable(
-                name: "RefundTransactions");
-
-            migrationBuilder.DropTable(
-                name: "Payments");
-
-            migrationBuilder.DropTable(
-                name: "OrderLineItemRevenue");
-
-            migrationBuilder.DropTable(
-                name: "Price");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionAddPlans");
-
-            migrationBuilder.DropTable(
-                name: "SubscriptionPlans");
-
-            migrationBuilder.DropTable(
-                name: "GatewayOptions");
-
-            migrationBuilder.DropTable(
-                name: "GatewayStateTransitions");
-
-            migrationBuilder.DropTable(
-                name: "PaymentMethods");
-
-            migrationBuilder.DropTable(
-                name: "PaymentStateTransitions");
-
-            migrationBuilder.DropTable(
-                name: "PaymentTransactions");
-
-            migrationBuilder.DropTable(
-                name: "Amounts");
-
-            migrationBuilder.DropTable(
-                name: "Drawdown");
-
-            migrationBuilder.DropTable(
-                name: "Overage");
-
-            migrationBuilder.DropTable(
-                name: "Prepayment");
-
-            migrationBuilder.DropTable(
-                name: "Recurring");
-
-            migrationBuilder.DropTable(
-                name: "Revenue");
-
-            migrationBuilder.DropTable(
-                name: "Plan");
-
-            migrationBuilder.DropTable(
-                name: "Subscriptions");
-
-            migrationBuilder.DropTable(
-                name: "AchDebit");
-
-            migrationBuilder.DropTable(
-                name: "ApplePay");
-
-            migrationBuilder.DropTable(
-                name: "AuBecsDebit");
-
-            migrationBuilder.DropTable(
-                name: "AutogiroDebit");
-
-            migrationBuilder.DropTable(
-                name: "BacsDebit");
-
-            migrationBuilder.DropTable(
-                name: "BetalingsDebit");
-
-            migrationBuilder.DropTable(
-                name: "BillingDetails");
-
-            migrationBuilder.DropTable(
-                name: "CcRef");
-
-            migrationBuilder.DropTable(
-                name: "GetCardList");
-
-            migrationBuilder.DropTable(
-                name: "GooglePay");
-
-            migrationBuilder.DropTable(
-                name: "NzBecsDebit");
-
-            migrationBuilder.DropTable(
-                name: "PadDebit");
-
-            migrationBuilder.DropTable(
-                name: "PaypalAdaptive");
-
-            migrationBuilder.DropTable(
-                name: "PaypalExpressNative");
-
-            migrationBuilder.DropTable(
-                name: "PaypalExpress");
-
-            migrationBuilder.DropTable(
-                name: "SepaDebit");
-
-            migrationBuilder.DropTable(
-                name: "TransactionsState");
-
-            migrationBuilder.DropTable(
-                name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Term");
-
-            migrationBuilder.DropTable(
-                name: "AddressFieldDefinitions");
-
-            migrationBuilder.DropTable(
-                name: "CcRefCard");
-
-            migrationBuilder.DropTable(
-                name: "Card");
-
-            migrationBuilder.DropTable(
-                name: "Mandate");
-
-            migrationBuilder.DropTable(
-                name: "CardMandate");
-
-            migrationBuilder.DropTable(
-                name: "CustomerAcceptanceMandate");
-
-            migrationBuilder.DropTable(
-                name: "BillingDocumentSettings");
-
-            migrationBuilder.DropTable(
-                name: "CreditMemos");
-
-            migrationBuilder.DropTable(
-                name: "Accounts");
-
-            migrationBuilder.DropTable(
-                name: "ArTransactions");
-
-            migrationBuilder.DropTable(
-                name: "StateTransitions");
-
-            migrationBuilder.DropTable(
-                name: "BillingDocuments");
-
-            migrationBuilder.DropTable(
-                name: "Contacts");
-
-            migrationBuilder.DropTable(
-                name: "TaxCertificates");
-
-            migrationBuilder.DropTable(
-                name: "TaxIdentifiers");
-
-            migrationBuilder.DropTable(
-                name: "Address");
-
-            migrationBuilder.DropTable(
-                name: "CustomFields");
-
-            migrationBuilder.DropTable(
-                name: "CustomObjects");
         }
     }
 }

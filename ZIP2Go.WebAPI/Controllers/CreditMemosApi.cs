@@ -11,15 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
-using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -30,9 +29,11 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class CreditMemosController : ControllerBaseApi
     {
-        private readonly ICreditMemosService _creditMemosService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly ICreditMemosService _creditMemosService;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the credit memos controller.
@@ -63,9 +64,13 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateCreditMemo")]
-        public async Task<IActionResult> CreateCreditMemo([FromBody] CreditMemoPostRequest body)
+        public async Task<IActionResult> CreateCreditMemo([FromBody] CreditMemoCreateRequest body)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _creditMemosService.CreateCreditMemo(body, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -82,7 +87,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetCreditMemo")]
         public async Task<IActionResult> GetCreditMemo([FromRoute][Required] string creditMemoId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _creditMemosService.GetCreditMemo(creditMemoId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -97,7 +106,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetCreditMemos")]
         public async Task<IActionResult> GetCreditMemos()
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _creditMemosService.GetCreditMemos("creditMemoId", zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -115,7 +128,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("UpdateCreditMemo")]
         public async Task<IActionResult> UpdateCreditMemo([FromBody] CreditMemoPatchRequest body, [FromRoute][Required] string creditMemoId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _creditMemosService.PatchCreditMemo(body, creditMemoId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
     }
 }

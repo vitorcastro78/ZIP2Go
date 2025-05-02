@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class SepaDebit
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// The BIC code used with the Sepa Debit payment method.
         /// </summary>
         /// <value>The BIC code used with the Sepa Debit payment method.</value>
@@ -33,6 +25,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "IBAN", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "IBAN")]
         public string IBAN { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate

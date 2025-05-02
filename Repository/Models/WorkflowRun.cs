@@ -10,7 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class WorkflowRun
     {
-
         /// <summary>
         /// Gets or Sets CreatedTime
         /// </summary>

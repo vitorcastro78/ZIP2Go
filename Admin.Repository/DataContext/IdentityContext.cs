@@ -1,5 +1,4 @@
 ﻿using Admin.Repository.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,16 +8,11 @@ public class IdentityContext : IdentityDbContext<AdminUser>
 {
     private readonly string _connectionString;
 
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite(_connectionString);
-    }
-
     public IdentityContext(string connectionString)
     {
         _connectionString = connectionString;
     }
+
     public IdentityContext(DbContextOptions<IdentityContext> options)
         : base(options)
     {
@@ -26,6 +20,10 @@ public class IdentityContext : IdentityDbContext<AdminUser>
 
     public DbSet<AdminUser> AdminUsers { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite(_connectionString);
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

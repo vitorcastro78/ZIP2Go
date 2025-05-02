@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-
-namespace ZIP2GO.Service.Client.Auth0Management.Models
+﻿namespace ZIP2GO.Service.Client.Auth0Management.Models
 {
     public class Auth0AccountResponse
     {
-        public Auth0AccountResponse() { }
+        public Auth0AccountResponse()
+        { }
 
         public Auth0AccountResponse(string auth0Id, string email, string fullName)
         {
@@ -23,16 +21,24 @@ namespace ZIP2GO.Service.Client.Auth0Management.Models
         }
 
         public string Auth0Id { get; set; }
-        public string[] Roles { get; set; }
-        public string Email { get; set; }
-        public string FullName { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+
         public bool Blocked { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+
+        public string Email { get; set; }
+
         public string Firstname { get; set; }
+
+        public string FullName { get; set; }
+
         public string Lastname { get; set; }
 
         public AppMetadata Metadata { get; set; }
+
+        public string[] Roles { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
 
         public class AppMetadata
         {
@@ -48,11 +54,11 @@ namespace ZIP2GO.Service.Client.Auth0Management.Models
                 ResellerCurrency = resellerCurrency;
             }
 
-            public string ResellerAdminAuth0Id { get; set; }
+            public string ResellerAdminAccountId { get; set; }
 
             public string ResellerAdminAccountNumber { get; set; }
 
-            public string ResellerAdminAccountId { get; set; }
+            public string ResellerAdminAuth0Id { get; set; }
 
             public string ResellerCurrency { get; set; }
         }

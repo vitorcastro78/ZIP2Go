@@ -25,17 +25,17 @@ namespace ZIP2GO.Service.Client
         /// <value>The prefix of the API key.</value>
         public static Dictionary<string, string> ApiKeyPrefix = new Dictionary<string, string>();
 
-        /// <summary>
-        /// Gets or sets the default API client for making HTTP calls.
-        /// </summary>
-        /// <value>The API client.</value>
-        private static ApiClient defaultApiClient = new ApiClient();
-
         private const string ISO8601_DATETIME_FORMAT = "o";
 
         private static string _dateTimeFormat = ISO8601_DATETIME_FORMAT;
 
         private static string _tempFolderPath = Path.GetTempPath();
+
+        /// <summary>
+        /// Gets or sets the default API client for making HTTP calls.
+        /// </summary>
+        /// <value>The API client.</value>
+        private static ApiClient defaultApiClient = new ApiClient();
 
         /// <summary>
         /// Gets or sets the the date time format used when serializing in the ApiClient
@@ -66,6 +66,8 @@ namespace ZIP2GO.Service.Client
                 _dateTimeFormat = value;
             }
         }
+
+        public static ApiClient DefaultApiClient { get => defaultApiClient; set => defaultApiClient = value; }
 
         /// <summary>
         /// Gets or sets the password (HTTP basic authentication).
@@ -106,7 +108,6 @@ namespace ZIP2GO.Service.Client
         /// </summary>
         /// <value>The username.</value>
         public static string Username { get; set; }
-        public static ApiClient DefaultApiClient { get => defaultApiClient; set => defaultApiClient = value; }
 
         /// <summary>
         /// Returns a string with essential information for debugging.

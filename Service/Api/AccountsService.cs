@@ -12,15 +12,13 @@ namespace ZIP2GO.Service
     public class AccountsService : IAccountsService
     {
         private readonly List<string> expand;
-        public ApiClient ApiClient { get; set; }
-
 
         /// Initializes a new instance of the AccountsService class.
         /// </summary>
         /// <param name="cache">Cache provider for storing account data</param>
         /// <param name="apiClient">API client for making HTTP requests (optional)</param>
         /// <exception cref="ArgumentNullException">Thrown when cache provider is null</exception>
-        public AccountsService( ApiClient apiClient = null) 
+        public AccountsService(ApiClient apiClient = null)
         {
             if (apiClient == null) // use the default one in Configuration
                 this.ApiClient = Configuration.DefaultApiClient;
@@ -50,12 +48,12 @@ namespace ZIP2GO.Service
                 };
         }
 
+        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Gets or sets the API client used for making HTTP requests.
         /// </summary>
         /// <value>An instance of the ApiClient</value>
-       
 
         /// <summary>
         /// Creates a new account in the system.
@@ -78,14 +76,10 @@ namespace ZIP2GO.Service
             var headerParams = new Dictionary<string, string>();
             string PostBody = null;
 
-
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
             PostBody = ApiClient.Serialize(body); // http body (model) parameter
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody);
@@ -120,10 +114,9 @@ namespace ZIP2GO.Service
             var headerParams = new Dictionary<string, string>();
             string PostBody = null;
 
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-
 
             try
             {
@@ -170,32 +163,27 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string PostBody = null;
 
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            
+
             PostBody = ApiClient.Serialize(body); // http body (model) parameter
-            
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
 
-                // make the HTTP request
-                RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody);
+            // make the HTTP request
+            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody);
 
-                if (((int)response.StatusCode) >= 400)
+            if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GenerateBillingDocuments: " + response.Content, response.Content);
-                else if (((int)response.StatusCode) == 0)
+            else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GenerateBillingDocuments: " + response.ErrorMessage, response.ErrorMessage);
 
             return (GenerateBillingDocumentsAccountResponse)ApiClient.Deserialize(response.Content, typeof(GenerateBillingDocumentsAccountResponse));
-            }
+        }
 
         /// <summary>
         public Account GetAccount(string accountId, string zuoraTrackId, bool? async)
         {
             //        private const string APIV2_GET_ALL_SUBSCRIPTIONS = "/v2/subscriptions?expand%5B%5D=account.bill_to&expand%5B%5D=account.sold_to&expand%5B%5D=subscription_plans.subscription_items&filter%5B%5D=Status.EQ:{0}&filter%5B%5D=InvoiceOwnerId.EQ:{1}&filter%5B%5D=latest_version.EQ:true&page_size=95"; // "/v2/subscriptions?expand%5B%5D=account.bill_to&expand%5B%5D=account.sold_to&expand%5B%5D=subscription_plans.subscription_items&filter%5B%5D=InvoiceOwnerId.EQ:{0}&filter%5B%5D=latest_version.EQ:true&page_size=95";
-
-
 
             // verify the required parameter 'accountId' is set
             if (accountId == null) throw new ApiException(400, "Missing required parameter 'accountId' when calling GetAccount");
@@ -234,16 +222,13 @@ namespace ZIP2GO.Service
             //         "account.transactions"
             //     };
 
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
-
             // make the HTTP request
-            return ApiClient.CallApi<Account>(accountId, path, Method.Get,queryParams,PostBody);
-            
+            return ApiClient.CallApi<Account>(accountId, path, Method.Get, queryParams, PostBody);
+
             //if (((int)response.StatusCode) >= 400)
             //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
             //else if (((int)response.StatusCode) == 0)
@@ -285,8 +270,8 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>ListAccountResponse</returns>
-        public ListAccountResponse GetAccounts(bool async, string zuoraTrackId)
-            {
+        public ListAccountResponse GetAccounts(string zuoraTrackId, bool? async)
+        {
             var path = "/accounts";
             path = path.Replace("{format}", "json");
             var queryParams = new Dictionary<string, string>();
@@ -295,20 +280,20 @@ namespace ZIP2GO.Service
             var fileParams = new Dictionary<string, FileParameter>();
             string PostBody = null;
 
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody);
 
-                if (((int)response.StatusCode) >= 400)
+            if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
-                else if (((int)response.StatusCode) == 0)
+            else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
 
-                return (ListAccountResponse)ApiClient.Deserialize(response.Content, typeof(ListAccountResponse));
-            }
+            return (ListAccountResponse)ApiClient.Deserialize(response.Content, typeof(ListAccountResponse));
+        }
 
         /// <summary>
         /// Previews an account before creation.
@@ -338,14 +323,8 @@ namespace ZIP2GO.Service
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody);
@@ -386,14 +365,8 @@ namespace ZIP2GO.Service
 
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            PostBody = ApiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
             RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, PostBody);

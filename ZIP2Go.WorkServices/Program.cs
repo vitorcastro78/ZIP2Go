@@ -1,4 +1,3 @@
-
 namespace ZIP2Go.WorkServices
 {
     public class Program
@@ -26,7 +25,6 @@ namespace ZIP2Go.WorkServices
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

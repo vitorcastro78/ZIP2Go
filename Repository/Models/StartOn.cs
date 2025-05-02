@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class StartOn
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Effective contract date for this subscription, in the `yyyy-mm-dd` format.
         /// </summary>
         /// <value>Effective contract date for this subscription, in the `yyyy-mm-dd` format.</value>
@@ -33,6 +25,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "customer_acceptance", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "customer_acceptance")]
         public DateTime? CustomerAcceptance { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The date on which the services or products within a subscription have been activated and access has been provided to the customer, as the `yyyy-mm-dd` format.       <ul>        <li> If [Zuora is configured to require service activation](https://knowledgecenter.zuora.com/CB_Billing/Billing_Settings/Define_Default_Subscription_Settings#Require_Service_Activation_of_Orders.3F) and the `service_activation` field is not set for a `subscription_plans` order action or the \"Create a subscription\" operation, a `pending` order and/or a `pending_activation` subscription are created.</li>         <li> If [Zuora is configured to require service activation](https://knowledgecenter.zuora.com/CB_Billing/Billing_Settings/Define_Default_Subscription_Settings#Require_Service_Activation_of_Orders.3F) and the `service_activation` field is not set for any of the following order actions or the \"Update a subscription\" operation, a `pending` order is created. The subscription status is not impacted. **Note**: This feature is in Limited Availability. If you want to have access to the feature, submit a request at [Zuora Global Support](https://support.zuora.com/).         <ul>           <li>`add_subscription_plans`</li>           <li>`update_subscription_plans`</li>           <li>`remove_subscription_plans`</li>           <li>`renew`</li>           <li>`terms`</li>           </ul>           </li>         </ul>

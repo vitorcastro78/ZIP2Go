@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Admin.Repository.Models;
+﻿using Admin.Repository.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Admin.Repository.DataContext
 {
@@ -10,23 +10,22 @@ namespace Admin.Repository.DataContext
         //   optionsBuilder.UseSqlite("Data Source=.\\Database\\admin.db");
         //}
 
-
         private readonly string _connectionString;
 
         public AdminDataContext(string connectionString)
         {
             _connectionString = connectionString;
         }
+
         public AdminDataContext(DbContextOptions<AdminDataContext> options) : base(options)
         {
         }
+
+        public DbSet<RequestHeaders> RequestHeaders { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(_connectionString);
         }
-
-
-        public DbSet<RequestHeaders> RequestHeaders { get; set; }
-     
     }
 }

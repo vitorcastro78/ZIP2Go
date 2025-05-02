@@ -48,7 +48,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Identifier of the credit memo application</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

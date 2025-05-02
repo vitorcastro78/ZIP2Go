@@ -10,11 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BetalingsDebit
     {
-
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
         /// <summary>
         /// The bank account number of the account holder.
         /// </summary>
@@ -30,6 +25,10 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "bank_code", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_code")]
         public string BankCode { get; set; }
+
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The identity number used for Betalingsservice (Direct Debit DK).

@@ -2,24 +2,19 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using Admin.Repository.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace ZIP2Go.Admin.Areas.Identity.Pages.Account.Manage
 {
     public class DownloadPersonalDataModel : PageModel
     {
-        private readonly UserManager<AdminUser> _userManager;
         private readonly ILogger<DownloadPersonalDataModel> _logger;
+
+        private readonly UserManager<AdminUser> _userManager;
 
         public DownloadPersonalDataModel(
             UserManager<AdminUser> userManager,

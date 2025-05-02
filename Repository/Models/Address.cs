@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class Address
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// City, district, suburb, town, or village.
         /// </summary>
         /// <value>City, district, suburb, town, or village.</value>
@@ -41,6 +33,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "county", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "county")]
         public string County { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Address line 1 (e.g., street, PO Box, or company name).

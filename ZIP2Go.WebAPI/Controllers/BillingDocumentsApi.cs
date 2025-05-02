@@ -11,14 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -30,8 +30,10 @@ namespace ZIP2GO.WebAPI.Controllers
     public class BillingDocumentsApiController : ControllerBaseApi
     {
         private readonly IBillingDocumentsService _billingDocumentsService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
         /// Initializes a new instance of the billing documents controller.
@@ -48,6 +50,58 @@ namespace ZIP2GO.WebAPI.Controllers
             _billingDocumentsService = billingDocumentsService ?? throw new ArgumentNullException(nameof(billingDocumentsService));
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
             _cacheProvider = cache ?? throw new ArgumentNullException(nameof(cache));
+        }
+
+        /// <summary>
+        /// Creates a new billing document.
+        /// </summary>
+        /// <param name="body">Billing document data to create</param>
+        /// <returns>The newly created billing document</returns>
+        /// <response code="201">Billing document created successfully</response>
+        /// <response code="400">Invalid billing document data</response>
+        [HttpPost]
+        [Route("/v2/billing_documents")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("CreateBillingDocument")]
+        public async Task<IActionResult> CreateBillingDocument([FromBody] BillingDocumentCreateRequest body)
+        {
+            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(201, default(BillingDocument));
+
+            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(400, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(401, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(405, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(429, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(500, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(502, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(503, default(ErrorResponse));
+
+            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(504, default(ErrorResponse));
+            string exampleJson = null;
+            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_number\" : \"account_number\",\n  \"amount_paid\" : 7.061401241503109,\n  \"exclude_from_auto_apply_rules\" : true,\n  \"description\" : \"description\",\n  \"state_transitions\" : \"\",\n  \"past_due\" : true,\n  \"type\" : \"credit_memo\",\n  \"amount_refunded\" : 0.8008281904610115,\n  \"reason_code\" : \"reason_code\",\n  \"total\" : 6.027456183070403,\n  \"billing_document_number\" : \"billing_document_number\",\n  \"balance\" : 5.637376656633329,\n  \"invoice_id\" : \"invoice_id\",\n  \"id\" : \"id\",\n  \"state\" : \"draft\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"transfer_to_accounting\" : true,\n  \"posted_by_id\" : \"posted_by_id\",\n  \"remaining_balance\" : 2.3021358869347655,\n  \"custom_fields\" : \"\",\n  \"due_date\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"document_date\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"pay\" : true,\n  \"tax\" : 5.962133916683182,\n  \"account_id\" : \"account_id\",\n  \"custom_objects\" : \"\",\n  \"subtotal\" : 1.4658129805029452,\n  \"paid\" : true,\n  \"updated_by_id\" : \"updated_by_id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"items\" : \"\",\n  \"account\" : \"\"\n}";
+
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<BillingDocument>(exampleJson)
+            : default(BillingDocument);            //TODO: Change the data returned
+            return new ObjectResult(example);
         }
 
         /// <summary>
@@ -152,74 +206,22 @@ namespace ZIP2GO.WebAPI.Controllers
             return new ObjectResult(example);
         }
 
-        /// <summary>
-        /// Creates a new billing document.
-        /// </summary>
-        /// <param name="body">Billing document data to create</param>
-        /// <returns>The newly created billing document</returns>
-        /// <response code="201">Billing document created successfully</response>
-        /// <response code="400">Invalid billing document data</response>
-        [HttpPost]
-        [Route("/v2/billing_documents")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("CreateBillingDocument")]
-        public async Task<IActionResult> CreateBillingDocument([FromBody] BillingDocumentPostRequest body)
-        {
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(BillingDocument));
-
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"account_number\" : \"account_number\",\n  \"amount_paid\" : 7.061401241503109,\n  \"exclude_from_auto_apply_rules\" : true,\n  \"description\" : \"description\",\n  \"state_transitions\" : \"\",\n  \"past_due\" : true,\n  \"type\" : \"credit_memo\",\n  \"amount_refunded\" : 0.8008281904610115,\n  \"reason_code\" : \"reason_code\",\n  \"total\" : 6.027456183070403,\n  \"billing_document_number\" : \"billing_document_number\",\n  \"balance\" : 5.637376656633329,\n  \"invoice_id\" : \"invoice_id\",\n  \"id\" : \"id\",\n  \"state\" : \"draft\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"transfer_to_accounting\" : true,\n  \"posted_by_id\" : \"posted_by_id\",\n  \"remaining_balance\" : 2.3021358869347655,\n  \"custom_fields\" : \"\",\n  \"due_date\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"document_date\" : \"2023-01-01T00:00:00.000+00:00\",\n  \"pay\" : true,\n  \"tax\" : 5.962133916683182,\n  \"account_id\" : \"account_id\",\n  \"custom_objects\" : \"\",\n  \"subtotal\" : 1.4658129805029452,\n  \"paid\" : true,\n  \"updated_by_id\" : \"updated_by_id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"items\" : \"\",\n  \"account\" : \"\"\n}";
-
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<BillingDocument>(exampleJson)
-            : default(BillingDocument);            //TODO: Change the data returned
-            return new ObjectResult(example);
-        }
-
-        /// <summary>
-        /// Updates an existing billing document.
-        /// </summary>
-        /// <param name="body">Updated billing document data</param>
-        /// <param name="billingDocumentId">ID of the billing document to update</param>
-        /// <returns>The updated billing document information</returns>
-        /// <response code="200">Billing document updated successfully</response>
-        /// <response code="404">Billing document not found</response>
-        [HttpPatch]
-        [Route("/v2/billing_documents/{billing_document_id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("UpdateBillingDocument")]
-        public async Task<IActionResult> UpdateBillingDocument([FromBody] BillingDocumentPatchRequest body, [FromRoute][Required] string billingDocumentId)
-        {
-            // ... existing code ...
-        }
+        ///// <summary>
+        ///// Updates an existing billing document.
+        ///// </summary>
+        ///// <param name="body">Updated billing document data</param>
+        ///// <param name="billingDocumentId">ID of the billing document to update</param>
+        ///// <returns>The updated billing document information</returns>
+        ///// <response code="200">Billing document updated successfully</response>
+        ///// <response code="404">Billing document not found</response>
+        //[HttpPatch]
+        //[Route("/v2/billing_documents/{billing_document_id}")]
+        //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        //[ValidateModelState]
+        //[SwaggerOperation("UpdateBillingDocument")]
+        //public async Task<IActionResult> UpdateBillingDocument([FromBody] BillingDocumentPatchRequest body, [FromRoute][Required] string billingDocumentId)
+        //{
+        //    // ... existing code ...
+        //}
     }
 }

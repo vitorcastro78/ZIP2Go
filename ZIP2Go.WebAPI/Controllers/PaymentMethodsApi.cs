@@ -11,15 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -30,9 +29,11 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class PaymentMethodsController : ControllerBaseApi
     {
-        private readonly IPaymentMethodsService _paymentMethodsService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private readonly IPaymentMethodsService _paymentMethodsService;
 
         /// <summary>
         /// Initializes a new instance of the payment methods controller.
@@ -63,9 +64,13 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreatePaymentMethod")]
-        public async Task<IActionResult> CreatePaymentMethod([FromBody] PaymentMethodPostRequest body)
+        public async Task<IActionResult> CreatePaymentMethod([FromBody] PaymentMethodCreateRequest body)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentMethodsService.CreatePaymentMethod(body, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -80,9 +85,13 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentMethod")]
-        public async Task<IActionResult> GetPaymentMethod([FromRoute][Required] string paymentMethodId)
+        public async Task<IActionResult> GetPaymentMethodById([FromRoute][Required] string paymentMethodId)
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentMethodsService.GetPaymentMethodById(paymentMethodId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
@@ -97,7 +106,32 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetPaymentMethods")]
         public async Task<IActionResult> GetPaymentMethods()
         {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentMethodsService.GetPaymentMethods("", zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
+        }
+
+        /// <summary>
+        /// Scrubs sensitive data from a payment method.
+        /// </summary>
+        /// <param name="paymentMethodId">ID of the payment method to scrub</param>
+        /// <returns>No content if successful</returns>
+        /// <response code="204">Payment method scrubbed successfully</response>
+        /// <response code="404">Payment method not found</response>
+        [HttpPost]
+        [Route("/v2/payment_methods/{payment_method_id}/scrub")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("ScrubPaymentMethod")]
+        public async Task<IActionResult> ScrubPaymentMethod([FromRoute][Required] string paymentMethodId)
+        {
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            _paymentMethodsService.ScrubPaymentMethod(paymentMethodId, zuoraTrackId, async);           //TODO: Change the data returned
+            return Ok();
         }
 
         /// <summary>
@@ -115,24 +149,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("UpdatePaymentMethod")]
         public async Task<IActionResult> UpdatePaymentMethod([FromBody] PaymentMethodPatchRequest body, [FromRoute][Required] string paymentMethodId)
         {
-            // ... existing code ...
-        }
-
-        /// <summary>
-        /// Scrubs sensitive data from a payment method.
-        /// </summary>
-        /// <param name="paymentMethodId">ID of the payment method to scrub</param>
-        /// <returns>No content if successful</returns>
-        /// <response code="204">Payment method scrubbed successfully</response>
-        /// <response code="404">Payment method not found</response>
-        [HttpPost]
-        [Route("/v2/payment_methods/{payment_method_id}/scrub")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("ScrubPaymentMethod")]
-        public async Task<IActionResult> ScrubPaymentMethod([FromRoute][Required] string paymentMethodId)
-        {
-            // ... existing code ...
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _paymentMethodsService.GetPaymentMethodById(paymentMethodId, zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
     }
 }

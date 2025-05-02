@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class OrderLineItemRevenue
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
@@ -57,6 +49,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "exclude_item_booking_from_revenue_accounting", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude_item_booking_from_revenue_accounting")]
         public bool? ExcludeItemBookingFromRevenueAccounting { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// An active accounting code in your Zuora chart of accounts.

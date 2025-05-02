@@ -59,7 +59,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>PaymentSchedule</returns>
-        PaymentSchedule GetPaymentSchedule(string paymentScheduleId, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId);
+        PaymentSchedule GetPaymentSchedule(string paymentScheduleId, List<string> fields, List<string> paymentScheduleItemFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Update a payment schedule Updates the specified payment schedule by setting the values of the parameters passed. Any parameters not provided will remain unchanged.

@@ -2,20 +2,18 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
-using System;
-using System.Threading.Tasks;
 using Admin.Repository.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 
 namespace ZIP2Go.Admin.Areas.Identity.Pages.Account.Manage
 {
     public class Disable2faModel : PageModel
     {
-        private readonly UserManager<AdminUser> _userManager;
         private readonly ILogger<Disable2faModel> _logger;
+
+        private readonly UserManager<AdminUser> _userManager;
 
         public Disable2faModel(
             UserManager<AdminUser> userManager,

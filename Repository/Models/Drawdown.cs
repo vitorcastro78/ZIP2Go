@@ -10,6 +10,13 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class Drawdown
     {
+        /// <summary>
+        /// The conversion rate between usage unit of measure (UOM) and drawdown unit of measure for a drawdown charge.        **Note**:    <ul>    <li>Must be a positive number (>0).</li>    <li>Must be `1` when usage UOM and drawdown UOM are the same.</li>     <li>If both `conversion_rate` and `unit_of_measure` for the drawdown are empty, the system will set default values respectively: <ul>      <li> `conversion_rate`: 1 </li>      <li> `unit_of_measure`: Same as the usage UOM of this drawdown charge. </li></ul></li></ul>        The `conversion_rate` and `unit_of_measure` fields need to have values or be empty at the same time.
+        /// </summary>
+        /// <value>The conversion rate between usage unit of measure (UOM) and drawdown unit of measure for a drawdown charge.        **Note**:    <ul>    <li>Must be a positive number (>0).</li>    <li>Must be `1` when usage UOM and drawdown UOM are the same.</li>     <li>If both `conversion_rate` and `unit_of_measure` for the drawdown are empty, the system will set default values respectively: <ul>      <li> `conversion_rate`: 1 </li>      <li> `unit_of_measure`: Same as the usage UOM of this drawdown charge. </li></ul></li></ul>        The `conversion_rate` and `unit_of_measure` fields need to have values or be empty at the same time.     </value>
+        [DataMember(Name = "conversion_rate", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "conversion_rate")]
+        public decimal? ConversionRate { get; set; }
 
         /// <summary>
         /// Unique identifier for the object.
@@ -18,14 +25,6 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
-
-        /// <summary>
-        /// The conversion rate between usage unit of measure (UOM) and drawdown unit of measure for a drawdown charge.        **Note**:    <ul>    <li>Must be a positive number (>0).</li>    <li>Must be `1` when usage UOM and drawdown UOM are the same.</li>     <li>If both `conversion_rate` and `unit_of_measure` for the drawdown are empty, the system will set default values respectively: <ul>      <li> `conversion_rate`: 1 </li>      <li> `unit_of_measure`: Same as the usage UOM of this drawdown charge. </li></ul></li></ul>        The `conversion_rate` and `unit_of_measure` fields need to have values or be empty at the same time.
-        /// </summary>
-        /// <value>The conversion rate between usage unit of measure (UOM) and drawdown unit of measure for a drawdown charge.        **Note**:    <ul>    <li>Must be a positive number (>0).</li>    <li>Must be `1` when usage UOM and drawdown UOM are the same.</li>     <li>If both `conversion_rate` and `unit_of_measure` for the drawdown are empty, the system will set default values respectively: <ul>      <li> `conversion_rate`: 1 </li>      <li> `unit_of_measure`: Same as the usage UOM of this drawdown charge. </li></ul></li></ul>        The `conversion_rate` and `unit_of_measure` fields need to have values or be empty at the same time.     </value>
-        [DataMember(Name = "conversion_rate", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "conversion_rate")]
-        public decimal? ConversionRate { get; set; }
 
         /// <summary>
         /// Unit of measurement for a drawdown charge.

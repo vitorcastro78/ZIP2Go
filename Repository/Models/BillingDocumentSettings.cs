@@ -42,6 +42,10 @@ namespace ZIP2GO.Repository.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email_documents")]
         public bool? EmailDocuments { get; set; }
 
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Identifier of the invoice template associated with this customer.
         /// </summary>
@@ -57,11 +61,6 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "print_documents", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "print_documents")]
         public bool? PrintDocuments { get; set; }
-
-
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

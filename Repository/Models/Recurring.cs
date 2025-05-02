@@ -43,6 +43,14 @@ namespace ZIP2GO.Repository.Models
         public string Formula { get; set; }
 
         /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Specifies the billing frequency. One of `week`, `month` or `year`.
         /// </summary>
         /// <value>Specifies the billing frequency. One of `week`, `month` or `year`.</value>
@@ -97,14 +105,6 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "usage", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "usage")]
         public bool? Usage { get; set; }
-
-        /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
 
         /// <summary>
         /// Get the JSON string presentation of the object

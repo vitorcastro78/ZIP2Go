@@ -10,8 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BillRun
     {
-
-
         /// <summary>
         /// Identifier of the customer account to bill.
         /// </summary>
@@ -130,7 +128,7 @@ namespace ZIP2GO.Repository.Models
         /// <value>Unique identifier for this object.</value>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-       public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         /// The date displayed on the invoice.

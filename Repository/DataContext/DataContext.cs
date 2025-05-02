@@ -5,49 +5,86 @@ namespace Repository.DataContext
 {
     public class AppDataContext : DbContext
     {
+        public DbSet<Account> Accounts { get; set; }
+
+        public DbSet<ArTransactions> ArTransactions { get; set; }
+
+        public DbSet<BillingDocumentItem> BillingDocumentItems { get; set; }
+
+        public DbSet<BillingDocument> BillingDocuments { get; set; }
+
+        public DbSet<BillingDocumentSettings> BillingDocumentSettings { get; set; }
+
+        public DbSet<Contact> Contacts { get; set; }
+
+        public DbSet<CreditMemoAppliedTo> CreditMemoAppliedTo { get; set; }
+
+        public DbSet<CreditMemoItem> CreditMemoItems { get; set; }
+
+        public DbSet<CreditMemo> CreditMemos { get; set; }
+
+        public DbSet<CustomObject> CustomObjects { get; set; }
+
+        public DbSet<DebitMemoItem> DebitMemoItems { get; set; }
+
+        public DbSet<DebitMemo> DebitMemos { get; set; }
+
+        public DbSet<InvoiceItem> InvoiceItems { get; set; }
+
+        public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<Order> Order { get; set; }
+
+        public DbSet<OrderItem> OrderLineItems { get; set; }
+
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
+
+        public DbSet<PaymentsAppliedTo> PaymentsAppliedTo { get; set; }
+
+        public DbSet<PaymentScheduleItem> PaymentScheduleItems { get; set; }
+
+        public DbSet<PaymentTransactions> PaymentTransactions { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Refund> Refunds { get; set; }
+
+        public DbSet<RefundTransactions> RefundTransactions { get; set; }
+
+        public DbSet<SubscriptionAddPlan> SubscriptionAddPlans { get; set; }
+
+        public DbSet<SubscriptionCancel> SubscriptionCancels { get; set; }
+
+        public DbSet<SubscriptionItem> SubscriptionItems { get; set; }
+
+        public DbSet<SubscriptionPause> SubscriptionPauses { get; set; }
+
+        public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
+
+        public DbSet<SubscriptionRemovePlan> SubscriptionRemovePlans { get; set; }
+
+        public DbSet<SubscriptionRenew> SubscriptionRenews { get; set; }
+
+        public DbSet<Subscription> Subscriptions { get; set; }
+
+        public DbSet<SubscriptionTerm> SubscriptionTerms { get; set; }
+
+        public DbSet<TaxationItem> TaxationItems { get; set; }
+
+        public DbSet<TaxCertificate> TaxCertificates { get; set; }
+
+        public DbSet<TaxIdentifier> TaxIdentifiers { get; set; }
+
+        public DbSet<TransactionsState> TransactionsState { get; set; }
+
+        public DbSet<Usage> Usages { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=.\\Database\\subscription.db");
         }
-
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<SubscriptionAddPlan> SubscriptionAddPlans { get; set; }
-        public DbSet<SubscriptionCancel> SubscriptionCancels { get; set; }
-        public DbSet<SubscriptionPause> SubscriptionPauses { get; set; }
-        public DbSet<SubscriptionRemovePlan> SubscriptionRemovePlans { get; set; }
-        public DbSet<SubscriptionRenew> SubscriptionRenews { get; set; }
-        public DbSet<ArTransactions> ArTransactions { get; set; }
-        public DbSet<CreditMemo> CreditMemos { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<PaymentTransactions> PaymentTransactions { get; set; }
-        public DbSet<RefundTransactions> RefundTransactions { get; set; }
-        public DbSet<TransactionsState> TransactionsState { get; set; }
-        public DbSet<Usage> Usages { get; set; }
-        public DbSet<CreditMemoItem> CreditMemoItems { get; set; }
-        public DbSet<InvoiceItem> InvoiceItems { get; set; }
-        public DbSet<Refund> Refunds { get; set; }
-        public DbSet<SubscriptionPlan> SubscriptionPlans { get; set; }
-        public DbSet<SubscriptionTerm> SubscriptionTerms { get; set; }
-        public DbSet<TaxCertificate> TaxCertificates { get; set; }
-        public DbSet<SubscriptionItem> SubscriptionItems { get; set; }
-        public DbSet<BillingDocument> BillingDocuments { get; set; }
-        public DbSet<BillingDocumentSettings> BillingDocumentSettings { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
-        public DbSet<CustomObject> CustomObjects { get; set; }
-        public DbSet<DebitMemo> DebitMemos { get; set; }
-        public DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<TaxIdentifier> TaxIdentifiers { get; set; }
-        public DbSet<BillingDocumentItem> BillingDocumentItems { get; set; }
-        public DbSet<PaymentScheduleItem> PaymentScheduleItems { get; set; }
-        public DbSet<Order> Order { get; set; }
-        public DbSet<OrderItem> OrderLineItems { get; set; }
-        public DbSet<PaymentsAppliedTo> PaymentsAppliedTo { get; set; }
-        public DbSet<CreditMemoAppliedTo> CreditMemoAppliedTo { get; set; }
-        public DbSet<DebitMemoItem> DebitMemoItems { get; set; }
-        public DbSet<TaxationItem> TaxationItems { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

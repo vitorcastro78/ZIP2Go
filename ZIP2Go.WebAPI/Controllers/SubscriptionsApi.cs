@@ -1,15 +1,14 @@
+using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
+using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using Service.Interfaces;
-using EasyCaching.Core;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -20,9 +19,11 @@ namespace ZIP2GO.WebAPI.Controllers
     [ApiController]
     public class SubscriptionsController : ControllerBaseApi
     {
-        private readonly ISubscriptionsService _subscriptionsService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        private readonly ISubscriptionsService _subscriptionsService;
 
         /// <summary>
         /// Initializes a new instance of the subscriptions controller.
@@ -42,6 +43,24 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
+        /// Cancels an active subscription.
+        /// </summary>
+        /// <param name="subscriptionId">ID of the subscription to cancel</param>
+        /// <returns>The cancelled subscription details</returns>
+        /// <response code="200">Subscription cancelled successfully</response>
+        /// <response code="404">Subscription not found</response>
+        /// <response code="400">Subscription cannot be cancelled</response>
+        [HttpPost]
+        [Route("/v2/subscriptions/{subscription_id}/cancel")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("CancelSubscription")]
+        public async Task<IActionResult> CancelSubscription([FromRoute][Required] string subscriptionId)
+        {
+            return new ObjectResult(null);
+        }
+
+        /// <summary>
         /// Creates a new subscription.
         /// </summary>
         /// <param name="body">Subscription data to create</param>
@@ -53,7 +72,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateSubscription")]
-        public async Task<IActionResult> CreateSubscription([FromBody] SubscriptionPostRequest body)
+        public async Task<IActionResult> CreateSubscription([FromBody] SubscriptionCreateRequest body)
         {
             return new ObjectResult(null);
         }
@@ -91,42 +110,6 @@ namespace ZIP2GO.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Updates an existing subscription.
-        /// </summary>
-        /// <param name="body">Updated subscription data</param>
-        /// <param name="subscriptionId">ID of the subscription to update</param>
-        /// <returns>The updated subscription information</returns>
-        /// <response code="200">Subscription updated successfully</response>
-        /// <response code="404">Subscription not found</response>
-        [HttpPatch]
-        [Route("/v2/subscriptions/{subscription_id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("UpdateSubscription")]
-        public async Task<IActionResult> UpdateSubscription([FromBody] SubscriptionPatchRequest body, [FromRoute][Required] string subscriptionId)
-        {
-            return new ObjectResult(null);
-        }
-
-        /// <summary>
-        /// Cancels an active subscription.
-        /// </summary>
-        /// <param name="subscriptionId">ID of the subscription to cancel</param>
-        /// <returns>The cancelled subscription details</returns>
-        /// <response code="200">Subscription cancelled successfully</response>
-        /// <response code="404">Subscription not found</response>
-        /// <response code="400">Subscription cannot be cancelled</response>
-        [HttpPost]
-        [Route("/v2/subscriptions/{subscription_id}/cancel")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
-        [ValidateModelState]
-        [SwaggerOperation("CancelSubscription")]
-        public async Task<IActionResult> CancelSubscription([FromRoute][Required] string subscriptionId)
-        {
-            return new ObjectResult(null);
-        }
-
-        /// <summary>
         /// Renews an existing subscription.
         /// </summary>
         /// <param name="subscriptionId">ID of the subscription to renew</param>
@@ -143,5 +126,23 @@ namespace ZIP2GO.WebAPI.Controllers
         {
             return new ObjectResult(null);
         }
+
+        /// <summary>
+        /// Updates an existing subscription.
+        /// </summary>
+        /// <param name="body">Updated subscription data</param>
+        /// <param name="subscriptionId">ID of the subscription to update</param>
+        /// <returns>The updated subscription information</returns>
+        /// <response code="200">Subscription updated successfully</response>
+        /// <response code="404">Subscription not found</response>
+        [HttpPatch]
+        [Route("/v2/subscriptions/{subscription_id}")]
+        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [ValidateModelState]
+        [SwaggerOperation("UpdateSubscription")]
+        public async Task<IActionResult> UpdateSubscription([FromBody] SubscriptionPatchRequest body, [FromRoute][Required] string subscriptionId)
+        {
+            return new ObjectResult(null);
+        }
     }
-} 
+}

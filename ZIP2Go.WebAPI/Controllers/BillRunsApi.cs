@@ -11,14 +11,14 @@
 using EasyCaching.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZIP2GO.Service.Models;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
+using ZIP2Go.WebAPI.Controllers;
+using ZIP2GO.Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
-using ZIP2Go.WebAPI.Controllers;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -29,8 +29,10 @@ namespace ZIP2GO.WebAPI.Controllers
     public class BillRunsApiController : ControllerBaseApi
     {
         private readonly IBillRunsService _billRunsService;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+
         private readonly IEasyCachingProvider _cacheProvider;
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public BillRunsApiController(
             IBillRunsService billRunsService,
@@ -472,7 +474,7 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 502, type: typeof(ErrorResponse), description: "Bad Gateway")]
         [SwaggerResponse(statusCode: 503, type: typeof(ErrorResponse), description: "Service Unavailable")]
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
-        public async Task<IActionResult> PostBillRun([FromBody] BillRunPostRequest body, [FromRoute][Required] string billRunId)
+        public async Task<IActionResult> PostBillRun([FromBody] BillRunCreateRequest body, [FromRoute][Required] string billRunId)
         {
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(BillRun));

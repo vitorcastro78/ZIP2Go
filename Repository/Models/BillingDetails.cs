@@ -10,11 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class BillingDetails
     {
-
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Gets or Sets Address
         /// </summary>
@@ -29,6 +24,10 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "email", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
         public string Email { get; set; }
+
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Customer full name or business name.

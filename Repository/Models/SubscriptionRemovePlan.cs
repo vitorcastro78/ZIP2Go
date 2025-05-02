@@ -10,7 +10,6 @@ namespace ZIP2GO.Repository.Models
     [DataContract]
     public class SubscriptionRemovePlan
     {
-
         /// <summary>
         /// Unique identifier for the object.
         /// </summary>
@@ -18,6 +17,7 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "id", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
+
         /// <summary>
         /// Identifier of the subscription plan.
         /// </summary>

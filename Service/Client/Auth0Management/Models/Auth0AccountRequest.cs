@@ -1,55 +1,20 @@
-﻿using System;
-
-namespace ZIP2GO.Service.Client.Auth0Management.Models
+﻿namespace ZIP2GO.Service.Client.Auth0Management.Models
 {
     public class Auth0AccountRequest
     {
-        public string Role { get; set; }
-        public string RoleId { get; private set; }
-        public string Email { get; set; }
-        public string FullName { get ; private set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Auth0Id { get; private set; }
-        public bool Blocked { get; set; }
-        public string Nickname { get; private set; }
-        public AppMetadata Metadata { get; set; }
-
-        public class AppMetadata: ICloneable
+        public Auth0AccountRequest()
         {
-            public AppMetadata(string resellerAdminAuth0Id)
-            {
-                ResellerAdminAuth0Id = resellerAdminAuth0Id;
-            }
-
-            public string ResellerAdminAuth0Id { get; set; }
-
-            public string ResellerAdminAccountNumber { get; set; }
-
-            public string ResellerAdminAccountId { get; set; }
-            
-            public string ResellerAdminAccountName { get; set; }
-
-            public string ResellerCurrency { get; set; }
-
-            public string Type { get; set; }
-
-            public object Clone() => this.MemberwiseClone();
-        }
-
-        public Auth0AccountRequest() {
             FullName = $"{FirstName} {LastName}";
         }
 
         public Auth0AccountRequest(string auth0Id)
-            :this()
+            : this()
         {
             Auth0Id = auth0Id;
         }
 
         public Auth0AccountRequest(string role, string email, string password, string firstName, string lastName)
-            :this()
+            : this()
         {
             Role = role;
             Email = email;
@@ -60,15 +25,59 @@ namespace ZIP2GO.Service.Client.Auth0Management.Models
         }
 
         public Auth0AccountRequest(string auth0Id, string email, string firstName, string lastName)
-            :this(auth0Id)
+            : this(auth0Id)
         {
             Email = email;
             FirstName = firstName;
             LastName = lastName;
         }
 
-        public void SetRoleId(string roleId) => this.RoleId = roleId;
+        public string Auth0Id { get; private set; }
+
+        public bool Blocked { get; set; }
+
+        public string Email { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string FullName { get; private set; }
+
+        public string LastName { get; set; }
+
+        public AppMetadata Metadata { get; set; }
+
+        public string Nickname { get; private set; }
+
+        public string Password { get; set; }
+
+        public string Role { get; set; }
+
+        public string RoleId { get; private set; }
 
         public void SetAuth0Id(string auth0Id) => this.Auth0Id = auth0Id;
+
+        public void SetRoleId(string roleId) => this.RoleId = roleId;
+
+        public class AppMetadata : ICloneable
+        {
+            public AppMetadata(string resellerAdminAuth0Id)
+            {
+                ResellerAdminAuth0Id = resellerAdminAuth0Id;
+            }
+
+            public string ResellerAdminAccountId { get; set; }
+
+            public string ResellerAdminAccountName { get; set; }
+
+            public string ResellerAdminAccountNumber { get; set; }
+
+            public string ResellerAdminAuth0Id { get; set; }
+
+            public string ResellerCurrency { get; set; }
+
+            public string Type { get; set; }
+
+            public object Clone() => this.MemberwiseClone();
+        }
     }
 }

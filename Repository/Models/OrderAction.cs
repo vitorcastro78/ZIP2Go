@@ -11,14 +11,6 @@ namespace ZIP2GO.Repository.Models
     public class OrderAction
     {
         /// <summary>
-        /// Unique identifier for the object.
-        /// </summary>
-        /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Identifier of the action.
         /// </summary>
         /// <value>Identifier of the action.</value>
@@ -41,6 +33,14 @@ namespace ZIP2GO.Repository.Models
         [DataMember(Name = "cancel", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel")]
         public SubscriptionCancel Cancel { get; set; }
+
+        /// <summary>
+        /// Unique identifier for the object.
+        /// </summary>
+        /// <value>Unique identifier for the object.</value>
+        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Specify this field to pause an existing subscription.

@@ -313,7 +313,7 @@ namespace ZIP2GO.Repository.Models
             sb.Append("  StateTransitions: ").Append(StateTransitions).Append("\n");
             sb.Append("  PostedById: ").Append(PostedById).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
-          //  sb.Append("  Account: ").Append(Account).Append("\n");
+            //  sb.Append("  Account: ").Append(Account).Append("\n");
             sb.Append("  Items: ").Append(Items).Append("\n");
             sb.Append("  Total: ").Append(Total).Append("\n");
             sb.Append("  Subtotal: ").Append(Subtotal).Append("\n");
