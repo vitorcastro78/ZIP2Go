@@ -35,7 +35,7 @@ namespace Service.Client
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
     /// </summary>
-    public class ApiClient
+    public class ApiClient : IApiClient
     {
         private readonly IEasyCachingProvider _cache;
 
@@ -103,7 +103,7 @@ namespace Service.Client
         /// </summary>
         /// <param name="text">string to be encoded.</param>
         /// <returns>Encoded string.</returns>
-        public static string Base64Encode(string text)
+        public string Base64Encode(string text)
         {
             var textByte = System.Text.Encoding.UTF8.GetBytes(text);
             return System.Convert.ToBase64String(textByte);
@@ -115,7 +115,7 @@ namespace Service.Client
         /// <param name="fromObject">Object to be casted</param>
         /// <param name="toObject">Target type</param>
         /// <returns>Casted object</returns>
-        public static Object ConvertType(Object fromObject, Type toObject)
+        public Object ConvertType(Object fromObject, Type toObject)
         {
             return Convert.ChangeType(fromObject, toObject);
         }
@@ -326,7 +326,7 @@ namespace Service.Client
 
             if (_cache != null && _cache.Exists("ZuoraToken"))
             {
-                token = _cache.Get<ZuoraToken>("ZuoraToken").Value; 
+                token = _cache.Get<ZuoraToken>("ZuoraToken").Value;
             }
             if (token != null && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
             {

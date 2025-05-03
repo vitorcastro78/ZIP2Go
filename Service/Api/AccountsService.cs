@@ -2,6 +2,7 @@
 using Service.Interfaces;
 using Service.Client;
 using Service.Models;
+using EasyCaching.Core;
 
 namespace Service
 {
@@ -11,20 +12,20 @@ namespace Service
     /// </summary>
     public class AccountsService : IAccountsService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly IApiClient _apiClient;
         private readonly List<string> expand;
 
-        /// Initializes a new instance of the AccountsService class.
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
-        /// <param name="cache">Cache provider for storing account data</param>
-        /// <param name="apiClient">API client for making HTTP requests (optional)</param>
-        /// <exception cref="ArgumentNullException">Thrown when cache provider is null</exception>
-        public AccountsService(ApiClient apiClient)
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
+        /// <returns></returns>
+        public AccountsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-           
-            else
-                this.ApiClient = apiClient;
 
+            _apiClient = apiClient;
+            _cache = cache;
             expand = new List<string>
                 {
                     "account.subscriptions",
@@ -48,7 +49,7 @@ namespace Service
                 };
         }
 
-        public ApiClient ApiClient { get; set; }
+       
 
         /// <summary>
         /// Gets or sets the API client used for making HTTP requests.
@@ -77,19 +78,19 @@ namespace Service
             string PostBody = null;
 
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            PostBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
+            PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateAccount: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateAccount: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
+            return (Account)_apiClient.Deserialize(response.Content, typeof(Account));
         }
 
         /// <summary>
@@ -108,20 +109,20 @@ namespace Service
 
             var path = "/accounts/{account_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
+            path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
             string PostBody = null;
 
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             try
             {
                 // make the HTTP request
-                RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, PostBody);
+                RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Delete, queryParams, PostBody);
 
                 if (((int)response.StatusCode) >= 400)
                     throw new ApiException((int)response.StatusCode, $"Error calling DeleteAccount: {response.Content}", response.Content);
@@ -155,7 +156,7 @@ namespace Service
 
             var path = "/accounts/{account_id}/bill";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
+            path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -164,20 +165,20 @@ namespace Service
             string PostBody = null;
 
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            PostBody = ApiClient.Serialize(body); // http body (model) parameter
+            PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GenerateBillingDocuments: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GenerateBillingDocuments: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (GenerateBillingDocumentsAccountResponse)ApiClient.Deserialize(response.Content, typeof(GenerateBillingDocumentsAccountResponse));
+            return (GenerateBillingDocumentsAccountResponse)_apiClient.Deserialize(response.Content, typeof(GenerateBillingDocumentsAccountResponse));
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace Service
 
             var path = "/accounts/{account_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
+            path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -223,11 +224,11 @@ namespace Service
             //     };
 
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            return ApiClient.CallApi<Account>(accountId, path, Method.Get, queryParams, PostBody);
+            return _apiClient.CallApi<Account>(accountId, path, Method.Get, queryParams, PostBody);
 
             //if (((int)response.StatusCode) >= 400)
             //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
@@ -281,18 +282,18 @@ namespace Service
             string PostBody = null;
 
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (ListAccountResponse)ApiClient.Deserialize(response.Content, typeof(ListAccountResponse));
+            return (ListAccountResponse)_apiClient.Deserialize(response.Content, typeof(ListAccountResponse));
         }
 
         /// <summary>
@@ -313,7 +314,7 @@ namespace Service
 
             var path = "/accounts/{account_id}/preview";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
+            path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -321,20 +322,20 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string PostBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            PostBody = ApiClient.Serialize(body); // http body (model) parameter
+            PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewAccount: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewAccount: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (AccountPreviewResponse)ApiClient.Deserialize(response.Content, typeof(AccountPreviewResponse));
+            return (AccountPreviewResponse)_apiClient.Deserialize(response.Content, typeof(AccountPreviewResponse));
         }
 
         /// <summary>
@@ -355,7 +356,7 @@ namespace Service
 
             var path = "/accounts/{account_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "account_id" + "}", ApiClient.ParameterToString(accountId));
+            path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -363,20 +364,20 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string PostBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            PostBody = ApiClient.Serialize(body); // http body (model) parameter
+            PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateAccount: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateAccount: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
+            return (Account)_apiClient.Deserialize(response.Content, typeof(Account));
         }
     }
 }

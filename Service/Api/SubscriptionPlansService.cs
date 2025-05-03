@@ -2,6 +2,7 @@ using RestSharp;
 using Service.Interfaces;
 using Service.Client;
 using Service.Models;
+using EasyCaching.Core;
 
 namespace Service
 {
@@ -10,43 +11,21 @@ namespace Service
     /// </summary>
     public class SubscriptionPlansService : ISubscriptionPlansService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly IApiClient _apiClient;
         /// <summary>
-        /// Initializes a new instance of the <see cref="SubscriptionPlansService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
-        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
         /// <returns></returns>
         public SubscriptionPlansService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-           
-            else
-                this.ApiClient = apiClient;
+
+            _apiClient = apiClient;
+            _cache = cache;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SubscriptionPlansService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public SubscriptionPlansService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath, _cache);
-        }
 
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
-
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public string GetBasePath(string basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
 
         /// <summary>
         /// Retrieve a subscription plan Retrieves the subscription plan with the given ID.
@@ -68,14 +47,14 @@ namespace Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlan</returns>
-        public SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async)
+        public SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'subscriptionPlanId' is set
             if (subscriptionPlanId == null) throw new ApiException(400, "Missing required parameter 'subscriptionPlanId' when calling GetSubscriptionPlan");
 
             var path = "/subscription_plans/{subscription_plan_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_plan_id" + "}", ApiClient.ParameterToString(subscriptionPlanId));
+            path = path.Replace("{" + "subscription_plan_id" + "}", _apiClient.ParameterToString(subscriptionPlanId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -83,27 +62,27 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionFields != null) queryParams.Add("subscription.fields[]", ApiClient.ParameterToString(subscriptionFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            //if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            //if (subscriptionFields != null) queryParams.Add("subscription.fields[]", _apiClient.ParameterToString(subscriptionFields)); // query parameter
+            //if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            //if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            //if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            //if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
+            //if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            //if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionPlan: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionPlan: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionPlan)ApiClient.Deserialize(response.Content, typeof(SubscriptionPlan));
+            return (SubscriptionPlan)_apiClient.Deserialize(response.Content, typeof(SubscriptionPlan));
         }
 
         /// <summary>
@@ -127,7 +106,7 @@ namespace Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlanListResponse</returns>
-        public SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, string zuoraTrackId, bool? async)
+        public SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, string zuoraTrackId, bool? async)
         {
             var path = "/subscription_plans";
             path = path.Replace("{format}", "json");
@@ -138,29 +117,29 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionFields != null) queryParams.Add("subscription.fields[]", ApiClient.ParameterToString(subscriptionFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            //if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            //if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            //if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            //if (subscriptionFields != null) queryParams.Add("subscription.fields[]", _apiClient.ParameterToString(subscriptionFields)); // query parameter
+            //if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            //if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            //if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            //if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
+            //if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionPlans: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionPlans: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionPlanListResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionPlanListResponse));
+            return (SubscriptionPlanListResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionPlanListResponse));
         }
 
         /// <summary>
@@ -170,7 +149,7 @@ namespace Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
     }
 }

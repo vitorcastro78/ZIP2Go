@@ -22,7 +22,7 @@ namespace Service.Client
             var timeSpan = TimeSpan.FromMinutes(20);
             if (response.IsSuccessful && method == Method.Post)
             {
-                dynamic result = (T)new ApiClient().Deserialize(response.Content, typeof(T));
+                dynamic result = (T)new ApiClient(string.Empty, _cache).Deserialize(response.Content, typeof(T));
                 _cache.Set(result.Id, result, timeSpan);
             }
             return response;

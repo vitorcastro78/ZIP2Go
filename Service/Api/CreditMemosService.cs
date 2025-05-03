@@ -11,7 +11,7 @@ namespace Service
     public class CreditMemosService : ICreditMemosService
     {
         private readonly IEasyCachingProvider _cache;
-        public readonly ApiClient _apiClient;
+        public readonly IApiClient _apiClient;
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>

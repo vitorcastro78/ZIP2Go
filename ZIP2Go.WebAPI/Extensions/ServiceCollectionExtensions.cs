@@ -1,5 +1,6 @@
 using Service.Interfaces;
 using Service;
+using Service.Client;
 
 namespace ZIP2Go.WebAPI.Extensions
 {
@@ -8,6 +9,8 @@ namespace ZIP2Go.WebAPI.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             // Registrar todos os serviços como scoped
+            services.AddScoped<System.String>(sp => "https://sua-api.com");
+            services.AddScoped<IApiClient, ApiClient>();
             services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<IPlansService, PlansService>();
             services.AddScoped<ITaxationItemsService, TaxationItemsService>();

@@ -12,13 +12,13 @@ namespace Service
     public class PaymentSchedulesService : IPaymentSchedulesService
     {
         private readonly IEasyCachingProvider _cache;
-        public readonly ApiClient _apiClient;
+        public readonly IApiClient _apiClient;
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
-        public PaymentScheduleItemsService(ApiClient apiClient, IEasyCachingProvider cache)
+        public PaymentSchedulesService(ApiClient apiClient, IEasyCachingProvider cache)
         {
 
             _apiClient = apiClient;

@@ -2,6 +2,7 @@ using RestSharp;
 using Service.Interfaces;
 using Service.Client;
 using Service.Models;
+using EasyCaching.Core;
 
 namespace Service
 {
@@ -15,28 +16,22 @@ namespace Service
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
+        private readonly IEasyCachingProvider _cache;
+        public readonly IApiClient _apiClient;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
+        /// </summary>
+        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
+        /// <returns></returns>
         public ProductsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-           
-            else
-                this.ApiClient = apiClient;
+
+            _apiClient = apiClient;
+            _cache = cache;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProductsService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public ProductsService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath, _cache);
-        }
 
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
+  
 
         /// <summary>
         /// Create a product Creates a new product object.
@@ -70,25 +65,25 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", ApiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
+            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateProduct: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateProduct: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Product)ApiClient.Deserialize(response.Content, typeof(Product));
+            return (Product)_apiClient.Deserialize(response.Content, typeof(Product));
         }
 
         /// <summary>
@@ -109,7 +104,7 @@ namespace Service
 
             var path = "/products/{product_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "product_id" + "}", ApiClient.ParameterToString(productId));
+            path = path.Replace("{" + "product_id" + "}", _apiClient.ParameterToString(productId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -117,11 +112,11 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Delete, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling DeleteProduct: " + response.Content, response.Content);
@@ -138,7 +133,7 @@ namespace Service
         /// <value>The base path</value>
         public string GetBasePath(string basePath)
         {
-            return this.ApiClient.BasePath;
+            return this._apiClient.BasePath;
         }
 
         /// <summary>
@@ -164,7 +159,7 @@ namespace Service
 
             var path = "/products/{product_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "product_id" + "}", ApiClient.ParameterToString(productId));
+            path = path.Replace("{" + "product_id" + "}", _apiClient.ParameterToString(productId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -173,22 +168,22 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", ApiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
+            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProduct: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProduct: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Product)ApiClient.Deserialize(response.Content, typeof(Product));
+            return (Product)_apiClient.Deserialize(response.Content, typeof(Product));
         }
 
         /// <summary>
@@ -219,25 +214,25 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", ApiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (ProductListResponse)ApiClient.Deserialize(response.Content, typeof(ProductListResponse));
+            return (ProductListResponse)_apiClient.Deserialize(response.Content, typeof(ProductListResponse));
         }
 
         /// <summary>
@@ -247,7 +242,7 @@ namespace Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
 
         /// <summary>
@@ -277,7 +272,7 @@ namespace Service
 
             var path = "/products/{product_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "product_id" + "}", ApiClient.ParameterToString(productId));
+            path = path.Replace("{" + "product_id" + "}", _apiClient.ParameterToString(productId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -286,25 +281,25 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", ApiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", ApiClient.ParameterToString(pricesFields)); // query parameter
+            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateProduct: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateProduct: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Product)ApiClient.Deserialize(response.Content, typeof(Product));
+            return (Product)_apiClient.Deserialize(response.Content, typeof(Product));
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlan</returns>
-        SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async);
+        SubscriptionPlan GetSubscriptionPlan(string subscriptionPlanId, string zuoraTrackId, bool? async);
 
         /// <summary>
         /// List subscription plans Returns a dictionary with a data property that contains an array of subscription plans, starting after cursor. Each entry in the array is a separate  object. If no more  are available, the resulting array will be empty. This request should never return an error.
@@ -50,6 +50,6 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionPlanListResponse</returns>
-        SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionFields, List<string> subscriptionItemsFields, List<string> planFields, List<string> productFields, List<string> accountFields, List<string> priceFields, string zuoraTrackId, bool? async);
+        SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, string zuoraTrackId, bool? async);
     }
 }

@@ -2,6 +2,7 @@ using RestSharp;
 using Service.Interfaces;
 using Service.Client;
 using Service.Models;
+using EasyCaching.Core;
 
 namespace Service
 {
@@ -10,33 +11,21 @@ namespace Service
     /// </summary>
     public class SubscriptionsService : ISubscriptionsService
     {
+        private readonly IEasyCachingProvider _cache;
+        public readonly IApiClient _apiClient;
         /// <summary>
-        /// Initializes a new instance of the <see cref="SubscriptionsApi"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
-        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
         /// <returns></returns>
         public SubscriptionsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-            if (apiClient == null) // use the default one in Configuration
-           
-            else
-                this.ApiClient = apiClient;
+
+            _apiClient = apiClient;
+            _cache = cache;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SubscriptionsApi"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public SubscriptionsService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath, _cache);
-        }
 
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Activate a subscription A subscription must be active before you can bill your subscribers. Activating a subscription requires entering at least one of the following dates: &#x60;contract_effective&#x60;, &#x60;service_activation&#x60;, and &#x60;customer_acceptance&#x60;. See [Billing Trigger Dates](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/WA_Dates_in_Zuora/B_Subscription_and_Amendment_Dates#Billing_Trigger_Dates) for more information.
@@ -75,7 +64,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/activate";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -84,35 +73,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ActivateSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling ActivateSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
 
         /// <summary>
@@ -152,7 +141,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/cancel";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -161,35 +150,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionCancelResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionCancelResponse));
+            return (SubscriptionCancelResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionCancelResponse));
         }
 
         /// <summary>
@@ -234,35 +223,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
 
         /// <summary>
@@ -272,7 +261,7 @@ namespace Service
         /// <value>The base path</value>
         public string GetBasePath(string basePath)
         {
-            return this.ApiClient.BasePath;
+            return this._apiClient.BasePath;
         }
 
         /// <summary>
@@ -308,7 +297,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -317,32 +306,32 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionByKey: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionByKey: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
 
         /// <summary>
@@ -381,7 +370,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/versions";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -390,35 +379,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
-            if (actionsFields != null) queryParams.Add("actions.fields[]", ApiClient.ParameterToString(actionsFields)); // query parameter
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
+            if (actionsFields != null) queryParams.Add("actions.fields[]", _apiClient.ParameterToString(actionsFields)); // query parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionByVersion: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptionByVersion: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionVersionListResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionVersionListResponse));
+            return (SubscriptionVersionListResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionVersionListResponse));
         }
 
         /// <summary>
@@ -459,35 +448,35 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
+            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptions: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetSubscriptions: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionListResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionListResponse));
+            return (SubscriptionListResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionListResponse));
         }
 
         /// <summary>
@@ -527,7 +516,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -536,35 +525,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
 
         /// <summary>
@@ -604,7 +593,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/pause";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -613,35 +602,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PauseSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PauseSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
 
         /// <summary>
@@ -665,7 +654,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/preview";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -673,20 +662,20 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewExistingSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewExistingSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionPreviewResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse));
+            return (SubscriptionPreviewResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse));
         }
 
         /// <summary>
@@ -714,20 +703,20 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (SubscriptionPreviewResponse)ApiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse));
+            return (SubscriptionPreviewResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionPreviewResponse));
         }
 
         /// <summary>
@@ -767,7 +756,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/resume";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -776,35 +765,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ResumeSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling ResumeSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
 
         /// <summary>
@@ -814,7 +803,7 @@ namespace Service
         /// <value>The base path</value>
         public void SetBasePath(string basePath)
         {
-            this.ApiClient.BasePath = basePath;
+            this._apiClient.BasePath = basePath;
         }
 
         /// <summary>
@@ -854,7 +843,7 @@ namespace Service
 
             var path = "/subscriptions/{subscription_id}/keep";
             path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "subscription_id" + "}", ApiClient.ParameterToString(subscriptionId));
+            path = path.Replace("{" + "subscription_id" + "}", _apiClient.ParameterToString(subscriptionId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -863,35 +852,35 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", ApiClient.ParameterToString(subscriptionPlansFields)); // query parameter
-            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", ApiClient.ParameterToString(subscriptionItemsFields)); // query parameter
+            if (subscriptionPlansFields != null) queryParams.Add("subscription_plans.fields[]", _apiClient.ParameterToString(subscriptionPlansFields)); // query parameter
+            if (subscriptionItemsFields != null) queryParams.Add("subscription_items.fields[]", _apiClient.ParameterToString(subscriptionItemsFields)); // query parameter
             // if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", ApiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
-            if (planFields != null) queryParams.Add("plan.fields[]", ApiClient.ParameterToString(planFields)); // query parameter
-            if (productFields != null) queryParams.Add("product.fields[]", ApiClient.ParameterToString(productFields)); // query parameter
-            if (priceFields != null) queryParams.Add("price.fields[]", ApiClient.ParameterToString(priceFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", ApiClient.ParameterToString(prepaidBalanceFields)); // query parameter
-            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", ApiClient.ParameterToString(prepaidBalancesFields)); // query parameter
-            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", ApiClient.ParameterToString(validityPeriodFields)); // query parameter
-            if (transactionsFields != null) queryParams.Add("transactions.fields[]", ApiClient.ParameterToString(transactionsFields)); // query parameter
+            if (invoiceOwnerAccountFields != null) queryParams.Add("invoice_owner_account.fields[]", _apiClient.ParameterToString(invoiceOwnerAccountFields)); // query parameter
+            if (planFields != null) queryParams.Add("plan.fields[]", _apiClient.ParameterToString(planFields)); // query parameter
+            if (productFields != null) queryParams.Add("product.fields[]", _apiClient.ParameterToString(productFields)); // query parameter
+            if (priceFields != null) queryParams.Add("price.fields[]", _apiClient.ParameterToString(priceFields)); // query parameter
+            if (billToFields != null) queryParams.Add("bill_to.fields[]", _apiClient.ParameterToString(billToFields)); // query parameter
+            if (prepaidBalanceFields != null) queryParams.Add("prepaid_balance.fields[]", _apiClient.ParameterToString(prepaidBalanceFields)); // query parameter
+            if (prepaidBalancesFields != null) queryParams.Add("prepaid_balances.fields[]", _apiClient.ParameterToString(prepaidBalancesFields)); // query parameter
+            if (validityPeriodFields != null) queryParams.Add("validity_period.fields[]", _apiClient.ParameterToString(validityPeriodFields)); // query parameter
+            if (transactionsFields != null) queryParams.Add("transactions.fields[]", _apiClient.ParameterToString(transactionsFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UncancelSubscription: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UncancelSubscription: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (Subscription)ApiClient.Deserialize(response.Content, typeof(Subscription));
+            return (Subscription)_apiClient.Deserialize(response.Content, typeof(Subscription));
         }
     }
 }
