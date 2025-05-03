@@ -6,16 +6,20 @@ namespace ZIP2Go.WorkServices.HostedService
     {
         private readonly ILogger<AccountHostedService> _logger;
 
+        private readonly IAccountsService _accountsService;
+
         private Timer? _timer = null;
 
         private int CountRound = 0;
 
         public AccountHostedService(
             IServiceProvider services,
-            ILogger<AccountHostedService> logger)
+            ILogger<AccountHostedService> logger,
+            IAccountsService accountsService)
         {
             Services = services;
             _logger = logger;
+            _accountsService = accountsService;
         }
 
         public IAccountsService accountsService { get; }
@@ -40,7 +44,7 @@ namespace ZIP2Go.WorkServices.HostedService
 
         private async void DoWork(object? state)
         {
-            _logger.LogInformation($"Hosted Service started round {CountRound}.");
+            _accountsService.GetAccounts("test", true);
         }
     }
 }

@@ -260,14 +260,33 @@ namespace Service
             if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
+
+        
             var response = (RestResponse)_apiClient.CallApi( path, Method.Get, queryParams, PostBody);
+            var responseObject = (ListAccountResponse)_apiClient.Deserialize(response.Content, typeof(ListAccountResponse));
+
+            queryParams.Add("page_size", _apiClient.ParameterToString(90)); // query parameter
+            queryParams.Add("cursor", _apiClient.ParameterToString(responseObject.NextPage));
+
+           
+
+            while (!string.IsNullOrEmpty(responseObject.NextPage))
+            {
+                // query parameter
+                queryParams["cursor"] = responseObject.NextPage;
+                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, PostBody);
+                var accountResponse = (ListAccountResponse)_apiClient.Deserialize(response.Content, typeof(ListAccountResponse));
+                responseObject.Data.AddRange(accountResponse.Data);
+                responseObject.NextPage = accountResponse.NextPage;
+            }
+
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (ListAccountResponse)_apiClient.Deserialize(response.Content, typeof(ListAccountResponse));
+            return responseObject;
         }
 
         /// <summary>
