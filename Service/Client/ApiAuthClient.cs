@@ -139,67 +139,8 @@ namespace Service.Client
             _defaultHeaderMap.Add(key, value);
         }
 
-        /// <summary>
-        /// Makes the HTTP request (Sync).
-        /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="authSettings">Authentication settings.</param>
-        /// <returns>Object</returns>
-        public object CallApi(string path, Method method, Dictionary<string, string> queryParams, string postBody,
-            Dictionary<string, string> headerParams, Dictionary<string, string> formParams,
-            Dictionary<string, FileParameter> fileParams, string[] authSettings)
-        {
-            var request = new RestRequest(path, method);
-            UpdateParamsForAuth(queryParams, headerParams, authSettings);
-            AddHeadersToRequest(request, _defaultHeaderMap);
-            AddHeadersToRequest(request, headerParams);
-            AddParametersToRequest(request, queryParams, ParameterType.GetOrPost);
-            AddParametersToRequest(request, formParams, ParameterType.GetOrPost);
 
-            if (postBody != null)
-                request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-            return Deserialize(RestClient.Execute(request).Content, typeof(object));
-        }
-
-        public T CallApi<T>(string id, string path, Method method, Dictionary<string, string> queryParams = null, string postBody = null,
-            Dictionary<string, string> headerParams = null, Dictionary<string, string> formParams = null,
-            Dictionary<string, FileParameter> fileParams = null, string[] authSettings = null)
-        {
-            AddDefaultHeaders(headerParams);
-
-            var request = new RestRequest(path, method);
-            UpdateParamsForAuth(queryParams, headerParams, authSettings);
-
-            AddHeadersToRequest(request, _defaultHeaderMap);
-            AddHeadersToRequest(request, headerParams);
-            AddParametersToRequest(request, queryParams, ParameterType.GetOrPost);
-            AddParametersToRequest(request, formParams, ParameterType.GetOrPost);
-
-            if (postBody != null)
-                request.AddParameter("application/json", postBody, ParameterType.RequestBody);
-
-            var cachingTrigger = new CachingTrigger(_cache);
-
-            if (method != Method.Get)
-            {
-                var response = RestClient.Execute(request);
-                cachingTrigger.SetCachingTrigger<T>(method, response);
-                var result = (T)Deserialize(response.Content, typeof(T));
-
-                return result;
-            }
-            else
-            {
-                return cachingTrigger.GetCachingTrigger<T>(id);
-            }
-        }
 
         /// <summary>
         /// Deserialize the JSON string into a proper object.

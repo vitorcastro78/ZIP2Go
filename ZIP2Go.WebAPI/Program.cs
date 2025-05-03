@@ -6,6 +6,7 @@ using ZIP2Go.WebAPI.Extensions;
 using Service.Client;
 using Service.Client.Auth0Management;
 using ZIP2GO.WebAPI.Filters;
+using EasyCaching.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 

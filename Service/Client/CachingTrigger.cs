@@ -14,18 +14,19 @@ namespace Service.Client
 
         public dynamic GetCachingTrigger<T>(string Id)
         {
-            return _cache.Get<T>(Id);
+            return _cache.Get<T>(Id).Value;
         }
 
-        public RestResponse SetCachingTrigger<T>(Method method, RestResponse response)
+        public dynamic SetCachingTrigger<T>(Method method, RestResponse response)
         {
+            dynamic result = null;
             var timeSpan = TimeSpan.FromMinutes(20);
             if (response.IsSuccessful && method == Method.Post)
             {
-                dynamic result = (T)new ApiClient(string.Empty, _cache).Deserialize(response.Content, typeof(T));
+                 result = (T)new ApiClient(string.Empty, _cache).Deserialize(response.Content, typeof(T));
                 _cache.Set(result.Id, result, timeSpan);
             }
-            return response;
+            return result;
         }
     }
 }

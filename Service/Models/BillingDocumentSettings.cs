@@ -16,7 +16,7 @@ namespace Service.Models
         /// <value>A list of additional email addresses to receive email notifications.</value>
         [DataMember(Name = "additional_email", EmitDefaultValue = false)]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_email")]
-        public List<string> AdditionalEmail { get; set; }
+        public string AdditionalEmail { get; set; }
 
         /// <summary>
         /// Identifier of the credit memo template associated with this customer.

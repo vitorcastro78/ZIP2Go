@@ -148,15 +148,11 @@ namespace Service.Client
             var headerParams = new Dictionary<string, string>();
             var request = new RestRequest(path, method);
             var response = new Object();
-            //var auth = apiAuthClient.OAuthClient;
 
             var token = this.GetToken();
 
-            string[]? authSettings = null;
             if (!string.IsNullOrEmpty(_options.ZuoraTrackId.ToString()))
                 headerParams.Add("zuora-track-id", _options.ZuoraTrackId.ToString());
-            if (!string.IsNullOrEmpty(async.ToString()))
-                headerParams.Add("async", async.ToString());
             if (!string.IsNullOrEmpty(_options.ZuoraEntityId))
                 headerParams.Add("zuora-entity-ids", _options.ZuoraEntityId);
             if (!string.IsNullOrEmpty(token))
@@ -168,7 +164,7 @@ namespace Service.Client
                     headerParams.Add("idempotency-key", _options.ZuoraIdempotencyKey); // header parameter
             }
 
-            UpdateParamsForAuth(queryParams, headerParams, authSettings);
+         
 
             foreach (var defaultHeader in _defaultHeaderMap)
                 request.AddHeader(defaultHeader.Key, defaultHeader.Value);
@@ -182,7 +178,8 @@ namespace Service.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-            var ret = Deserialize(RestClient.Execute(request).Content, typeof(Object));
+           var ret = Deserialize(RestClient.Execute(request).Content, typeof(Object));
+
 
             return RestClient.Execute(request);
         }
@@ -191,38 +188,32 @@ namespace Service.Client
         {
             Dictionary<string, string>? headerParams = new Dictionary<string, string>();
 
-            string[]? authSettings = null;
-
-            headerParams.Add("zuora-track-id", zuoraTrackId); // header parameter
-            headerParams.Add("async", _allowAsync.ToString()); // header parameter
-            headerParams.Add("zuora-entity-ids", zuoraEntityIds); // header parameter
-            headerParams.Add("idempotency-key", idempotencyKey); // header parameter
-            headerParams.Add("accept-encoding", acceptEncoding); // header parameter
-            headerParams.Add("content-encoding", contentEncoding); // header parameter
-
             var request = new RestRequest(path, method);
             var response = new RestResponse();
-            UpdateParamsForAuth(queryParams, headerParams, authSettings);
 
-            // add default header, if any
+            var token = this.GetToken();
+
+            if (!string.IsNullOrEmpty(_options.ZuoraTrackId.ToString()))
+                headerParams.Add("zuora-track-id", _options.ZuoraTrackId.ToString());
+            if (!string.IsNullOrEmpty(_options.ZuoraEntityId))
+                headerParams.Add("zuora-entity-ids", _options.ZuoraEntityId);
+            if (!string.IsNullOrEmpty(token))
+                headerParams.Add("Authorization", "Bearer " + token);
+
+            if (method == Method.Patch || method == Method.Post)
+            {
+                if (!string.IsNullOrEmpty(_options.ZuoraIdempotencyKey))
+                    headerParams.Add("idempotency-key", _options.ZuoraIdempotencyKey); // header parameter
+            }
+
             foreach (var defaultHeader in _defaultHeaderMap)
                 request.AddHeader(defaultHeader.Key, defaultHeader.Value);
 
-            // add header parameter, if any
             foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
 
-            // add query parameter, if any
             foreach (var param in queryParams)
                 request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add form parameter, if any
-            //foreach (var param in formParams)
-            //    request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add file parameter, if any
-            //// foreach(var param in fileParams)
-            ////    request.AddFile(param.Value.Name, param.Value, param.Value.FileName, param.Value.ContentType);
 
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
@@ -231,9 +222,9 @@ namespace Service.Client
 
             if (method != Method.Get)
             {
-                var result = (T)Deserialize(RestClient.Execute(request).Content, typeof(T));
+                response = RestClient.Execute(request);
                 cachingTrigger.SetCachingTrigger<T>(method, response);
-                return result;
+                return (T)Deserialize(response.Content, typeof(T)); ;
             }
             else
             {
@@ -335,7 +326,7 @@ namespace Service.Client
             }
 
             // _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
-            var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
+           //  var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
             var nameValueCollection = new Dictionary<string, string>
                 {
                     { "grant_type", "client_credentials" },
@@ -347,7 +338,7 @@ namespace Service.Client
             httpClient.BaseAddress = new Uri(_options.BaseUrl);
             httpClient.DefaultRequestHeaders.Accept.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
+            //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
 
             var result = httpClient.PostAsync($"{_options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
             if (!result.IsSuccessStatusCode)

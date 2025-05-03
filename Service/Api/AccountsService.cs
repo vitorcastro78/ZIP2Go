@@ -28,24 +28,22 @@ namespace Service
             _cache = cache;
             expand = new List<string>
                 {
-                    "account.subscriptions",
-                    "account.subscription_plans",
-                    "account.subscription_items",
-                    "account.invoice_owner_account",
-                    "account.plan",
-                    "account.payment_methods",
-                    "account.payments",
-                    "account.billing_documents",
-                    "account.billing_document_items",
-                    "account.bill_to",
-                    "account.sold_to",
-                    "account.default_payment_method",
-                    "account.usage_records",
-                    "account.invoices",
-                    "account.credit_memos",
-                    "account.debit_memos",
-                    "account.prepaid_balance",
-                    "account.transactions"
+                    //"account.subscriptions",
+                    //"account.subscription_plans",
+                    //"account.subscription_items",
+                    //"account.invoice_owner_account",
+                    //"account.plan",
+                    //"account.payment_methods",
+                    //"account.payments",
+                    //"account.billing_documents",
+                    //"account.billing_document_items",
+                    //"account.bill_to",
+                    //"account.sold_to",
+                    //"account.default_payment_method",
+                    //"account.usage_records",
+                    //"account.invoices",
+                    //"account.credit_memos",
+                    //"account.debit_memos"
                 };
         }
 
@@ -70,7 +68,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateAccount");
 
-            var path = "/accounts";
+            var path = "v2/accounts";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -199,31 +197,7 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string PostBody = null;
 
-            // Define default expansions if none provided
-
-            //expand = new List<string>
-            //     {
-            //         "account.subscriptions",
-            //         "account.subscription_plans",
-            //         "account.subscription_items",
-            //         "account.invoice_owner_account",
-            //         "account.plan",
-            //         "account.payment_methods",
-            //         "account.payments",
-            //         "account.billing_documents",
-            //         "account.billing_document_items",
-            //         "account.bill_to",
-            //         "account.sold_to",
-            //         "account.default_payment_method",
-            //         "account.usage_records",
-            //         "account.invoices",
-            //         "account.credit_memos",
-            //         "account.debit_memos",
-            //         "account.prepaid_balance",
-            //         "account.transactions"
-            //     };
-
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
@@ -273,7 +247,7 @@ namespace Service
         /// <returns>ListAccountResponse</returns>
         public ListAccountResponse GetAccounts(string zuoraTrackId, bool? async)
         {
-            var path = "/accounts";
+            var path = "v2/accounts";
             path = path.Replace("{format}", "json");
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
@@ -281,12 +255,12 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string PostBody = null;
 
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, PostBody);
+            var response = (RestResponse)_apiClient.CallApi( path, Method.Get, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
