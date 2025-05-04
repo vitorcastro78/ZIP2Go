@@ -232,11 +232,12 @@ namespace Service.Client
             }
         }
 
-        public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody, out RestResponse response)
+      
+        public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody)
         {
-            queryParams.Add("page_size", ParameterToString(3));
+            queryParams.Add("page_size", ParameterToString(95));
 
-            response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
+           var response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
             var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
 
             // query parameter
@@ -252,11 +253,18 @@ namespace Service.Client
                 responseObject.NextPage = accountResponse.NextPage;
             }
 
+
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
+
+
             return responseObject;
         }
 
         /// <summary>
-        /// Deserialize the JSON string into a proper object.
+        /// Deserialize the JSON strireturn _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody);ng into a proper object.
         /// </summary>
         /// <param name="content">HTTP body (e.g. string, JSON).</param>
         /// <param name="type">Object type.</param>

@@ -31,7 +31,7 @@ namespace Service
         }
 
 
-  
+
 
         /// <summary>
         /// Create a product Creates a new product object.
@@ -144,7 +144,7 @@ namespace Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Product</returns>
-        public Product GetProduct(string productId,string zuoraTrackId, bool? async)
+        public Product GetProduct(string productId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'productId' is set
             if (productId == null) throw new ApiException(400, "Missing required parameter 'productId' when calling GetProduct");
@@ -216,45 +216,7 @@ namespace Service
             //if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
-            RestResponse response;
-            
-           var responseObject = _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody,out response);
-
-
-
-
-            // make the HTTP request
-            // RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
-
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.ErrorMessage, response.ErrorMessage);
-
-            return responseObject;
-        }
-
-        private T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody, out RestResponse response)
-        {
-            queryParams.Add("page_size", _apiClient.ParameterToString(3));
-
-            response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
-            var responseObject = (dynamic)_apiClient.Deserialize(response.Content, typeof(T));
-
-            // query parameter
-            queryParams.Add("cursor", _apiClient.ParameterToString(responseObject.NextPage));
-
-            while (!string.IsNullOrEmpty(responseObject.NextPage))
-            {
-                // query parameter
-                queryParams["cursor"] = responseObject.NextPage;
-                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
-                var accountResponse = (dynamic)_apiClient.Deserialize(response.Content, typeof(T));
-                responseObject.Data.AddRange(accountResponse.Data);
-                responseObject.NextPage = accountResponse.NextPage;
-            }
-
-            return responseObject;
+          return _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody);
         }
 
         /// <summary>
