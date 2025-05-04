@@ -12,6 +12,7 @@ namespace Service.Client
         void AddDefaultHeader(string key, string value);
         object CallApi(string path, Method method, Dictionary<string, string> queryParams, string postBody, bool? async = true);
         T CallApi<T>(string Id, string path, Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true);
+        T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody, out RestResponse response);
         object Deserialize(string content, Type type, IList<Parameter> headers = null);
         string EscapeString(string str);
         string GetApiKeyWithPrefix(string apiKeyIdentifier);

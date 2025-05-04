@@ -216,23 +216,9 @@ namespace Service
             //if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
-            queryParams.Add("page_size", _apiClient.ParameterToString(3));
-
-            var response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
-            var responseObject = (ProductListResponse)_apiClient.Deserialize(response.Content, typeof(ProductListResponse));
-
-             // query parameter
-            queryParams.Add("cursor", _apiClient.ParameterToString(responseObject.NextPage));
-
-            while (!string.IsNullOrEmpty(responseObject.NextPage))
-            {
-                // query parameter
-                queryParams["cursor"] = responseObject.NextPage;
-                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
-                var accountResponse = (ProductListResponse)_apiClient.Deserialize(response.Content, typeof(ProductListResponse));
-                responseObject.Data.AddRange(accountResponse.Data);
-                responseObject.NextPage = accountResponse.NextPage;
-            }
+            RestResponse response;
+            
+           var responseObject = _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody,out response);
 
 
 
@@ -244,6 +230,29 @@ namespace Service
                 throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.ErrorMessage, response.ErrorMessage);
+
+            return responseObject;
+        }
+
+        private T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody, out RestResponse response)
+        {
+            queryParams.Add("page_size", _apiClient.ParameterToString(3));
+
+            response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
+            var responseObject = (dynamic)_apiClient.Deserialize(response.Content, typeof(T));
+
+            // query parameter
+            queryParams.Add("cursor", _apiClient.ParameterToString(responseObject.NextPage));
+
+            while (!string.IsNullOrEmpty(responseObject.NextPage))
+            {
+                // query parameter
+                queryParams["cursor"] = responseObject.NextPage;
+                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
+                var accountResponse = (dynamic)_apiClient.Deserialize(response.Content, typeof(T));
+                responseObject.Data.AddRange(accountResponse.Data);
+                responseObject.NextPage = accountResponse.NextPage;
+            }
 
             return responseObject;
         }

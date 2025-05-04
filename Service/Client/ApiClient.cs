@@ -232,6 +232,29 @@ namespace Service.Client
             }
         }
 
+        public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody, out RestResponse response)
+        {
+            queryParams.Add("page_size", ParameterToString(3));
+
+            response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
+            var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
+
+            // query parameter
+            queryParams.Add("cursor", ParameterToString(responseObject.NextPage));
+
+            while (!string.IsNullOrEmpty(responseObject.NextPage))
+            {
+                // query parameter
+                queryParams["cursor"] = responseObject.NextPage;
+                response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
+                var accountResponse = (dynamic)Deserialize(response.Content, typeof(T));
+                responseObject.Data.AddRange(accountResponse.Data);
+                responseObject.NextPage = accountResponse.NextPage;
+            }
+
+            return responseObject;
+        }
+
         /// <summary>
         /// Deserialize the JSON string into a proper object.
         /// </summary>
