@@ -126,15 +126,7 @@ namespace Service
             return;
         }
 
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public string GetBasePath(string basePath)
-        {
-            return this._apiClient.BasePath;
-        }
+
 
         /// <summary>
         /// Retrieve a product Retrieves the product with the given ID.
@@ -152,7 +144,7 @@ namespace Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>Product</returns>
-        public Product GetProduct(string productId, List<string> fields, List<string> plansFields, List<string> pricesFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async)
+        public Product GetProduct(string productId,string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'productId' is set
             if (productId == null) throw new ApiException(400, "Missing required parameter 'productId' when calling GetProduct");
@@ -167,12 +159,12 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            //if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            //if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            //if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            //if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
@@ -203,9 +195,9 @@ namespace Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>ProductListResponse</returns>
-        public ProductListResponse GetProducts(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> plansFields, List<string> pricesFields, string zuoraTrackId, bool? async)
+        public ProductListResponse GetProducts(string zuoraTrackId, bool? async)
         {
-            var path = "/products";
+            var path = "v2/products";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -214,25 +206,46 @@ namespace Service
             var fileParams = new Dictionary<string, FileParameter>();
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
-            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
+            //if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
+            //if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            //if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            //if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            //if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            //if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            //if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
+            queryParams.Add("page_size", _apiClient.ParameterToString(3));
+
+            var response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
+            var responseObject = (ProductListResponse)_apiClient.Deserialize(response.Content, typeof(ProductListResponse));
+
+             // query parameter
+            queryParams.Add("cursor", _apiClient.ParameterToString(responseObject.NextPage));
+
+            while (!string.IsNullOrEmpty(responseObject.NextPage))
+            {
+                // query parameter
+                queryParams["cursor"] = responseObject.NextPage;
+                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
+                var accountResponse = (ProductListResponse)_apiClient.Deserialize(response.Content, typeof(ProductListResponse));
+                responseObject.Data.AddRange(accountResponse.Data);
+                responseObject.NextPage = accountResponse.NextPage;
+            }
+
+
+
+
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
+            // RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetProducts: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (ProductListResponse)_apiClient.Deserialize(response.Content, typeof(ProductListResponse));
+            return responseObject;
         }
 
         /// <summary>

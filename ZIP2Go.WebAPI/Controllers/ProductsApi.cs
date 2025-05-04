@@ -19,6 +19,7 @@ using ZIP2Go.WebAPI.Controllers;
 using Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
+using Service;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -237,7 +238,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">List of products retrieved successfully</response>
         [HttpGet]
         [Route("/v2/products")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetProducts")]
         [SwaggerResponse(statusCode: 200, type: typeof(ProductListResponse), description: "Default Response")]
@@ -281,13 +282,14 @@ namespace ZIP2GO.WebAPI.Controllers
 
             //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(504, default(ErrorResponse));
-            string exampleJson = null;
-            exampleJson = "{\n  \"next_page\" : \"next_page\",\n  \"data\" : [ {\n    \"end_date\" : \"2000-01-23\",\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"custom_fields\" : \"\",\n    \"description\" : \"description\",\n    \"active\" : true,\n    \"type\" : \"base\",\n    \"custom_objects\" : \"\",\n    \"plans\" : \"\",\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"id\" : \"id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"sku\" : \"sku\",\n    \"start_date\" : \"2000-01-23\"\n  }, {\n    \"end_date\" : \"2000-01-23\",\n    \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"custom_fields\" : \"\",\n    \"description\" : \"description\",\n    \"active\" : true,\n    \"type\" : \"base\",\n    \"custom_objects\" : \"\",\n    \"plans\" : \"\",\n    \"name\" : \"name\",\n    \"updated_by_id\" : \"updated_by_id\",\n    \"id\" : \"id\",\n    \"created_by_id\" : \"created_by_id\",\n    \"sku\" : \"sku\",\n    \"start_date\" : \"2000-01-23\"\n  } ]\n}";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<ProductListResponse>(exampleJson)
-            : default(ProductListResponse);            //TODO: Change the data returned
-            return new ObjectResult(example);
+
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+
+            var result = _productsService.GetProducts(zuoraTrackId, async);
+            //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>

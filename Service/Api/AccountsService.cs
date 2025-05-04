@@ -253,7 +253,7 @@ namespace Service
             var headerParams = new Dictionary<string, string>();
             var formParams = new Dictionary<string, string>();
             var fileParams = new Dictionary<string, FileParameter>();
-            string PostBody = null;
+            string postBody = null;
 
             //if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
@@ -262,7 +262,7 @@ namespace Service
             // make the HTTP request
 
         
-            var response = (RestResponse)_apiClient.CallApi( path, Method.Get, queryParams, PostBody);
+            var response = (RestResponse)_apiClient.CallApi( path, Method.Get, queryParams, postBody);
             var responseObject = (ListAccountResponse)_apiClient.Deserialize(response.Content, typeof(ListAccountResponse));
 
             queryParams.Add("page_size", _apiClient.ParameterToString(90)); // query parameter
@@ -274,7 +274,7 @@ namespace Service
             {
                 // query parameter
                 queryParams["cursor"] = responseObject.NextPage;
-                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, PostBody);
+                response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
                 var accountResponse = (ListAccountResponse)_apiClient.Deserialize(response.Content, typeof(ListAccountResponse));
                 responseObject.Data.AddRange(accountResponse.Data);
                 responseObject.NextPage = accountResponse.NextPage;
