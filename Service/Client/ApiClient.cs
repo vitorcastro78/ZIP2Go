@@ -198,11 +198,10 @@ namespace Service.Client
 
             var result = RestClient.Execute(request);
 
-            var ret = Deserialize(result.Content, typeof(T));
-
             if (method != Method.Get)
             {
-                SetCache(ret);
+                var ret = Deserialize(result.Content, typeof(T));
+                SetCache<T>(ret);
                 return result;
             }
             else
@@ -490,6 +489,11 @@ namespace Service.Client
         }
 
 
+        private void SetCache<T>(dynamic result)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            _cache.SetAsync<dynamic>($"{cacheKey}_{result.Id}", result, TimeSpan.FromHours(12));
+        }
         private void SetCache(dynamic result)
         {
             var cacheKey = result.GetType().Name;
