@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets BillingDocuments
         /// </summary>
-        [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
         public List<AllOforderPreviewResponseBillingDocumentsItems> BillingDocuments { get; set; }
 
@@ -21,14 +21,14 @@ namespace Service.Models
         /// The order line items on this order.
         /// </summary>
         /// <value>The order line items on this order.</value>
-        [DataMember(Name = "line_items", EmitDefaultValue = false)]
+        [DataMember(Name = "line_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_items")]
         public List<AllOforderPreviewResponseLineItemsItems> LineItems { get; set; }
 
         /// <summary>
         /// Gets or Sets Subscriptions
         /// </summary>
-        [DataMember(Name = "subscriptions", EmitDefaultValue = false)]
+        [DataMember(Name = "subscriptions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscriptions")]
         public List<AllOforderPreviewResponseSubscriptionsItems> Subscriptions { get; set; }
 

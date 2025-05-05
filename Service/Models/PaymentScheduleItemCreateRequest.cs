@@ -14,7 +14,7 @@ namespace Service.Models
         /// Unique identifier of the customer account the payment schedule belongs to.
         /// </summary>
         /// <value>Unique identifier of the customer account the payment schedule belongs to.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The amount to be collected by this payment schedule item.
         /// </summary>
         /// <value>The amount to be collected by this payment schedule item.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -30,14 +30,14 @@ namespace Service.Models
         /// Currency of the payment schedule. The default value is the account's default currency. This field will be ignored when items is specified.
         /// </summary>
         /// <value>Currency of the payment schedule. The default value is the account's default currency. This field will be ignored when items is specified.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -45,7 +45,7 @@ namespace Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -53,7 +53,7 @@ namespace Service.Models
         /// ID of the payment gateway used to collect payments. The default value is the account's default payment gateway ID. If no payment gateway ID is found on the customer account level, the default value will be the tenant's default payment gateway ID. This field will be ignored when `items` is specified.
         /// </summary>
         /// <value>ID of the payment gateway used to collect payments. The default value is the account's default payment gateway ID. If no payment gateway ID is found on the customer account level, the default value will be the tenant's default payment gateway ID. This field will be ignored when `items` is specified.</value>
-        [DataMember(Name = "payment_gateway_id", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_gateway_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway_id")]
         public string PaymentGatewayId { get; set; }
 
@@ -61,7 +61,7 @@ namespace Service.Models
         /// ID of the payment method. The default value is the account's default payment method ID. This field will be ignored when `items` is specified.
         /// </summary>
         /// <value>ID of the payment method. The default value is the account's default payment method ID. This field will be ignored when `items` is specified.</value>
-        [DataMember(Name = "payment_method_id", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_method_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_method_id")]
         public string PaymentMethodId { get; set; }
 
@@ -69,7 +69,7 @@ namespace Service.Models
         /// Container for the payment options, which describe the transactional level rules for processing payments. Currently, only the `gateway_options` type is supported. Payment schedule `payment_options` take precedence over payment schedule item `payment_options`.
         /// </summary>
         /// <value>Container for the payment options, which describe the transactional level rules for processing payments. Currently, only the `gateway_options` type is supported. Payment schedule `payment_options` take precedence over payment schedule item `payment_options`.</value>
-        [DataMember(Name = "payment_options", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_options")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_options")]
         public List<PaymentScheduleItemPaymentOption> PaymentOptions { get; set; }
 
@@ -77,7 +77,7 @@ namespace Service.Models
         /// ID of a payment schedule.
         /// </summary>
         /// <value>ID of a payment schedule.</value>
-        [DataMember(Name = "payment_schedule_id", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_schedule_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_schedule_id")]
         public string PaymentScheduleId { get; set; }
 
@@ -85,7 +85,7 @@ namespace Service.Models
         /// Number of the payment schedule.
         /// </summary>
         /// <value>Number of the payment schedule.</value>
-        [DataMember(Name = "payment_schedule_number", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_schedule_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_schedule_number")]
         public string PaymentScheduleNumber { get; set; }
 
@@ -93,7 +93,7 @@ namespace Service.Models
         /// At which hour in the day in the tenant's timezone this payment will be collected. Available values:[0,1,2,~,22,23]. If the time difference between your tenant’s timezone and the timezone where Zuora servers are located is not in full hours, for example, 2.5 hours, the payment schedule items will be triggered half an hour later than your scheduled time. The default value is 0. If the payment run_hour and scheduled_date are backdated, the system will collect the payment when the next run_hour occurs.
         /// </summary>
         /// <value>At which hour in the day in the tenant's timezone this payment will be collected. Available values:[0,1,2,~,22,23]. If the time difference between your tenant’s timezone and the timezone where Zuora servers are located is not in full hours, for example, 2.5 hours, the payment schedule items will be triggered half an hour later than your scheduled time. The default value is 0. If the payment run_hour and scheduled_date are backdated, the system will collect the payment when the next run_hour occurs.</value>
-        [DataMember(Name = "run_hour", EmitDefaultValue = false)]
+        [DataMember(Name = "run_hour")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "run_hour")]
         public int? RunHour { get; set; }
 
@@ -101,7 +101,7 @@ namespace Service.Models
         /// The scheduled date of collection.
         /// </summary>
         /// <value>The scheduled date of collection.</value>
-        [DataMember(Name = "scheduled_date", EmitDefaultValue = false)]
+        [DataMember(Name = "scheduled_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "scheduled_date")]
         public DateTime? ScheduledDate { get; set; }
 

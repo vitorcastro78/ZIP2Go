@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// The amount of the tax applied to the total price.
         /// </summary>
         /// <value>The amount of the tax applied to the total price.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// The credit memo item amount applied to the taxation item.
         /// </summary>
         /// <value>The credit memo item amount applied to the taxation item.</value>
-        [DataMember(Name = "amount_applied", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_applied")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_applied")]
         public decimal? AmountApplied { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// The credit memo amount applied to the taxation item.
         /// </summary>
         /// <value>The credit memo amount applied to the taxation item.</value>
-        [DataMember(Name = "amount_credited", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_credited")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_credited")]
         public decimal? AmountCredited { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Repository.Models
         /// The calculated tax amount excluded due to the exemption.
         /// </summary>
         /// <value>The calculated tax amount excluded due to the exemption.</value>
-        [DataMember(Name = "amount_exempt", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_exempt")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_exempt")]
         public decimal? AmountExempt { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Repository.Models
         /// The payment amount applied to the taxation item.
         /// </summary>
         /// <value>The payment amount applied to the taxation item.</value>
-        [DataMember(Name = "amount_paid", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_paid")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_paid")]
         public decimal? AmountPaid { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Repository.Models
         /// The refund amount applied to the taxation item.
         /// </summary>
         /// <value>The refund amount applied to the taxation item.</value>
-        [DataMember(Name = "amount_refunded", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_refunded")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_refunded")]
         public decimal? AmountRefunded { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Repository.Models
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
         /// </summary>
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Repository.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public CustomObject CustomObjects { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Repository.Models
         /// Identifier of the taxation item related to the invoice. Only applicable for credit memos created from invoices.
         /// </summary>
         /// <value>Identifier of the taxation item related to the invoice. Only applicable for credit memos created from invoices.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Repository.Models
         /// The jurisdiction that applies the tax or VAT. This value is typically a state, province, county, or city.
         /// </summary>
         /// <value>The jurisdiction that applies the tax or VAT. This value is typically a state, province, county, or city.</value>
-        [DataMember(Name = "jurisdiction", EmitDefaultValue = false)]
+        [DataMember(Name = "jurisdiction")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "jurisdiction")]
         public string Jurisdiction { get; set; }
 
@@ -110,7 +110,7 @@ namespace ZIP2GO.Repository.Models
         /// The identifier for the location based on the value of the `tax_code` field.
         /// </summary>
         /// <value>The identifier for the location based on the value of the `tax_code` field.</value>
-        [DataMember(Name = "location_code", EmitDefaultValue = false)]
+        [DataMember(Name = "location_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "location_code")]
         public string LocationCode { get; set; }
 
@@ -118,7 +118,7 @@ namespace ZIP2GO.Repository.Models
         /// The name of the taxation item.
         /// </summary>
         /// <value>The name of the taxation item.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -126,7 +126,7 @@ namespace ZIP2GO.Repository.Models
         /// An active account in your Zuora Chart of Accounts.
         /// </summary>
         /// <value>An active account in your Zuora Chart of Accounts.</value>
-        [DataMember(Name = "on_account_account", EmitDefaultValue = false)]
+        [DataMember(Name = "on_account_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "on_account_account")]
         public string OnAccountAccount { get; set; }
 
@@ -134,7 +134,7 @@ namespace ZIP2GO.Repository.Models
         /// The remaining balance of the taxation item.
         /// </summary>
         /// <value>The remaining balance of the taxation item.</value>
-        [DataMember(Name = "remaining_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "remaining_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_balance")]
         public decimal? RemainingBalance { get; set; }
 
@@ -142,7 +142,7 @@ namespace ZIP2GO.Repository.Models
         /// An active account in your Zuora Chart of Accounts.
         /// </summary>
         /// <value>An active account in your Zuora Chart of Accounts.</value>
-        [DataMember(Name = "sales_tax_payable_account", EmitDefaultValue = false)]
+        [DataMember(Name = "sales_tax_payable_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sales_tax_payable_account")]
         public string SalesTaxPayableAccount { get; set; }
 
@@ -150,7 +150,7 @@ namespace ZIP2GO.Repository.Models
         /// The ID of the taxation item of the invoice, from which the credit or debit memo is created. This field is only applicable when the `type` of the billing document is `credit_memo` and `debit_memo`.
         /// </summary>
         /// <value>The ID of the taxation item of the invoice, from which the credit or debit memo is created. This field is only applicable when the `type` of the billing document is `credit_memo` and `debit_memo`.</value>
-        [DataMember(Name = "source_tax_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "source_tax_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "source_tax_item_id")]
         public string SourceTaxItemId { get; set; }
 
@@ -158,7 +158,7 @@ namespace ZIP2GO.Repository.Models
         /// A tax code identifier. If a `tax_code` of a price is not provided when you create or update a price, Zuora will treat the charged amount as non-taxable. If this code is provide, Zuora considers that this price is taxable and the charged amount will be handled accordingly.
         /// </summary>
         /// <value>A tax code identifier. If a `tax_code` of a price is not provided when you create or update a price, Zuora will treat the charged amount as non-taxable. If this code is provide, Zuora considers that this price is taxable and the charged amount will be handled accordingly.</value>
-        [DataMember(Name = "tax_code", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_code")]
         public string TaxCode { get; set; }
 
@@ -166,7 +166,7 @@ namespace ZIP2GO.Repository.Models
         /// The amount of the tax applied to the total price.
         /// </summary>
         /// <value>The amount of the tax applied to the total price.</value>
-        [DataMember(Name = "tax_code_name", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_code_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_code_name")]
         public string TaxCodeName { get; set; }
 
@@ -174,7 +174,7 @@ namespace ZIP2GO.Repository.Models
         /// The date on which the tax is applied.
         /// </summary>
         /// <value>The date on which the tax is applied.</value>
-        [DataMember(Name = "tax_date", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_date")]
         public DateTime? TaxDate { get; set; }
 
@@ -182,7 +182,7 @@ namespace ZIP2GO.Repository.Models
         /// If set to `true`, it indicates that amounts are inclusive of tax.
         /// </summary>
         /// <value>If set to `true`, it indicates that amounts are inclusive of tax.</value>
-        [DataMember(Name = "tax_inclusive", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_inclusive")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_inclusive")]
         public bool? TaxInclusive { get; set; }
 
@@ -190,7 +190,7 @@ namespace ZIP2GO.Repository.Models
         /// The amount of the tax applied to the total price.
         /// </summary>
         /// <value>The amount of the tax applied to the total price.</value>
-        [DataMember(Name = "tax_rate", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_rate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_rate")]
         public decimal? TaxRate { get; set; }
 
@@ -198,7 +198,7 @@ namespace ZIP2GO.Repository.Models
         /// The name of the tax rate, such as sales tax or GST. This name is displayed on billing documents.
         /// </summary>
         /// <value>The name of the tax rate, such as sales tax or GST. This name is displayed on billing documents.</value>
-        [DataMember(Name = "tax_rate_name", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_rate_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_rate_name")]
         public string TaxRateName { get; set; }
 
@@ -206,7 +206,7 @@ namespace ZIP2GO.Repository.Models
         /// Indicates whether the tax rate is an amount or a percentage.
         /// </summary>
         /// <value>Indicates whether the tax rate is an amount or a percentage.</value>
-        [DataMember(Name = "tax_rate_type", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_rate_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_rate_type")]
         public string TaxRateType { get; set; }
 
@@ -214,7 +214,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -222,7 +222,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

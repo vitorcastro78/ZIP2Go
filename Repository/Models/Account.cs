@@ -15,7 +15,7 @@ namespace ZIP2GO.Repository.Models
         /// Human-readable identifier of the account. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the account. It can be user-supplied.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -23,7 +23,7 @@ namespace ZIP2GO.Repository.Models
         /// Controls whether future payments are automatically billed when they are due.
         /// </summary>
         /// <value>Controls whether future payments are automatically billed when they are due.</value>
-        [DataMember(Name = "auto_pay", EmitDefaultValue = false)]
+        [DataMember(Name = "auto_pay")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "auto_pay")]
         public bool? AutoPay { get; set; }
 
@@ -31,7 +31,7 @@ namespace ZIP2GO.Repository.Models
         /// The identifier of a bill run batch.
         /// </summary>
         /// <value>The identifier of a bill run batch.</value>
-        [DataMember(Name = "batch", EmitDefaultValue = false)]
+        [DataMember(Name = "batch")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "batch")]
         public string Batch { get; set; }
 
@@ -39,7 +39,7 @@ namespace ZIP2GO.Repository.Models
         /// The day of the month on which your customer will be invoiced. For month-end specify 31.
         /// </summary>
         /// <value>The day of the month on which your customer will be invoiced. For month-end specify 31.</value>
-        [DataMember(Name = "bill_cycle_day", EmitDefaultValue = false)]
+        [DataMember(Name = "bill_cycle_day")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_cycle_day")]
         public int? BillCycleDay { get; set; }
 
@@ -47,14 +47,14 @@ namespace ZIP2GO.Repository.Models
         /// List of customer billing documents.
         /// </summary>
         /// <value>List of customer billing documents.</value>
-        [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
         public BillingDocument BillingDocuments { get; set; }
 
         /// <summary>
         /// Gets or Sets BillingDocumentSettings
         /// </summary>
-        [DataMember(Name = "billing_document_settings", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_document_settings")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_settings")]
         public BillingDocumentSettings BillingDocumentSettings { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Repository.Models
         /// Customer billing address.
         /// </summary>
         /// <value>Customer billing address.</value>
-        [DataMember(Name = "bill_to", EmitDefaultValue = false)]
+        [DataMember(Name = "bill_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to")]
         public Contact BillTo { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Repository.Models
         /// Customer billing address.
         /// </summary>
         /// <value>Customer billing address.</value>
-        [DataMember(Name = "bill_to_id", EmitDefaultValue = false)]
+        [DataMember(Name = "bill_to_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_to_id")]
         public string BillToId { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Repository.Models
         /// Identifier of the communication profile associated with this customer.
         /// </summary>
         /// <value>Identifier of the communication profile associated with this customer.</value>
-        [DataMember(Name = "communication_profile_id", EmitDefaultValue = false)]
+        [DataMember(Name = "communication_profile_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "communication_profile_id")]
         public string CommunicationProfileId { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Repository.Models
         /// List of credit memo
         /// </summary>
         /// <value>List of credit memo</value>
-        [DataMember(Name = "credit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
         public List<CreditMemo> CreditMemos { get; set; }
 
@@ -110,7 +110,7 @@ namespace ZIP2GO.Repository.Models
         /// CRM account identifier.
         /// </summary>
         /// <value>CRM account identifier.</value>
-        [DataMember(Name = "crm_id", EmitDefaultValue = false)]
+        [DataMember(Name = "crm_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "crm_id")]
         public string CrmId { get; set; }
 
@@ -118,7 +118,7 @@ namespace ZIP2GO.Repository.Models
         /// Three-letter ISO currency code. Once the currency is set for an account, it cannot be updated.
         /// </summary>
         /// <value>Three-letter ISO currency code. Once the currency is set for an account, it cannot be updated.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
@@ -126,7 +126,7 @@ namespace ZIP2GO.Repository.Models
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
         /// </summary>
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -134,7 +134,7 @@ namespace ZIP2GO.Repository.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public CustomObject CustomObjects { get; set; }
 
@@ -142,7 +142,7 @@ namespace ZIP2GO.Repository.Models
         /// List of debit memo
         /// </summary>
         /// <value>List of debit memo</value>
-        [DataMember(Name = "debit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "debit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "debit_memos")]
         public List<DebitMemo> DebitMemos { get; set; }
 
@@ -150,7 +150,7 @@ namespace ZIP2GO.Repository.Models
         /// The default payment method for the customer.
         /// </summary>
         /// <value>The default payment method for the customer.</value>
-        [DataMember(Name = "default_payment_method", EmitDefaultValue = false)]
+        [DataMember(Name = "default_payment_method")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_payment_method")]
         [NotMapped]
         public PaymentMethod DefaultPaymentMethod { get; set; }
@@ -159,7 +159,7 @@ namespace ZIP2GO.Repository.Models
         /// Identifier of the default payment method on the customer account.
         /// </summary>
         /// <value>Identifier of the default payment method on the customer account.</value>
-        [DataMember(Name = "default_payment_method_id", EmitDefaultValue = false)]
+        [DataMember(Name = "default_payment_method_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "default_payment_method_id")]
         public string DefaultPaymentMethodId { get; set; }
 
@@ -167,7 +167,7 @@ namespace ZIP2GO.Repository.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -175,7 +175,7 @@ namespace ZIP2GO.Repository.Models
         /// Usually used to disable the customer account. The default is true. If false, attempts to create subscriptions for the customer account will fail.
         /// </summary>
         /// <value>Usually used to disable the customer account. The default is true. If false, attempts to create subscriptions for the customer account will fail.</value>
-        [DataMember(Name = "enabled", EmitDefaultValue = false)]
+        [DataMember(Name = "enabled")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "enabled")]
         public bool? Enabled { get; set; }
 
@@ -183,7 +183,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -191,7 +191,7 @@ namespace ZIP2GO.Repository.Models
         /// List of invoices
         /// </summary>
         /// <value>List of invoices</value>
-        [DataMember(Name = "invoices", EmitDefaultValue = false)]
+        [DataMember(Name = "invoices")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices")]
         public List<Invoice> Invoices { get; set; }
 
@@ -199,7 +199,7 @@ namespace ZIP2GO.Repository.Models
         /// The name of the customer account.
         /// </summary>
         /// <value>The name of the customer account.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -207,7 +207,7 @@ namespace ZIP2GO.Repository.Models
         /// Identifier of this customer's parent account, if any.
         /// </summary>
         /// <value>Identifier of this customer's parent account, if any.</value>
-        [DataMember(Name = "parent_account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "parent_account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parent_account_id")]
         public string ParentAccountId { get; set; }
 
@@ -215,7 +215,7 @@ namespace ZIP2GO.Repository.Models
         /// Payment gateway name.
         /// </summary>
         /// <value>Payment gateway name.</value>
-        [DataMember(Name = "payment_gateway", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_gateway")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway")]
         public string PaymentGateway { get; set; }
 
@@ -223,7 +223,7 @@ namespace ZIP2GO.Repository.Models
         /// List of customer payment methods.
         /// </summary>
         /// <value>List of customer payment methods.</value>
-        [DataMember(Name = "payment_methods", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_methods")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_methods")]
         public List<PaymentMethod> PaymentMethods { get; set; }
 
@@ -231,7 +231,7 @@ namespace ZIP2GO.Repository.Models
         /// List of customer payments.
         /// </summary>
         /// <value>List of customer payments.</value>
-        [DataMember(Name = "payments", EmitDefaultValue = false)]
+        [DataMember(Name = "payments")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
         public List<Payment> Payments { get; set; }
 
@@ -239,7 +239,7 @@ namespace ZIP2GO.Repository.Models
         /// Payment terms configured in **Billing Settings > Payment Terms** of your Zuora tenant.
         /// </summary>
         /// <value>Payment terms configured in **Billing Settings > Payment Terms** of your Zuora tenant.</value>
-        [DataMember(Name = "payment_terms", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_terms")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_terms")]
         public string PaymentTerms { get; set; }
 
@@ -247,7 +247,7 @@ namespace ZIP2GO.Repository.Models
         /// Total remaining balance of all posted credit memos.
         /// </summary>
         /// <value>Total remaining balance of all posted credit memos.</value>
-        [DataMember(Name = "remaining_credit_memo_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "remaining_credit_memo_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_credit_memo_balance")]
         public decimal? RemainingCreditMemoBalance { get; set; }
 
@@ -255,7 +255,7 @@ namespace ZIP2GO.Repository.Models
         /// Total remaining balance of all posted debit memos.
         /// </summary>
         /// <value>Total remaining balance of all posted debit memos.</value>
-        [DataMember(Name = "remaining_debit_memo_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "remaining_debit_memo_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_debit_memo_balance")]
         public decimal? RemainingDebitMemoBalance { get; set; }
 
@@ -263,7 +263,7 @@ namespace ZIP2GO.Repository.Models
         /// Total remaining balance of all posted invoices.
         /// </summary>
         /// <value>Total remaining balance of all posted invoices.</value>
-        [DataMember(Name = "remaining_invoice_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "remaining_invoice_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_invoice_balance")]
         public decimal? RemainingInvoiceBalance { get; set; }
 
@@ -271,7 +271,7 @@ namespace ZIP2GO.Repository.Models
         /// Total remaining balance of all posted payments.
         /// </summary>
         /// <value>Total remaining balance of all posted payments.</value>
-        [DataMember(Name = "remaining_payment_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "remaining_payment_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_payment_balance")]
         public decimal? RemainingPaymentBalance { get; set; }
 
@@ -279,7 +279,7 @@ namespace ZIP2GO.Repository.Models
         /// The name of the sales representative associated with this account
         /// </summary>
         /// <value>The name of the sales representative associated with this account</value>
-        [DataMember(Name = "sales_rep", EmitDefaultValue = false)]
+        [DataMember(Name = "sales_rep")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sales_rep")]
         public string SalesRep { get; set; }
 
@@ -287,7 +287,7 @@ namespace ZIP2GO.Repository.Models
         /// The identifier or the billing document sequence set that is assigned to the customer account.
         /// </summary>
         /// <value>The identifier or the billing document sequence set that is assigned to the customer account.</value>
-        [DataMember(Name = "sequence_set_id", EmitDefaultValue = false)]
+        [DataMember(Name = "sequence_set_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sequence_set_id")]
         public string SequenceSetId { get; set; }
 
@@ -295,7 +295,7 @@ namespace ZIP2GO.Repository.Models
         /// Customer address used for calculating tax.
         /// </summary>
         /// <value>Customer address used for calculating tax.</value>
-        [DataMember(Name = "sold_to", EmitDefaultValue = false)]
+        [DataMember(Name = "sold_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to")]
         public Contact SoldTo { get; set; }
 
@@ -303,7 +303,7 @@ namespace ZIP2GO.Repository.Models
         /// Customer address used for calculating tax.
         /// </summary>
         /// <value>Customer address used for calculating tax.</value>
-        [DataMember(Name = "sold_to_id", EmitDefaultValue = false)]
+        [DataMember(Name = "sold_to_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to_id")]
         public string SoldToId { get; set; }
 
@@ -311,7 +311,7 @@ namespace ZIP2GO.Repository.Models
         /// List of customer subscriptions.
         /// </summary>
         /// <value>List of customer subscriptions.</value>
-        [DataMember(Name = "subscriptions", EmitDefaultValue = false)]
+        [DataMember(Name = "subscriptions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscriptions")]
         [NotMapped]
         public List<Subscription> Subscriptions { get; set; }
@@ -319,14 +319,14 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets TaxCertificate
         /// </summary>
-        [DataMember(Name = "tax_certificate", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_certificate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_certificate")]
         public TaxCertificate TaxCertificate { get; set; }
 
         /// <summary>
         /// Gets or Sets TaxIdentifier
         /// </summary>
-        [DataMember(Name = "tax_identifier", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_identifier")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_identifier")]
         public TaxIdentifier TaxIdentifier { get; set; }
 
@@ -334,7 +334,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -342,7 +342,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 
@@ -350,7 +350,7 @@ namespace ZIP2GO.Repository.Models
         /// List of customer usages.
         /// </summary>
         /// <value>List of customer usages.</value>
-        [DataMember(Name = "usage_records", EmitDefaultValue = false)]
+        [DataMember(Name = "usage_records")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "usage_records")]
         public List<Usage> UsageRecords { get; set; }
 

@@ -13,14 +13,14 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets _Parameter
         /// </summary>
-        [DataMember(Name = "parameter", EmitDefaultValue = false)]
+        [DataMember(Name = "parameter")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "parameter")]
         public string _Parameter { get; set; }
 
         /// <summary>
         /// Gets or Sets Code
         /// </summary>
-        [DataMember(Name = "code", EmitDefaultValue = false)]
+        [DataMember(Name = "code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "code")]
         public string Code { get; set; }
 
@@ -28,14 +28,14 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Message
         /// </summary>
-        [DataMember(Name = "message", EmitDefaultValue = false)]
+        [DataMember(Name = "message")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "message")]
         public string Message { get; set; }
 

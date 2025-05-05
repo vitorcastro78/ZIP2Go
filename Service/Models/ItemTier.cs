@@ -14,7 +14,7 @@ namespace Service.Models
         /// The amount of the price. Specify this field if you want to override the original price with a flat-fee price.
         /// </summary>
         /// <value>The amount of the price. Specify this field if you want to override the original price with a flat-fee price.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The unit amount of the price. Specify this field if you want to override the original price with a per-unit price.
         /// </summary>
         /// <value>The unit amount of the price. Specify this field if you want to override the original price with a per-unit price.</value>
-        [DataMember(Name = "unit_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amount")]
         public decimal? UnitAmount { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// Specifies the upper bound of the tier. The lower bound of a tier is the upper bound of the previous tier plus one.
         /// </summary>
         /// <value>Specifies the upper bound of the tier. The lower bound of a tier is the upper bound of the previous tier plus one.</value>
-        [DataMember(Name = "up_to", EmitDefaultValue = false)]
+        [DataMember(Name = "up_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "up_to")]
         public decimal? UpTo { get; set; }
 

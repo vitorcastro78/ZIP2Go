@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// An array of prepaid balance validity periods
         /// </summary>
         /// <value>An array of prepaid balance validity periods</value>
-        [DataMember(Name = "validity_periods", EmitDefaultValue = false)]
+        [DataMember(Name = "validity_periods")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "validity_periods")]
         public List<ValidityPeriod> ValidityPeriods { get; set; }
 

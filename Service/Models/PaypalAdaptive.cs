@@ -14,7 +14,7 @@ namespace Service.Models
         /// Email address associated with the payment method.
         /// </summary>
         /// <value>Email address associated with the payment method.</value>
-        [DataMember(Name = "email", EmitDefaultValue = false)]
+        [DataMember(Name = "email")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
         public string Email { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// PayPal preapproval key.
         /// </summary>
         /// <value>PayPal preapproval key.</value>
-        [DataMember(Name = "preapproval_key", EmitDefaultValue = false)]
+        [DataMember(Name = "preapproval_key")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "preapproval_key")]
         public string PreapprovalKey { get; set; }
 

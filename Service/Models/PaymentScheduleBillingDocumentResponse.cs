@@ -14,7 +14,7 @@ namespace Service.Models
         /// Unique identifier of an invoice or debit memo billing document.
         /// </summary>
         /// <value>Unique identifier of an invoice or debit memo billing document.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The type of billing document. The default is `invoice`.
         /// </summary>
         /// <value>The type of billing document. The default is `invoice`.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

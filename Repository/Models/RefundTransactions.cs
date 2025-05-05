@@ -14,21 +14,21 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets InvoiceNumbers
         /// </summary>
-        [DataMember(Name = "invoice_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_numbers")]
         public List<string> InvoiceNumbers { get; set; }
 
         /// <summary>
         /// Gets or Sets RefundNumber
         /// </summary>
-        [DataMember(Name = "refund_number", EmitDefaultValue = false)]
+        [DataMember(Name = "refund_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_number")]
         public string RefundNumber { get; set; }
 
@@ -36,14 +36,14 @@ namespace ZIP2GO.Repository.Models
         /// The related invoices.
         /// </summary>
         /// <value>The related invoices.</value>
-        [DataMember(Name = "refunds", EmitDefaultValue = false)]
+        [DataMember(Name = "refunds")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunds")]
         public List<Refund> Refunds { get; set; }
 
         /// <summary>
         /// Gets or Sets State
         /// </summary>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public TransactionsState State { get; set; }
 

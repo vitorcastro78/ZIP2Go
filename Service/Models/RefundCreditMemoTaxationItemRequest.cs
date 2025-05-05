@@ -14,7 +14,7 @@ namespace Service.Models
         /// Refund amount.
         /// </summary>
         /// <value>Refund amount.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Identifier of the credit memo taxation item
         /// </summary>
         /// <value>Identifier of the credit memo taxation item</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 

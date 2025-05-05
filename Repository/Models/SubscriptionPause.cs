@@ -13,7 +13,7 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -29,7 +29,7 @@ namespace ZIP2GO.Repository.Models
         /// Can be either the end of the current billing period or a specific date.
         /// </summary>
         /// <value>Can be either the end of the current billing period or a specific date.</value>
-        [DataMember(Name = "pause_at", EmitDefaultValue = false)]
+        [DataMember(Name = "pause_at")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_at")]
         public string PauseAt { get; set; }
 
@@ -37,7 +37,7 @@ namespace ZIP2GO.Repository.Models
         /// Date on which the subscription is paused.
         /// </summary>
         /// <value>Date on which the subscription is paused.</value>
-        [DataMember(Name = "pause_date", EmitDefaultValue = false)]
+        [DataMember(Name = "pause_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_date")]
         public string PauseDate { get; set; }
 
@@ -45,7 +45,7 @@ namespace ZIP2GO.Repository.Models
         /// Unit in which the pause duration is defined. One of day, week, month or year.
         /// </summary>
         /// <value>Unit in which the pause duration is defined. One of day, week, month or year.</value>
-        [DataMember(Name = "pause_interval", EmitDefaultValue = false)]
+        [DataMember(Name = "pause_interval")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_interval")]
         public string PauseInterval { get; set; }
 
@@ -53,14 +53,14 @@ namespace ZIP2GO.Repository.Models
         /// The number of intervals in a duration where the subscription is paused. For example, pause_interval=year and pause_interval_count=1 represents a 1-year pause.
         /// </summary>
         /// <value>The number of intervals in a duration where the subscription is paused. For example, pause_interval=year and pause_interval_count=1 represents a 1-year pause.</value>
-        [DataMember(Name = "pause_interval_count", EmitDefaultValue = false)]
+        [DataMember(Name = "pause_interval_count")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pause_interval_count")]
         public decimal? PauseIntervalCount { get; set; }
 
         /// <summary>
         /// Gets or Sets ResumeBehavior
         /// </summary>
-        [DataMember(Name = "resume_behavior", EmitDefaultValue = false)]
+        [DataMember(Name = "resume_behavior")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resume_behavior")]
         public ResumeSubscription ResumeBehavior { get; set; }
 

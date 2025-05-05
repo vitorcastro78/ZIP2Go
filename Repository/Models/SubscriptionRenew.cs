@@ -14,14 +14,14 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Terms
         /// </summary>
-        [DataMember(Name = "terms", EmitDefaultValue = false)]
+        [DataMember(Name = "terms")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
         public SubscriptionTerm Terms { get; set; }
 

@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// The numbers of the related invoices.
         /// </summary>
         /// <value>The numbers of the related invoices.</value>
-        [DataMember(Name = "invoice_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_numbers")]
         public List<string> InvoiceNumbers { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// The number of the refund.
         /// </summary>
         /// <value>The number of the refund.</value>
-        [DataMember(Name = "number", EmitDefaultValue = false)]
+        [DataMember(Name = "number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
         public string Number { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Repository.Models
         /// The related invoices.
         /// </summary>
         /// <value>The related invoices.</value>
-        [DataMember(Name = "refunds", EmitDefaultValue = false)]
+        [DataMember(Name = "refunds")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunds")]
         public List<Refund> Refunds { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Repository.Models
         /// The states of the refunds.
         /// </summary>
         /// <value>The states of the refunds.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public TransactionsState State { get; set; }
 

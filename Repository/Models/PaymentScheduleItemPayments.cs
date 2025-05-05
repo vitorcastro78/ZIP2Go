@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the payment schedule item.
         /// </summary>
         /// <value>Unique identifier of the payment schedule item.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 

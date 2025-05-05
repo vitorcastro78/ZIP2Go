@@ -14,7 +14,7 @@ namespace Service.Models
         /// The total billing document amount that is written off.
         /// </summary>
         /// <value>The total billing document amount that is written off.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public string Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The credit memo number.
         /// </summary>
         /// <value>The credit memo number.</value>
-        [DataMember(Name = "credit_memo_number", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_number")]
         public string CreditMemoNumber { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// Reasons for failure.
         /// </summary>
         /// <value>Reasons for failure.</value>
-        [DataMember(Name = "failed_reason", EmitDefaultValue = false)]
+        [DataMember(Name = "failed_reason")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed_reason")]
         public string FailedReason { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// The related invoice.
         /// </summary>
         /// <value>The related invoice.</value>
-        [DataMember(Name = "invoice", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice")]
         public AllOfwriteOffInvoice Invoice { get; set; }
 
@@ -46,7 +46,7 @@ namespace Service.Models
         /// The invoice number.
         /// </summary>
         /// <value>The invoice number.</value>
-        [DataMember(Name = "invoice_number", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_number")]
         public string InvoiceNumber { get; set; }
 
@@ -54,7 +54,7 @@ namespace Service.Models
         /// The states of the transactions.
         /// </summary>
         /// <value>The states of the transactions.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public AllOfwriteOffState State { get; set; }
 

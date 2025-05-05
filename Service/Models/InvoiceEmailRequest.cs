@@ -14,7 +14,7 @@ namespace Service.Models
         /// An arbitrary list of comma-separated email addresses. Note: this parameter will be ignored if use_email_template is true.
         /// </summary>
         /// <value>An arbitrary list of comma-separated email addresses. Note: this parameter will be ignored if use_email_template is true.</value>
-        [DataMember(Name = "email", EmitDefaultValue = false)]
+        [DataMember(Name = "email")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
         public string Email { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Indicates whether to email an invoice based on your email template settings. If you set this field to true, the invoice is sent to the email addresses specified in the To Email field of the email template.
         /// </summary>
         /// <value>Indicates whether to email an invoice based on your email template settings. If you set this field to true, the invoice is sent to the email addresses specified in the To Email field of the email template.</value>
-        [DataMember(Name = "use_email_template", EmitDefaultValue = false)]
+        [DataMember(Name = "use_email_template")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "use_email_template")]
         public bool? UseEmailTemplate { get; set; }
 

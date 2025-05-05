@@ -14,7 +14,7 @@ namespace Service.Models
         /// The date printed on the invoice.
         /// </summary>
         /// <value>The date printed on the invoice.</value>
-        [DataMember(Name = "invoice_date", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_date")]
         public DateTime? InvoiceDate { get; set; }
 

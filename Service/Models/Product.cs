@@ -14,7 +14,7 @@ namespace Service.Models
         /// Whether the product can be used for new purchases.
         /// </summary>
         /// <value>Whether the product can be used for new purchases.</value>
-        [DataMember(Name = "active", EmitDefaultValue = false)]
+        [DataMember(Name = "active")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "active")]
         public bool? Active { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
         /// </summary>
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public Dictionary<string, Object> CustomFields { get; set; }
 
@@ -46,7 +46,7 @@ namespace Service.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public OneOfproductCustomObjects CustomObjects { get; set; }
 
@@ -54,7 +54,7 @@ namespace Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -62,7 +62,7 @@ namespace Service.Models
         /// The date on which the product can no longer be used for new purchases.
         /// </summary>
         /// <value>The date on which the product can no longer be used for new purchases.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -70,7 +70,7 @@ namespace Service.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -78,7 +78,7 @@ namespace Service.Models
         /// The name of the product.
         /// </summary>
         /// <value>The name of the product.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -86,7 +86,7 @@ namespace Service.Models
         /// A list of plans.
         /// </summary>
         /// <value>A list of plans.</value>
-        [DataMember(Name = "plans", EmitDefaultValue = false)]
+        [DataMember(Name = "plans")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plans")]
         public AllOfproductPlans Plans { get; set; }
 
@@ -94,7 +94,7 @@ namespace Service.Models
         /// The sku identifier of the product.
         /// </summary>
         /// <value>The sku identifier of the product.</value>
-        [DataMember(Name = "sku", EmitDefaultValue = false)]
+        [DataMember(Name = "sku")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
         public string Sku { get; set; }
 
@@ -102,7 +102,7 @@ namespace Service.Models
         /// The date from which the product can be used for new purchases.
         /// </summary>
         /// <value>The date from which the product can be used for new purchases.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -110,7 +110,7 @@ namespace Service.Models
         /// The type of product.
         /// </summary>
         /// <value>The type of product.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 
@@ -118,7 +118,7 @@ namespace Service.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -126,7 +126,7 @@ namespace Service.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

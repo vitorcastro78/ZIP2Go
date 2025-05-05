@@ -13,14 +13,14 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Data
         /// </summary>
-        [DataMember(Name = "data", EmitDefaultValue = false)]
+        [DataMember(Name = "data")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
         public List<FulfillmentRequest> Data { get; set; }
 
         /// <summary>
         /// Gets or Sets ProcessingOptions
         /// </summary>
-        [DataMember(Name = "processing_options", EmitDefaultValue = false)]
+        [DataMember(Name = "processing_options")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processing_options")]
         public FulfillmentProcessingOption ProcessingOptions { get; set; }
 

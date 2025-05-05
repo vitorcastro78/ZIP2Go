@@ -10,8 +10,14 @@ namespace Service.Client
         string Base64Encode(string text);
         object ConvertType(object fromObject, Type toObject);
         void AddDefaultHeader(string key, string value);
+
+        T RequestCachedResult<T>(string id);
+
+        public List<T> RequestCachedResult<T>();
+
+        List<T> CallApi<T>();
         object CallApi(string path, Method method, Dictionary<string, string> queryParams, string postBody, bool? async = true);
-        T CallApi<T>(string Id, string path, Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true);
+        Object CallApi<T>(string path, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true);
         T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody);
         object Deserialize(string content, Type type, IList<Parameter> headers = null);
         string EscapeString(string str);

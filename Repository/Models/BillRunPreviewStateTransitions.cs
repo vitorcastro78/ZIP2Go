@@ -14,11 +14,11 @@ namespace ZIP2GO.Repository.Models
         /// The time when the bill run preview completed.
         /// </summary>
         /// <value>The time when the bill run preview completed.</value>
-        [DataMember(Name = "complete_time", EmitDefaultValue = false)]
+        [DataMember(Name = "complete_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "complete_time")]
         public DateTime? CompleteTime { get; set; }
 
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -26,7 +26,7 @@ namespace ZIP2GO.Repository.Models
         /// The time when the bill run preview started.
         /// </summary>
         /// <value>The time when the bill run preview started.</value>
-        [DataMember(Name = "processing_start_time", EmitDefaultValue = false)]
+        [DataMember(Name = "processing_start_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processing_start_time")]
         public DateTime? ProcessingStartTime { get; set; }
 

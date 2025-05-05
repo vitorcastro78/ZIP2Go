@@ -14,7 +14,7 @@ namespace Service.Models
         /// A customer account identifier.
         /// </summary>
         /// <value>A customer account identifier.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// A human-readable customer account identifier. It can be user-supplied.
         /// </summary>
         /// <value>A human-readable customer account identifier. It can be user-supplied.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -30,14 +30,14 @@ namespace Service.Models
         /// If this is an ach_debit payment method, this hash contains details about the ACH debit bank account.
         /// </summary>
         /// <value>If this is an ach_debit payment method, this hash contains details about the ACH debit bank account.</value>
-        [DataMember(Name = "ach_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "ach_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ach_debit")]
         public AllOfpaymentMethodPatchRequestAchDebit AchDebit { get; set; }
 
         /// <summary>
         /// Gets or Sets BillingDetails
         /// </summary>
-        [DataMember(Name = "billing_details", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_details")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_details")]
         public BillingDetails BillingDetails { get; set; }
 
@@ -45,7 +45,7 @@ namespace Service.Models
         /// Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.
         /// </summary>
         /// <value>Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.</value>
-        [DataMember(Name = "card", EmitDefaultValue = false)]
+        [DataMember(Name = "card")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
         public AllOfpaymentMethodPatchRequestCard Card { get; set; }
 
@@ -53,7 +53,7 @@ namespace Service.Models
         /// Credit Card Reference Transaction. See Supported payment methods for payment gateways that support this type of payment method.
         /// </summary>
         /// <value>Credit Card Reference Transaction. See Supported payment methods for payment gateways that support this type of payment method.</value>
-        [DataMember(Name = "cc_ref", EmitDefaultValue = false)]
+        [DataMember(Name = "cc_ref")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cc_ref")]
         public AllOfpaymentMethodPatchRequestCcRef CcRef { get; set; }
 
@@ -61,14 +61,14 @@ namespace Service.Models
         /// 3-letter ISO 4217 currency code.
         /// </summary>
         /// <value>3-letter ISO 4217 currency code.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -76,7 +76,7 @@ namespace Service.Models
         /// Identifier of the device browser session.
         /// </summary>
         /// <value>Identifier of the device browser session.</value>
-        [DataMember(Name = "device_session_id", EmitDefaultValue = false)]
+        [DataMember(Name = "device_session_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "device_session_id")]
         public string DeviceSessionId { get; set; }
 
@@ -84,21 +84,21 @@ namespace Service.Models
         /// Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.
         /// </summary>
         /// <value>Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.</value>
-        [DataMember(Name = "gateway_id", EmitDefaultValue = false)]
+        [DataMember(Name = "gateway_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_id")]
         public string GatewayId { get; set; }
 
         /// <summary>
         /// Gets or Sets GatewayOptions
         /// </summary>
-        [DataMember(Name = "gateway_options", EmitDefaultValue = false)]
+        [DataMember(Name = "gateway_options")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
         public Dictionary<string, string> GatewayOptions { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public AllOfpaymentMethodPatchRequestMandate Mandate { get; set; }
 
@@ -106,7 +106,7 @@ namespace Service.Models
         /// Maximum number of consecutive failed retry payment attempts using this payment method before retries are stopped.
         /// </summary>
         /// <value>Maximum number of consecutive failed retry payment attempts using this payment method before retries are stopped.</value>
-        [DataMember(Name = "maximum_payment_attempts", EmitDefaultValue = false)]
+        [DataMember(Name = "maximum_payment_attempts")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "maximum_payment_attempts")]
         public decimal? MaximumPaymentAttempts { get; set; }
 
@@ -114,7 +114,7 @@ namespace Service.Models
         /// The retry interval in hours.
         /// </summary>
         /// <value>The retry interval in hours.</value>
-        [DataMember(Name = "payment_retry_interval", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_retry_interval")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_retry_interval")]
         public int? PaymentRetryInterval { get; set; }
 

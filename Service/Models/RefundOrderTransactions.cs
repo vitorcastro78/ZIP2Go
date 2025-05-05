@@ -14,7 +14,7 @@ namespace Service.Models
         /// The numbers of the related invoices.
         /// </summary>
         /// <value>The numbers of the related invoices.</value>
-        [DataMember(Name = "invoice_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_numbers")]
         public List<string> InvoiceNumbers { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The number of the refund.
         /// </summary>
         /// <value>The number of the refund.</value>
-        [DataMember(Name = "number", EmitDefaultValue = false)]
+        [DataMember(Name = "number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number")]
         public string Number { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// The related invoices.
         /// </summary>
         /// <value>The related invoices.</value>
-        [DataMember(Name = "refunds", EmitDefaultValue = false)]
+        [DataMember(Name = "refunds")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunds")]
         public AllOfrefundOrderTransactionsRefunds Refunds { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// The states of the refunds.
         /// </summary>
         /// <value>The states of the refunds.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public AllOfrefundOrderTransactionsState State { get; set; }
 

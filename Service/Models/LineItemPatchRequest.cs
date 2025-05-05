@@ -14,7 +14,7 @@ namespace Service.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "accounting_code", EmitDefaultValue = false)]
+        [DataMember(Name = "accounting_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "accounting_code")]
         public string AccountingCode { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "adjustment_liability_account", EmitDefaultValue = false)]
+        [DataMember(Name = "adjustment_liability_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "adjustment_liability_account")]
         public string AdjustmentLiabilityAccount { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// The billing rule for the order line item.
         /// </summary>
         /// <value>The billing rule for the order line item.</value>
-        [DataMember(Name = "billing_rule", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_rule")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_rule")]
         public string BillingRule { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// Category of the order line item.
         /// </summary>
         /// <value>Category of the order line item.</value>
-        [DataMember(Name = "category", EmitDefaultValue = false)]
+        [DataMember(Name = "category")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "category")]
         public string Category { get; set; }
 
@@ -46,7 +46,7 @@ namespace Service.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "contract_asset_account", EmitDefaultValue = false)]
+        [DataMember(Name = "contract_asset_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "contract_asset_account")]
         public string ContractAssetAccount { get; set; }
 
@@ -54,14 +54,14 @@ namespace Service.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "contract_liability_account", EmitDefaultValue = false)]
+        [DataMember(Name = "contract_liability_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "contract_liability_account")]
         public string ContractLiabilityAccount { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -69,7 +69,7 @@ namespace Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -77,7 +77,7 @@ namespace Service.Models
         /// Discount percent.
         /// </summary>
         /// <value>Discount percent.</value>
-        [DataMember(Name = "discount_percent", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_percent")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_percent")]
         public decimal? DiscountPercent { get; set; }
 
@@ -85,7 +85,7 @@ namespace Service.Models
         /// Discount amount per unit.
         /// </summary>
         /// <value>Discount amount per unit.</value>
-        [DataMember(Name = "discount_unit_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_unit_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_unit_amount")]
         public decimal? DiscountUnitAmount { get; set; }
 
@@ -93,7 +93,7 @@ namespace Service.Models
         /// The date the order line item transitions to complete.
         /// </summary>
         /// <value>The date the order line item transitions to complete.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -101,7 +101,7 @@ namespace Service.Models
         /// Human-readable identifier of the order item. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the order item. It can be user-supplied.</value>
-        [DataMember(Name = "item_number", EmitDefaultValue = false)]
+        [DataMember(Name = "item_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "item_number")]
         public string ItemNumber { get; set; }
 
@@ -109,7 +109,7 @@ namespace Service.Models
         /// The list price per unit for the order line item.
         /// </summary>
         /// <value>The list price per unit for the order line item.</value>
-        [DataMember(Name = "list_unit_price", EmitDefaultValue = false)]
+        [DataMember(Name = "list_unit_price")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "list_unit_price")]
         public decimal? ListUnitPrice { get; set; }
 
@@ -117,7 +117,7 @@ namespace Service.Models
         /// The name of the order line item.
         /// </summary>
         /// <value>The name of the order line item.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -125,7 +125,7 @@ namespace Service.Models
         /// The product code for the order line item.
         /// </summary>
         /// <value>The product code for the order line item.</value>
-        [DataMember(Name = "product_code", EmitDefaultValue = false)]
+        [DataMember(Name = "product_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product_code")]
         public string ProductCode { get; set; }
 
@@ -133,7 +133,7 @@ namespace Service.Models
         /// Used by customers to specify the Purchase Order Number provided by the buyer.
         /// </summary>
         /// <value>Used by customers to specify the Purchase Order Number provided by the buyer.</value>
-        [DataMember(Name = "purchase_order_number", EmitDefaultValue = false)]
+        [DataMember(Name = "purchase_order_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "purchase_order_number")]
         public string PurchaseOrderNumber { get; set; }
 
@@ -141,7 +141,7 @@ namespace Service.Models
         /// The quantity of the product ordered.
         /// </summary>
         /// <value>The quantity of the product ordered.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
@@ -149,14 +149,14 @@ namespace Service.Models
         /// Use this field to relate an order line item to an subscription.
         /// </summary>
         /// <value>Use this field to relate an order line item to an subscription.</value>
-        [DataMember(Name = "related_subscription_number", EmitDefaultValue = false)]
+        [DataMember(Name = "related_subscription_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "related_subscription_number")]
         public string RelatedSubscriptionNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets Revenue
         /// </summary>
-        [DataMember(Name = "revenue", EmitDefaultValue = false)]
+        [DataMember(Name = "revenue")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue")]
         public OrderLineItemRevenue Revenue { get; set; }
 
@@ -164,7 +164,7 @@ namespace Service.Models
         /// The unique identifier of a contact belonging to the billing account of the order line item. Use this field to assign and existing contact as the sold to contact of an order line item.
         /// </summary>
         /// <value>The unique identifier of a contact belonging to the billing account of the order line item. Use this field to assign and existing contact as the sold to contact of an order line item.</value>
-        [DataMember(Name = "sold_to_id", EmitDefaultValue = false)]
+        [DataMember(Name = "sold_to_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to_id")]
         public string SoldToId { get; set; }
 
@@ -172,7 +172,7 @@ namespace Service.Models
         /// The date a transaction starts. The default value of this field is the order date.
         /// </summary>
         /// <value>The date a transaction starts. The default value of this field is the order date.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -180,7 +180,7 @@ namespace Service.Models
         /// The state of an order line item. If you want to generate billing documents for order line items, you must set this field to `sent_to_billing`. For invoice preview, you do not need to set this field.
         /// </summary>
         /// <value>The state of an order line item. If you want to generate billing documents for order line items, you must set this field to `sent_to_billing`. For invoice preview, you do not need to set this field.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
 
@@ -188,7 +188,7 @@ namespace Service.Models
         /// All order line items that were unbilled on or before this date are included in future bill runs.
         /// </summary>
         /// <value>All order line items that were unbilled on or before this date are included in future bill runs.</value>
-        [DataMember(Name = "target_date", EmitDefaultValue = false)]
+        [DataMember(Name = "target_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
         public DateTime? TargetDate { get; set; }
 
@@ -196,7 +196,7 @@ namespace Service.Models
         /// The tax code for the order line item.
         /// </summary>
         /// <value>The tax code for the order line item.</value>
-        [DataMember(Name = "tax_code", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_code")]
         public string TaxCode { get; set; }
 
@@ -204,7 +204,7 @@ namespace Service.Models
         /// The type of the order line item.
         /// </summary>
         /// <value>The type of the order line item.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 
@@ -212,7 +212,7 @@ namespace Service.Models
         /// An active accounting code in your Zuora chart of accounts..
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts..</value>
-        [DataMember(Name = "unbilled_receivables_account", EmitDefaultValue = false)]
+        [DataMember(Name = "unbilled_receivables_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unbilled_receivables_account")]
         public string UnbilledReceivablesAccount { get; set; }
 
@@ -220,7 +220,7 @@ namespace Service.Models
         /// The unit amount to be charged.
         /// </summary>
         /// <value>The unit amount to be charged.</value>
-        [DataMember(Name = "unit_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amount")]
         public decimal? UnitAmount { get; set; }
 
@@ -228,7 +228,7 @@ namespace Service.Models
         /// A configured unit of measure.
         /// </summary>
         /// <value>A configured unit of measure.</value>
-        [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_of_measure")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
 

@@ -14,7 +14,7 @@ namespace Service.Models
         /// ID of the billing document sequence set.
         /// </summary>
         /// <value>ID of the billing document sequence set.</value>
-        [DataMember(Name = "sequence_set_id", EmitDefaultValue = false)]
+        [DataMember(Name = "sequence_set_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sequence_set_id")]
         public string SequenceSetId { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Identifier of the invoice template associated with this customer. Not applicable for debit memos or credit memos.
         /// </summary>
         /// <value>Identifier of the invoice template associated with this customer. Not applicable for debit memos or credit memos.</value>
-        [DataMember(Name = "template_id", EmitDefaultValue = false)]
+        [DataMember(Name = "template_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "template_id")]
         public string TemplateId { get; set; }
 

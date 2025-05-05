@@ -50,12 +50,13 @@ namespace Service
         /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>Product</returns>
-        public Product CreateProduct(ProductCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> plansFields, List<string> pricesFields, List<string> expand, List<string> filter, int? pageSize)
+        ///  Product CreateProduct(ProductCreateRequest body, string zuoraTrackId, bool? async);
+        public Product CreateProduct(ProductCreateRequest body, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateProduct");
 
-            var path = "/products";
+            var path = "v2/products";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -65,8 +66,8 @@ namespace Service
             string postBody = null;
 
             // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
-            if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
+            //if (plansFields != null) queryParams.Add("plans.fields[]", _apiClient.ParameterToString(plansFields)); // query parameter
+            //if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
             // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
             // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
@@ -76,7 +77,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Product>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateProduct: " + response.Content, response.Content);
@@ -149,7 +150,7 @@ namespace Service
             // verify the required parameter 'productId' is set
             if (productId == null) throw new ApiException(400, "Missing required parameter 'productId' when calling GetProduct");
 
-            var path = "/products/{product_id}";
+            var path = "v2/products/{product_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "product_id" + "}", _apiClient.ParameterToString(productId));
 
@@ -216,8 +217,24 @@ namespace Service
             //if (pricesFields != null) queryParams.Add("prices.fields[]", _apiClient.ParameterToString(pricesFields)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
-          return _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody);
+            var result = _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody);
+
+            return result;
         }
+
+
+        public ProductListResponse GetProductsCached()
+        {
+            var result = new ProductListResponse();
+            {
+                result.Data = _apiClient.RequestCachedResult<Product>();
+            }
+            
+            return result ;
+        }
+
+        
+
 
         /// <summary>
         /// Sets the base path of the API client.
@@ -276,7 +293,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Product>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateProduct: " + response.Content, response.Content);

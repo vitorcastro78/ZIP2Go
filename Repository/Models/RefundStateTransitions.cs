@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time (ISO 8601 UTC format) when the refund was canceled.
         /// </summary>
         /// <value>The date and time (ISO 8601 UTC format) when the refund was canceled.</value>
-        [DataMember(Name = "canceled_time", EmitDefaultValue = false)]
+        [DataMember(Name = "canceled_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
         public DateTime? CanceledTime { get; set; }
 
@@ -22,14 +22,14 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets RefundedTime
         /// </summary>
-        [DataMember(Name = "refunded_time", EmitDefaultValue = false)]
+        [DataMember(Name = "refunded_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunded_time")]
         public DateTime? RefundedTime { get; set; }
 

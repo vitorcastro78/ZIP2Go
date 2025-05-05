@@ -14,7 +14,7 @@ namespace Service.Models
         /// A list of additional email addresses to receive email notifications.
         /// </summary>
         /// <value>A list of additional email addresses to receive email notifications.</value>
-        [DataMember(Name = "additional_email", EmitDefaultValue = false)]
+        [DataMember(Name = "additional_email")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "additional_email")]
         public List<string> AdditionalEmail { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Identifier of the credit memo template associated with this customer.
         /// </summary>
         /// <value>Identifier of the credit memo template associated with this customer.</value>
-        [DataMember(Name = "credit_memo_template_id", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_template_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_template_id")]
         public string CreditMemoTemplateId { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// Identifier of the debit memo template associated with this customer.
         /// </summary>
         /// <value>Identifier of the debit memo template associated with this customer.</value>
-        [DataMember(Name = "debit_memo_template_id", EmitDefaultValue = false)]
+        [DataMember(Name = "debit_memo_template_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "debit_memo_template_id")]
         public string DebitMemoTemplateId { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// Whether the customer wants to receive email invoices.
         /// </summary>
         /// <value>Whether the customer wants to receive email invoices.</value>
-        [DataMember(Name = "email_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "email_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email_documents")]
         public bool? EmailDocuments { get; set; }
 
@@ -46,7 +46,7 @@ namespace Service.Models
         /// Identifier of the invoice template associated with this customer.
         /// </summary>
         /// <value>Identifier of the invoice template associated with this customer.</value>
-        [DataMember(Name = "invoice_template_id", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_template_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_template_id")]
         public string InvoiceTemplateId { get; set; }
 
@@ -54,7 +54,7 @@ namespace Service.Models
         /// Whether the customer wants to receive printed invoices.
         /// </summary>
         /// <value>Whether the customer wants to receive printed invoices.</value>
-        [DataMember(Name = "print_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "print_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "print_documents")]
         public bool? PrintDocuments { get; set; }
 

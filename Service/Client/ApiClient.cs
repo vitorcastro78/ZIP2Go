@@ -2,9 +2,12 @@ using EasyCaching.Core;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using Service.Client;
+using Service.Models;
 using System.Net.Http.Headers;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -164,8 +167,6 @@ namespace Service.Client
                     headerParams.Add("idempotency-key", _options.ZuoraIdempotencyKey); // header parameter
             }
 
-         
-
             foreach (var defaultHeader in _defaultHeaderMap)
                 request.AddHeader(defaultHeader.Key, defaultHeader.Value);
 
@@ -178,18 +179,28 @@ namespace Service.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-           var ret = Deserialize(RestClient.Execute(request).Content, typeof(Object));
+
+           var result = RestClient.Execute(request);
+
+           var ret = Deserialize(result.Content, typeof(Product));
 
 
-            return RestClient.Execute(request);
+            if (method != Method.Get)
+            {
+                FillCachePostResult(ret);
+                return result;
+            }
+            else
+            {
+                return result;
+            }
         }
 
-        public T CallApi<T>(string Id, string path, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true)
+        public Object CallApi<T>(string path, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true)
         {
-            Dictionary<string, string>? headerParams = new Dictionary<string, string>();
-
+            var headerParams = new Dictionary<string, string>();
             var request = new RestRequest(path, method);
-            var response = new RestResponse();
+            var response = new Object();
 
             var token = this.GetToken();
 
@@ -218,21 +229,43 @@ namespace Service.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-            var cachingTrigger = new CachingTrigger(_cache);
+
+            var result = RestClient.Execute(request);
+
+            var ret = Deserialize(result.Content, typeof(T));
+
 
             if (method != Method.Get)
             {
-                response = RestClient.Execute(request);
-                cachingTrigger.SetCachingTrigger<T>(method, response);
-                return (T)Deserialize(response.Content, typeof(T)); ;
+                FillCachePostResult(ret);
+                return result;
             }
             else
             {
-                return cachingTrigger.GetCachingTrigger<T>(Id);
+                return result;
             }
         }
 
-      
+        public List<T> CallApi<T>()
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f=>f.Value).ToList();
+            
+        }
+
+        public List<T> RequestCachedResult<T>()
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
+
+        }
+
+        public T RequestCachedResult<T>(string id)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.Get<T>($"{cacheKey}_{id}").Value;
+
+        }
         public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody)
         {
             queryParams.Add("page_size", ParameterToString(95));
@@ -259,8 +292,25 @@ namespace Service.Client
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
 
+            FillCache(responseObject);
 
             return responseObject;
+        }
+
+        private void FillCache(dynamic result)
+        {
+            foreach (var item in result.Data)
+            {
+                var name = item.GetType().Name;
+                _cache.SetAsync<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(12));
+            }
+
+        }
+
+        private void FillCachePostResult(dynamic result)
+        {
+            var name = result.GetType().Name;
+            _cache.SetAsync<dynamic>($"{name}_{result.Id}", result, TimeSpan.FromHours(12));
         }
 
         /// <summary>

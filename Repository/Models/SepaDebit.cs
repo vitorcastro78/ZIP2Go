@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// The BIC code used with the Sepa Debit payment method.
         /// </summary>
         /// <value>The BIC code used with the Sepa Debit payment method.</value>
-        [DataMember(Name = "business_identification_code", EmitDefaultValue = false)]
+        [DataMember(Name = "business_identification_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "business_identification_code")]
         public string BusinessIdentificationCode { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// International Bank Account Number used to create the SEPA Debit payment method.
         /// </summary>
         /// <value>International Bank Account Number used to create the SEPA Debit payment method.</value>
-        [DataMember(Name = "IBAN", EmitDefaultValue = false)]
+        [DataMember(Name = "IBAN")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "IBAN")]
         public string IBAN { get; set; }
 
@@ -30,14 +30,14 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
 

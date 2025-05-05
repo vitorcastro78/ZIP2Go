@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets CreatedTime
         /// </summary>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -21,7 +21,7 @@ namespace Service.Models
         /// The unique ID of an active version.
         /// </summary>
         /// <value>The unique ID of an active version.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public int? Id { get; set; }
 
@@ -29,7 +29,7 @@ namespace Service.Models
         /// The name of the workflow definition.
         /// </summary>
         /// <value>The name of the workflow definition.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -37,7 +37,7 @@ namespace Service.Models
         /// Identifier of the original Workflow version.
         /// </summary>
         /// <value>Identifier of the original Workflow version.</value>
-        [DataMember(Name = "original_workflow_id", EmitDefaultValue = false)]
+        [DataMember(Name = "original_workflow_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "original_workflow_id")]
         public int? OriginalWorkflowId { get; set; }
 
@@ -45,7 +45,7 @@ namespace Service.Models
         /// The status of an active version.
         /// </summary>
         /// <value>The status of an active version.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
 
@@ -53,14 +53,14 @@ namespace Service.Models
         /// The type of the active version. Currently the only valid value is `Workflow::Setup`.
         /// </summary>
         /// <value>The type of the active version. Currently the only valid value is `Workflow::Setup`.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 
         /// <summary>
         /// Gets or Sets UpdatedTime
         /// </summary>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

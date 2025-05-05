@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace Service.Models
         /// The end time for which usage is recorded.
         /// </summary>
         /// <value>The end time for which usage is recorded.</value>
-        [DataMember(Name = "end_time", EmitDefaultValue = false)]
+        [DataMember(Name = "end_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_time")]
         public DateTime? EndTime { get; set; }
 
@@ -29,7 +29,7 @@ namespace Service.Models
         /// The number of units of this item.
         /// </summary>
         /// <value>The number of units of this item.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
@@ -37,7 +37,7 @@ namespace Service.Models
         /// The start time for which usage is recorded.
         /// </summary>
         /// <value>The start time for which usage is recorded.</value>
-        [DataMember(Name = "start_time", EmitDefaultValue = false)]
+        [DataMember(Name = "start_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_time")]
         public DateTime? StartTime { get; set; }
 
@@ -45,7 +45,7 @@ namespace Service.Models
         /// Specifies the units to measure usage. Units of measure are configured in Zuora Central. Your values depend on your configuration in Billing Settings.
         /// </summary>
         /// <value>Specifies the units to measure usage. Units of measure are configured in Zuora Central. Your values depend on your configuration in Billing Settings.</value>
-        [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_of_measure")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
 

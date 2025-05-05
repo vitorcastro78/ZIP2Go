@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Data
         /// </summary>
-        [DataMember(Name = "data", EmitDefaultValue = false)]
+        [DataMember(Name = "data")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
         public List<FulfillmentItemBulkResponse> Data { get; set; }
 

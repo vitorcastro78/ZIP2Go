@@ -14,7 +14,7 @@ namespace Service.Models
         /// The date and time (ISO 8601 UTC format) when the payment was marked for submission.
         /// </summary>
         /// <value>The date and time (ISO 8601 UTC format) when the payment was marked for submission.</value>
-        [DataMember(Name = "marked_for_submission_time", EmitDefaultValue = false)]
+        [DataMember(Name = "marked_for_submission_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "marked_for_submission_time")]
         public DateTime? MarkedForSubmissionTime { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The date and time (ISO 8601 UTC format) when the payment was settled.
         /// </summary>
         /// <value>The date and time (ISO 8601 UTC format) when the payment was settled.</value>
-        [DataMember(Name = "settled_time", EmitDefaultValue = false)]
+        [DataMember(Name = "settled_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "settled_time")]
         public DateTime? SettledTime { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// The date and time (ISO 8601 UTC format) when the payment was submitted.
         /// </summary>
         /// <value>The date and time (ISO 8601 UTC format) when the payment was submitted.</value>
-        [DataMember(Name = "submitted_time", EmitDefaultValue = false)]
+        [DataMember(Name = "submitted_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "submitted_time")]
         public DateTime? SubmittedTime { get; set; }
 

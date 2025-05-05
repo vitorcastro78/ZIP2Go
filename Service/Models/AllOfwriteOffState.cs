@@ -13,14 +13,14 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Failed
         /// </summary>
-        [DataMember(Name = "failed", EmitDefaultValue = false)]
+        [DataMember(Name = "failed")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed")]
         public string Failed { get; set; }
 
         /// <summary>
         /// Gets or Sets Succeeded
         /// </summary>
-        [DataMember(Name = "succeeded", EmitDefaultValue = false)]
+        [DataMember(Name = "succeeded")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "succeeded")]
         public string Succeeded { get; set; }
 

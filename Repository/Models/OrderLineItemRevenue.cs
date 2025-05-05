@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "adjustment_revenue_account", EmitDefaultValue = false)]
+        [DataMember(Name = "adjustment_revenue_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "adjustment_revenue_account")]
         public string AdjustmentRevenueAccount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "contract_recognized_revenue_account", EmitDefaultValue = false)]
+        [DataMember(Name = "contract_recognized_revenue_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "contract_recognized_revenue_account")]
         public string ContractRecognizedRevenueAccount { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "deferred_revenue_account", EmitDefaultValue = false)]
+        [DataMember(Name = "deferred_revenue_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "deferred_revenue_account")]
         public string DeferredRevenueAccount { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Repository.Models
         /// If set to `true`, any associated billing document items are excluded from the revenue accounting.
         /// </summary>
         /// <value>If set to `true`, any associated billing document items are excluded from the revenue accounting.</value>
-        [DataMember(Name = "exclude_item_billing_from_revenue_accounting", EmitDefaultValue = false)]
+        [DataMember(Name = "exclude_item_billing_from_revenue_accounting")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude_item_billing_from_revenue_accounting")]
         public bool? ExcludeItemBillingFromRevenueAccounting { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Repository.Models
         /// If set to `true`, any associated subscription items are excluded from the revenue accounting.
         /// </summary>
         /// <value>If set to `true`, any associated subscription items are excluded from the revenue accounting.</value>
-        [DataMember(Name = "exclude_item_booking_from_revenue_accounting", EmitDefaultValue = false)]
+        [DataMember(Name = "exclude_item_booking_from_revenue_accounting")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude_item_booking_from_revenue_accounting")]
         public bool? ExcludeItemBookingFromRevenueAccounting { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Repository.Models
         /// An active accounting code in your Zuora chart of accounts.
         /// </summary>
         /// <value>An active accounting code in your Zuora chart of accounts.</value>
-        [DataMember(Name = "recognized_revenue_account", EmitDefaultValue = false)]
+        [DataMember(Name = "recognized_revenue_account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recognized_revenue_account")]
         public string RecognizedRevenueAccount { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Repository.Models
         /// The revenue recognition rule for the order line item.
         /// </summary>
         /// <value>The revenue recognition rule for the order line item.</value>
-        [DataMember(Name = "revenue_recognition_rule_name", EmitDefaultValue = false)]
+        [DataMember(Name = "revenue_recognition_rule_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "revenue_recognition_rule_name")]
         public string RevenueRecognitionRuleName { get; set; }
 

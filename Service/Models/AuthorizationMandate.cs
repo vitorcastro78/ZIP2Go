@@ -14,7 +14,7 @@ namespace Service.Models
         /// Indicates the type of mandate, if any.
         /// </summary>
         /// <value>Indicates the type of mandate, if any.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

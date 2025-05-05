@@ -14,7 +14,7 @@ namespace Service.Models
         /// The total amount of this invoice item.
         /// </summary>
         /// <value>The total amount of this invoice item.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Identifier of an invoice item or a debit memo item that this discount item or credit memo item is applied to.
         /// </summary>
         /// <value>Identifier of an invoice item or a debit memo item that this discount item or credit memo item is applied to.</value>
-        [DataMember(Name = "applied_to_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "applied_to_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "applied_to_item_id")]
         public string AppliedToItemId { get; set; }
 
@@ -30,14 +30,14 @@ namespace Service.Models
         /// Type of the charge. It can be one of the following types: one-time, recurring, or usage.
         /// </summary>
         /// <value>Type of the charge. It can be one of the following types: one-time, recurring, or usage.</value>
-        [DataMember(Name = "charge_type", EmitDefaultValue = false)]
+        [DataMember(Name = "charge_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "charge_type")]
         public string ChargeType { get; set; }
 
         /// <summary>
         /// Gets or Sets DocumentDate
         /// </summary>
-        [DataMember(Name = "document_date", EmitDefaultValue = false)]
+        [DataMember(Name = "document_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
         public DateTime? DocumentDate { get; set; }
 
@@ -45,21 +45,21 @@ namespace Service.Models
         /// Unique identifier of the object
         /// </summary>
         /// <value>Unique identifier of the object</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets ProcessingType
         /// </summary>
-        [DataMember(Name = "processing_type", EmitDefaultValue = false)]
+        [DataMember(Name = "processing_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processing_type")]
         public string ProcessingType { get; set; }
 
         /// <summary>
         /// Gets or Sets ProductName
         /// </summary>
-        [DataMember(Name = "product_name", EmitDefaultValue = false)]
+        [DataMember(Name = "product_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product_name")]
         public string ProductName { get; set; }
 
@@ -67,7 +67,7 @@ namespace Service.Models
         /// The number of units of this item.
         /// </summary>
         /// <value>The number of units of this item.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
@@ -75,7 +75,7 @@ namespace Service.Models
         /// The end date of the service period associated with this invoice item. If the associated charge is a one-time fee, then this date is the date of that charge.
         /// </summary>
         /// <value>The end date of the service period associated with this invoice item. If the associated charge is a one-time fee, then this date is the date of that charge.</value>
-        [DataMember(Name = "service_end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "service_end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "service_end_date")]
         public string ServiceEndDate { get; set; }
 
@@ -83,7 +83,7 @@ namespace Service.Models
         /// The start date of the service period associated with this invoice item. If the associated charge is a one-time fee, then this date is the date of that charge.
         /// </summary>
         /// <value>The start date of the service period associated with this invoice item. If the associated charge is a one-time fee, then this date is the date of that charge.</value>
-        [DataMember(Name = "service_start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "service_start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "service_start_date")]
         public string ServiceStartDate { get; set; }
 
@@ -91,14 +91,14 @@ namespace Service.Models
         /// The identifier of the subscription associated with the invoice item.
         /// </summary>
         /// <value>The identifier of the subscription associated with the invoice item.</value>
-        [DataMember(Name = "subscription_id", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_id")]
         public string SubscriptionId { get; set; }
 
         /// <summary>
         /// Gets or Sets SubscriptionItemDescription
         /// </summary>
-        [DataMember(Name = "subscription_item_description", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_description")]
         public string SubscriptionItemDescription { get; set; }
 
@@ -106,14 +106,14 @@ namespace Service.Models
         /// The identifier the subscription item associated with this invoice item.
         /// </summary>
         /// <value>The identifier the subscription item associated with this invoice item.</value>
-        [DataMember(Name = "subscription_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_id")]
         public string SubscriptionItemId { get; set; }
 
         /// <summary>
         /// Gets or Sets SubscriptionItemName
         /// </summary>
-        [DataMember(Name = "subscription_item_name", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_name")]
         public string SubscriptionItemName { get; set; }
 
@@ -121,7 +121,7 @@ namespace Service.Models
         /// Human-readable identifier of the subscription item. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the subscription item. It can be user-supplied.</value>
-        [DataMember(Name = "subscription_item_number", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_number")]
         public string SubscriptionItemNumber { get; set; }
 
@@ -129,7 +129,7 @@ namespace Service.Models
         /// The name of the subscription associated with this item.
         /// </summary>
         /// <value>The name of the subscription associated with this item.</value>
-        [DataMember(Name = "subscription_name", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_name")]
         public string SubscriptionName { get; set; }
 
@@ -137,7 +137,7 @@ namespace Service.Models
         /// The subscription number of the subscription associated with this item.
         /// </summary>
         /// <value>The subscription number of the subscription associated with this item.</value>
-        [DataMember(Name = "subscription_number", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_number")]
         public string SubscriptionNumber { get; set; }
 
@@ -145,7 +145,7 @@ namespace Service.Models
         /// The amount of tax applied to the invoice item.
         /// </summary>
         /// <value>The amount of tax applied to the invoice item.</value>
-        [DataMember(Name = "tax", EmitDefaultValue = false)]
+        [DataMember(Name = "tax")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax")]
         public decimal? Tax { get; set; }
 
@@ -153,7 +153,7 @@ namespace Service.Models
         /// Specifies the units used to measure usage.
         /// </summary>
         /// <value>Specifies the units used to measure usage.</value>
-        [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_of_measure")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
 

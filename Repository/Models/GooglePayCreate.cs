@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// The complete JSON Object representing the encrypted payment token payload returned in the response from the Google Pay session.
         /// </summary>
         /// <value>The complete JSON Object representing the encrypted payment token payload returned in the response from the Google Pay session.</value>
-        [DataMember(Name = "customer_token", EmitDefaultValue = false)]
+        [DataMember(Name = "customer_token")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "customer_token")]
         public CustomerToken CustomerToken { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 

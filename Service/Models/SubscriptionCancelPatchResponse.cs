@@ -14,7 +14,7 @@ namespace Service.Models
         /// The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.
         /// </summary>
         /// <value>The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.</value>
-        [DataMember(Name = "cancel_at", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_at")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_at")]
         public string CancelAt { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Date on which the subscription is canceled.
         /// </summary>
         /// <value>Date on which the subscription is canceled.</value>
-        [DataMember(Name = "cancel_date", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_date")]
         public DateTime? CancelDate { get; set; }
 

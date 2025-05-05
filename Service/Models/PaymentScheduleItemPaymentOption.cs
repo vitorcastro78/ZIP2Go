@@ -13,14 +13,14 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Detail
         /// </summary>
-        [DataMember(Name = "detail", EmitDefaultValue = false)]
+        [DataMember(Name = "detail")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "detail")]
         public Dictionary<string, string> Detail { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

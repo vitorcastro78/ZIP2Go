@@ -13,7 +13,7 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets Failed
         /// </summary>
-        [DataMember(Name = "failed", EmitDefaultValue = false)]
+        [DataMember(Name = "failed")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed")]
         public string Failed { get; set; }
 
@@ -21,14 +21,14 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Succeeded
         /// </summary>
-        [DataMember(Name = "succeeded", EmitDefaultValue = false)]
+        [DataMember(Name = "succeeded")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "succeeded")]
         public string Succeeded { get; set; }
 

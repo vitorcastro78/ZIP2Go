@@ -14,7 +14,7 @@ namespace Service.Models
         /// Quantity of the prepaid balance transaction.
         /// </summary>
         /// <value>Quantity of the prepaid balance transaction.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Date on which the transaction occurs.
         /// </summary>
         /// <value>Date on which the transaction occurs.</value>
-        [DataMember(Name = "transaction_date", EmitDefaultValue = false)]
+        [DataMember(Name = "transaction_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transaction_date")]
         public string TransactionDate { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// An action that increases or decreases its associated prepaid balance.
         /// </summary>
         /// <value>An action that increases or decreases its associated prepaid balance. </value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

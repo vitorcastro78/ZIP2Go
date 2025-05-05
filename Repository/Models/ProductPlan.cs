@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Whether the plan can be used for new purchases.
         /// </summary>
         /// <value>Whether the plan can be used for new purchases.</value>
-        [DataMember(Name = "active", EmitDefaultValue = false)]
+        [DataMember(Name = "active")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "active")]
         public bool? Active { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// A list of 3-letter ISO-standard currency codes representing active currencies for the plan.
         /// </summary>
         /// <value>A list of 3-letter ISO-standard currency codes representing active currencies for the plan.</value>
-        [DataMember(Name = "active_currencies", EmitDefaultValue = false)]
+        [DataMember(Name = "active_currencies")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "active_currencies")]
         public List<string> ActiveCurrencies { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Repository.Models
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
         /// </summary>
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Repository.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public CustomObject CustomObjects { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Repository.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Repository.Models
         /// The date on which the plan can no longer be used for new purchases.
         /// </summary>
         /// <value>The date on which the plan can no longer be used for new purchases.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Repository.Models
         /// The name of the plan.
         /// </summary>
         /// <value>The name of the plan.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Repository.Models
         /// Human-readable identifier of the plan. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the plan. It can be user-supplied.</value>
-        [DataMember(Name = "plan_number", EmitDefaultValue = false)]
+        [DataMember(Name = "plan_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "plan_number")]
         public string PlanNumber { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Repository.Models
         /// A list of prices.
         /// </summary>
         /// <value>A list of prices.</value>
-        [DataMember(Name = "prices", EmitDefaultValue = false)]
+        [DataMember(Name = "prices")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prices")]
         public List<ProductPrice> Prices { get; set; }
 
@@ -110,7 +110,7 @@ namespace ZIP2GO.Repository.Models
         /// The product associated with this plan.
         /// </summary>
         /// <value>The product associated with this plan.</value>
-        [DataMember(Name = "product", EmitDefaultValue = false)]
+        [DataMember(Name = "product")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product")]
         public Product Product { get; set; }
 
@@ -118,7 +118,7 @@ namespace ZIP2GO.Repository.Models
         /// Identifier of the product associated with this plan.
         /// </summary>
         /// <value>Identifier of the product associated with this plan.</value>
-        [DataMember(Name = "product_id", EmitDefaultValue = false)]
+        [DataMember(Name = "product_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product_id")]
         public string ProductId { get; set; }
 
@@ -126,7 +126,7 @@ namespace ZIP2GO.Repository.Models
         /// The product sku. This field is only availble for customers using high speed cache.
         /// </summary>
         /// <value>The product sku. This field is only availble for customers using high speed cache.</value>
-        [DataMember(Name = "sku", EmitDefaultValue = false)]
+        [DataMember(Name = "sku")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sku")]
         public string Sku { get; set; }
 
@@ -134,7 +134,7 @@ namespace ZIP2GO.Repository.Models
         /// The date from which the plan can be used for new purchases.
         /// </summary>
         /// <value>The date from which the plan can be used for new purchases.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -142,7 +142,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -150,7 +150,7 @@ namespace ZIP2GO.Repository.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

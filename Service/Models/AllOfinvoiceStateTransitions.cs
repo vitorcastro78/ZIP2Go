@@ -13,14 +13,14 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets CanceledTime
         /// </summary>
-        [DataMember(Name = "canceled_time", EmitDefaultValue = false)]
+        [DataMember(Name = "canceled_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
         public string CanceledTime { get; set; }
 
         /// <summary>
         /// Gets or Sets PostedTime
         /// </summary>
-        [DataMember(Name = "posted_time", EmitDefaultValue = false)]
+        [DataMember(Name = "posted_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "posted_time")]
         public string PostedTime { get; set; }
 

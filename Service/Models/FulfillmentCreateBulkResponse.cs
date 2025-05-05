@@ -14,7 +14,7 @@ namespace Service.Models
         /// The total amount collected by this request.
         /// </summary>
         /// <value>The total amount collected by this request.</value>
-        [DataMember(Name = "amount_paid", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_paid")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_paid")]
         public decimal? AmountPaid { get; set; }
 
@@ -22,14 +22,14 @@ namespace Service.Models
         /// Human-readable identifiers of any credit memos associated with this request.
         /// </summary>
         /// <value>Human-readable identifiers of any credit memos associated with this request.</value>
-        [DataMember(Name = "credit_memo_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_numbers")]
         public List<string> CreditMemoNumbers { get; set; }
 
         /// <summary>
         /// Gets or Sets Data
         /// </summary>
-        [DataMember(Name = "data", EmitDefaultValue = false)]
+        [DataMember(Name = "data")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
         public List<Fulfillment> Data { get; set; }
 
@@ -37,7 +37,7 @@ namespace Service.Models
         /// Human-readable identifiers of any invoices associated with this request.
         /// </summary>
         /// <value>Human-readable identifiers of any invoices associated with this request.</value>
-        [DataMember(Name = "invoice_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_numbers")]
         public List<string> InvoiceNumbers { get; set; }
 
@@ -45,7 +45,7 @@ namespace Service.Models
         /// Human-readable identifier of the payment associated with this fulfillment.
         /// </summary>
         /// <value>Human-readable identifier of the payment associated with this fulfillment.</value>
-        [DataMember(Name = "payment_number", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_number")]
         public string PaymentNumber { get; set; }
 

@@ -14,7 +14,7 @@ namespace Service.Models
         /// Date on which the billing document is created or paid.
         /// </summary>
         /// <value>Date on which the billing document is created or paid.</value>
-        [DataMember(Name = "document_date", EmitDefaultValue = false)]
+        [DataMember(Name = "document_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
         public DateTime? DocumentDate { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The target date for the order to be picked up by bill run for billing.
         /// </summary>
         /// <value>The target date for the order to be picked up by bill run for billing.</value>
-        [DataMember(Name = "target_date", EmitDefaultValue = false)]
+        [DataMember(Name = "target_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
         public DateTime? TargetDate { get; set; }
 

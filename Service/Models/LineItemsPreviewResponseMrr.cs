@@ -13,21 +13,21 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Currency
         /// </summary>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
         /// <summary>
         /// Gets or Sets GrossAmount
         /// </summary>
-        [DataMember(Name = "gross_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "gross_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gross_amount")]
         public decimal? GrossAmount { get; set; }
 
         /// <summary>
         /// Gets or Sets NetAmount
         /// </summary>
-        [DataMember(Name = "net_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "net_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "net_amount")]
         public decimal? NetAmount { get; set; }
 

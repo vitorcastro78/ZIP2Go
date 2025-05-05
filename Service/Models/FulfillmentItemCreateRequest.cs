@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -29,7 +29,7 @@ namespace Service.Models
         /// Human-readable identifier for the object. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier for the object. It can be user-supplied.</value>
-        [DataMember(Name = "fulfillment_item_number", EmitDefaultValue = false)]
+        [DataMember(Name = "fulfillment_item_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fulfillment_item_number")]
         public string FulfillmentItemNumber { get; set; }
 
@@ -37,7 +37,7 @@ namespace Service.Models
         /// Human-readable identifier for the object. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier for the object. It can be user-supplied.</value>
-        [DataMember(Name = "fulfillment_number", EmitDefaultValue = false)]
+        [DataMember(Name = "fulfillment_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "fulfillment_number")]
         public string FulfillmentNumber { get; set; }
 

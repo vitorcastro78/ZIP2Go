@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
 
@@ -21,7 +21,7 @@ namespace Service.Models
         /// A gateway unique identifier that replaces sensitive payment method data. This field is conditionally required only when `token` is being used to represent a gateway customer profile.
         /// </summary>
         /// <value>A gateway unique identifier that replaces sensitive payment method data. This field is conditionally required only when `token` is being used to represent a gateway customer profile.</value>
-        [DataMember(Name = "second_token", EmitDefaultValue = false)]
+        [DataMember(Name = "second_token")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "second_token")]
         public string SecondToken { get; set; }
 

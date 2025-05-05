@@ -14,7 +14,7 @@ namespace Service.Models
         /// Specifies whether to just create an invoice, or to create an invoice and collect payment.
         /// </summary>
         /// <value>Specifies whether to just create an invoice, or to create an invoice and collect payment.</value>
-        [DataMember(Name = "collection_method", EmitDefaultValue = false)]
+        [DataMember(Name = "collection_method")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "collection_method")]
         public string CollectionMethod { get; set; }
 
@@ -22,14 +22,14 @@ namespace Service.Models
         /// The date printed on billing documents.
         /// </summary>
         /// <value>The date printed on billing documents.</value>
-        [DataMember(Name = "document_date", EmitDefaultValue = false)]
+        [DataMember(Name = "document_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
         public DateTime? DocumentDate { get; set; }
 
         /// <summary>
         /// Gets or Sets DraftInvoice
         /// </summary>
-        [DataMember(Name = "draft_invoice", EmitDefaultValue = false)]
+        [DataMember(Name = "draft_invoice")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "draft_invoice")]
         public bool? DraftInvoice { get; set; }
 
@@ -37,7 +37,7 @@ namespace Service.Models
         /// Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.
         /// </summary>
         /// <value>Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.</value>
-        [DataMember(Name = "payment_gateway_id", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_gateway_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway_id")]
         public string PaymentGatewayId { get; set; }
 
@@ -45,14 +45,14 @@ namespace Service.Models
         /// Payment method Id used to pay billing documents.
         /// </summary>
         /// <value>Payment method Id used to pay billing documents.</value>
-        [DataMember(Name = "payment_method_id", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_method_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_method_id")]
         public string PaymentMethodId { get; set; }
 
         /// <summary>
         /// Gets or Sets RefundReasonCode
         /// </summary>
-        [DataMember(Name = "refund_reason_code", EmitDefaultValue = false)]
+        [DataMember(Name = "refund_reason_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refund_reason_code")]
         public string RefundReasonCode { get; set; }
 
@@ -60,7 +60,7 @@ namespace Service.Models
         /// The target date for the order to be picked up by bill run for billing.
         /// </summary>
         /// <value>The target date for the order to be picked up by bill run for billing.</value>
-        [DataMember(Name = "target_date", EmitDefaultValue = false)]
+        [DataMember(Name = "target_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
         public DateTime? TargetDate { get; set; }
 

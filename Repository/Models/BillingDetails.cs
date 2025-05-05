@@ -13,7 +13,7 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets Address
         /// </summary>
-        [DataMember(Name = "address", EmitDefaultValue = false)]
+        [DataMember(Name = "address")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "address")]
         public AddressFieldDefinitions Address { get; set; }
 
@@ -21,11 +21,11 @@ namespace ZIP2GO.Repository.Models
         /// Customer email address.
         /// </summary>
         /// <value>Customer email address.</value>
-        [DataMember(Name = "email", EmitDefaultValue = false)]
+        [DataMember(Name = "email")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
         public string Email { get; set; }
 
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -33,7 +33,7 @@ namespace ZIP2GO.Repository.Models
         /// Customer full name or business name.
         /// </summary>
         /// <value>Customer full name or business name.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -41,7 +41,7 @@ namespace ZIP2GO.Repository.Models
         /// Customer phone (including extension).
         /// </summary>
         /// <value>Customer phone (including extension).</value>
-        [DataMember(Name = "phone", EmitDefaultValue = false)]
+        [DataMember(Name = "phone")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "phone")]
         public string Phone { get; set; }
 

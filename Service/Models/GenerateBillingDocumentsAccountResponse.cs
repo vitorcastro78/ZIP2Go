@@ -14,7 +14,7 @@ namespace Service.Models
         /// Array of credit memos.
         /// </summary>
         /// <value>Array of credit memos.</value>
-        [DataMember(Name = "credit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
         public AllOfgenerateBillingDocumentsAccountResponseCreditMemos CreditMemos { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Array of invoices.
         /// </summary>
         /// <value>Array of invoices.</value>
-        [DataMember(Name = "invoices", EmitDefaultValue = false)]
+        [DataMember(Name = "invoices")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices")]
         public AllOfgenerateBillingDocumentsAccountResponseInvoices Invoices { get; set; }
 

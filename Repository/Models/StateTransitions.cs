@@ -13,7 +13,7 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets CanceledTime
         /// </summary>
-        [DataMember(Name = "canceled_time", EmitDefaultValue = false)]
+        [DataMember(Name = "canceled_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
         public string CanceledTime { get; set; }
 
@@ -21,14 +21,14 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets PostedTime
         /// </summary>
-        [DataMember(Name = "posted_time", EmitDefaultValue = false)]
+        [DataMember(Name = "posted_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "posted_time")]
         public string PostedTime { get; set; }
 

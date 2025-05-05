@@ -195,21 +195,28 @@ namespace Service
             var headerParams = new Dictionary<string, string>();
             var formParams = new Dictionary<string, string>();
             var fileParams = new Dictionary<string, FileParameter>();
-            string PostBody = null;
+            string postBody = null;
 
             if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
             if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
             if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
+
+            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, postBody);
+
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException((int)response.StatusCode, "Error calling GetProduct: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException((int)response.StatusCode, "Error calling GetProduct: " + response.ErrorMessage, response.ErrorMessage);
+
+            return (Account)_apiClient.Deserialize(response.Content, typeof(Account));
+        }
+
+        public Account GetAccountCached(string accountId)
+        {
             // make the HTTP request
-            return _apiClient.CallApi<Account>(accountId, path, Method.Get, queryParams, PostBody);
-
-            //if (((int)response.StatusCode) >= 400)
-            //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.Content, response.Content);
-            //else if (((int)response.StatusCode) == 0)
-            //    throw new ApiException((int)response.StatusCode, "Error calling GetAccount: " + response.ErrorMessage, response.ErrorMessage);
-
-            //return (Account)ApiClient.Deserialize(response.Content, typeof(Account));
+            return _apiClient.RequestCachedResult<Account>(accountId);
+        
         }
 
         /// <summary>

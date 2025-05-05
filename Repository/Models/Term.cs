@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Date when the subscription term ends.
         /// </summary>
         /// <value>Date when the subscription term ends.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// Unit in which term duration is defined. One of day, week, month or year.
         /// </summary>
         /// <value>Unit in which term duration is defined. One of day, week, month or year.</value>
-        [DataMember(Name = "interval", EmitDefaultValue = false)]
+        [DataMember(Name = "interval")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval")]
         public string Interval { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Repository.Models
         /// The number of intervals in a term. For example, interval=year and interval_count=1 represents a 1 year term.
         /// </summary>
         /// <value>The number of intervals in a term. For example, interval=year and interval_count=1 represents a 1 year term.</value>
-        [DataMember(Name = "interval_count", EmitDefaultValue = false)]
+        [DataMember(Name = "interval_count")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval_count")]
         public int? IntervalCount { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Repository.Models
         /// Date when the subscription term starts.
         /// </summary>
         /// <value>Date when the subscription term starts.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Repository.Models
         /// Type of the subscription. Can be either `termed` or `evergreen`.
         /// </summary>
         /// <value>Type of the subscription. Can be either `termed` or `evergreen`.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

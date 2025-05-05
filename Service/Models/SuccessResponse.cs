@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Success
         /// </summary>
-        [DataMember(Name = "success", EmitDefaultValue = false)]
+        [DataMember(Name = "success")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "success")]
         public string Success { get; set; }
 

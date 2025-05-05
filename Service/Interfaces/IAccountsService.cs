@@ -45,6 +45,8 @@ namespace Service.Interfaces
         /// <returns>The account details.</returns>
         Account GetAccount(string accountId, string zuoraTrackId, bool? async);
 
+        Account GetAccountCached(string accountId);
+
         /// <summary>
         /// Lists all accounts in the system with pagination support.
         /// </summary>
@@ -53,6 +55,7 @@ namespace Service.Interfaces
         /// <param name="zuoraTrackId">A custom identifier for tracking API requests.</param>
         /// <returns>A paginated list of accounts.</returns>
         ListAccountResponse GetAccounts(string zuoraTrackId, bool? async);
+
 
         /// <summary>
         /// Previews an account before creation, showing future invoice and credit memo items.

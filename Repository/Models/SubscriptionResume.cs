@@ -13,7 +13,7 @@ namespace ZIP2GO.Repository.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Repository.Models
         /// If this field is set to `true`, the subscription term is extended by the length of time the subscription is paused.
         /// </summary>
         /// <value>If this field is set to `true`, the subscription term is extended by the length of time the subscription is paused.</value>
-        [DataMember(Name = "extend_term", EmitDefaultValue = false)]
+        [DataMember(Name = "extend_term")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "extend_term")]
         public bool? ExtendTerm { get; set; }
 
@@ -29,7 +29,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -37,7 +37,7 @@ namespace ZIP2GO.Repository.Models
         /// You can use this field to resume a paused subscription from the pause date.
         /// </summary>
         /// <value>You can use this field to resume a paused subscription from the pause date.</value>
-        [DataMember(Name = "resume_at", EmitDefaultValue = false)]
+        [DataMember(Name = "resume_at")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resume_at")]
         public string ResumeAt { get; set; }
 
@@ -45,7 +45,7 @@ namespace ZIP2GO.Repository.Models
         /// Date on which the paused subscription is resumed.
         /// </summary>
         /// <value>Date on which the paused subscription is resumed.</value>
-        [DataMember(Name = "resume_date", EmitDefaultValue = false)]
+        [DataMember(Name = "resume_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "resume_date")]
         public string ResumeDate { get; set; }
 

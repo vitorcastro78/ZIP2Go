@@ -14,7 +14,7 @@ namespace Service.Models
         /// Any combination of one-time, recurring, and usage.
         /// </summary>
         /// <value>Any combination of one-time, recurring, and usage.</value>
-        [DataMember(Name = "exclude", EmitDefaultValue = false)]
+        [DataMember(Name = "exclude")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "exclude")]
         public string Exclude { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// Indicates whether to include items in the draft status.
         /// </summary>
         /// <value>Indicates whether to include items in the draft status.</value>
-        [DataMember(Name = "include_draft_items", EmitDefaultValue = false)]
+        [DataMember(Name = "include_draft_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "include_draft_items")]
         public bool? IncludeDraftItems { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// Indicates whether to include evergreen subscriptions.
         /// </summary>
         /// <value>Indicates whether to include evergreen subscriptions.</value>
-        [DataMember(Name = "include_evergreen_subscriptions", EmitDefaultValue = false)]
+        [DataMember(Name = "include_evergreen_subscriptions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "include_evergreen_subscriptions")]
         public bool? IncludeEvergreenSubscriptions { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// The target date is used to determine which charges to bill. All unbilled charges as of or prior to the target date are included. Zuora automatically keeps track of all charges that need to be billed and that have not been billed prior to the target date.
         /// </summary>
         /// <value>The target date is used to determine which charges to bill. All unbilled charges as of or prior to the target date are included. Zuora automatically keeps track of all charges that need to be billed and that have not been billed prior to the target date.</value>
-        [DataMember(Name = "target_date", EmitDefaultValue = false)]
+        [DataMember(Name = "target_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
         public DateTime? TargetDate { get; set; }
 

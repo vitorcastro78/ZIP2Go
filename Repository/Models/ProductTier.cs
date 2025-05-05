@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Prices for the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.
         /// </summary>
         /// <value>Prices for the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.</value>
-        [DataMember(Name = "amounts", EmitDefaultValue = false)]
+        [DataMember(Name = "amounts")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amounts")]
         public Money Amounts { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// Per unit prices for units in the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.
         /// </summary>
         /// <value>Per unit prices for units in the tier. Only set if `charge_model` is `tiered`, `tiered_overage`, or `highwatermark_tiered`.</value>
-        [DataMember(Name = "unit_amounts", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_amounts")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amounts")]
         public Money UnitAmounts { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Repository.Models
         /// The upper bound of a tier. The lower bound of a tier is the upper bound of the previous tier plus one or some fraction of one, depending on the precision of the unit of measure.
         /// </summary>
         /// <value>The upper bound of a tier. The lower bound of a tier is the upper bound of the previous tier plus one or some fraction of one, depending on the precision of the unit of measure.</value>
-        [DataMember(Name = "up_to", EmitDefaultValue = false)]
+        [DataMember(Name = "up_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "up_to")]
         public decimal? UpTo { get; set; }
 

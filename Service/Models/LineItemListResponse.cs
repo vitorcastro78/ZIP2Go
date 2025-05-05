@@ -13,14 +13,14 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets Data
         /// </summary>
-        [DataMember(Name = "data", EmitDefaultValue = false)]
+        [DataMember(Name = "data")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "data")]
         public List<OrderLineItem> Data { get; set; }
 
         /// <summary>
         /// Gets or Sets NextPage
         /// </summary>
-        [DataMember(Name = "next_page", EmitDefaultValue = false)]
+        [DataMember(Name = "next_page")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "next_page")]
         public string NextPage { get; set; }
 

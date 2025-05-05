@@ -14,7 +14,7 @@ namespace Service.Models
         /// The date on which the payment schdule is canceled.
         /// </summary>
         /// <value>The date on which the payment schdule is canceled.</value>
-        [DataMember(Name = "cancel_date", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_date")]
         public DateTime? CancelDate { get; set; }
 

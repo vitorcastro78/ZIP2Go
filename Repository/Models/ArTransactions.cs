@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Credit memo numbers.
         /// </summary>
         /// <value>Credit memo numbers.</value>
-        [DataMember(Name = "credit_memo_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_numbers")]
         public List<string> CreditMemoNumbers { get; set; }
 
@@ -22,11 +22,11 @@ namespace ZIP2GO.Repository.Models
         /// The related credit memos.
         /// </summary>
         /// <value>The related credit memos.</value>
-        [DataMember(Name = "credit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memos")]
         public List<CreditMemo> CreditMemos { get; set; }
 
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -34,7 +34,7 @@ namespace ZIP2GO.Repository.Models
         /// The related invoice numbers.
         /// </summary>
         /// <value>The related invoice numbers.</value>
-        [DataMember(Name = "invoice_numbers", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_numbers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_numbers")]
         public List<string> InvoiceNumbers { get; set; }
 
@@ -42,7 +42,7 @@ namespace ZIP2GO.Repository.Models
         /// The related invoices.
         /// </summary>
         /// <value>The related invoices.</value>
-        [DataMember(Name = "invoices", EmitDefaultValue = false)]
+        [DataMember(Name = "invoices")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices")]
         public List<Invoice> Invoices { get; set; }
 
@@ -50,7 +50,7 @@ namespace ZIP2GO.Repository.Models
         /// The related payments.
         /// </summary>
         /// <value>The related payments.</value>
-        [DataMember(Name = "payments", EmitDefaultValue = false)]
+        [DataMember(Name = "payments")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
         public List<PaymentTransactions> Payments { get; set; }
 
@@ -58,7 +58,7 @@ namespace ZIP2GO.Repository.Models
         /// The related refunds.
         /// </summary>
         /// <value>The related refunds.</value>
-        [DataMember(Name = "refunds", EmitDefaultValue = false)]
+        [DataMember(Name = "refunds")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunds")]
         public List<RefundTransactions> Refunds { get; set; }
 

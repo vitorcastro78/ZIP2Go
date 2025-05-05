@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.
         /// </summary>
         /// <value>The date on which the subscription is canceled. Can be either the end of the subscription term or the end of the billing period.</value>
-        [DataMember(Name = "cancel_at", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_at")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_at")]
         public string CancelAt { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// Date on which the subscription is canceled.
         /// </summary>
         /// <value>Date on which the subscription is canceled.</value>
-        [DataMember(Name = "cancel_date", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_date")]
         public DateTime? CancelDate { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 

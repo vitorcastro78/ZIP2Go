@@ -13,7 +13,7 @@ namespace Service.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace Service.Models
         /// An arbitrary string associated with the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string associated with the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -29,7 +29,7 @@ namespace Service.Models
         /// The date when the invoice takes effect.
         /// </summary>
         /// <value>The date when the invoice takes effect.</value>
-        [DataMember(Name = "document_date", EmitDefaultValue = false)]
+        [DataMember(Name = "document_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
         public DateTime? DocumentDate { get; set; }
 
@@ -37,7 +37,7 @@ namespace Service.Models
         /// Information of all invoice items.
         /// </summary>
         /// <value>Information of all invoice items.</value>
-        [DataMember(Name = "invoice_items", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_items")]
         public List<WriteOffItemsRequest> InvoiceItems { get; set; }
 
@@ -45,7 +45,7 @@ namespace Service.Models
         /// Reason for issuing this credit memo
         /// </summary>
         /// <value>Reason for issuing this credit memo</value>
-        [DataMember(Name = "reason_code", EmitDefaultValue = false)]
+        [DataMember(Name = "reason_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
         public string ReasonCode { get; set; }
 

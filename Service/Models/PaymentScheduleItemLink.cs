@@ -14,7 +14,7 @@ namespace Service.Models
         /// Unique identifier of the payment schedule item.
         /// </summary>
         /// <value>Unique identifier of the payment schedule item.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 

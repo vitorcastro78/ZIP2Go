@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// Email address associated with the payment method.
         /// </summary>
         /// <value>Email address associated with the payment method.</value>
-        [DataMember(Name = "email", EmitDefaultValue = false)]
+        [DataMember(Name = "email")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "email")]
         public string Email { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Repository.Models
         /// PayPal preapproval key.
         /// </summary>
         /// <value>PayPal preapproval key.</value>
-        [DataMember(Name = "preapproval_key", EmitDefaultValue = false)]
+        [DataMember(Name = "preapproval_key")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "preapproval_key")]
         public string PreapprovalKey { get; set; }
 

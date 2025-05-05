@@ -14,7 +14,7 @@ namespace Service.Models
         /// The day of the month on which your customer will be invoiced. For month-end specify 31.
         /// </summary>
         /// <value>The day of the month on which your customer will be invoiced. For month-end specify 31.</value>
-        [DataMember(Name = "bill_cycle_day", EmitDefaultValue = false)]
+        [DataMember(Name = "bill_cycle_day")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_cycle_day")]
         public int? BillCycleDay { get; set; }
 
@@ -22,14 +22,14 @@ namespace Service.Models
         /// Three-letter ISO currency code. Once the currency is set for an account, it cannot be updated.
         /// </summary>
         /// <value>Three-letter ISO currency code. Once the currency is set for an account, it cannot be updated.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -37,21 +37,21 @@ namespace Service.Models
         /// Customer address used for calculating tax.
         /// </summary>
         /// <value>Customer address used for calculating tax.</value>
-        [DataMember(Name = "sold_to", EmitDefaultValue = false)]
+        [DataMember(Name = "sold_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sold_to")]
         public AllOfsubscriptionPreviewAccountRequestSoldTo SoldTo { get; set; }
 
         /// <summary>
         /// Gets or Sets TaxCertificate
         /// </summary>
-        [DataMember(Name = "tax_certificate", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_certificate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_certificate")]
         public TaxCertificate TaxCertificate { get; set; }
 
         /// <summary>
         /// Gets or Sets TaxIdentifier
         /// </summary>
-        [DataMember(Name = "tax_identifier", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_identifier")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_identifier")]
         public TaxIdentifier TaxIdentifier { get; set; }
 

@@ -14,7 +14,7 @@ namespace Service.Models
         /// The credit memo amount applied to this billing document item or taxation item.
         /// </summary>
         /// <value>The credit memo amount applied to this billing document item or taxation item.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The identifier of the credit memo item to apply.
         /// </summary>
         /// <value>The identifier of the credit memo item to apply.</value>
-        [DataMember(Name = "credit_memo_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_item_id")]
         public string CreditMemoItemId { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// The identifier of the credit memo taxation item to apply.
         /// </summary>
         /// <value>The identifier of the credit memo taxation item to apply.</value>
-        [DataMember(Name = "credit_memo_taxation_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_taxation_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_taxation_item_id")]
         public string CreditMemoTaxationItemId { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// The identifier of an invoice item or debit memo item.
         /// </summary>
         /// <value>The identifier of an invoice item or debit memo item.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -46,7 +46,7 @@ namespace Service.Models
         /// The identifier of a taxation item.
         /// </summary>
         /// <value>The identifier of a taxation item.</value>
-        [DataMember(Name = "taxation_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "taxation_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_item_id")]
         public string TaxationItemId { get; set; }
 

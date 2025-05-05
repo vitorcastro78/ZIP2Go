@@ -14,7 +14,7 @@ namespace ZIP2GO.Repository.Models
         /// End date of the fund effective period.
         /// </summary>
         /// <value>End date of the fund effective period.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -22,21 +22,21 @@ namespace ZIP2GO.Repository.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public Guid Id { get; set; }
 
         /// <summary>
         /// Gets or Sets OverageRatedAmount
         /// </summary>
-        [DataMember(Name = "overage_rated_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "overage_rated_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "overage_rated_amount")]
         public decimal? OverageRatedAmount { get; set; }
 
         /// <summary>
         /// Gets or Sets OverageRatedQuantity
         /// </summary>
-        [DataMember(Name = "overage_rated_quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "overage_rated_quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "overage_rated_quantity")]
         public decimal? OverageRatedQuantity { get; set; }
 
@@ -44,7 +44,7 @@ namespace ZIP2GO.Repository.Models
         /// Unit of measure for the prepaid balance.
         /// </summary>
         /// <value>Unit of measure for the prepaid balance.</value>
-        [DataMember(Name = "prepaid_UOM", EmitDefaultValue = false)]
+        [DataMember(Name = "prepaid_UOM")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prepaid_UOM")]
         public string PrepaidUOM { get; set; }
 
@@ -52,7 +52,7 @@ namespace ZIP2GO.Repository.Models
         /// Remaining balance on the fund, which is the remaining units of the fund.
         /// </summary>
         /// <value>Remaining balance on the fund, which is the remaining units of the fund. </value>
-        [DataMember(Name = "remaining_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "remaining_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "remaining_balance")]
         public decimal? RemainingBalance { get; set; }
 
@@ -60,7 +60,7 @@ namespace ZIP2GO.Repository.Models
         /// Start date of the fund effective period.
         /// </summary>
         /// <value>Start date of the fund effective period.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -68,7 +68,7 @@ namespace ZIP2GO.Repository.Models
         /// The funded balance, which is the total units of the fund.
         /// </summary>
         /// <value>The funded balance, which is the total units of the fund. </value>
-        [DataMember(Name = "total_balance", EmitDefaultValue = false)]
+        [DataMember(Name = "total_balance")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_balance")]
         public decimal? TotalBalance { get; set; }
 
@@ -76,7 +76,7 @@ namespace ZIP2GO.Repository.Models
         /// An array of prepaid balance transactions for a specific validity period
         /// </summary>
         /// <value>An array of prepaid balance transactions for a specific validity period</value>
-        [DataMember(Name = "transactions", EmitDefaultValue = false)]
+        [DataMember(Name = "transactions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transactions")]
         public List<PrepaidBalanceTransaction> Transactions { get; set; }
 

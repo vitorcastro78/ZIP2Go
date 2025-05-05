@@ -14,7 +14,7 @@ namespace Service.Models
         /// Human-readable identifier of the fulfillment id.
         /// </summary>
         /// <value>Human-readable identifier of the fulfillment id.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 

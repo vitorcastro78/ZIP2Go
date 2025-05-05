@@ -14,7 +14,7 @@ namespace Service.Models
         /// The nine-digit routing number or ABA number used by banks.
         /// </summary>
         /// <value>The nine-digit routing number or ABA number used by banks.</value>
-        [DataMember(Name = "bank_aba_code", EmitDefaultValue = false)]
+        [DataMember(Name = "bank_aba_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_aba_code")]
         public string BankAbaCode { get; set; }
 
@@ -22,7 +22,7 @@ namespace Service.Models
         /// The name of the account holder, which can be either a person or a company.
         /// </summary>
         /// <value>The name of the account holder, which can be either a person or a company.</value>
-        [DataMember(Name = "bank_account_name", EmitDefaultValue = false)]
+        [DataMember(Name = "bank_account_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_name")]
         public string BankAccountName { get; set; }
 
@@ -30,7 +30,7 @@ namespace Service.Models
         /// The bank account number of the account holder.
         /// </summary>
         /// <value>The bank account number of the account holder.</value>
-        [DataMember(Name = "bank_account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "bank_account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_number")]
         public string BankAccountNumber { get; set; }
 
@@ -38,7 +38,7 @@ namespace Service.Models
         /// The type of bank account associated with the payment method.
         /// </summary>
         /// <value>The type of bank account associated with the payment method.</value>
-        [DataMember(Name = "bank_account_type", EmitDefaultValue = false)]
+        [DataMember(Name = "bank_account_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_account_type")]
         public string BankAccountType { get; set; }
 
@@ -46,14 +46,14 @@ namespace Service.Models
         /// Name of the bank associated with this bank account.
         /// </summary>
         /// <value>Name of the bank associated with this bank account.</value>
-        [DataMember(Name = "bank_name", EmitDefaultValue = false)]
+        [DataMember(Name = "bank_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_name")]
         public string BankName { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
 
