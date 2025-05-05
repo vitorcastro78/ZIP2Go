@@ -79,7 +79,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/orders/{order_id}/activate")]
+        [Route("/orders/{order_id}/activate")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("ActivateOrder")]
@@ -166,7 +166,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/orders/{order_id}/cancel")]
+        [Route("/orders/{order_id}/cancel")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CancelOrder")]
@@ -252,7 +252,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/orders")]
+        [Route("/orders")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateOrder")]
@@ -328,7 +328,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/orders/preview")]
+        [Route("/orders/preview")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateOrderPreview")]
@@ -404,7 +404,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpDelete]
-        [Route("/v2/orders/{order_id}")]
+        [Route("/orders/{order_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteOrder")]
@@ -483,7 +483,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/orders/{order_id}")]
+        [Route("/orders/{order_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetOrder")]
@@ -569,7 +569,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/orders")]
+        [Route("/orders")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetOrders")]

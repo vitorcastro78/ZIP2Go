@@ -47,7 +47,7 @@ namespace Service
             // verify the required parameter 'orderLineItemId' is set
             if (orderLineItemId == null) throw new ApiException(400, "Missing required parameter 'orderLineItemId' when calling GetOrderLineItem");
 
-            var path = "/order_line_items/{order_line_item_id}";
+            var path = "v2/order_line_items/{order_line_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_line_item_id" + "}", _apiClient.ParameterToString(orderLineItemId));
 
@@ -101,7 +101,7 @@ namespace Service
             // verify the required parameter 'orderLineItemId' is set
             if (orderLineItemId == null) throw new ApiException(400, "Missing required parameter 'orderLineItemId' when calling PatchOrderLineItem");
 
-            var path = "/order_line_items/{order_line_item_id}";
+            var path = "v2/order_line_items/{order_line_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_line_item_id" + "}", _apiClient.ParameterToString(orderLineItemId));
 
@@ -123,7 +123,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<OrderLineItem>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchOrderLineItem: " + response.Content, response.Content);
@@ -133,14 +133,6 @@ namespace Service
             return (OrderLineItem)_apiClient.Deserialize(response.Content, typeof(OrderLineItem));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+      
     }
 }

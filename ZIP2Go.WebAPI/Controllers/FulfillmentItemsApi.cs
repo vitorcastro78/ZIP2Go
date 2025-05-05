@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Fulfillment item created successfully</response>
         /// <response code="400">Invalid fulfillment item data</response>
         [HttpPost]
-        [Route("/v2/fulfillment_items")]
+        [Route("/fulfillment_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateFulfillmentItem")]
@@ -112,7 +112,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Fulfillment item found and returned</response>
         /// <response code="404">Fulfillment item not found</response>
         [HttpGet]
-        [Route("/v2/fulfillment_items/{fulfillment_item_id}")]
+        [Route("/fulfillment_items/{fulfillment_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetFulfillmentItem")]
@@ -162,7 +162,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of fulfillment items</returns>
         /// <response code="200">List of fulfillment items retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/fulfillment_items")]
+        [Route("/fulfillment_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetFulfillmentItems")]
@@ -215,7 +215,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Fulfillment item updated successfully</response>
         /// <response code="404">Fulfillment item not found</response>
         [HttpPatch]
-        [Route("/v2/fulfillment_items/{fulfillment_item_id}")]
+        [Route("/fulfillment_items/{fulfillment_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateFulfillmentItem")]

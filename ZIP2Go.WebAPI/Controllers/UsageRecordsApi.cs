@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/usage_records")]
+        [Route("/usage_records")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateUsage")]
@@ -130,7 +130,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpDelete]
-        [Route("/v2/usage_records/{id}")]
+        [Route("/usage_records/{id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteUsage")]
@@ -194,7 +194,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/usage_records/{id}")]
+        [Route("/usage_records/{id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetUsage")]
@@ -263,7 +263,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/usage_records")]
+        [Route("/usage_records")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetUsageRecords")]
@@ -334,7 +334,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPatch]
-        [Route("/v2/usage_records/{id}")]
+        [Route("/usage_records/{id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateUsage")]

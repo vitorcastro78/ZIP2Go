@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/workflows/{workflow_id}")]
+        [Route("/workflows/{workflow_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetWorkflow")]
@@ -137,7 +137,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/workflows/{workflow_id}/run")]
+        [Route("/workflows/{workflow_id}/run")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("RunWorkflow")]
@@ -207,7 +207,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         //[HttpPost]
-        //[Route("/v2/workflows")]
+        //[Route("/workflows")]
         //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         //[ValidateModelState]
         //[SwaggerOperation("CreateWorkflow")]

@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/query_runs/{query_run_id}/cancel")]
+        [Route("/query_runs/{query_run_id}/cancel")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CancelQueryRun")]
@@ -95,7 +95,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/query_runs")]
+        [Route("/query_runs")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateQueryRun")]
@@ -130,7 +130,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/query_runs/{query_run_id}")]
+        [Route("/query_runs/{query_run_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetQueryRun")]

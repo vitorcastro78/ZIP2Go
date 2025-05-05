@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Payment run created successfully</response>
         /// <response code="400">Invalid payment run data</response>
         [HttpPost]
-        [Route("/v2/payment_runs")]
+        [Route("/payment_runs")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreatePaymentRun")]
@@ -112,7 +112,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Payment run found and returned</response>
         /// <response code="404">Payment run not found</response>
         [HttpGet]
-        [Route("/v2/payment_runs/{payment_run_id}")]
+        [Route("/payment_runs/{payment_run_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentRun")]
@@ -162,7 +162,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of payment runs</returns>
         /// <response code="200">List of payment runs retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/payment_runs")]
+        [Route("/payment_runs")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentRuns")]
@@ -215,7 +215,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Payment run updated successfully</response>
         /// <response code="404">Payment run not found</response>
         [HttpPatch]
-        [Route("/v2/payment_runs/{payment_run_id}")]
+        [Route("/payment_runs/{payment_run_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdatePaymentRun")]

@@ -51,7 +51,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling CancelInvoice");
 
-            var path = "/invoices/{invoice_id}/cancel";
+            var path = "v2/invoices/{invoice_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -75,7 +75,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelInvoice: " + response.Content, response.Content);
@@ -110,7 +110,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateInvoice");
 
-            var path = "/invoices";
+            var path = "v2/invoices";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -134,7 +134,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateInvoice: " + response.Content, response.Content);
@@ -160,7 +160,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling DeleteInvoice");
 
-            var path = "/invoices/{invoice_id}";
+            var path = "v2/invoices/{invoice_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -200,7 +200,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling EmailInvoice");
 
-            var path = "/invoices/{invoice_id}/email";
+            var path = "v2/invoices/{invoice_id}/email";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -215,7 +215,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling EmailInvoice: " + response.Content, response.Content);
@@ -259,7 +259,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling GetInvoice");
 
-            var path = "/invoices/{invoice_id}";
+            var path = "v2/invoices/{invoice_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -310,7 +310,7 @@ namespace Service
         /// <returns>InvoiceItemListResponse</returns>
         public InvoiceItemListResponse GetInvoiceItems(string cursor,  string zuoraTrackId, bool? async)
         {
-            var path = "/invoice_items";
+            var path = "v2/invoice_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -362,7 +362,7 @@ namespace Service
         /// <returns>InvoiceListResponse</returns>
         public InvoiceListResponse GetInvoices(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/invoices";
+            var path = "v2/invoices";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -423,7 +423,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling PatchInvoice");
 
-            var path = "/invoices/{invoice_id}";
+            var path = "v2/invoices/{invoice_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -448,7 +448,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchInvoice: " + response.Content, response.Content);
@@ -486,7 +486,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling PayInvoice");
 
-            var path = "/invoices/{invoice_id}/pay";
+            var path = "v2/invoices/{invoice_id}/pay";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -511,7 +511,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PayInvoice: " + response.Content, response.Content);
@@ -546,7 +546,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling PostInvoice");
 
-            var path = "/invoices/{invoice_id}/post";
+            var path = "v2/invoices/{invoice_id}/post";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -570,7 +570,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostInvoice: " + response.Content, response.Content);
@@ -608,7 +608,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling ReverseInvoice");
 
-            var path = "/invoices/{invoice_id}/reverse";
+            var path = "v2/invoices/{invoice_id}/reverse";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -633,7 +633,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ReverseInvoice: " + response.Content, response.Content);
@@ -643,15 +643,7 @@ namespace Service
             return (Invoice)_apiClient.Deserialize(response.Content, typeof(Invoice));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+
 
         /// <summary>
         /// Unpost an invoice Unposts an open invoice that has not been applied or refunded, and changes its &#x60;state&#x60; to &#x60;draft&#x60;.
@@ -678,7 +670,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling UnpostInvoice");
 
-            var path = "/invoices/{invoice_id}/unpost";
+            var path = "v2/invoices/{invoice_id}/unpost";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -702,7 +694,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostInvoice: " + response.Content, response.Content);
@@ -740,7 +732,7 @@ namespace Service
             // verify the required parameter 'invoiceId' is set
             if (invoiceId == null) throw new ApiException(400, "Missing required parameter 'invoiceId' when calling WriteOffInvoice");
 
-            var path = "/invoices/{invoice_id}/write-off";
+            var path = "v2/invoices/{invoice_id}/write-off";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "invoice_id" + "}", _apiClient.ParameterToString(invoiceId));
 
@@ -765,7 +757,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Invoice>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling WriteOffInvoice: " + response.Content, response.Content);

@@ -50,7 +50,7 @@ namespace Service
             // verify the required parameter 'customObjectType' is set
             if (customObjectType == null) throw new ApiException(400, "Missing required parameter 'customObjectType' when calling CreateCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}";
+            var path = "v2/custom_objects/{custom_object_type}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "custom_object_type" + "}", _apiClient.ParameterToString(customObjectType));
 
@@ -71,7 +71,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CustomObject>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateCustomObject: " + response.Content, response.Content);
@@ -100,7 +100,7 @@ namespace Service
             // verify the required parameter 'customObjectId' is set
             if (customObjectId == null) throw new ApiException(400, "Missing required parameter 'customObjectId' when calling DeleteCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}/{custom_object_id}";
+            var path = "v2/custom_objects/{custom_object_type}/{custom_object_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "custom_object_type" + "}", _apiClient.ParameterToString(customObjectType));
             path = path.Replace("{" + "custom_object_id" + "}", _apiClient.ParameterToString(customObjectId));
@@ -158,7 +158,7 @@ namespace Service
             // verify the required parameter 'customObjectId' is set
             if (customObjectId == null) throw new ApiException(400, "Missing required parameter 'customObjectId' when calling GetCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}/{custom_object_id}";
+            var path = "v2/custom_objects/{custom_object_type}/{custom_object_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "custom_object_type" + "}", _apiClient.ParameterToString(customObjectType));
             path = path.Replace("{" + "custom_object_id" + "}", _apiClient.ParameterToString(customObjectId));
@@ -209,7 +209,7 @@ namespace Service
             // verify the required parameter 'customObjectType' is set
             if (customObjectType == null) throw new ApiException(400, "Missing required parameter 'customObjectType' when calling GetCustomObjects");
 
-            var path = "/custom_objects/{custom_object_type}";
+            var path = "v2/custom_objects/{custom_object_type}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "custom_object_type" + "}", _apiClient.ParameterToString(customObjectType));
 
@@ -239,15 +239,6 @@ namespace Service
             return (ListCustomObjectResponse)_apiClient.Deserialize(response.Content, typeof(ListCustomObjectResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Update a custom object Updates the specified custom object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -276,7 +267,7 @@ namespace Service
             // verify the required parameter 'customObjectId' is set
             if (customObjectId == null) throw new ApiException(400, "Missing required parameter 'customObjectId' when calling UpdateCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}/{custom_object_id}";
+            var path = "v2/custom_objects/{custom_object_type}/{custom_object_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "custom_object_type" + "}", _apiClient.ParameterToString(customObjectType));
             path = path.Replace("{" + "custom_object_id" + "}", _apiClient.ParameterToString(customObjectId));
@@ -298,7 +289,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CustomObject>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateCustomObject: " + response.Content, response.Content);

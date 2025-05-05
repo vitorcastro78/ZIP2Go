@@ -48,7 +48,7 @@ namespace Service
             // verify the required parameter 'billingDocumentId' is set
             if (billingDocumentId == null) throw new ApiException(400, "Missing required parameter 'billingDocumentId' when calling GetBillingDocument");
 
-            var path = "/billing_documents/{billing_document_id}";
+            var path = "v2/billing_documents/{billing_document_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "billing_document_id" + "}", _apiClient.ParameterToString(billingDocumentId));
 
@@ -96,7 +96,7 @@ namespace Service
         /// <returns>BillingDocumentListResponse</returns>
         public BillingDocumentListResponse GetBillingDocuments(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> billingDocumentItemsFields, List<string> taxationItemsFields, string zuoraTrackId, bool? async)
         {
-            var path = "/billing_documents";
+            var path = "v2/billing_documents";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -148,7 +148,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PostBillingDocument");
 
-            var path = "/billing_documents";
+            var path = "v2/billing_documents";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -169,7 +169,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<BillingDocument>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostBillingDocument: " + response.Content, response.Content);
@@ -179,14 +179,5 @@ namespace Service
             return (BillingDocument)_apiClient.Deserialize(response.Content, typeof(BillingDocument));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
     }
 }

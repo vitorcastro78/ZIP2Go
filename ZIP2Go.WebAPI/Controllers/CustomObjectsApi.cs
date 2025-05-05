@@ -72,7 +72,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/custom_objects/{custom_object_type}")]
+        [Route("/custom_objects/{custom_object_type}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateCustomObject")]
@@ -149,7 +149,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpDelete]
-        [Route("/v2/custom_objects/{custom_object_type}/{custom_object_id}")]
+        [Route("/custom_objects/{custom_object_type}/{custom_object_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteCustomObject")]
@@ -224,7 +224,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/custom_objects/{custom_object_type}/{custom_object_id}")]
+        [Route("/custom_objects/{custom_object_type}/{custom_object_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetCustomObject")]
@@ -306,7 +306,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/custom_objects/{custom_object_type}")]
+        [Route("/custom_objects/{custom_object_type}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetCustomObjects")]
@@ -389,7 +389,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPatch]
-        [Route("/v2/custom_objects/{custom_object_type}/{custom_object_id}")]
+        [Route("/custom_objects/{custom_object_type}/{custom_object_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateCustomObject")]

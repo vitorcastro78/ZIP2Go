@@ -45,7 +45,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateContact");
 
-            var path = "/contacts";
+            var path = "v2/contacts";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -64,7 +64,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Contact>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateContact: " + response.Content, response.Content);
@@ -90,7 +90,7 @@ namespace Service
             // verify the required parameter 'contactId' is set
             if (contactId == null) throw new ApiException(400, "Missing required parameter 'contactId' when calling DeleteContact");
 
-            var path = "/contacts/{contact_id}";
+            var path = "v2/contacts/{contact_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "contact_id" + "}", _apiClient.ParameterToString(contactId));
 
@@ -143,7 +143,7 @@ namespace Service
             // verify the required parameter 'contactId' is set
             if (contactId == null) throw new ApiException(400, "Missing required parameter 'contactId' when calling GetContact");
 
-            var path = "/contacts/{contact_id}";
+            var path = "v2/contacts/{contact_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "contact_id" + "}", _apiClient.ParameterToString(contactId));
 
@@ -187,7 +187,7 @@ namespace Service
         /// <returns>ListContactResponse</returns>
         public ListContactResponse GetContacts(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, bool? async)
         {
-            var path = "/contacts";
+            var path = "v2/contacts";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -235,7 +235,7 @@ namespace Service
             // verify the required parameter 'contactId' is set
             if (contactId == null) throw new ApiException(400, "Missing required parameter 'contactId' when calling ScrubContact");
 
-            var path = "/contacts/{contact_id}/scrub";
+            var path = "v2/contacts/{contact_id}/scrub";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "contact_id" + "}", _apiClient.ParameterToString(contactId));
 
@@ -254,7 +254,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Contact>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ScrubContact: " + response.Content, response.Content);
@@ -264,15 +264,7 @@ namespace Service
             return;
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+
 
         /// <summary>
         /// Update a contact Updates the specified contact by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -297,7 +289,7 @@ namespace Service
             // verify the required parameter 'contactId' is set
             if (contactId == null) throw new ApiException(400, "Missing required parameter 'contactId' when calling UpdateContact");
 
-            var path = "/contacts/{contact_id}";
+            var path = "v2/contacts/{contact_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "contact_id" + "}", _apiClient.ParameterToString(contactId));
 
@@ -317,7 +309,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Contact>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateContact: " + response.Content, response.Content);

@@ -56,7 +56,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal server error</response>
         [HttpPost]
-        [Route("/v2/billing_document_items/{invoiceId}/cancel")]
+        [Route("/billing_document_items/{invoiceId}/cancel")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CancelBillingDocumentItem")]
@@ -111,7 +111,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="429">Too many requests</response>
         /// <response code="500">Internal server error</response>
         [HttpPost]
-        [Route("/v2/billing_document_items")]
+        [Route("/billing_document_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateBillingDocumentItem")]
@@ -180,7 +180,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpGet]
-        [Route("/v2/billing_document_items")]
+        [Route("/billing_document_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetBillingDocumentItems")]

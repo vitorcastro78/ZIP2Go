@@ -46,7 +46,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateTaxationItem");
 
-            var path = "/taxation_items";
+            var path = "v2/taxation_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -65,7 +65,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<TaxationItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateTaxationItem: " + response.Content, response.Content);
@@ -91,7 +91,7 @@ namespace Service
             // verify the required parameter 'taxationItemId' is set
             if (taxationItemId == null) throw new ApiException(400, "Missing required parameter 'taxationItemId' when calling DeleteTaxationItem");
 
-            var path = "/taxation_items/{taxation_item_id}";
+            var path = "v2/taxation_items/{taxation_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "taxation_item_id" + "}", _apiClient.ParameterToString(taxationItemId));
 
@@ -144,7 +144,7 @@ namespace Service
             // verify the required parameter 'taxationItemId' is set
             if (taxationItemId == null) throw new ApiException(400, "Missing required parameter 'taxationItemId' when calling GetTaxationItem");
 
-            var path = "/taxation_items/{taxation_item_id}";
+            var path = "v2/taxation_items/{taxation_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "taxation_item_id" + "}", _apiClient.ParameterToString(taxationItemId));
 
@@ -188,7 +188,7 @@ namespace Service
         /// <returns>TaxationItemListResponse</returns>
         public TaxationItemListResponse GetTaxationItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, bool? async)
         {
-            var path = "/taxation_items";
+            var path = "v2/taxation_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -216,15 +216,6 @@ namespace Service
             return (TaxationItemListResponse)_apiClient.Deserialize(response.Content, typeof(TaxationItemListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Update a taxation item Updates a taxation item by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
@@ -249,7 +240,7 @@ namespace Service
             // verify the required parameter 'taxationItemId' is set
             if (taxationItemId == null) throw new ApiException(400, "Missing required parameter 'taxationItemId' when calling UpdateTaxationItem");
 
-            var path = "/taxation_items/{taxation_item_id}";
+            var path = "v2/taxation_items/{taxation_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "taxation_item_id" + "}", _apiClient.ParameterToString(taxationItemId));
 
@@ -269,7 +260,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<TaxationItem>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateTaxationItem: " + response.Content, response.Content);

@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Billing document created successfully</response>
         /// <response code="400">Invalid billing document data</response>
         [HttpPost]
-        [Route("/v2/billing_documents")]
+        [Route("/billing_documents")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateBillingDocument")]
@@ -112,7 +112,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Billing document found and returned</response>
         /// <response code="404">Billing document not found</response>
         [HttpGet]
-        [Route("/v2/billing_documents/{billing_document_id}")]
+        [Route("/billing_documents/{billing_document_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetBillingDocument")]
@@ -162,7 +162,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of billing documents</returns>
         /// <response code="200">List of billing documents retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/billing_documents")]
+        [Route("/billing_documents")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetBillingDocuments")]
@@ -215,7 +215,7 @@ namespace ZIP2GO.WebAPI.Controllers
         ///// <response code="200">Billing document updated successfully</response>
         ///// <response code="404">Billing document not found</response>
         //[HttpPatch]
-        //[Route("/v2/billing_documents/{billing_document_id}")]
+        //[Route("/billing_documents/{billing_document_id}")]
         //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         //[ValidateModelState]
         //[SwaggerOperation("UpdateBillingDocument")]

@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Payment method created successfully</response>
         /// <response code="400">Invalid payment method data</response>
         [HttpPost]
-        [Route("/v2/payment_methods")]
+        [Route("/payment_methods")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreatePaymentMethod")]
@@ -81,7 +81,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Payment method found and returned</response>
         /// <response code="404">Payment method not found</response>
         [HttpGet]
-        [Route("/v2/payment_methods/{payment_method_id}")]
+        [Route("/payment_methods/{payment_method_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentMethod")]
@@ -100,7 +100,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of payment methods</returns>
         /// <response code="200">List of payment methods retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/payment_methods")]
+        [Route("/payment_methods")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentMethods")]
@@ -121,7 +121,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="204">Payment method scrubbed successfully</response>
         /// <response code="404">Payment method not found</response>
         [HttpPost]
-        [Route("/v2/payment_methods/{payment_method_id}/scrub")]
+        [Route("/payment_methods/{payment_method_id}/scrub")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("ScrubPaymentMethod")]
@@ -143,7 +143,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Payment method updated successfully</response>
         /// <response code="404">Payment method not found</response>
         [HttpPatch]
-        [Route("/v2/payment_methods/{payment_method_id}")]
+        [Route("/payment_methods/{payment_method_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdatePaymentMethod")]

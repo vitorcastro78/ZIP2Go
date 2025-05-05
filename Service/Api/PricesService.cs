@@ -47,7 +47,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePrice");
 
-            var path = "/prices";
+            var path = "v2/prices";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -66,7 +66,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Price>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePrice: " + response.Content, response.Content);
@@ -92,7 +92,7 @@ namespace Service
             // verify the required parameter 'priceId' is set
             if (priceId == null) throw new ApiException(400, "Missing required parameter 'priceId' when calling DeletePrice");
 
-            var path = "/prices/{price_id}";
+            var path = "v2/prices/{price_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "price_id" + "}", _apiClient.ParameterToString(priceId));
 
@@ -145,7 +145,7 @@ namespace Service
             // verify the required parameter 'priceId' is set
             if (priceId == null) throw new ApiException(400, "Missing required parameter 'priceId' when calling GetPrice");
 
-            var path = "/prices/{price_id}";
+            var path = "v2/prices/{price_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "price_id" + "}", _apiClient.ParameterToString(priceId));
 
@@ -189,7 +189,7 @@ namespace Service
         /// <returns>PriceListResponse</returns>
         public PriceListResponse GetPrices(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, bool? async)
         {
-            var path = "/prices";
+            var path = "v2/prices";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -240,7 +240,7 @@ namespace Service
             // verify the required parameter 'priceId' is set
             if (priceId == null) throw new ApiException(400, "Missing required parameter 'priceId' when calling PatchPrice");
 
-            var path = "/prices/{price_id}";
+            var path = "v2/prices/{price_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "price_id" + "}", _apiClient.ParameterToString(priceId));
 
@@ -260,7 +260,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Price>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchPrice: " + response.Content, response.Content);
@@ -270,14 +270,6 @@ namespace Service
             return (Price)_apiClient.Deserialize(response.Content, typeof(Price));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+       
     }
 }

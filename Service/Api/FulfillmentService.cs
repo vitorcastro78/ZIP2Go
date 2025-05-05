@@ -50,7 +50,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateFulfillment");
 
-            var path = "/fulfillments";
+            var path = "v2/fulfillments";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -72,7 +72,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Fulfillment>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateFulfillment: " + response.Content, response.Content);
@@ -105,7 +105,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateFulfillments");
 
-            var path = "/fulfillments/bulk_create";
+            var path = "v2/fulfillments/bulk_create";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -127,7 +127,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Fulfillment>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateFulfillments: " + response.Content, response.Content);
@@ -153,7 +153,7 @@ namespace Service
             // verify the required parameter 'fulfillmentId' is set
             if (fulfillmentId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentId' when calling DeleteFulfillment");
 
-            var path = "/fulfillments/{fulfillment_id}";
+            var path = "v2/fulfillments/{fulfillment_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "fulfillment_id" + "}", _apiClient.ParameterToString(fulfillmentId));
 
@@ -209,7 +209,7 @@ namespace Service
             // verify the required parameter 'fulfillmentId' is set
             if (fulfillmentId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentId' when calling GetFulfillment");
 
-            var path = "/fulfillments/{fulfillment_id}";
+            var path = "v2/fulfillments/{fulfillment_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "fulfillment_id" + "}", _apiClient.ParameterToString(fulfillmentId));
 
@@ -259,7 +259,7 @@ namespace Service
         /// <returns>FilfillmentListResponse</returns>
         public FilfillmentListResponse GetFulfillments(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> fulfillmentItemFields, List<string> creditMemoItemFields, List<string> invoiceItemFields, string zuoraTrackId, bool? async)
         {
-            var path = "/fulfillments";
+            var path = "v2/fulfillments";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -290,15 +290,7 @@ namespace Service
             return (FilfillmentListResponse)_apiClient.Deserialize(response.Content, typeof(FilfillmentListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+       
 
         /// <summary>
         /// Update a fulfillment Updates the specified fulfillment by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -326,7 +318,7 @@ namespace Service
             // verify the required parameter 'fulfillmentId' is set
             if (fulfillmentId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentId' when calling UpdateFulfillment");
 
-            var path = "/fulfillments/{fulfillment_id}";
+            var path = "v2/fulfillments/{fulfillment_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "fulfillment_id" + "}", _apiClient.ParameterToString(fulfillmentId));
 
@@ -349,7 +341,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Fulfillment>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateFulfillment: " + response.Content, response.Content);

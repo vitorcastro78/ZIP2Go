@@ -12,28 +12,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-
 namespace Service.Client
 {
-    public static class AppSettings
-    {
-        private static IConfiguration _configuration;
-
-        static AppSettings()
-        {
-            // read JSON directly from a file
-        }
-
-        public static T GetSection<T>(string sectionName) where T : class, new()
-        {
-            return _configuration.GetSection(sectionName).Get<T>();
-        }
-
-        public static string GetValue(string key)
-        {
-            return _configuration[key];
-        }
-    }
 
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
@@ -102,28 +82,6 @@ namespace Service.Client
         public RestClient RestClient { get; set; }
 
         /// <summary>
-        /// Encode string in base64 format.
-        /// </summary>
-        /// <param name="text">string to be encoded.</param>
-        /// <returns>Encoded string.</returns>
-        public string Base64Encode(string text)
-        {
-            var textByte = System.Text.Encoding.UTF8.GetBytes(text);
-            return System.Convert.ToBase64String(textByte);
-        }
-
-        /// <summary>
-        /// Dynamically cast the object into target type.
-        /// </summary>
-        /// <param name="fromObject">Object to be casted</param>
-        /// <param name="toObject">Target type</param>
-        /// <returns>Casted object</returns>
-        public Object ConvertType(Object fromObject, Type toObject)
-        {
-            return Convert.ChangeType(fromObject, toObject);
-        }
-
-        /// <summary>
         /// Add default header.
         /// </summary>
         /// <param name="key">Header field name.</param>
@@ -132,6 +90,17 @@ namespace Service.Client
         public void AddDefaultHeader(string key, string value)
         {
             _defaultHeaderMap.Add(key, value);
+        }
+
+        /// <summary>
+        /// Encode string in base64 format.
+        /// </summary>
+        /// <param name="text">string to be encoded.</param>
+        /// <returns>Encoded string.</returns>
+        public string Base64Encode(string text)
+        {
+            var textByte = System.Text.Encoding.UTF8.GetBytes(text);
+            return System.Convert.ToBase64String(textByte);
         }
 
         /// <summary>
@@ -146,7 +115,7 @@ namespace Service.Client
         /// <param name="fileParams">File parameters.</param>
         /// <param name="authSettings">Authentication settings.</param>
         /// <returns>Object</returns>
-        public Object CallApi(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody, bool? async = true)
+        public RestResponse CallApi(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody, bool? async = true)
         {
             var headerParams = new Dictionary<string, string>();
             var request = new RestRequest(path, method);
@@ -179,15 +148,13 @@ namespace Service.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
+            var result = RestClient.Execute(request);
 
-           var result = RestClient.Execute(request);
-
-           var ret = Deserialize(result.Content, typeof(Product));
-
+            var ret = Deserialize(result.Content, typeof(Product));
 
             if (method != Method.Get)
             {
-                FillCachePostResult(ret);
+                FillCache(ret);
                 return result;
             }
             else
@@ -196,7 +163,7 @@ namespace Service.Client
             }
         }
 
-        public Object CallApi<T>(string path, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true)
+        public RestResponse CallApi<T>(string path, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true)
         {
             var headerParams = new Dictionary<string, string>();
             var request = new RestRequest(path, method);
@@ -229,15 +196,13 @@ namespace Service.Client
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-
             var result = RestClient.Execute(request);
 
             var ret = Deserialize(result.Content, typeof(T));
 
-
             if (method != Method.Get)
             {
-                FillCachePostResult(ret);
+                SetCache(ret);
                 return result;
             }
             else
@@ -249,68 +214,18 @@ namespace Service.Client
         public List<T> CallApi<T>()
         {
             var cacheKey = $"{typeof(T).Name}";
-            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f=>f.Value).ToList();
-            
-        }
-
-        public List<T> RequestCachedResult<T>()
-        {
-            var cacheKey = $"{typeof(T).Name}";
             return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
-
         }
 
-        public T RequestCachedResult<T>(string id)
+        /// <summary>
+        /// Dynamically cast the object into target type.
+        /// </summary>
+        /// <param name="fromObject">Object to be casted</param>
+        /// <param name="toObject">Target type</param>
+        /// <returns>Casted object</returns>
+        public Object ConvertType(Object fromObject, Type toObject)
         {
-            var cacheKey = $"{typeof(T).Name}";
-            return _cache.Get<T>($"{cacheKey}_{id}").Value;
-
-        }
-        public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody)
-        {
-            queryParams.Add("page_size", ParameterToString(95));
-
-           var response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
-            var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
-
-            // query parameter
-            queryParams.Add("cursor", ParameterToString(responseObject.NextPage));
-
-            while (!string.IsNullOrEmpty(responseObject.NextPage))
-            {
-                // query parameter
-                queryParams["cursor"] = responseObject.NextPage;
-                response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
-                var accountResponse = (dynamic)Deserialize(response.Content, typeof(T));
-                responseObject.Data.AddRange(accountResponse.Data);
-                responseObject.NextPage = accountResponse.NextPage;
-            }
-
-
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
-
-            FillCache(responseObject);
-
-            return responseObject;
-        }
-
-        private void FillCache(dynamic result)
-        {
-            foreach (var item in result.Data)
-            {
-                var name = item.GetType().Name;
-                _cache.SetAsync<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(12));
-            }
-
-        }
-
-        private void FillCachePostResult(dynamic result)
-        {
-            var name = result.GetType().Name;
-            _cache.SetAsync<dynamic>($"{name}_{result.Id}", result, TimeSpan.FromHours(12));
+            return Convert.ChangeType(fromObject, toObject);
         }
 
         /// <summary>
@@ -376,6 +291,36 @@ namespace Service.Client
             return HttpUtility.UrlEncode(str);
         }
 
+        public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody)
+        {
+            queryParams.Add("page_size", ParameterToString(95));
+
+            var response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
+            var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
+
+            // query parameter
+            queryParams.Add("cursor", ParameterToString(responseObject.NextPage));
+
+            while (!string.IsNullOrEmpty(responseObject.NextPage))
+            {
+                // query parameter
+                queryParams["cursor"] = responseObject.NextPage;
+                response = (RestResponse)CallApi(path, Method.Get, queryParams, postBody);
+                var accountResponse = (dynamic)Deserialize(response.Content, typeof(T));
+                responseObject.Data.AddRange(accountResponse.Data);
+                responseObject.NextPage = accountResponse.NextPage;
+            }
+
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
+
+            FillCache(responseObject);
+
+            return responseObject;
+        }
+
         /// <summary>
         /// Get the API key with prefix.
         /// </summary>
@@ -407,7 +352,7 @@ namespace Service.Client
             }
 
             // _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
-           //  var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
+            //  var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
             var nameValueCollection = new Dictionary<string, string>
                 {
                     { "grant_type", "client_credentials" },
@@ -475,6 +420,22 @@ namespace Service.Client
                 return Convert.ToString(obj);
         }
 
+        public List<T> RequestCachedResult<T>()
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
+        }
+
+        public T RequestCachedResult<T>(string id)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.Get<T>($"{cacheKey}_{id}").Value;
+        }
+
+        public T RequestCachedResultById<T>(string id)
+        {
+            return _cache.Get<T>($"{id}").Value;
+        }
         /// <summary>
         /// Serialize an object into JSON string.
         /// </summary>
@@ -517,6 +478,34 @@ namespace Service.Client
                         break;
                 }
             }
+        }
+
+        private void FillCache(dynamic result)
+        {
+            foreach (var item in result.Data)
+            {
+                var name = item.GetType().Name;
+                _cache.SetAsync<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(12));
+            }
+        }
+
+
+        private void SetCache(dynamic result)
+        {
+            var cacheKey = result.GetType().Name;
+            _cache.SetAsync<dynamic>($"{cacheKey}_{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        private T GetCahe<T>(string id)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.Get<T>($"{cacheKey}_{id}").Value;
+        }
+
+        public List<T> GetCahe<T>()
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
         }
     }
 }

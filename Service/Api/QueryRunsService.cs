@@ -53,7 +53,7 @@ namespace Service
             // verify the required parameter 'queryRunId' is set
             if (queryRunId == null) throw new ApiException(400, "Missing required parameter 'queryRunId' when calling CancelQueryRun");
 
-            var path = "/query_runs/{query_run_id}/cancel";
+            var path = "v2/query_runs/{query_run_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "query_run_id" + "}", _apiClient.ParameterToString(queryRunId));
 
@@ -72,7 +72,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", _apiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<QueryRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelQueryRun: " + response.Content, response.Content);
@@ -102,7 +102,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateQueryRun");
 
-            var path = "/query_runs";
+            var path = "v2/query_runs";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -121,7 +121,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<QueryRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateQueryRun: " + response.Content, response.Content);
@@ -160,7 +160,7 @@ namespace Service
             // verify the required parameter 'queryRunId' is set
             if (queryRunId == null) throw new ApiException(400, "Missing required parameter 'queryRunId' when calling GetQueryRun");
 
-            var path = "/query_runs/{query_run_id}";
+            var path = "v2/query_runs/{query_run_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "query_run_id" + "}", _apiClient.ParameterToString(queryRunId));
 
@@ -187,14 +187,5 @@ namespace Service
             return (QueryRun)_apiClient.Deserialize(response.Content, typeof(QueryRun));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
     }
 }

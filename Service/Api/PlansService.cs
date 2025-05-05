@@ -48,7 +48,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePlan");
 
-            var path = "/plans";
+            var path = "v2/plans";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -69,7 +69,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Plan>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePlan: " + response.Content, response.Content);
@@ -95,7 +95,7 @@ namespace Service
             // verify the required parameter 'planId' is set
             if (planId == null) throw new ApiException(400, "Missing required parameter 'planId' when calling DeletePlan");
 
-            var path = "/plans/{plan_id}";
+            var path = "v2/plans/{plan_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "plan_id" + "}", _apiClient.ParameterToString(planId));
 
@@ -150,7 +150,7 @@ namespace Service
             // verify the required parameter 'planId' is set
             if (planId == null) throw new ApiException(400, "Missing required parameter 'planId' when calling GetPlan");
 
-            var path = "/plans/{plan_id}";
+            var path = "v2/plans/{plan_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "plan_id" + "}", _apiClient.ParameterToString(planId));
 
@@ -198,7 +198,7 @@ namespace Service
         /// <returns>PlanListResponse</returns>
         public PlanListResponse GetPlans(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> pricesFields, List<string> productFields, string zuoraTrackId, bool? async)
         {
-            var path = "/plans";
+            var path = "v2/plans";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -228,15 +228,6 @@ namespace Service
             return (PlanListResponse)_apiClient.Deserialize(response.Content, typeof(PlanListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Update a plan Updates the specified plan by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -263,7 +254,7 @@ namespace Service
             // verify the required parameter 'planId' is set
             if (planId == null) throw new ApiException(400, "Missing required parameter 'planId' when calling UpdatePlan");
 
-            var path = "/plans/{plan_id}";
+            var path = "v2/plans/{plan_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "plan_id" + "}", _apiClient.ParameterToString(planId));
 
@@ -285,7 +276,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Plan>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePlan: " + response.Content, response.Content);

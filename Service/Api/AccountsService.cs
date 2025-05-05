@@ -81,7 +81,7 @@ namespace Service
             PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Account>(path, Method.Post, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateAccount: " + response.Content, response.Content);
@@ -105,7 +105,7 @@ namespace Service
             if (string.IsNullOrEmpty(accountId))
                 throw new ArgumentNullException(nameof(accountId), "Account ID cannot be null or empty");
 
-            var path = "/accounts/{account_id}";
+            var path = "v2/accounts/{account_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
@@ -152,7 +152,7 @@ namespace Service
             // verify the required parameter 'accountId' is set
             if (accountId == null) throw new ApiException(400, "Missing required parameter 'accountId' when calling GenerateBillingDocuments");
 
-            var path = "/accounts/{account_id}/bill";
+            var path = "v2/accounts/{account_id}/bill";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
@@ -169,7 +169,7 @@ namespace Service
             PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Get, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<GenerateBillingDocumentsAccountResponse>(path, Method.Get, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GenerateBillingDocuments: " + response.Content, response.Content);
@@ -187,7 +187,7 @@ namespace Service
             // verify the required parameter 'accountId' is set
             if (accountId == null) throw new ApiException(400, "Missing required parameter 'accountId' when calling GetAccount");
 
-            var path = "/accounts/{account_id}";
+            var path = "v2/accounts/{account_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
@@ -285,7 +285,7 @@ namespace Service
             // verify the required parameter 'accountId' is set
             if (accountId == null) throw new ApiException(400, "Missing required parameter 'accountId' when calling PreviewAccount");
 
-            var path = "/accounts/{account_id}/preview";
+            var path = "v2/accounts/{account_id}/preview";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
@@ -301,7 +301,7 @@ namespace Service
             PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<AccountPreviewResponse>(path, Method.Post, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PreviewAccount: " + response.Content, response.Content);
@@ -327,7 +327,7 @@ namespace Service
             // verify the required parameter 'accountId' is set
             if (accountId == null) throw new ApiException(400, "Missing required parameter 'accountId' when calling UpdateAccount");
 
-            var path = "/accounts/{account_id}";
+            var path = "v2/accounts/{account_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "account_id" + "}", _apiClient.ParameterToString(accountId));
 
@@ -343,7 +343,7 @@ namespace Service
             PostBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, PostBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Account>(path, Method.Patch, queryParams, PostBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateAccount: " + response.Content, response.Content);

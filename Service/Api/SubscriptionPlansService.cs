@@ -52,7 +52,7 @@ namespace Service
             // verify the required parameter 'subscriptionPlanId' is set
             if (subscriptionPlanId == null) throw new ApiException(400, "Missing required parameter 'subscriptionPlanId' when calling GetSubscriptionPlan");
 
-            var path = "/subscription_plans/{subscription_plan_id}";
+            var path = "v2/subscription_plans/{subscription_plan_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "subscription_plan_id" + "}", _apiClient.ParameterToString(subscriptionPlanId));
 
@@ -108,7 +108,7 @@ namespace Service
         /// <returns>SubscriptionPlanListResponse</returns>
         public SubscriptionPlanListResponse GetSubscriptionPlans(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/subscription_plans";
+            var path = "v2/subscription_plans";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -142,14 +142,6 @@ namespace Service
             return (SubscriptionPlanListResponse)_apiClient.Deserialize(response.Content, typeof(SubscriptionPlanListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+        
     }
 }

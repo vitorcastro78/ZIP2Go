@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Debit memo created successfully</response>
         /// <response code="400">Invalid debit memo data</response>
         [HttpPost]
-        [Route("/v2/debit_memos")]
+        [Route("/debit_memos")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateDebitMemo")]
@@ -81,7 +81,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Debit memo found and returned</response>
         /// <response code="404">Debit memo not found</response>
         [HttpGet]
-        [Route("/v2/debit_memos/{debit_memo_id}")]
+        [Route("/debit_memos/{debit_memo_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetDebitMemo")]
@@ -100,7 +100,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of debit memos</returns>
         /// <response code="200">List of debit memos retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/debit_memos")]
+        [Route("/debit_memos")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetDebitMemos")]
@@ -122,7 +122,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Debit memo updated successfully</response>
         /// <response code="404">Debit memo not found</response>
         [HttpPatch]
-        [Route("/v2/debit_memos/{debit_memo_id}")]
+        [Route("/debit_memos/{debit_memo_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateDebitMemo")]

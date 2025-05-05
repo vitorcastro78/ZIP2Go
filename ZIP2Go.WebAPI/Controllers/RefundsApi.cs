@@ -50,7 +50,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Refund created successfully</response>
         /// <response code="400">Invalid refund data</response>
         [HttpPost]
-        [Route("/v2/refunds")]
+        [Route("/refunds")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateRefund")]
@@ -67,7 +67,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Refund found and returned</response>
         /// <response code="404">Refund not found</response>
         [HttpGet]
-        [Route("/v2/refunds/{refund_id}")]
+        [Route("/refunds/{refund_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetRefund")]
@@ -82,7 +82,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of refunds</returns>
         /// <response code="200">List of refunds retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/refunds")]
+        [Route("/refunds")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetRefunds")]
@@ -100,7 +100,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Refund updated successfully</response>
         /// <response code="404">Refund not found</response>
         [HttpPatch]
-        [Route("/v2/refunds/{refund_id}")]
+        [Route("/refunds/{refund_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateRefund")]

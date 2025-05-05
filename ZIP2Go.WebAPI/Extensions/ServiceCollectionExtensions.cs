@@ -3,6 +3,7 @@ using Service;
 using Service.Client;
 using Microsoft.Extensions.Options;
 using EasyCaching.Core;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ZIP2Go.WebAPI.Extensions
 {
@@ -12,8 +13,9 @@ namespace ZIP2Go.WebAPI.Extensions
         {
             // Registrar todos os serviços como scoped
             // E seu ApiClient deve ser registrado para aceitar IOptions:
-            //services.AddScoped<IApiClient,ApiClient>();
-            services.AddScoped<ApiClient>(sp => { return new ApiClient("https://sua-api.com", sp.GetService<IEasyCachingProvider>()); });
+            // services.AddScoped<ICachingTrigger,CachingTrigger>();
+            services.AddScoped(sp => { return new ApiClient("https://sua-api.com", sp.GetService<IEasyCachingProvider>()); });
+            // services.AddScoped(sp => { return new CachingTrigger(sp.GetService<IEasyCachingProvider>()); });
             services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<IPlansService, PlansService>();
             services.AddScoped<ITaxationItemsService, TaxationItemsService>();

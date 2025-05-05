@@ -53,7 +53,7 @@ namespace Service
             // verify the required parameter 'paymentId' is set
             if (paymentId == null) throw new ApiException(400, "Missing required parameter 'paymentId' when calling ApplyPayment");
 
-            var path = "/payments/{payment_id}/apply";
+            var path = "v2/payments/{payment_id}/apply";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
@@ -77,7 +77,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Put, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Payment>(path, Method.Put, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ApplyPayment: " + response.Content, response.Content);
@@ -111,7 +111,7 @@ namespace Service
             // verify the required parameter 'paymentId' is set
             if (paymentId == null) throw new ApiException(400, "Missing required parameter 'paymentId' when calling CancelPayment");
 
-            var path = "/payments/{payment_id}/cancel";
+            var path = "v2/payments/{payment_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
@@ -134,7 +134,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Payment>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelPayment: " + response.Content, response.Content);
@@ -168,7 +168,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePayment");
 
-            var path = "/payments";
+            var path = "v2/payments";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -191,7 +191,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Payment>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePayment: " + response.Content, response.Content);
@@ -234,7 +234,7 @@ namespace Service
             // verify the required parameter 'paymentId' is set
             if (paymentId == null) throw new ApiException(400, "Missing required parameter 'paymentId' when calling GetPayment");
 
-            var path = "/payments/{payment_id}";
+            var path = "v2/payments/{payment_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
@@ -286,7 +286,7 @@ namespace Service
         /// <returns>PaymentListResponse</returns>
         public PaymentListResponse GetPayments(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/payments";
+            var path = "v2/payments";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -318,15 +318,7 @@ namespace Service
             return (PaymentListResponse)_apiClient.Deserialize(response.Content, typeof(PaymentListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+
 
         /// <summary>
         /// Unapply a payment Unapplies an applied payment.
@@ -355,7 +347,7 @@ namespace Service
             // verify the required parameter 'paymentId' is set
             if (paymentId == null) throw new ApiException(400, "Missing required parameter 'paymentId' when calling UnapplyPayment");
 
-            var path = "/payments/{payment_id}/unapply";
+            var path = "v2/payments/{payment_id}/unapply";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
@@ -379,7 +371,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Put, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Payment>(path, Method.Put, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnapplyPayment: " + response.Content, response.Content);
@@ -416,7 +408,7 @@ namespace Service
             // verify the required parameter 'paymentId' is set
             if (paymentId == null) throw new ApiException(400, "Missing required parameter 'paymentId' when calling UpdatePayment");
 
-            var path = "/payments/{payment_id}";
+            var path = "v2/payments/{payment_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_id" + "}", _apiClient.ParameterToString(paymentId));
 
@@ -440,7 +432,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Payment>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePayment: " + response.Content, response.Content);

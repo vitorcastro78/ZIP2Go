@@ -3,7 +3,7 @@ using RestSharp;
 
 namespace Service.Client
 {
-    public class CachingTrigger
+    public class CachingTrigger : ICachingTrigger
     {
         private readonly IEasyCachingProvider _cache;
 
@@ -12,21 +12,29 @@ namespace Service.Client
             _cache = cache;
         }
 
-        public dynamic GetCachingTrigger<T>(string Id)
+        public void FillCache(dynamic result)
         {
-            return _cache.Get<T>(Id).Value;
+            foreach (var item in result.Data)
+            {
+                var name = item.GetType().Name;
+                _cache.SetAsync<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(12));
+            }
         }
 
-        public dynamic SetCachingTrigger<T>(Method method, RestResponse response)
+        public void FillCachePostResult(dynamic result)
         {
-            dynamic result = null;
-            var timeSpan = TimeSpan.FromMinutes(20);
-            if (response.IsSuccessful && method == Method.Post)
-            {
-                 result = (T)new ApiClient(string.Empty, _cache).Deserialize(response.Content, typeof(T));
-                _cache.Set(result.Id, result, timeSpan);
-            }
-            return result;
+            var name = result.GetType().Name;
+            _cache.SetAsync<dynamic>($"{name}_{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        public void SetCache(dynamic result)
+        {
+            _cache.SetAsync<dynamic>($"{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        public T GetCahe<T>(string id)
+        {
+            return _cache.Get<T>($"{id}").Value;
         }
     }
 }

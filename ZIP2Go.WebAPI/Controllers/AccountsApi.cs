@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Account created successfully</response>
         /// <response code="400">Invalid account data</response>
         [HttpPost]
-        [Route("/v2/accounts")]
+        [Route("/accounts")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateAccount")]
@@ -120,7 +120,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="async">Whether to perform the operation asynchronously</param>
         /// <returns>NoContent if successful</returns>
         [HttpDelete]
-        [Route("/v2/accounts/{accountId}")]
+        [Route("/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteAccount")]
@@ -179,7 +179,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="async">Whether to perform the operation asynchronously</param>
         /// <returns>The generated billing documents response</returns>
         [HttpPost]
-        [Route("/v2/accounts/{accountId}/bill")]
+        [Route("/accounts/{accountId}/bill")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GenerateBillingDocuments")]
@@ -241,7 +241,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Account found and returned</response>
         /// <response code="404">Account not found</response>
         [HttpGet]
-        [Route("/v2/accounts/{accountId}")]
+        [Route("/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccount")]
@@ -301,7 +301,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of accounts</returns>
         /// <response code="200">List of accounts retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/accounts")]
+        [Route("/accounts")]
         //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetAccounts")]
@@ -364,7 +364,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Account updated successfully</response>
         /// <response code="404">Account not found</response>
         [HttpPatch]
-        [Route("/v2/accounts/{accountId}")]
+        [Route("/accounts/{accountId}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateAccount")]

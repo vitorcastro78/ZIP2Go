@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Credit memo created successfully</response>
         /// <response code="400">Invalid credit memo data</response>
         [HttpPost]
-        [Route("/v2/credit_memos")]
+        [Route("/credit_memos")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateCreditMemo")]
@@ -81,7 +81,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Credit memo found and returned</response>
         /// <response code="404">Credit memo not found</response>
         [HttpGet]
-        [Route("/v2/credit_memos/{credit_memo_id}")]
+        [Route("/credit_memos/{credit_memo_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetCreditMemo")]
@@ -100,7 +100,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of credit memos</returns>
         /// <response code="200">List of credit memos retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/credit_memos")]
+        [Route("/credit_memos")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetCreditMemos")]
@@ -122,7 +122,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Credit memo updated successfully</response>
         /// <response code="404">Credit memo not found</response>
         [HttpPatch]
-        [Route("/v2/credit_memos/{credit_memo_id}")]
+        [Route("/credit_memos/{credit_memo_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateCreditMemo")]

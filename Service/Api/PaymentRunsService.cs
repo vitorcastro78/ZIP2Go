@@ -47,7 +47,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePaymentRuns");
 
-            var path = "/payment_runs";
+            var path = "v2/payment_runs";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -67,7 +67,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePaymentRuns: " + response.Content, response.Content);
@@ -93,7 +93,7 @@ namespace Service
             // verify the required parameter 'paymentRunId' is set
             if (paymentRunId == null) throw new ApiException(400, "Missing required parameter 'paymentRunId' when calling DeletePaymentRuns");
 
-            var path = "/payment_runs/{payment_run_id}";
+            var path = "v2/payment_runs/{payment_run_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_run_id" + "}", _apiClient.ParameterToString(paymentRunId));
 
@@ -147,7 +147,7 @@ namespace Service
             // verify the required parameter 'paymentRunId' is set
             if (paymentRunId == null) throw new ApiException(400, "Missing required parameter 'paymentRunId' when calling GetPaymentRun");
 
-            var path = "/payment_runs/{payment_run_id}";
+            var path = "v2/payment_runs/{payment_run_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_run_id" + "}", _apiClient.ParameterToString(paymentRunId));
 
@@ -193,7 +193,7 @@ namespace Service
         /// <returns>PaymentRunListResponse</returns>
         public PaymentRunListResponse GetPaymentRuns(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/payment_runs";
+            var path = "v2/payment_runs";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -222,15 +222,7 @@ namespace Service
             return (PaymentRunListResponse)_apiClient.Deserialize(response.Content, typeof(PaymentRunListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+        
 
         /// <summary>
         /// Update a payment run Updates a payment run by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
@@ -256,7 +248,7 @@ namespace Service
             // verify the required parameter 'paymentRunId' is set
             if (paymentRunId == null) throw new ApiException(400, "Missing required parameter 'paymentRunId' when calling UpdatePaymentRuns");
 
-            var path = "/payment_runs/{payment_run_id}";
+            var path = "v2/payment_runs/{payment_run_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_run_id" + "}", _apiClient.ParameterToString(paymentRunId));
 
@@ -277,7 +269,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentRun>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePaymentRuns: " + response.Content, response.Content);

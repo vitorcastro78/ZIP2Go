@@ -51,7 +51,7 @@ namespace Service
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling ActivateOrder");
 
-            var path = "/orders/{order_id}/activate";
+            var path = "v2/orders/{order_id}/activate";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", _apiClient.ParameterToString(orderId));
 
@@ -76,7 +76,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Order>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ActivateOrder: " + response.Content, response.Content);
@@ -115,7 +115,7 @@ namespace Service
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling CancelOrder");
 
-            var path = "/orders/{order_id}/cancel";
+            var path = "v2/orders/{order_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", _apiClient.ParameterToString(orderId));
 
@@ -141,7 +141,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Order>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelOrder: " + response.Content, response.Content);
@@ -177,7 +177,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateOrder");
 
-            var path = "/orders";
+            var path = "v2/orders";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -202,7 +202,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Order>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateOrder: " + response.Content, response.Content);
@@ -228,7 +228,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateOrderPreview");
 
-            var path = "/orders/preview";
+            var path = "v2/orders/preview";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -243,7 +243,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<OrderPreviewResponse>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateOrderPreview: " + response.Content, response.Content);
@@ -269,7 +269,7 @@ namespace Service
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling DeleteOrder");
 
-            var path = "/orders/{order_id}";
+            var path = "v2/orders/{order_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", _apiClient.ParameterToString(orderId));
 
@@ -328,7 +328,7 @@ namespace Service
             // verify the required parameter 'orderId' is set
             if (orderId == null) throw new ApiException(400, "Missing required parameter 'orderId' when calling GetOrder");
 
-            var path = "/orders/{order_id}";
+            var path = "v2/orders/{order_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "order_id" + "}", _apiClient.ParameterToString(orderId));
 
@@ -384,7 +384,7 @@ namespace Service
         /// <returns>OrderListResponse</returns>
         public OrderListResponse GetOrders(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> orderActionsFields, List<string> subscriptionsFields, List<string> lineItemsFields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> invoiceItemsFields, string zuoraTrackId, bool? async)
         {
-            var path = "/orders";
+            var path = "v2/orders";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -418,14 +418,6 @@ namespace Service
             return (OrderListResponse)_apiClient.Deserialize(response.Content, typeof(OrderListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+       
     }
 }

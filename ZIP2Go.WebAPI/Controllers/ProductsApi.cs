@@ -61,7 +61,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Product created successfully</response>
         /// <response code="400">Invalid product data</response>
         [HttpPost]
-        [Route("/v2/products")]
+        [Route("/products")]
      //   [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateProduct")]
@@ -118,7 +118,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="productId">The ID of the product to delete</param>
         /// <returns>NoContent if successful</returns>
         [HttpDelete]
-        [Route("/v2/products/{product_id}")]
+        [Route("/products/{product_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteProduct")]
@@ -174,7 +174,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Product found and returned</response>
         /// <response code="404">Product not found</response>
         [HttpGet]
-        [Route("/v2/products/{product_id}")]
+        [Route("/products/{product_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetProduct")]
@@ -234,7 +234,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of products</returns>
         /// <response code="200">List of products retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/products")]
+        [Route("/products")]
         //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetProducts")]
@@ -268,7 +268,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Product updated successfully</response>
         /// <response code="404">Product not found</response>
         [HttpPatch]
-        [Route("/v2/products/{product_id}")]
+        [Route("/products/{product_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateProduct")]

@@ -61,7 +61,7 @@ namespace Service
         /// <returns>BillingDocumentItemListResponse</returns>
         public BillingDocumentItemListResponse GetBillingDocumentItems(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/billing_document_items";
+            var path = "v2/billing_document_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -84,14 +84,6 @@ namespace Service
             return (BillingDocumentItemListResponse)ApiClient.Deserialize(response.Content, typeof(BillingDocumentItemListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
+
     }
 }

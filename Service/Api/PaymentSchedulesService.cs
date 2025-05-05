@@ -50,7 +50,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleId' is set
             if (paymentScheduleId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleId' when calling CancelPaymentSchedule");
 
-            var path = "/payment_schedules/{payment_schedule_id}/cancel";
+            var path = "v2/payment_schedules/{payment_schedule_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_id" + "}", _apiClient.ParameterToString(paymentScheduleId));
 
@@ -71,7 +71,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentSchedule>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelPaymentSchedule: " + response.Content, response.Content);
@@ -102,7 +102,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePaymentSchedule");
 
-            var path = "/payment_schedules";
+            var path = "v2/payment_schedules";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -122,7 +122,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentSchedule>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePaymentSchedule: " + response.Content, response.Content);
@@ -162,7 +162,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleId' is set
             if (paymentScheduleId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleId' when calling GetPaymentSchedule");
 
-            var path = "/payment_schedules/{payment_schedule_id}";
+            var path = "v2/payment_schedules/{payment_schedule_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_id" + "}", _apiClient.ParameterToString(paymentScheduleId));
 
@@ -190,15 +190,6 @@ namespace Service
             return (PaymentSchedule)_apiClient.Deserialize(response.Content, typeof(PaymentSchedule));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Update a payment schedule Updates the specified payment schedule by setting the values of the parameters passed. Any parameters not provided will remain unchanged.
@@ -224,7 +215,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleId' is set
             if (paymentScheduleId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleId' when calling UpdatePaymentSchedule");
 
-            var path = "/payment_schedules/{payment_schedule_id}";
+            var path = "v2/payment_schedules/{payment_schedule_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_id" + "}", _apiClient.ParameterToString(paymentScheduleId));
 
@@ -245,7 +236,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentSchedule>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePaymentSchedule: " + response.Content, response.Content);

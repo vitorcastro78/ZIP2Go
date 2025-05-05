@@ -53,7 +53,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="404">Subscription not found</response>
         /// <response code="400">Subscription cannot be cancelled</response>
         [HttpPost]
-        [Route("/v2/subscriptions/{subscription_id}/cancel")]
+        [Route("/subscriptions/{subscription_id}/cancel")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CancelSubscription")]
@@ -70,7 +70,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Subscription created successfully</response>
         /// <response code="400">Invalid subscription data</response>
         [HttpPost]
-        [Route("/v2/subscriptions")]
+        [Route("/subscriptions")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateSubscription")]
@@ -87,7 +87,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Subscription found and returned</response>
         /// <response code="404">Subscription not found</response>
         [HttpGet]
-        [Route("/v2/subscriptions/{subscription_id}")]
+        [Route("/subscriptions/{subscription_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetSubscription")]
@@ -102,7 +102,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of subscriptions</returns>
         /// <response code="200">List of subscriptions retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/subscriptions")]
+        [Route("/subscriptions")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetSubscriptions")]
@@ -124,7 +124,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="404">Subscription not found</response>
         /// <response code="400">Subscription cannot be renewed</response>
         [HttpPost]
-        [Route("/v2/subscriptions/{subscription_id}/renew")]
+        [Route("/subscriptions/{subscription_id}/renew")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("RenewSubscription")]
@@ -142,7 +142,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Subscription updated successfully</response>
         /// <response code="404">Subscription not found</response>
         [HttpPatch]
-        [Route("/v2/subscriptions/{subscription_id}")]
+        [Route("/subscriptions/{subscription_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateSubscription")]

@@ -44,7 +44,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling AuthorizePaymentMethod");
 
-            var path = "/payment_methods/{payment_method_id}/authorize";
+            var path = "v2/payment_methods/{payment_method_id}/authorize";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -60,7 +60,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentMethodAuthorizationResponse>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling AuthorizePaymentMethod: " + response.Content, response.Content);
@@ -91,7 +91,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePaymentMethod");
 
-            var path = "/payment_methods";
+            var path = "v2/payment_methods";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -111,7 +111,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentMethod>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePaymentMethod: " + response.Content, response.Content);
@@ -137,7 +137,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling DeletePaymentMethod");
 
-            var path = "/payment_methods/{payment_method_id}";
+            var path = "v2/payment_methods/{payment_method_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -191,7 +191,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling GetPaymentMethodById");
 
-            var path = "/payment_methods/{payment_method_id}";
+            var path = "v2/payment_methods/{payment_method_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -237,7 +237,7 @@ namespace Service
         /// <returns>PaymentMethodListResponse</returns>
         public PaymentMethodListResponse GetPaymentMethods(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/payment_methods";
+            var path = "v2/payment_methods";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -282,7 +282,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling ScrubPaymentMethod");
 
-            var path = "/payment_methods/{payment_method_id}/scrub";
+            var path = "v2/payment_methods/{payment_method_id}/scrub";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -307,15 +307,7 @@ namespace Service
             return;
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+       
 
         /// <summary>
         /// Update a payment method Updates the specified payment method by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -341,7 +333,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling UpdatePaymentMethod");
 
-            var path = "/payment_methods/{payment_method_id}";
+            var path = "v2/payment_methods/{payment_method_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -362,7 +354,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentMethod>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePaymentMethod: " + response.Content, response.Content);
@@ -396,7 +388,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling VerifyPaymentMethod");
 
-            var path = "/payment_methods/{payment_method_id}/verify";
+            var path = "v2/payment_methods/{payment_method_id}/verify";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -417,7 +409,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentMethod>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling VerifyPaymentMethod: " + response.Content, response.Content);
@@ -446,7 +438,7 @@ namespace Service
             // verify the required parameter 'paymentMethodId' is set
             if (paymentMethodId == null) throw new ApiException(400, "Missing required parameter 'paymentMethodId' when calling VoidAuthorizationPaymentMethod");
 
-            var path = "/payment_methods/{payment_method_id}/void_authorization";
+            var path = "v2/payment_methods/{payment_method_id}/void_authorization";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_method_id" + "}", _apiClient.ParameterToString(paymentMethodId));
 
@@ -462,7 +454,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentMethodAuthorizationResponse>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling VoidAuthorizationPaymentMethod: " + response.Content, response.Content);

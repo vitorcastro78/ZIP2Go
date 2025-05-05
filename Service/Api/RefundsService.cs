@@ -56,7 +56,7 @@ namespace Service
             // verify the required parameter 'refundId' is set
             if (refundId == null) throw new ApiException(400, "Missing required parameter 'refundId' when calling CancelRefund");
 
-            var path = "/refunds/{refund_id}/cancel";
+            var path = "v2/refunds/{refund_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "refund_id" + "}", _apiClient.ParameterToString(refundId));
 
@@ -79,7 +79,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Refund>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelRefund: " + response.Content, response.Content);
@@ -113,7 +113,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateRefund");
 
-            var path = "/refunds";
+            var path = "v2/refunds";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -136,7 +136,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Refund>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateRefund: " + response.Content, response.Content);
@@ -162,7 +162,7 @@ namespace Service
             // verify the required parameter 'refundId' is set
             if (refundId == null) throw new ApiException(400, "Missing required parameter 'refundId' when calling DeleteRefund");
 
-            var path = "/refunds/{refund_id}";
+            var path = "v2/refunds/{refund_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "refund_id" + "}", _apiClient.ParameterToString(refundId));
 
@@ -219,7 +219,7 @@ namespace Service
             // verify the required parameter 'refundId' is set
             if (refundId == null) throw new ApiException(400, "Missing required parameter 'refundId' when calling GetRefund");
 
-            var path = "/refunds/{refund_id}";
+            var path = "v2/refunds/{refund_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "refund_id" + "}", _apiClient.ParameterToString(refundId));
 
@@ -271,7 +271,7 @@ namespace Service
         /// <returns>RefundListResponse</returns>
         public RefundListResponse GetRefunds(string cursor, List<string> paymentMethodFields, List<string> appliedToFields, List<string> refundAppliedToItemFields, string zuoraTrackId, bool? async)
         {
-            var path = "/refunds";
+            var path = "v2/refunds";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -303,15 +303,6 @@ namespace Service
             return (RefundListResponse)_apiClient.Deserialize(response.Content, typeof(RefundListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Update a refund Updates the specified refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -340,7 +331,7 @@ namespace Service
             // verify the required parameter 'refundId' is set
             if (refundId == null) throw new ApiException(400, "Missing required parameter 'refundId' when calling UpdateRefund");
 
-            var path = "/refunds/{refund_id}";
+            var path = "v2/refunds/{refund_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "refund_id" + "}", _apiClient.ParameterToString(refundId));
 
@@ -364,7 +355,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<Product>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateRefund: " + response.Content, response.Content);

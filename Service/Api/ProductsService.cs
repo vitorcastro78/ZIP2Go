@@ -11,13 +11,15 @@ namespace Service
     /// </summary>
     public class ProductsService : IProductsService
     {
+        public readonly IApiClient _apiClient;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProductsService"/> class.
         /// </summary>
         /// <param name="apiClient"> an instance of ApiClient (optional)</param>
         /// <returns></returns>
         private readonly IEasyCachingProvider _cache;
-        public readonly IApiClient _apiClient;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
@@ -25,13 +27,9 @@ namespace Service
         /// <returns></returns>
         public ProductsService(ApiClient apiClient, IEasyCachingProvider cache)
         {
-
             _apiClient = apiClient;
             _cache = cache;
         }
-
-
-
 
         /// <summary>
         /// Create a product Creates a new product object.
@@ -103,7 +101,7 @@ namespace Service
             // verify the required parameter 'productId' is set
             if (productId == null) throw new ApiException(400, "Missing required parameter 'productId' when calling DeleteProduct");
 
-            var path = "/products/{product_id}";
+            var path = "v2/products/{product_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "product_id" + "}", _apiClient.ParameterToString(productId));
 
@@ -126,8 +124,6 @@ namespace Service
 
             return;
         }
-
-
 
         /// <summary>
         /// Retrieve a product Retrieves the product with the given ID.
@@ -222,28 +218,14 @@ namespace Service
             return result;
         }
 
-
         public ProductListResponse GetProductsCached()
         {
             var result = new ProductListResponse();
             {
                 result.Data = _apiClient.RequestCachedResult<Product>();
             }
-            
-            return result ;
-        }
 
-        
-
-
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
+            return result;
         }
 
         /// <summary>
@@ -271,7 +253,7 @@ namespace Service
             // verify the required parameter 'productId' is set
             if (productId == null) throw new ApiException(400, "Missing required parameter 'productId' when calling UpdateProduct");
 
-            var path = "/products/{product_id}";
+            var path = "v2/products/{product_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "product_id" + "}", _apiClient.ParameterToString(productId));
 

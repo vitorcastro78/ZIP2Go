@@ -47,7 +47,7 @@ namespace Service
             // verify the required parameter 'billRunId' is set
             if (billRunId == null) throw new ApiException(400, "Missing required parameter 'billRunId' when calling CancelBillRun");
 
-            var path = "/bill_runs/{bill_run_id}/cancel";
+            var path = "v2/bill_runs/{bill_run_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "bill_run_id" + "}", _apiClient.ParameterToString(billRunId));
 
@@ -66,7 +66,7 @@ namespace Service
             //// if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<BillRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelBillRun: " + response.Content, response.Content);
@@ -96,7 +96,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateBillRun");
 
-            var path = "/bill_runs";
+            var path = "v2/bill_runs";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -115,7 +115,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<BillRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateBillRun: " + response.Content, response.Content);
@@ -141,7 +141,7 @@ namespace Service
             // verify the required parameter 'billRunId' is set
             if (billRunId == null) throw new ApiException(400, "Missing required parameter 'billRunId' when calling DeleteBillRun");
 
-            var path = "/bill_runs/{bill_run_id}";
+            var path = "v2/bill_runs/{bill_run_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "bill_run_id" + "}", _apiClient.ParameterToString(billRunId));
 
@@ -194,7 +194,7 @@ namespace Service
             // verify the required parameter 'billRunId' is set
             if (billRunId == null) throw new ApiException(400, "Missing required parameter 'billRunId' when calling GetBillRun");
 
-            var path = "/bill_runs/{bill_run_id}";
+            var path = "v2/bill_runs/{bill_run_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "bill_run_id" + "}", _apiClient.ParameterToString(billRunId));
 
@@ -238,7 +238,7 @@ namespace Service
         /// <returns>BillRunListResponse</returns>
         public BillRunListResponse GetBillRuns(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId, bool? async)
         {
-            var path = "/bill_runs";
+            var path = "v2/bill_runs";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -289,7 +289,7 @@ namespace Service
             // verify the required parameter 'billRunId' is set
             if (billRunId == null) throw new ApiException(400, "Missing required parameter 'billRunId' when calling PostBillRun");
 
-            var path = "/bill_runs/{bill_run_id}/post";
+            var path = "v2/bill_runs/{bill_run_id}/post";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "bill_run_id" + "}", _apiClient.ParameterToString(billRunId));
 
@@ -309,7 +309,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<BillRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostBillRun: " + response.Content, response.Content);
@@ -319,14 +319,6 @@ namespace Service
             return (BillRun)_apiClient.Deserialize(response.Content, typeof(BillRun));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+
     }
 }

@@ -60,7 +60,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="201">Contact created successfully</response>
         /// <response code="400">Invalid contact data</response>
         [HttpPost]
-        [Route("/v2/contacts")]
+        [Route("/contacts")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreateContact")]
@@ -128,7 +128,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpDelete]
-        [Route("/v2/contacts/{contact_id}")]
+        [Route("/contacts/{contact_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("DeleteContact")]
@@ -184,7 +184,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Contact found and returned</response>
         /// <response code="404">Contact not found</response>
         [HttpGet]
-        [Route("/v2/contacts/{contact_id}")]
+        [Route("/contacts/{contact_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetContact")]
@@ -236,7 +236,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <returns>A paginated list of contacts</returns>
         /// <response code="200">List of contacts retrieved successfully</response>
         [HttpGet]
-        [Route("/v2/contacts")]
+        [Route("/contacts")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetContacts")]
@@ -307,7 +307,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/contacts/{contact_id}/scrub")]
+        [Route("/contacts/{contact_id}/scrub")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("ScrubContact")]
@@ -364,7 +364,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Contact updated successfully</response>
         /// <response code="404">Contact not found</response>
         [HttpPatch]
-        [Route("/v2/contacts/{contact_id}")]
+        [Route("/contacts/{contact_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdateContact")]

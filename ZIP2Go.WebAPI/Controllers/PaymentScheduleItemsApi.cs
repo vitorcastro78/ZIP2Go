@@ -71,7 +71,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/payment_schedule_items/{payment_schedule_item_id}/cancel")]
+        [Route("/payment_schedule_items/{payment_schedule_item_id}/cancel")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CancelPaymentScheduleItem")]
@@ -152,7 +152,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="503">Service Unavailable</response>
         /// <response code="504">Gateway Timeout</response>
         [HttpPost]
-        [Route("/v2/payment_schedule_items")]
+        [Route("/payment_schedule_items")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("CreatePaymentScheduleItem")]
@@ -212,7 +212,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="paymentScheduleItemId">The ID of the payment schedule item to retrieve</param>
         /// <returns>The requested payment schedule item details</returns>
         [HttpGet]
-        [Route("/v2/payment_schedule_items/{payment_schedule_item_id}")]
+        [Route("/payment_schedule_items/{payment_schedule_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetPaymentScheduleItem")]
@@ -273,7 +273,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="paymentScheduleItemId">The ID of the payment schedule item to retry</param>
         /// <returns>The retried payment schedule item</returns>
         [HttpPost]
-        [Route("/v2/payment_schedule_items/{payment_schedule_item_id}/retry")]
+        [Route("/payment_schedule_items/{payment_schedule_item_id}/retry")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("RetryPaymentScheduleItem")]
@@ -333,7 +333,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="paymentScheduleItemId">The ID of the payment schedule item to skip</param>
         /// <returns>The skipped payment schedule item</returns>
         [HttpPost]
-        [Route("/v2/payment_schedule_items/{payment_schedule_item_id}/skip")]
+        [Route("/payment_schedule_items/{payment_schedule_item_id}/skip")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("SkipPaymentScheduleItem")]
@@ -394,7 +394,7 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <param name="paymentScheduleItemId">The ID of the payment schedule item to update</param>
         /// <returns>The updated payment schedule item</returns>
         [HttpPatch]
-        [Route("/v2/payment_schedule_items/{payment_schedule_item_id}")]
+        [Route("/payment_schedule_items/{payment_schedule_item_id}")]
         [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("UpdatePaymentScheduleItem")]

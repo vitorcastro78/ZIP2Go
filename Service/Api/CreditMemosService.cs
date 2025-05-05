@@ -53,7 +53,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling ApplyCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}/apply";
+            var path = "v2/credit_memos/{credit_memo_id}/apply";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -69,7 +69,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling ApplyCreditMemo: " + response.Content, response.Content);
@@ -104,7 +104,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling CancelCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}/cancel";
+            var path = "v2/credit_memos/{credit_memo_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -118,7 +118,7 @@ namespace Service
             if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelCreditMemo: " + response.Content, response.Content);
@@ -153,7 +153,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateCreditMemo");
 
-            var path = "/credit_memos";
+            var path = "v2/credit_memos";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -168,7 +168,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateCreditMemo: " + response.Content, response.Content);
@@ -194,7 +194,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling DeleteCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}";
+            var path = "v2/credit_memos/{credit_memo_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -252,7 +252,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling GetCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}";
+            var path = "v2/credit_memos/{credit_memo_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -296,7 +296,7 @@ namespace Service
         /// <returns>CreditMemoItemListResponse</returns>
         public CreditMemoItemListResponse GetCreditMemoItems(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/credit_memo_items";
+            var path = "v2/credit_memo_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -341,7 +341,7 @@ namespace Service
         /// <returns>CreditMemoListResponse</returns>
         public CreditMemoListResponse GetCreditMemos(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/credit_memos";
+            var path = "v2/credit_memos";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -392,7 +392,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling PatchCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}";
+            var path = "v2/credit_memos/{credit_memo_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -408,7 +408,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchCreditMemo: " + response.Content, response.Content);
@@ -443,7 +443,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling PostCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}/post";
+            var path = "v2/credit_memos/{credit_memo_id}/post";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -457,7 +457,7 @@ namespace Service
             if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostCreditMemo: " + response.Content, response.Content);
@@ -467,15 +467,6 @@ namespace Service
             return (CreditMemo)_apiClient.Deserialize(response.Content, typeof(CreditMemo));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Unapply a credit memo Unapply an applied credit memo.
@@ -505,7 +496,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling UnapplyCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}/unapply";
+            var path = "v2/credit_memos/{credit_memo_id}/unapply";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -520,7 +511,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnapplyCreditMemo: " + response.Content, response.Content);
@@ -555,7 +546,7 @@ namespace Service
             // verify the required parameter 'creditMemoId' is set
             if (creditMemoId == null) throw new ApiException(400, "Missing required parameter 'creditMemoId' when calling UnpostCreditMemo");
 
-            var path = "/credit_memos/{credit_memo_id}/unpost";
+            var path = "v2/credit_memos/{credit_memo_id}/unpost";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "credit_memo_id" + "}", _apiClient.ParameterToString(creditMemoId));
 
@@ -570,7 +561,7 @@ namespace Service
             // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CreditMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostCreditMemo: " + response.Content, response.Content);

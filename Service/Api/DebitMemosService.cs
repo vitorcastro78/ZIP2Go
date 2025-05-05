@@ -50,7 +50,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling CancelDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/cancel";
+            var path = "v2/debit_memos/{debit_memo_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -73,7 +73,7 @@ namespace Service
             //// if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelDebitMemo: " + response.Content, response.Content);
@@ -107,7 +107,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateDebitMemo");
 
-            var path = "/debit_memos";
+            var path = "v2/debit_memos";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -130,7 +130,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateDebitMemo: " + response.Content, response.Content);
@@ -156,7 +156,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling DeleteDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}";
+            var path = "v2/debit_memos/{debit_memo_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -213,7 +213,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling GetDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}";
+            var path = "v2/debit_memos/{debit_memo_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -262,7 +262,7 @@ namespace Service
         /// <returns>DebitMemoItemListResponse</returns>
         public DebitMemoItemListResponse GetDebitMemoItems(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/debit_memo_items";
+            var path = "v2/debit_memo_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -312,7 +312,7 @@ namespace Service
         /// <returns>DebitMemoListResponse</returns>
         public DebitMemoListResponse GetDebitMemos(string cursor, string zuoraTrackId, bool? async)
         {
-            var path = "/debit_memos";
+            var path = "v2/debit_memos";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -371,7 +371,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling PatchDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}";
+            var path = "v2/debit_memos/{debit_memo_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -395,7 +395,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchDebitMemo: " + response.Content, response.Content);
@@ -432,7 +432,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling PayDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/pay";
+            var path = "v2/debit_memos/{debit_memo_id}/pay";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -456,7 +456,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PayDebitMemo: " + response.Content, response.Content);
@@ -490,7 +490,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling PostsDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/post";
+            var path = "v2/debit_memos/{debit_memo_id}/post";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -513,7 +513,7 @@ namespace Service
                                                                                               //// if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostsDebitMemo: " + response.Content, response.Content);
@@ -523,15 +523,7 @@ namespace Service
             return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+      
 
         /// <summary>
         /// Unpost a debit memo Unposts an open debit memo that has not been applied or refunded, and changes its &#x60;state&#x60; to &#x60;draft&#x60;.
@@ -557,7 +549,7 @@ namespace Service
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling UnpostsDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/unpost";
+            var path = "v2/debit_memos/{debit_memo_id}/unpost";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "debit_memo_id" + "}", _apiClient.ParameterToString(debitMemoId));
 
@@ -580,7 +572,7 @@ namespace Service
                                                                                               //// if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostsDebitMemo: " + response.Content, response.Content);

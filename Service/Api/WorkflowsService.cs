@@ -46,7 +46,7 @@ namespace Service
             // verify the required parameter 'workflowId' is set
             if (workflowId == null) throw new ApiException(400, "Missing required parameter 'workflowId' when calling RunWorkflow");
 
-            var path = "/workflows/{workflow_id}/run";
+            var path = "v2/workflows/{workflow_id}/run";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "workflow_id" + "}", _apiClient.ParameterToString(workflowId));
 
@@ -62,7 +62,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<WorkflowRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling RunWorkflow: " + response.Content, response.Content);
@@ -72,14 +72,6 @@ namespace Service
             return (WorkflowRun)_apiClient.Deserialize(response.Content, typeof(WorkflowRun));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
+       
     }
 }

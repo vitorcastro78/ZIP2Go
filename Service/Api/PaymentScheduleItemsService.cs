@@ -47,7 +47,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleItemId' is set
             if (paymentScheduleItemId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleItemId' when calling CancelPaymentScheduleItem");
 
-            var path = "/payment_schedule_items/{payment_schedule_item_id}/cancel";
+            var path = "v2/payment_schedule_items/{payment_schedule_item_id}/cancel";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_item_id" + "}", _apiClient.ParameterToString(paymentScheduleItemId));
 
@@ -67,7 +67,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentScheduleItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelPaymentScheduleItem: " + response.Content, response.Content);
@@ -98,7 +98,7 @@ namespace Service
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreatePaymentScheduleItem");
 
-            var path = "/payment_schedule_items";
+            var path = "v2/payment_schedule_items";
             path = path.Replace("{format}", "json");
 
             var queryParams = new Dictionary<string, string>();
@@ -118,7 +118,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentScheduleItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreatePaymentScheduleItem: " + response.Content, response.Content);
@@ -158,7 +158,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleItemId' is set
             if (paymentScheduleItemId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleItemId' when calling GetPaymentScheduleItem");
 
-            var path = "/payment_schedule_items/{payment_schedule_item_id}";
+            var path = "v2/payment_schedule_items/{payment_schedule_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_item_id" + "}", _apiClient.ParameterToString(paymentScheduleItemId));
 
@@ -210,7 +210,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleItemId' is set
             if (paymentScheduleItemId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleItemId' when calling RetryPaymentScheduleItem");
 
-            var path = "/payment_schedule_items/{payment_schedule_item_id}/retry";
+            var path = "v2/payment_schedule_items/{payment_schedule_item_id}/retry";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_item_id" + "}", _apiClient.ParameterToString(paymentScheduleItemId));
 
@@ -231,7 +231,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentScheduleItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling RetryPaymentScheduleItem: " + response.Content, response.Content);
@@ -241,16 +241,7 @@ namespace Service
             return (PaymentScheduleItem)_apiClient.Deserialize(response.Content, typeof(PaymentScheduleItem));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this._apiClient.BasePath = basePath;
-        }
-
+       
         /// <summary>
         /// Skip a payment schedule item Skips the payment schedule item with the given ID.
         /// </summary>
@@ -272,7 +263,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleItemId' is set
             if (paymentScheduleItemId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleItemId' when calling SkipPaymentScheduleItem");
 
-            var path = "/payment_schedule_items/{payment_schedule_item_id}/skip";
+            var path = "v2/payment_schedule_items/{payment_schedule_item_id}/skip";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_item_id" + "}", _apiClient.ParameterToString(paymentScheduleItemId));
 
@@ -292,7 +283,7 @@ namespace Service
                                                                                               // if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentScheduleItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling SkipPaymentScheduleItem: " + response.Content, response.Content);
@@ -326,7 +317,7 @@ namespace Service
             // verify the required parameter 'paymentScheduleItemId' is set
             if (paymentScheduleItemId == null) throw new ApiException(400, "Missing required parameter 'paymentScheduleItemId' when calling UpdatePaymentScheduleItem");
 
-            var path = "/payment_schedule_items/{payment_schedule_item_id}";
+            var path = "v2/payment_schedule_items/{payment_schedule_item_id}";
             path = path.Replace("{format}", "json");
             path = path.Replace("{" + "payment_schedule_item_id" + "}", _apiClient.ParameterToString(paymentScheduleItemId));
 
@@ -347,7 +338,7 @@ namespace Service
             postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)_apiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<PaymentScheduleItem>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdatePaymentScheduleItem: " + response.Content, response.Content);
