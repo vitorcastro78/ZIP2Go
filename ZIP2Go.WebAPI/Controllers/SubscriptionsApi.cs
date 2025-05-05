@@ -9,6 +9,8 @@ using ZIP2Go.WebAPI.Controllers;
 using Service.Models;
 using ZIP2GO.WebAPI.Attributes;
 using ZIP2GO.WebAPI.Security;
+using Microsoft.Identity.Client;
+using Service;
 
 namespace ZIP2GO.WebAPI.Controllers
 {
@@ -106,7 +108,11 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerOperation("GetSubscriptions")]
         public async Task<IActionResult> GetSubscriptions()
         {
-            return new ObjectResult(null);
+            string zuoraTrackId = new Guid().ToString();
+            bool async = true;
+            string exampleJson = null;
+            var result = _subscriptionsService.GetSubscriptions(zuoraTrackId, async);           //TODO: Change the data returned
+            return new ObjectResult(result);
         }
 
         /// <summary>
