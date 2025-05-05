@@ -182,7 +182,7 @@ namespace Service.Interfaces
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>SubscriptionListResponse</returns>
-        SubscriptionListResponse GetSubscriptions(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> subscriptionPlansFields, List<string> subscriptionItemsFields, List<string> accountFields, List<string> invoiceOwnerAccountFields, List<string> planFields, List<string> productFields, List<string> priceFields, List<string> billToFields, List<string> prepaidBalanceFields, List<string> prepaidBalancesFields, List<string> validityPeriodFields, List<string> transactionsFields, string zuoraTrackId, bool? async);
+        SubscriptionListResponse GetSubscriptions(string zuoraTrackId, bool? async);
 
         /// <summary>
         /// Update a subscription Updates the specified subscription by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
