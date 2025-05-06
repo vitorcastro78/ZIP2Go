@@ -198,7 +198,7 @@ namespace Service.Client
 
             var result = RestClient.Execute(request);
 
-            if (method != Method.Get)
+            if (method != Method.Get && result.IsSuccessful)
             {
                 var ret = Deserialize(result.Content, typeof(T));
                 SetCache<T>(ret);

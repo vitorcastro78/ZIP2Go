@@ -174,8 +174,8 @@ namespace ZIP2GO.WebAPI.Controllers
         /// <response code="200">Product found and returned</response>
         /// <response code="404">Product not found</response>
         [HttpGet]
-        [Route("/products/{product_id}")]
-        [Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
+        [Route("/products/{productId}")]
+        //[Authorize(AuthenticationSchemes = BearerAuthenticationHandler.SchemeName)]
         [ValidateModelState]
         [SwaggerOperation("GetProduct")]
         [SwaggerResponse(statusCode: 200, type: typeof(Product), description: "Default Response")]
@@ -190,37 +190,12 @@ namespace ZIP2GO.WebAPI.Controllers
         [SwaggerResponse(statusCode: 504, type: typeof(ErrorResponse), description: "Gateway Timeout")]
         public async Task<IActionResult> GetProduct([FromRoute][Required] string productId)
         {
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Product));
 
-            //TODO: Uncomment the next line to return response 400 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(400, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 401 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(401, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 405 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(405, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 429 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(429, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 500 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(500, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 502 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(502, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 503 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(503, default(ErrorResponse));
-
-            //TODO: Uncomment the next line to return response 504 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(504, default(ErrorResponse));
+       
             string exampleJson = null;
             exampleJson = "{\n  \"end_date\" : \"2000-01-23\",\n  \"updated_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"created_time\" : \"2000-01-23T04:56:07.000+00:00\",\n  \"custom_fields\" : \"\",\n  \"description\" : \"description\",\n  \"active\" : true,\n  \"type\" : \"base\",\n  \"custom_objects\" : \"\",\n  \"plans\" : \"\",\n  \"name\" : \"name\",\n  \"updated_by_id\" : \"updated_by_id\",\n  \"id\" : \"id\",\n  \"created_by_id\" : \"created_by_id\",\n  \"sku\" : \"sku\",\n  \"start_date\" : \"2000-01-23\"\n}";
+
+            _productsService.GetProductCached(productId);
 
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Product>(exampleJson)

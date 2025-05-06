@@ -228,6 +228,12 @@ namespace Service
             return result;
         }
 
+        public Product GetProductCached(string productId)
+        {
+             return _apiClient.RequestCachedResult<Product>(productId);
+
+        }
+
         /// <summary>
         /// Update a product Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         /// </summary>

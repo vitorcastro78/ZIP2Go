@@ -78,6 +78,8 @@ namespace Service.Interfaces
 
         ProductListResponse GetProductsCached();
 
+        Product GetProductCached(string productId);
+
         /// <summary>
         /// Update a product Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         /// </summary>
