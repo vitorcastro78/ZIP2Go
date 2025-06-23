@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Term information of the subscription.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// If true, the subscription automatically renews at the end of the current term.
         /// </summary>
         /// <value>If true, the subscription automatically renews at the end of the current term.</value>
-        [DataMember(Name = "auto_renew", EmitDefaultValue = false)]
+        [DataMember(Name = "auto_renew")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "auto_renew")]
         public bool? AutoRenew { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Current term information for the subscription.
         /// </summary>
         /// <value>Current term information for the subscription.</value>
-        [DataMember(Name = "current_term", EmitDefaultValue = false)]
+        [DataMember(Name = "current_term")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "current_term")]
         public AllOfsubscriptionTermPatchResponseCurrentTerm CurrentTerm { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Renewal term information for the subscription.
         /// </summary>
         /// <value>Renewal term information for the subscription.</value>
-        [DataMember(Name = "renewal_term", EmitDefaultValue = false)]
+        [DataMember(Name = "renewal_term")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "renewal_term")]
         public AllOfsubscriptionTermPatchResponseRenewalTerm RenewalTerm { get; set; }
 

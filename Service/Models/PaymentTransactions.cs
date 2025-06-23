@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The payment transaction amount.
         /// </summary>
         /// <value>The payment transaction amount.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public List<string> Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The number of the payment.
         /// </summary>
         /// <value>The number of the payment.</value>
-        [DataMember(Name = "payment_number", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_number")]
         public string PaymentNumber { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The related payments.
         /// </summary>
         /// <value>The related payments.</value>
-        [DataMember(Name = "payments", EmitDefaultValue = false)]
+        [DataMember(Name = "payments")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments")]
         public AllOfpaymentTransactionsPayments Payments { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The state of the payment.
         /// </summary>
         /// <value>The state of the payment.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public AllOfpaymentTransactionsState State { get; set; }
 

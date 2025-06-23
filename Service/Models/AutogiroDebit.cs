@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// If the &#x60;type&#x60; of the payment method is &#x60;autogiro_debit&#x60;, this hash contains details about the Autogiro bank account.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The bank account number of the account holder.
         /// </summary>
         /// <value>The bank account number of the account holder.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the bank branch associated with this bank account.
         /// </summary>
         /// <value>Identifier of the bank branch associated with this bank account.</value>
-        [DataMember(Name = "branch_code", EmitDefaultValue = false)]
+        [DataMember(Name = "branch_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "branch_code")]
         public string BranchCode { get; set; }
 
@@ -30,14 +30,14 @@ namespace ZIP2GO.Service.Models
         /// The identity number used for Autogiro (Direct Debit SE).
         /// </summary>
         /// <value>The identity number used for Autogiro (Direct Debit SE).</value>
-        [DataMember(Name = "identity_number", EmitDefaultValue = false)]
+        [DataMember(Name = "identity_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "identity_number")]
         public string IdentityNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
 

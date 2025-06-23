@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -13,21 +13,21 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Errors
         /// </summary>
-        [DataMember(Name = "errors", EmitDefaultValue = false)]
+        [DataMember(Name = "errors")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "errors")]
         public List<Error> Errors { get; set; }
 
         /// <summary>
         /// Gets or Sets Retryable
         /// </summary>
-        [DataMember(Name = "retryable", EmitDefaultValue = false)]
+        [DataMember(Name = "retryable")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "retryable")]
         public bool? Retryable { get; set; }
 
         /// <summary>
         /// Gets or Sets Type
         /// </summary>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

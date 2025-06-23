@@ -1,207 +1,150 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
+using EasyCaching.Core;
+using Service.Constants;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public class DebitMemosService : IDebitMemosService
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DebitMemosService"/> class.
-        /// </summary>
-        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
-        /// <returns></returns>
-        public DebitMemosService(ApiClient apiClient = null)
-        {
-            if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
-            else
-                this.ApiClient = apiClient;
-        }
+        public readonly IApiClient _apiClient;
+
+        private readonly List<string> expand;
+        private readonly List<string> expandItems;
+        private List<string> filter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DebitMemosService"/> class.
         /// </summary>
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
         /// <returns></returns>
-        public DebitMemosService(string basePath)
+        public DebitMemosService(ApiClient apiClient)
         {
-            this.ApiClient = new ApiClient(basePath);
+            _apiClient = apiClient;
+            expand = new Expands().DebitMemoExpand;
+            expandItems = new Expands().DebitMemoItemExpand;
+            filter = new List<string>
+                {
+                    "enabled.EQ:true",
+                    "subscriptions.state.EQ:active",
+                };
         }
 
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
 
         /// <summary>
-        /// Cancel a debit memo Cancels a debit memo. Only the debit memos with the &#x60;draft&#x60; status can be canceled.
+        /// 
         /// </summary>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityId">An entity ID. If you have multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity, or you do not have multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo CancelDebitMemo(string debitMemoId, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        /// <param name="debitMemoId"></param>
+        /// <param name="zuoraTrackId"></param>
+        /// <param name="async"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public DebitMemo CancelDebitMemo(string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling CancelDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/cancel";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}/cancel";
+            
+            path = path.Replace("{" + "debitMemoId" + "}", _apiClient.ParameterToString(debitMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
-           
-           
-           
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CancelDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
 
         /// <summary>
-        /// Create a debit memo Creates debit memo
+        /// 
         /// </summary>
         /// <param name="body"></param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo CreateDebitMemo(DebitMemoCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize)
+        /// <param name="zuoraTrackId"></param>
+        /// <param name="async"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public DebitMemo CreateDebitMemo(DebitMemoCreateRequest body, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateDebitMemo");
 
-            var path = "/debit_memos";
-            path = path.Replace("{format}", "json");
+            var path =$"v2/debit_memos";
+            
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
 
         /// <summary>
-        /// Delete a debit memo Permanently deletes a debit memo. This operation cannot be undone once it is performed.
+        /// 
         /// </summary>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns></returns>
+        /// <param name="debitMemoId"></param>
+        /// <param name="zuoraTrackId"></param>
+        /// <param name="async"></param>
+        /// <exception cref="ApiException"></exception>
         public void DeleteDebitMemo(string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling DeleteDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}";
+            
+            path = path.Replace("{" + "debitMemoId" + "}", _apiClient.ParameterToString(debitMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Delete, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling DeleteDebitMemo: " + response.Content, response.Content);
@@ -211,459 +154,271 @@ namespace ZIP2GO.Service
             return;
         }
 
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public string GetBasePath(string basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
 
         /// <summary>
-        /// Retrieve a debit memo Retrieves the debit memo with the given ID.
+        ///     
         /// </summary>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo GetDebitMemo(string debitMemoId, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId)
+        /// <param name="debitMemoId"></param>
+        /// <param name="zuoraTrackId"></param>
+        /// <param name="async"></param>
+        /// <returns></returns>
+        /// <exception cref="ApiException"></exception>
+        public DebitMemo GetDebitMemo(string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling GetDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}";
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
-
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetDebitMemo: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
-
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return _apiClient.ExecuteRequest<DebitMemo>(path, queryParams, postBody);
         }
 
-        /// <summary>
-        /// List debit memos Returns a dictionary with a data property that contains an array of debit memoes, starting after cursor. Each entry in the array is a separate invoice object. If no more invoices are available, the resulting array will be empty. This request should never return an error.
-        /// </summary>
-        /// <param name="cursor">A cursor for use in pagination. A cursor defines the starting place in a list. For instance, if you make a list request and receive 100 objects, ending with &#x60;next_page&#x3D;W3sib3JkZXJ&#x3D;&#x60;, your subsequent call can include &#x60;cursor&#x3D;W3sib3JkZXJ&#x3D;&#x60; in order to fetch the next page of the list.</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="sort">A case-sensitive query parameter that specifies the sort order of the list, which can be either ascending (e.g. &#x60;account_number.asc&#x60;) or descending (e.g. &#x60;account_number.desc&#x60;). You cannot sort on properties that are arrays. If the array-type properties are specified for the &#x60;sort[]&#x60; parameter, they are ignored.</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>DebitMemoListResponse</returns>
-        public DebitMemoListResponse GetDebitMemoes(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, string zuoraTrackId)
+         /// <summary>
+         /// Retrieves a list of debit memo items based on the specified parameters.
+         /// </summary>
+         /// <remarks>This method interacts with the Zuora API to retrieve debit memo items. The results
+         /// can be paginated using the  <paramref name="cursor"/> parameter. If <paramref name="async"/> is set to <see
+         /// langword="true"/>, the response  may indicate that the operation is still in progress.</remarks>
+         /// <param name="cursor">A string representing the pagination cursor for retrieving the next set of results.  Pass null or an empty
+         /// string to retrieve the first page of results.</param>
+         /// <param name="zuoraTrackId">A unique identifier used for tracking the request in Zuora. This parameter is optional.</param>
+         /// <param name="async">A boolean value indicating whether the request should be processed asynchronously.  If <see
+         /// langword="true"/>, the request is processed asynchronously; otherwise, it is processed synchronously.</param>
+         /// <returns>A <see cref="DebitMemoItemListResponse"/> object containing the list of debit memo items and associated
+         /// metadata.</returns>
+        public DebitMemoItemListResponse GetDebitMemoItems(string zuoraTrackId, bool? async)
         {
-            var path = "/debit_memos";
-            path = path.Replace("{format}", "json");
+            var path =$"v2/debit_memo_items";
+            
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expandItems != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expandItems)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
-
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetDebitMemoes: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetDebitMemoes: " + response.ErrorMessage, response.ErrorMessage);
-
-            return (DebitMemoListResponse)ApiClient.Deserialize(response.Content, typeof(DebitMemoListResponse));
+            _apiClient.ExecuteRequest<DebitMemoItemListResponse>(path, queryParams, postBody, true);
+            return new DebitMemoItemListResponse();
         }
 
-        /// <summary>
-        /// List debit memo items Lists item information on all or a subset of debit memos.
-        /// </summary>
-        /// <param name="cursor">A cursor for use in pagination. A cursor defines the starting place in a list. For instance, if you make a list request and receive 100 objects, ending with &#x60;next_page&#x3D;W3sib3JkZXJ&#x3D;&#x60;, your subsequent call can include &#x60;cursor&#x3D;W3sib3JkZXJ&#x3D;&#x60; in order to fetch the next page of the list.</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="sort">A case-sensitive query parameter that specifies the sort order of the list, which can be either ascending (e.g. &#x60;account_number.asc&#x60;) or descending (e.g. &#x60;account_number.desc&#x60;). You cannot sort on properties that are arrays. If the array-type properties are specified for the &#x60;sort[]&#x60; parameter, they are ignored.</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>DebitMemoItemListResponse</returns>
-        public DebitMemoItemListResponse GetDebitMemoItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, List<string> taxationItemsFields, string zuoraTrackId)
+        public DebitMemoListResponse GetDebitMemos(string zuoraTrackId, bool? async)
         {
-            var path = "/debit_memo_items";
-            path = path.Replace("{format}", "json");
+            var path =$"v2/debit_memos";
+            
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter));
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
-
-            if (((int)response.StatusCode) >= 400)
-                throw new ApiException((int)response.StatusCode, "Error calling GetDebitMemoItems: " + response.Content, response.Content);
-            else if (((int)response.StatusCode) == 0)
-                throw new ApiException((int)response.StatusCode, "Error calling GetDebitMemoItems: " + response.ErrorMessage, response.ErrorMessage);
-
-            return (DebitMemoItemListResponse)ApiClient.Deserialize(response.Content, typeof(DebitMemoItemListResponse));
+            _apiClient.ExecuteRequest<DebitMemoListResponse>(path, queryParams, postBody, true);
+            return new DebitMemoListResponse();
         }
 
-        /// <summary>
-        /// Update a debit memo Updates a debit memo by setting the values of the specified fields. Any fields not provided in the request remain unchanged.
-        /// </summary>
-        /// <param name="body"></param>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo PatchDebitMemo(DebitMemoPatchRequest body, string debitMemoId, string zuoraTrackId, bool? async, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize)
+        public DebitMemo PatchDebitMemo(DebitMemoPatchRequest body, string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PatchDebitMemo");
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling PatchDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}";
+            
+            path = path.Replace("{" + "debitMemoId" + "}", _apiClient.ParameterToString(debitMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter));
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PatchDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
 
-        /// <summary>
-        /// Pay a debit memo Pays a debit memo using an existing payment method.
-        /// </summary>
-        /// <param name="body"></param>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo PayDebitMemo(PayDebitMemoRequest body, string debitMemoId, string zuoraTrackId, bool? async, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize)
+        public DebitMemo PayDebitMemo(PayDebitMemoRequest body, string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling PayDebitMemo");
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling PayDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/pay";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}/pay";
+            
+            path = path.Replace("{" + "debitMemoId" + "}", _apiClient.ParameterToString(debitMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PayDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PayDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
 
-        /// <summary>
-        /// Post a debit memo Opens a draft debit memo.
-        /// </summary>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityId">An entity ID. If you have multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity, or you do not have multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo PostsDebitMemo(string debitMemoId, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public DebitMemo PostsDebitMemo(string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling PostsDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/post";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}/post";
+            
+            path = path.Replace("{" + "debitMemoId" + "}", _apiClient.ParameterToString(debitMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling PostsDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling PostsDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
-
-        /// <summary>
-        /// Unpost a debit memo Unposts an open debit memo that has not been applied or refunded, and changes its &#x60;state&#x60; to &#x60;draft&#x60;.
-        /// </summary>
-        /// <param name="debitMemoId">Identifier for the debit_memo_id, either &#x60;debit_memo_number&#x60; or &#x60;debit_memo_id&#x60;</param>
-        /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;balance&#x60;, &#x60;due_date&#x60;, &#x60;debit_memo_number&#x60;, &#x60;state_transitions&#x60;, &#x60;description&#x60;, &#x60;account_id&#x60;, &#x60;total&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;document_date&#x60;, &#x60;posted_by_id&#x60;, &#x60;state&#x60;, &#x60;reason_code&#x60;, &#x60;paid&#x60;, &#x60;past_due&#x60;, &#x60;billing_document_settings&#x60;, &#x60;payment_terms&#x60;, &#x60;bill_to_id&#x60;, &#x60;invoice_id&#x60;, &#x60;currency&#x60;          &lt;/details&gt;</param>
-        /// <param name="debitMemoItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;applied_to_item_id&#x60;, &#x60;price_id&#x60;, &#x60;discount_item&#x60;, &#x60;deferred_revenue_account&#x60;, &#x60;description&#x60;, &#x60;document_item_date&#x60;, &#x60;invoice_item_id&#x60;, &#x60;sku&#x60;, &#x60;name&#x60;, &#x60;quantity&#x60;, &#x60;recognized_revenue_account&#x60;, &#x60;remaining_balance&#x60;, &#x60;service_end&#x60;, &#x60;service_start&#x60;, &#x60;accounts_receivable_account&#x60;, &#x60;subscription_id&#x60;, &#x60;subscription_item_id&#x60;, &#x60;subtotal&#x60;, &#x60;tax&#x60;, &#x60;tax_code&#x60;, &#x60;tax_inclusive&#x60;, &#x60;unit_amount&#x60;, &#x60;unit_of_measure&#x60;, &#x60;debit_memo_id&#x60;          &lt;/details&gt;</param>
-        /// <param name="taxationItemsFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;amount&#x60;, &#x60;amount_exempt&#x60;, &#x60;tax_date&#x60;, &#x60;jurisdiction&#x60;, &#x60;location_code&#x60;, &#x60;name&#x60;, &#x60;sales_tax_payable_account&#x60;, &#x60;tax_code&#x60;, &#x60;tax_code_name&#x60;, &#x60;tax_rate&#x60;, &#x60;tax_rate_name&#x60;, &#x60;tax_inclusive&#x60;, &#x60;tax_rate_type&#x60;, &#x60;amount_credited&#x60;, &#x60;amount_paid&#x60;, &#x60;remaining_balance&#x60;          &lt;/details&gt;</param>
-        /// <param name="accountFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;auto_pay&#x60;, &#x60;account_number&#x60;, &#x60;bill_to_id&#x60;, &#x60;sold_to_id&#x60;, &#x60;billing_document_settings&#x60;, &#x60;communication_profile_id&#x60;, &#x60;crm_id&#x60;, &#x60;sales_rep&#x60;, &#x60;parent_account_id&#x60;, &#x60;payment_gateway&#x60;, &#x60;payment_terms&#x60;, &#x60;remaining_credit_memo_balance&#x60;, &#x60;remaining_debit_memo_balance&#x60;, &#x60;remaining_invoice_balance&#x60;, &#x60;remaining_payment_balance&#x60;, &#x60;sequence_set_id&#x60;, &#x60;tax_certificate&#x60;, &#x60;batch&#x60;, &#x60;tax_identifier&#x60;, &#x60;bill_cycle_day&#x60;, &#x60;description&#x60;, &#x60;name&#x60;, &#x60;currency&#x60;, &#x60;default_payment_method_id&#x60;, &#x60;enabled&#x60;          &lt;/details&gt;</param>
-        /// <param name="billToFields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;account_id&#x60;, &#x60;address&#x60;, &#x60;home_phone&#x60;, &#x60;first_name&#x60;, &#x60;last_name&#x60;, &#x60;email&#x60;, &#x60;work_email&#x60;, &#x60;nickname&#x60;, &#x60;other_phone&#x60;, &#x60;work_phone&#x60;, &#x60;mobile_phone&#x60;, &#x60;tax_region&#x60;, &#x60;other_phone_type&#x60;, &#x60;fax&#x60;          &lt;/details&gt;</param>
-        /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
-        /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityId">An entity ID. If you have multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity, or you do not have multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>DebitMemo</returns>
-        public DebitMemo UnpostsDebitMemo(string debitMemoId, List<string> fields, List<string> debitMemoItemsFields, List<string> taxationItemsFields, List<string> accountFields, List<string> billToFields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId, bool? async, string zuoraEntityId, string idempotencyKey, string acceptEncoding, string contentEncoding)
+        public DebitMemo UnpostsDebitMemo(string debitMemoId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'debitMemoId' is set
             if (debitMemoId == null) throw new ApiException(400, "Missing required parameter 'debitMemoId' when calling UnpostsDebitMemo");
 
-            var path = "/debit_memos/{debit_memo_id}/unpost";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "debit_memo_id" + "}", ApiClient.ParameterToString(debitMemoId));
+            var path =$"v2/debit_memos/{debitMemoId}/unpost";
+            
+            path = path.Replace("{" + "debitMemoId" + "}", _apiClient.ParameterToString(debitMemoId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (debitMemoItemsFields != null) queryParams.Add("debit_memo_items.fields[]", ApiClient.ParameterToString(debitMemoItemsFields)); // query parameter
-            if (taxationItemsFields != null) queryParams.Add("taxation_items.fields[]", ApiClient.ParameterToString(taxationItemsFields)); // query parameter
-            if (accountFields != null) queryParams.Add("account.fields[]", ApiClient.ParameterToString(accountFields)); // query parameter
-            if (billToFields != null) queryParams.Add("bill_to.fields[]", ApiClient.ParameterToString(billToFields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-            if (zuoraEntityId != null) headerParams.Add("zuora-entity-id", ApiClient.ParameterToString(zuoraEntityId)); // header parameter
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<DebitMemo>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostsDebitMemo: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UnpostsDebitMemo: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (DebitMemo)ApiClient.Deserialize(response.Content, typeof(DebitMemo));
+            return (DebitMemo)_apiClient.Deserialize(response.Content, typeof(DebitMemo));
+        }
+
+        public void FillDebitMemosCache(string zuoraTrackId, bool async)
+        {
+            var path = $"v2/debit_memos";
+
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+
+            string postBody = null;
+
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            //if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter));
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
+
+            // make the HTTP request
+            _apiClient.FillPersistentCache<DebitMemoListResponse>(path, queryParams, postBody);
+
+        }
+
+        public void FillDebitMemosItemsCache(string zuoraTrackId, bool async)
+        {
+            var path = $"v2/debit_memo_items";
+
+            var queryParams = new Dictionary<string, string>();
+            var headerParams = new Dictionary<string, string>();
+
+            string postBody = null;
+
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            //if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter));
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
+
+            // make the HTTP request
+            _apiClient.FillPersistentCache<DebitMemoItemListResponse>(path, queryParams, postBody);
+
+        }
+
+        public DebitMemoListResponse GetDebitMemosCached()
+        {
+            return new DebitMemoListResponse
+            {
+                Data = _apiClient.RequestCachedResult<DebitMemo>()
+            };
+        }
+
+        public DebitMemo GetDebitMemoCached(string debitMemoId)
+        { 
+            return _apiClient.RequestCachedResult<DebitMemo>(debitMemoId); 
         }
     }
 }

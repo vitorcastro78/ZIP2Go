@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Subscription Plan information.
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Service.Models
         /// Subscription item information.
         /// </summary>
         /// <value>Subscription item information.</value>
-        [DataMember(Name = "subscription_items", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_items")]
         public List<AllOfsubscriptionPlanPatchRequestSubscriptionItemsItems> SubscriptionItems { get; set; }
 
@@ -29,7 +29,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the subscription plan.
         /// </summary>
         /// <value>Identifier of the subscription plan.</value>
-        [DataMember(Name = "subscription_plan_id", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_plan_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plan_id")]
         public string SubscriptionPlanId { get; set; }
 
@@ -37,7 +37,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the subscription plan. This identifier enables you to refer to the subscription plan before the subscription plan has an internal identifier in Zuora.
         /// </summary>
         /// <value>Unique identifier for the subscription plan. This identifier enables you to refer to the subscription plan before the subscription plan has an internal identifier in Zuora.</value>
-        [DataMember(Name = "unique_token", EmitDefaultValue = false)]
+        [DataMember(Name = "unique_token")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unique_token")]
         public string UniqueToken { get; set; }
 

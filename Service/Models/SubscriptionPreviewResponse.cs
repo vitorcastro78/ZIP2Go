@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -13,14 +13,14 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Actions
         /// </summary>
-        [DataMember(Name = "actions", EmitDefaultValue = false)]
+        [DataMember(Name = "actions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "actions")]
         public List<AllOfsubscriptionPreviewResponseActionsItems> Actions { get; set; }
 
         /// <summary>
         /// Gets or Sets BillingDocuments
         /// </summary>
-        [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
         public List<AllOfsubscriptionPreviewResponseBillingDocumentsItems> BillingDocuments { get; set; }
 

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Include parameters that you want to pass to the workflow. For the parameters to be recognized and picked up by tasks in the workflow, you need to define the parameters first.
         /// </summary>
         /// <value>Include parameters that you want to pass to the workflow. For the parameters to be recognized and picked up by tasks in the workflow, you need to define the parameters first.</value>
-        [DataMember(Name = "input_parameters", EmitDefaultValue = false)]
+        [DataMember(Name = "input_parameters")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "input_parameters")]
         public Dictionary<string, Object> InputParameters { get; set; }
 

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Card brand.
         /// </summary>
         /// <value>Card brand.</value>
-        [DataMember(Name = "brand", EmitDefaultValue = false)]
+        [DataMember(Name = "brand")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "brand")]
         public string Brand { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// One or two digit expiration month (1-12) of the credit card.
         /// </summary>
         /// <value>One or two digit expiration month (1-12) of the credit card.</value>
-        [DataMember(Name = "expiry_month", EmitDefaultValue = false)]
+        [DataMember(Name = "expiry_month")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expiry_month")]
         public decimal? ExpiryMonth { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Two- or four-digit number representing the card's expiration year.
         /// </summary>
         /// <value>Two- or four-digit number representing the card's expiration year.</value>
-        [DataMember(Name = "expiry_year", EmitDefaultValue = false)]
+        [DataMember(Name = "expiry_year")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "expiry_year")]
         public decimal? ExpiryYear { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The last four digits of the card number.
         /// </summary>
         /// <value>The last four digits of the card number.</value>
-        [DataMember(Name = "last_4", EmitDefaultValue = false)]
+        [DataMember(Name = "last_4")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "last_4")]
         public string Last4 { get; set; }
 

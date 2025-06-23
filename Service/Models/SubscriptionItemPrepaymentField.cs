@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// The prepayment information.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The number of units included in a prepayment charge.
         /// </summary>
         /// <value>The number of units included in a prepayment charge.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The period in which the prepayment units are valid to use as defined in a prepayment charge.
         /// </summary>
         /// <value>The period in which the prepayment units are valid to use as defined in a prepayment charge.</value>
-        [DataMember(Name = "validity_period", EmitDefaultValue = false)]
+        [DataMember(Name = "validity_period")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "validity_period")]
         public string ValidityPeriod { get; set; }
 

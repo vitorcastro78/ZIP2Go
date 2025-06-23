@@ -1,13 +1,23 @@
 {
   "Zuora": {
-    "BaseUrl": "https://rest.sandbox.na.zuora.com/v2",
-    "ClientId": "ea7e399e-22b4-4c0c-9724-aeb455fab5ba",
-    "ClientSecret": "aA/qEqU+ZI+lLoitEt1/+GRa8hQELi++lg8a1lD3",
+    //"BaseUrl": "https://rest.sandbox.na.zuora.com/v2",
+    //"ClientId": "ea7e399e-22b4-4c0c-9724-aeb455fab5ba",
+    //"ClientSecret": "aA/qEqU+ZI+lLoitEt1/+GRa8hQELi++lg8a1lD3",
+    //"Id": 1,
+    //"UserName": "DunningUser",
+    //"Password": "pass!w!ord",
+    "BaseUrl": "https://rest.sandbox.eu.zuora.com/V2",
+    "ClientId": "1bc05656-9dcd-4a43-9680-a8aa305b3883",
+    "ClientSecret": "LLwiKiEdBP=eMLVB2Hg2gMfu1j1EUSXdGXTzy/WcL",
+    "Id": 1,
+    "UserId": "DunningUser",
+    "Password": "pass!w!ord",
 
     "WorkflowSections": {
       "SetCommunicationTemplate": {
         "WorkflowId": "52947"
       }
     }
-  }
+  },
+  "Expand": {}
 }

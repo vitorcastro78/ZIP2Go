@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The date on which the payment schdule is canceled.
         /// </summary>
         /// <value>The date on which the payment schdule is canceled.</value>
-        [DataMember(Name = "cancel_date", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_date")]
         public DateTime? CancelDate { get; set; }
 

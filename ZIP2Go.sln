@@ -7,16 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZIP2Go.WebAPI", "ZIP2Go.WebAPI\ZIP2Go.WebAPI.csproj", "{4E06BE35-084F-4852-B74F-7A6B51DA89D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{CC4984CB-284E-4A47-91A6-122F6C8B651C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZIP2Go.WorkServices", "ZIP2Go.WorkServices\ZIP2Go.WorkServices.csproj", "{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZIP2Go.Admin", "ZIP2Go.Admin\ZIP2Go.Admin.csproj", "{1411E090-76BE-419B-94BF-23AEC58B7322}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.Repository", "Admin.Repository\Admin.Repository.csproj", "{5F6A7691-90AE-4335-945B-96D0DB6232AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin.Service", "Admin.Service\Admin.Service.csproj", "{950DEDA5-61FB-4133-B83D-39CE8009140A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,26 +21,6 @@ Global
 		{4E06BE35-084F-4852-B74F-7A6B51DA89D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E06BE35-084F-4852-B74F-7A6B51DA89D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E06BE35-084F-4852-B74F-7A6B51DA89D7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC4984CB-284E-4A47-91A6-122F6C8B651C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B0E68EF3-C5AF-4B3E-9FF5-40ABB355FA44}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1411E090-76BE-419B-94BF-23AEC58B7322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1411E090-76BE-419B-94BF-23AEC58B7322}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1411E090-76BE-419B-94BF-23AEC58B7322}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1411E090-76BE-419B-94BF-23AEC58B7322}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F6A7691-90AE-4335-945B-96D0DB6232AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{950DEDA5-61FB-4133-B83D-39CE8009140A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

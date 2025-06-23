@@ -1,9 +1,9 @@
 ﻿using EasyCaching.Core;
 using RestSharp;
 
-namespace ZIP2GO.Service.Client
+namespace Service.Client
 {
-    public class CachingTrigger
+    public class CachingTrigger : ICachingTrigger
     {
         private readonly IEasyCachingProvider _cache;
 
@@ -12,20 +12,29 @@ namespace ZIP2GO.Service.Client
             _cache = cache;
         }
 
-        public RestResponse SetCachingTrigger<T>(Method method, RestResponse response)
+        public void FillCache(dynamic result)
         {
-            var timeSpan = TimeSpan.FromMinutes(20);
-            if (response.IsSuccessful && method == Method.Post)
+            foreach (var item in result.Data)
             {
-                dynamic result = (T)new ApiClient().Deserialize(response.Content, typeof(T));
-                _cache.Set(result.Id, result, timeSpan);
+                var name = item.GetType().Name;
+                _cache.SetAsync<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(12));
             }
-            return response;
         }
 
-        public dynamic GetCachingTrigger<T>(string Id)
+        public void FillCachePostResult(dynamic result)
         {
-            return _cache.Get<T>(Id);
+            var name = result.GetType().Name;
+            _cache.SetAsync<dynamic>($"{name}_{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        public void SetCache(dynamic result)
+        {
+            _cache.SetAsync<dynamic>($"{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        public T GetCahe<T>(string id)
+        {
+            return _cache.Get<T>($"{id}").Value;
         }
     }
 }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,21 +14,21 @@ namespace ZIP2GO.Service.Models
         /// The unique identifier of the customer account associated with these items.
         /// </summary>
         /// <value>The unique identifier of the customer account associated with these items.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
         /// <summary>
         /// Gets or Sets CreditMemoItems
         /// </summary>
-        [DataMember(Name = "credit_memo_items", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_items")]
         public List<AllOfaccountPreviewResponseCreditMemoItemsItems> CreditMemoItems { get; set; }
 
         /// <summary>
         /// Gets or Sets InvoiceItems
         /// </summary>
-        [DataMember(Name = "invoice_items", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_items")]
         public List<AllOfaccountPreviewResponseInvoiceItemsItems> InvoiceItems { get; set; }
 

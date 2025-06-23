@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the subscription plan.
         /// </summary>
         /// <value>Identifier of the subscription plan.</value>
-        [DataMember(Name = "subscription_plan_id", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_plan_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plan_id")]
         public string SubscriptionPlanId { get; set; }
 

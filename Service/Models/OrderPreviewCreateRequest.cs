@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets AccountData
         /// </summary>
-        [DataMember(Name = "account_data", EmitDefaultValue = false)]
+        [DataMember(Name = "account_data")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_data")]
         public SubscriptionPreviewAccountRequest AccountData { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the account.
         /// </summary>
         /// <value>Identifier of the account.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
@@ -29,7 +29,7 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier of the account. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the account. It can be user-supplied.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -37,14 +37,14 @@ namespace ZIP2GO.Service.Models
         /// Category of the order to indicate a product sale or return. Default value is `sale`.
         /// </summary>
         /// <value>Category of the order to indicate a product sale or return. Default value is `sale`.</value>
-        [DataMember(Name = "category", EmitDefaultValue = false)]
+        [DataMember(Name = "category")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "category")]
         public string Category { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -52,7 +52,7 @@ namespace ZIP2GO.Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -60,7 +60,7 @@ namespace ZIP2GO.Service.Models
         /// End date of the period for which you want to preview the subscription
         /// </summary>
         /// <value>End date of the period for which you want to preview the subscription</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -68,7 +68,7 @@ namespace ZIP2GO.Service.Models
         /// Order line items are non-subscription-based items created by an order, representing transactional charges such as one-time fees, physical goods, or professional service charges that are not sold as subscription services.    By specifying this field, you can launch non-subscription and unified monetization business models in Zuora, in addition to subscription business models.
         /// </summary>
         /// <value>Order line items are non-subscription-based items created by an order, representing transactional charges such as one-time fees, physical goods, or professional service charges that are not sold as subscription services.    By specifying this field, you can launch non-subscription and unified monetization business models in Zuora, in addition to subscription business models.</value>
-        [DataMember(Name = "line_items", EmitDefaultValue = false)]
+        [DataMember(Name = "line_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_items")]
         public List<LineItemCreateRequest> LineItems { get; set; }
 
@@ -76,7 +76,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the metrics you want to preview.    You can preview metrics of billing documents, the order delta metrics, or both.
         /// </summary>
         /// <value>Specifies the metrics you want to preview.    You can preview metrics of billing documents, the order delta metrics, or both.</value>
-        [DataMember(Name = "metrics", EmitDefaultValue = false)]
+        [DataMember(Name = "metrics")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "metrics")]
         public List<string> Metrics { get; set; }
 
@@ -84,7 +84,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies how many billing periods you want to preview.
         /// </summary>
         /// <value>Specifies how many billing periods you want to preview.</value>
-        [DataMember(Name = "number_of_periods", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_periods")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_periods")]
         public int? NumberOfPeriods { get; set; }
 
@@ -92,7 +92,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the order is signed. All the order actions under this order will use this order date as the contract effective date if the contract effective date field is skipped or its value is left as null.
         /// </summary>
         /// <value>The date when the order is signed. All the order actions under this order will use this order date as the contract effective date if the contract effective date field is skipped or its value is left as null.</value>
-        [DataMember(Name = "order_date", EmitDefaultValue = false)]
+        [DataMember(Name = "order_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_date")]
         public DateTime? OrderDate { get; set; }
 
@@ -100,7 +100,7 @@ namespace ZIP2GO.Service.Models
         /// The order number of the new order. If not provided, system will auto-generate a number for this order.     Note: Ensure that the order number does not contain a slash.
         /// </summary>
         /// <value>The order number of the new order. If not provided, system will auto-generate a number for this order.     Note: Ensure that the order number does not contain a slash.</value>
-        [DataMember(Name = "order_number", EmitDefaultValue = false)]
+        [DataMember(Name = "order_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_number")]
         public string OrderNumber { get; set; }
 
@@ -108,7 +108,7 @@ namespace ZIP2GO.Service.Models
         /// Based on the intended order action, each item should include specific fields.     For example, to preview a new subscription for a new account, you must specify the `account_data` and `subscription_plans` fields at a minimum.
         /// </summary>
         /// <value>Based on the intended order action, each item should include specific fields.     For example, to preview a new subscription for a new account, you must specify the `account_data` and `subscription_plans` fields at a minimum.</value>
-        [DataMember(Name = "subscriptions", EmitDefaultValue = false)]
+        [DataMember(Name = "subscriptions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscriptions")]
         public List<PostSubscriptionOrderRequest> Subscriptions { get; set; }
 
@@ -116,7 +116,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether to preview the subscription till the end of the current term.
         /// </summary>
         /// <value>Indicates whether to preview the subscription till the end of the current term.</value>
-        [DataMember(Name = "term_end", EmitDefaultValue = false)]
+        [DataMember(Name = "term_end")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "term_end")]
         public bool? TermEnd { get; set; }
 

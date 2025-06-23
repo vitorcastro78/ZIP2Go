@@ -1,42 +1,33 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
+using EasyCaching.Core;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public class FulfillmentItemsService : IFulfillmentItemsService
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FulfillmentItemsService"/> class.
-        /// </summary>
-        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
-        /// <returns></returns>
-        public FulfillmentItemsService(ApiClient apiClient = null)
-        {
-            if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
-            else
-                this.ApiClient = apiClient;
-        }
+        public readonly IApiClient _apiClient;
+
+        private readonly List<string> expand;
+
+        private List<string> filter;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FulfillmentItemsService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
         /// <returns></returns>
-        public FulfillmentItemsService(string basePath)
+        public FulfillmentItemsService(ApiClient apiClient)
         {
-            this.ApiClient = new ApiClient(basePath);
+            _apiClient = apiClient;
+            expand = new List<string>();
+            filter = new List<string>();
         }
-
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Create a fulfillment item Creates a new fulfillment item object.
@@ -50,47 +41,39 @@ namespace ZIP2GO.Service
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;fulfillment_id&#x60;, &#x60;description&#x60;, &#x60;fulfillment_item_number&#x60;          &lt;/details&gt;</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
+        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[accountId].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>FulfillmentItem</returns>
-        public FulfillmentItem CreateFulfillmentItem(FulfillmentItemCreateRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
+        public FulfillmentItem CreateFulfillmentItem(FulfillmentItemCreateRequest body, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateFulfillmentItem");
 
-            var path = "/fulfillments_items";
-            path = path.Replace("{format}", "json");
+            var path =$"v2/fulfillments_items";
+            
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<FulfillmentItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateFulfillmentItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateFulfillmentItem: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (FulfillmentItem)ApiClient.Deserialize(response.Content, typeof(FulfillmentItem));
+            return (FulfillmentItem)_apiClient.Deserialize(response.Content, typeof(FulfillmentItem));
         }
 
         /// <summary>
@@ -105,47 +88,41 @@ namespace ZIP2GO.Service
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;fulfillment_id&#x60;, &#x60;description&#x60;, &#x60;fulfillment_item_number&#x60;          &lt;/details&gt;</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
+        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[accountId].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>FulfillmentItemCreateBulkResponse</returns>
-        public FulfillmentItemCreateBulkResponse CreateFulfillmentItems(FulfillmentItemCreateBulkRequest body, string zuoraTrackId, bool? async, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
+        public FulfillmentItemCreateBulkResponse CreateFulfillmentItems(FulfillmentItemCreateBulkRequest body, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateFulfillmentItems");
 
-            var path = "/fulfillments_items/bulk_create";
-            path = path.Replace("{format}", "json");
+            var path =$"v2/fulfillments_items/bulk_create";
+            
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<FulfillmentItem>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateFulfillmentItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateFulfillmentItems: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (FulfillmentItemCreateBulkResponse)ApiClient.Deserialize(response.Content, typeof(FulfillmentItemCreateBulkResponse));
+            return (FulfillmentItemCreateBulkResponse)_apiClient.Deserialize(response.Content, typeof(FulfillmentItemCreateBulkResponse));
         }
 
         /// <summary>
@@ -164,28 +141,21 @@ namespace ZIP2GO.Service
             // verify the required parameter 'fulfillmentItemId' is set
             if (fulfillmentItemId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentItemId' when calling DeleteFulfillmentItem");
 
-            var path = "/fulfillments_items/{fulfillment_item_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "fulfillment_item_id" + "}", ApiClient.ParameterToString(fulfillmentItemId));
+            var path =$"v2/fulfillments_items/{fulfillmentItemId}";
+            
+            path = path.Replace("{" + "fulfillmentItemId" + "}", _apiClient.ParameterToString(fulfillmentItemId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<FulfillmentItem>(path, Method.Delete, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling DeleteFulfillmentItem: " + response.Content, response.Content);
@@ -202,7 +172,7 @@ namespace ZIP2GO.Service
         /// <value>The base path</value>
         public string GetBasePath(string basePath)
         {
-            return this.ApiClient.BasePath;
+            return this._apiClient.BasePath;
         }
 
         /// <summary>
@@ -211,7 +181,7 @@ namespace ZIP2GO.Service
         /// <param name="fulfillmentItemId">ID of the fulfillment item.</param>
         /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;fulfillment_id&#x60;, &#x60;description&#x60;, &#x60;fulfillment_item_number&#x60;          &lt;/details&gt;</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
+        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[accountId].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
         /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
@@ -219,43 +189,36 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>FulfillmentItem</returns>
-        public FulfillmentItem GetFulfillmentItem(string fulfillmentItemId, List<string> fields, List<string> expand, List<string> filter, int? pageSize, string zuoraTrackId)
+        public FulfillmentItem GetFulfillmentItem(string fulfillmentItemId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'fulfillmentItemId' is set
             if (fulfillmentItemId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentItemId' when calling GetFulfillmentItem");
 
-            var path = "/fulfillments_items/{fulfillment_item_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "fulfillment_item_id" + "}", ApiClient.ParameterToString(fulfillmentItemId));
+            var path =$"v2/fulfillments_items/{fulfillmentItemId}";
+            
+            path = path.Replace("{" + "fulfillmentItemId" + "}", _apiClient.ParameterToString(fulfillmentItemId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<FulfillmentItem>(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetFulfillmentItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetFulfillmentItem: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (FulfillmentItem)ApiClient.Deserialize(response.Content, typeof(FulfillmentItem));
+            return (FulfillmentItem)_apiClient.Deserialize(response.Content, typeof(FulfillmentItem));
         }
 
         /// <summary>
@@ -273,52 +236,37 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>FilfillmentItemListResponse</returns>
-        public FilfillmentItemListResponse GetFulfillmentItems(string cursor, List<string> expand, List<string> filter, List<string> sort, int? pageSize, List<string> fields, string zuoraTrackId)
+        public FulfillmentItemListResponse GetFulfillmentItems(string zuoraTrackId, bool? async)
         {
-            var path = "/fulfillments_items";
-            path = path.Replace("{format}", "json");
+            var path =$"v2/fulfillments_items";
+            
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            // //if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<FulfillmentItemListResponse>(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetFulfillmentItems: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetFulfillmentItems: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (FilfillmentItemListResponse)ApiClient.Deserialize(response.Content, typeof(FilfillmentItemListResponse));
+            return (FulfillmentItemListResponse)_apiClient.Deserialize(response.Content, typeof(FulfillmentItemListResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
+        
 
         /// <summary>
         /// Update a fulfillment item Updates the specified fulfillment item by setting the values of the fields passed. Any fields not provided remain unchanged.
@@ -333,50 +281,54 @@ namespace ZIP2GO.Service
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="fields">Allows you to specify which fields are returned in the response.          &lt;details&gt;            &lt;summary&gt; Accepted values &lt;/summary&gt;              &#x60;custom_fields&#x60;, &#x60;created_by_id&#x60;, &#x60;updated_by_id&#x60;, &#x60;created_time&#x60;, &#x60;id&#x60;, &#x60;updated_time&#x60;, &#x60;fulfillment_id&#x60;, &#x60;description&#x60;, &#x60;fulfillment_item_number&#x60;          &lt;/details&gt;</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
-        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[account_id].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
+        /// <param name="filter">A case-sensitive filter on the list. See the [Filter lists](https://developer.zuora.com/quickstart-api/tutorial/filter-lists/) section of the Quickstart API Tutorial for detailed instructions.                         Note that the filters on this operation are only applicable to the related objects. For example, when you are calling the \&quot;Retrieve a billing document\&quot; operation, you can use the &#x60;filter[]&#x60; parameter on the related objects such as &#x60;filter[]&#x3D;items[accountId].EQ:8ad09e208858b5cf0188595208151c63&#x60;</param>
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <returns>FulfillmentItem</returns>
-        public FulfillmentItem UpdateFulfillmentItem(FulfillmentItemPatchRequest body, string fulfillmentItemId, string zuoraTrackId, bool? async, List<string> fields, List<string> expand, List<string> filter, int? pageSize)
+        public FulfillmentItem UpdateFulfillmentItem(FulfillmentItemPatchRequest body, string fulfillmentItemId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling UpdateFulfillmentItem");
             // verify the required parameter 'fulfillmentItemId' is set
             if (fulfillmentItemId == null) throw new ApiException(400, "Missing required parameter 'fulfillmentItemId' when calling UpdateFulfillmentItem");
 
-            var path = "/fulfillments_items/{fulfillment_item_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "fulfillment_item_id" + "}", ApiClient.ParameterToString(fulfillmentItemId));
+            var path =$"v2/fulfillments_items/{fulfillmentItemId}";
+            
+            path = path.Replace("{" + "fulfillmentItemId" + "}", _apiClient.ParameterToString(fulfillmentItemId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<FulfillmentItem>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateFulfillmentItem: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateFulfillmentItem: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (FulfillmentItem)ApiClient.Deserialize(response.Content, typeof(FulfillmentItem));
+            return (FulfillmentItem)_apiClient.Deserialize(response.Content, typeof(FulfillmentItem));
         }
+
+        public FulfillmentItemListResponse GetFulfillmentItemsCached()
+        {
+            return new FulfillmentItemListResponse
+            {
+                Data = _apiClient.RequestCachedResult<FulfillmentItem>()
+            };
+        }
+
+        public FulfillmentItem GetFulfillmentItemCached(string fulfillmentItemId) => _apiClient.RequestCachedResult<FulfillmentItem>(fulfillmentItemId);
     }
 }

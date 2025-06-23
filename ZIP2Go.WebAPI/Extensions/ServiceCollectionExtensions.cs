@@ -1,6 +1,9 @@
-using Microsoft.Extensions.DependencyInjection;
 using Service.Interfaces;
-using ZIP2GO.Service;
+using Service;
+using Service.Client;
+using Microsoft.Extensions.Options;
+using EasyCaching.Core;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ZIP2Go.WebAPI.Extensions
 {
@@ -8,7 +11,14 @@ namespace ZIP2Go.WebAPI.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            // Registrar todos os serviços como scoped
+            services.AddScoped(sp =>
+            {
+                return new ApiClient(
+                    sp.GetService<IEasyCachingProvider>(),
+                    sp.GetService<ILogger<ApiClient>>() 
+                );
+            });
+
             services.AddScoped<IAccountsService, AccountsService>();
             services.AddScoped<IPlansService, PlansService>();
             services.AddScoped<ITaxationItemsService, TaxationItemsService>();
@@ -39,8 +49,9 @@ namespace ZIP2Go.WebAPI.Extensions
             services.AddScoped<ICustomObjectsService, CustomObjectsService>();
             services.AddScoped<IBillRunsService, BillRunsService>();
             services.AddScoped<IBillRunPreviewsService, BillRunPreviewsService>();
+            services.AddScoped<ICentralizedServices, CentralizedServices>();
 
             return services;
         }
     }
-} 
+}

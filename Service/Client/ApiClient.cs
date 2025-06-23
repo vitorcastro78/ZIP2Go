@@ -1,51 +1,60 @@
 using EasyCaching.Core;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using System;
-using System.Linq;
+using Service.Client;
+using Service.Models;
+using System.Diagnostics.Metrics;
+using System.Dynamic;
 using System.Net.Http.Headers;
-using System.Net.Http;
+using System.Reflection;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace ZIP2GO.Service.Client
+namespace Service.Client
 {
     /// <summary>
     /// API client is mainly responible for making the HTTP call to the API backend.
     /// </summary>
-    public class ApiClient 
+    public class ApiClient : IApiClient
     {
-        private string zuoraTrackId;
-        private bool? _allowAsync;
-        private string zuoraEntityIds;
-        private string idempotencyKey;
-        private string acceptEncoding;
-        private string contentEncoding;
-        public string BasePath { get; set; }
+        private readonly IEasyCachingProvider _cache;
 
         private readonly Dictionary<string, string> _defaultHeaderMap = new Dictionary<string, string>();
-        private readonly IEasyCachingProvider _cache;
-        private readonly ApiAuthClient apiAuthClient;
+
+        private readonly ILogger<ApiClient> _logger;
+
+        private bool? _allowAsync;
+
         private ZuoraOptions _options;
+
+        private string acceptEncoding;
+
+        private string contentEncoding;
+
+        private string idempotencyKey;
+
+        private string zuoraEntityIds;
+
+        private string zuoraTrackId;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(string Basepath = "", IEasyCachingProvider _cache = null)
+        public ApiClient(IEasyCachingProvider cache, ILogger<ApiClient> logger)
         {
-            // apiAuthClient = new ApiAuthClient(_cache);
-            this._cache = _cache;
-            using (StreamReader r = new StreamReader(Directory.GetCurrentDirectory() + $"\\config.json"))
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this._cache = cache;
+            Counter = 0;
+            using (StreamReader r = new StreamReader("config.json"))
             {
-                var tst = r.ReadToEnd().ToString();
-                _options = JsonConvert.DeserializeObject<ZuoraOptions>(tst);
+                _options = JsonConvert.DeserializeObject<ZuoraOptions>(r.ReadToEnd().ToString());
 
                 zuoraTrackId = _options.ZuoraTrackId.ToString();
                 BasePath = _options.BaseUrl;
@@ -53,16 +62,16 @@ namespace ZIP2GO.Service.Client
                 idempotencyKey = _options.ZuoraIdempotencyKey;
                 RestClient = new RestClient(BasePath);
             }
-
-
         }
 
+        public int Counter{ get; set; }
+
+        public string BasePath { get; set; }
 
         /// <summary>
         /// Gets or sets the base path.
         /// </summary>
         /// <value>The base path</value>
-
 
         /// <summary>
         /// Gets the default header.
@@ -79,28 +88,6 @@ namespace ZIP2GO.Service.Client
         public RestClient RestClient { get; set; }
 
         /// <summary>
-        /// Encode string in base64 format.
-        /// </summary>
-        /// <param name="text">string to be encoded.</param>
-        /// <returns>Encoded string.</returns>
-        public static string Base64Encode(string text)
-        {
-            var textByte = System.Text.Encoding.UTF8.GetBytes(text);
-            return System.Convert.ToBase64String(textByte);
-        }
-
-        /// <summary>
-        /// Dynamically cast the object into target type.
-        /// </summary>
-        /// <param name="fromObject">Object to be casted</param>
-        /// <param name="toObject">Target type</param>
-        /// <returns>Casted object</returns>
-        public static Object ConvertType(Object fromObject, Type toObject)
-        {
-            return Convert.ChangeType(fromObject, toObject);
-        }
-
-        /// <summary>
         /// Add default header.
         /// </summary>
         /// <param name="key">Header field name.</param>
@@ -111,182 +98,251 @@ namespace ZIP2GO.Service.Client
             _defaultHeaderMap.Add(key, value);
         }
 
-        /// <summary>
-        /// Makes the HTTP request (Sync).
-        /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="authSettings">Authentication settings.</param>
-        /// <returns>Object</returns>
-        public Object CallApi(string path, RestSharp.Method method, Dictionary<string, string> queryParams, string postBody, bool? async = true)
+        public string AddExpandParameter(Dictionary<string, string> paramtrs)
         {
-            Dictionary<string, string>? headerParams = new Dictionary<string, string>();
+            var parameters = new List<string>();
+            if (paramtrs.Where(f => f.Key.Contains("expand")).Any())
+            {
+                parameters = paramtrs
+                .Where(f => f.Key.Contains("expand"))
+                .Select(f => f.Value)
+                .FirstOrDefault()
+                .Split(",")
+                .ToList();
+            }
 
-            //var auth = apiAuthClient.OAuthClient;
+            var expand = new StringBuilder();
 
-            this.GetToken();
+            if (parameters == null || parameters.Count == 0)
+                return string.Empty;
 
-            string[]? authSettings = null;
-            if (!string.IsNullOrEmpty(_options.ZuoraTrackId.ToString()))
-                headerParams.Add("zuora-track-id", _options.ZuoraTrackId.ToString()); // header parameter
-            if (!string.IsNullOrEmpty(async.ToString()))
-                headerParams.Add("async", async.ToString()); // header parameter
-            if(!string.IsNullOrEmpty(_options.ZuoraEntityId))
-            headerParams.Add("zuora-entity-ids", _options.ZuoraEntityId); // header parameter
+            foreach (var item in parameters)
+            {
+                if (parameters.IndexOf(item) == (parameters.Count - 1))
+                {
+                    expand.Append($"expand%5B%5D={item}");
+                }
+                else
+                {
+                    expand.Append($"expand%5B%5D={item}&");
+                }
+            }
+
+            return expand.ToString();
+        }
+
+        public string AddFilterParameter(Dictionary<string, string> paramtrs)
+        {
+            var parameters = new List<string>();
+            if (paramtrs.Where(f => f.Key.Contains("filter")).Any())
+            {
+                parameters = paramtrs
+                .Where(f => f.Key.Contains("filter"))
+                .Select(f => f.Value)
+                .FirstOrDefault()
+                .Split(",")
+                .ToList();
+            }
+
+            var expand = new StringBuilder();
+
+            if (parameters == null || parameters.Count == 0)
+                return string.Empty;
+
+            foreach (var item in parameters)
+            {
+                if (parameters.IndexOf(item) == (parameters.Count - 1))
+                {
+                    expand.Append($"filter%5B%5D={item}");
+                }
+                else
+                {
+                    expand.Append($"filter%5B%5D={item}&");
+                }
+            }
+
+            return expand.ToString();
+        }
+
+        /// <summary>
+        /// Create FileParameter based on Stream.
+        /// </summary>
+        /// <param name="name">Parameter name.</param>
+        /// <param name="stream">Input stream.</param>
+        /// <returns>FileParameter.</returns>
+        //public FileParameter ParameterToFile(string name, Stream stream, CancellationToken cancellationToken)
+        //{
+        //    if (stream is FileStream)
+        //        return FileParameter.Create(name, stream.(), Path.GetFileName(((FileStream)stream).Name));
+        //    else
+        //        return FileParameter.Create(name, stream.ReadAllBytes(), "no_file_name_provided");
+        //}
+        public string AddPageSizeParameter(Dictionary<string, string> paramtrs)
+        {
+            var parameters = new List<string>();
+            if (paramtrs.Where(f => f.Key.Contains("page_size")).Any())
+            {
+                parameters = paramtrs
+                .Where(f => f.Key.Contains("page_size"))
+                .Select(f => f.Value)
+                .FirstOrDefault()
+                .Split(",")
+                .ToList();
+            }
+
+            //expand%5B%5D=account.bill_to&expand%5B%5D=account.sold_to&expand%5B%5D=subscription_plans.subscription_items
+            var expand = new StringBuilder();
+
+            if (parameters == null || parameters.Count == 0)
+                return string.Empty;
+
+            foreach (var item in parameters)
+            {
+                expand.Append($"page_size={item}");
+            }
+
+            return expand.ToString();
+        }
+
+        /// <summary>
+        /// Add cursor parameter to the query string.
+        /// </summary>
+        /// <param name="paramtrs"></param>
+        /// <returns></returns>
+        public string AddCursorParameter(Dictionary<string, string> paramtrs)
+        {
+            var parameters = new List<string>();
+            if (paramtrs.Where(f => f.Key.Contains("cursor")).Any())
+            {
+                parameters = paramtrs
+                .Where(f => f.Key.Contains("cursor"))
+                .Select(f => f.Value)
+                .FirstOrDefault()
+                .Split(",")
+                .ToList();
+            }
+
+            //expand%5B%5D=account.bill_to&expand%5B%5D=account.sold_to&expand%5B%5D=subscription_plans.subscription_items
+            var expand = new StringBuilder();
+
+            if (parameters == null || parameters.Count == 0)
+                return string.Empty;
+
+            foreach (var item in parameters)
+            {
+                expand.Append($"cursor={item}");
+            }
+
+            return expand.ToString();
+        }
+
+        /// <summary>
+        /// Encode string in base64 format.
+        /// </summary>
+        /// <param name="text">string to be encoded.</param>
+        /// <returns>Encoded string.</returns>
+        public string Base64Encode(string text)
+        {
+            var textByte = System.Text.Encoding.UTF8.GetBytes(text);
+            return System.Convert.ToBase64String(textByte);
+        }
+
+        private string BuildParameters(Dictionary<string, string> queryParams)
+        {
+            string path = string.Empty;
+
+            if (queryParams.Any())
+            {
+                path += "?";
+            }
+            if (queryParams.Where(f => f.Key.Contains("expand")).Any())
+            {
+                path += AddExpandParameter(queryParams);
+            }
+            if (queryParams.Where(f => f.Key.Contains("filter")).Any())
+            {
+                path += "&";
+                path += AddFilterParameter(queryParams);
+            }
+            if (queryParams.Where(f => f.Key.Contains("page_size")).Any())
+            {
+                path += "&";
+                path += AddPageSizeParameter(queryParams);
+            }
+            if (queryParams.Where(f => f.Key.Contains("cursor")).Any())
+            {
+                path += "&";
+                path += AddCursorParameter(queryParams);
+            }
             
+            return path;
+        }
+
+        public RestResponse CallApi<T>(string pathRoute, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true)
+        {
+            var path = pathRoute;
+            path += BuildParameters(queryParams);
+            var headerParams = new Dictionary<string, string>();
+            var request = new RestRequest(path, method);
+            var response = new Object();
+
+            var token = this.GetToken();
+
+            if (!string.IsNullOrEmpty(_options.ZuoraTrackId.ToString()))
+                headerParams.Add("zuora-track-id", _options.ZuoraTrackId.ToString());
+            if (!string.IsNullOrEmpty(_options.ZuoraEntityId))
+                headerParams.Add("zuora-entity-ids", _options.ZuoraEntityId);
+            if (!string.IsNullOrEmpty(token))
+                headerParams.Add("Authorization", "Bearer " + token);
+
             if (method == Method.Patch || method == Method.Post)
             {
                 if (!string.IsNullOrEmpty(_options.ZuoraIdempotencyKey))
                     headerParams.Add("idempotency-key", _options.ZuoraIdempotencyKey); // header parameter
             }
 
-            //headerParams.Add("accept-encoding", "gzip"); // header parameter
-            //headerParams.Add("content-encoding", "gzip "); // header parameter
-
-
-            var request = new RestRequest(path, method);
-            var response = new Object();
-            UpdateParamsForAuth(queryParams, headerParams, authSettings);
-
-            // add default header, if any
             foreach (var defaultHeader in _defaultHeaderMap)
                 request.AddHeader(defaultHeader.Key, defaultHeader.Value);
 
-            // add header parameter, if any
             foreach (var param in headerParams)
                 request.AddHeader(param.Key, param.Value);
 
-            // add query parameter, if any
-            foreach (var param in queryParams)
-                request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add form parameter, if any
-            //foreach (var param in formParams)
+            //foreach (var param in queryParams)
             //    request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add file parameter, if any
-            //// foreach(var param in fileParams)
-            ////    request.AddFile(param.Value.Name, param.Value, param.Value.FileName, param.Value.ContentType);
 
             if (postBody != null) // http body (model) parameter
                 request.AddParameter("application/json", postBody, ParameterType.RequestBody);
 
-           var ret = Deserialize(RestClient.Execute(request).Content, typeof(Object));
+            var result = RestClient.Execute(request);
 
-            return RestClient.Execute(request);
-        }
-
-        public T CallApi<T>(string Id, string path, RestSharp.Method method, Dictionary<string, string>? queryParams, string postBody, bool? async = true)
-        {
-            Dictionary<string, string>? headerParams = new Dictionary<string, string>();
-
-            string[]? authSettings = null;
-
-            headerParams.Add("zuora-track-id", zuoraTrackId); // header parameter
-            headerParams.Add("async", _allowAsync.ToString()); // header parameter
-            headerParams.Add("zuora-entity-ids", zuoraEntityIds); // header parameter
-            headerParams.Add("idempotency-key", idempotencyKey); // header parameter
-            headerParams.Add("accept-encoding", acceptEncoding); // header parameter
-            headerParams.Add("content-encoding", contentEncoding); // header parameter
-
-            var request = new RestRequest(path, method);
-            var response = new RestResponse();
-            UpdateParamsForAuth(queryParams, headerParams, authSettings);
-
-            // add default header, if any
-            foreach (var defaultHeader in _defaultHeaderMap)
-                request.AddHeader(defaultHeader.Key, defaultHeader.Value);
-
-            // add header parameter, if any
-            foreach (var param in headerParams)
-                request.AddHeader(param.Key, param.Value);
-
-            // add query parameter, if any
-            foreach (var param in queryParams)
-                request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add form parameter, if any
-            //foreach (var param in formParams)
-            //    request.AddParameter(param.Key, param.Value, ParameterType.GetOrPost);
-
-            // add file parameter, if any
-            //// foreach(var param in fileParams)
-            ////    request.AddFile(param.Value.Name, param.Value, param.Value.FileName, param.Value.ContentType);
-
-            if (postBody != null) // http body (model) parameter
-                request.AddParameter("application/json", postBody, ParameterType.RequestBody);
-
-            var cachingTrigger = new CachingTrigger(_cache);
-
-            if (method != Method.Get)
-            {
-                var result = (T)Deserialize(RestClient.Execute(request).Content, typeof(T));
-                cachingTrigger.SetCachingTrigger<T>(method, response);
                 return result;
-            }
-            else
-            {
-                return cachingTrigger.GetCachingTrigger<T>(Id);
-            }
         }
 
-        public string GetToken()
+        public List<T> CallApi<T>()
         {
-            var token = _cache.Get<ZuoraToken>("ZuoraToken").Value;
-            if (token != null && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
-            {
-               // _logger.LogDebug($"Token expires in more than 60 seconds at {token.ExpiresAt}. Re-using token.");
-                return token.Access_token;
-            }
-
-           // _logger.LogDebug($"Token expires in less than 60 seconds at {token?.ExpiresAt}. Re-generating token.");
-            var parameter = Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes($"{_options.UserId}:{_options.Password}"));
-            var nameValueCollection = new Dictionary<string, string>
-                {
-                    { "grant_type", "client_credentials" },
-                    { "client_id", _options.ClientID },
-                    { "client_secret", _options.ClientSecret }
-                };
-
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(_options.BaseUrl);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", parameter);
-
-            var result = httpClient.PostAsync($"{_options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
-            if (!result.IsSuccessStatusCode)
-            {
-                var errorMessage = result.Content.ReadAsStringAsync().Result;
-                if (result.Headers.TryGetValues("zuora-request-id", out var values))
-                {
-                    errorMessage += $" Zuora-Request-Id: {string.Join(',', values)}";
-                }
-
-                throw new InvalidOperationException($"Get Zuora token failed. Details: {errorMessage}");
-            }
-
-            token = JsonConvert.DeserializeObject<ZuoraToken>(result.Content.ReadAsStringAsync().Result);
-            token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in);
-            _cache.Set("ZuoraToken", token, TimeSpan.FromSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in)
-            );
-
-            return token.Access_token;
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
         }
 
         /// <summary>
-        /// Deserialize the JSON string into a proper object.
+        /// Dynamically cast the object into target type.
+        /// </summary>
+        /// <param name="fromObject">Object to be casted</param>
+        /// <param name="toObject">Target type</param>
+        /// <returns>Casted object</returns>
+        public Object ConvertType(Object fromObject, Type toObject)
+        {
+            return Convert.ChangeType(fromObject, toObject);
+        }
+
+        /// <summary>
+        /// Deserialize the JSON strireturn _apiClient.ExecuteRequest<ProductListResponse>(path, queryParams, postBody);ng into a proper object.
         /// </summary>
         /// <param name="content">HTTP body (e.g. string, JSON).</param>
         /// <param name="type">Object type.</param>
         /// <param name="headers">HTTP headers.</param>
         /// <returns>Object representation of the JSON string.</returns>
-        public object Deserialize(string content, Type type, IList<Parameter> headers = null)
+        public dynamic Deserialize(string content, Type type, IList<Parameter> headers = null)
         {
             if (type == typeof(Object)) // return an object
             {
@@ -342,19 +398,128 @@ namespace ZIP2GO.Service.Client
             return HttpUtility.UrlEncode(str);
         }
 
+
+        public void FillPersistentCache<T>(string path, Dictionary<string, string> queryParams, string postBody)
+        {
+            queryParams.Add("page_size", ParameterToString(95));
+            int counter = 0;
+          
+            var response = (RestResponse)CallApi<T>(path, Method.Get, queryParams, postBody);
+            var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
+            var nextPage = responseObject.NextPage;
+
+            FillCache(responseObject, out counter);
+            
+            if (response.IsSuccessful && !string.IsNullOrEmpty(responseObject.NextPage))
+            {
+                queryParams.Add("cursor", ParameterToString(responseObject.NextPage));
+                
+                while (!string.IsNullOrEmpty(nextPage))
+                {
+                    // query parameter
+                    queryParams["cursor"] = nextPage;
+                    response = (RestResponse)CallApi<T>(path, Method.Get, queryParams, postBody);
+                    var contentResponse = Deserialize(response.Content, typeof(T));
+                    FillCache(contentResponse, out counter);
+                    nextPage = contentResponse.NextPage;
+                }
+                Counter += counter;
+                _logger.LogInformation($"Total items processed: {Counter} for {typeof(T).Name}");
+            }
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException((int)response.StatusCode, $"Error calling {path}: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException((int)response.StatusCode, $"Error calling {path}: " + response.ErrorMessage, response.ErrorMessage);
+        }
+
         /// <summary>
-        /// Create FileParameter based on Stream.
+        /// Executes an API request to retrieve data of the specified type, handling pagination and caching as needed.
         /// </summary>
-        /// <param name="name">Parameter name.</param>
-        /// <param name="stream">Input stream.</param>
-        /// <returns>FileParameter.</returns>
-        //public FileParameter ParameterToFile(string name, Stream stream, CancellationToken cancellationToken)
-        //{
-        //    if (stream is FileStream)
-        //        return FileParameter.Create(name, stream.(), Path.GetFileName(((FileStream)stream).Name));
-        //    else
-        //        return FileParameter.Create(name, stream.ReadAllBytes(), "no_file_name_provided");
-        //}
+        /// <remarks>This method handles paginated API responses by iteratively retrieving all pages of data until no
+        /// further pages are available. It also caches the retrieved data for performance optimization. If the API response
+        /// includes a "NextPage" cursor, the method automatically appends it to the query parameters to fetch subsequent
+        /// pages.</remarks>
+        /// <typeparam name="T">The type of the data to be retrieved from the API response.</typeparam>
+        /// <param name="path">The API endpoint path to which the request is sent.</param>
+        /// <param name="queryParams">A dictionary of query parameters to include in the request. Additional parameters may be added internally.</param>
+        /// <param name="postBody">The body of the request, typically used for POST or PUT operations. Can be null for GET requests.</param>
+        /// <returns>An object of type <typeparamref name="T"/> containing the aggregated data from the API response, including all
+        /// paginated results if applicable.</returns>
+        /// <exception cref="ApiException">Thrown if the API request fails with a status code of 400 or higher, or if there is a network error resulting in a
+        /// status code of 0.</exception>
+        public T ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody)
+        {
+            queryParams.Add("page_size", ParameterToString(95));
+            int counter = 0;
+            var response = (RestResponse)CallApi<T>(path, Method.Get, queryParams, postBody);
+            var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
+            FillCache(responseObject, out counter);
+
+            if (CheckForProperty(responseObject, "Data"))
+            {
+                if (response.IsSuccessful && !string.IsNullOrEmpty(responseObject.NextPage))
+                {
+                    queryParams.Add("cursor", ParameterToString(responseObject.NextPage));
+
+                    while (!string.IsNullOrEmpty(responseObject.NextPage))
+                    {
+                        // query parameter
+                        queryParams["cursor"] = responseObject.NextPage;
+                        response = (RestResponse)CallApi<T>(path, Method.Get, queryParams, postBody);
+                        var contentResponse = (dynamic)Deserialize(response.Content, typeof(T));
+                        responseObject.Data.AddRange(contentResponse.Data);
+                        responseObject.NextPage = contentResponse.NextPage;
+                        FillCache(contentResponse, out counter);
+
+                    }
+
+                    Counter += counter;
+
+                    _logger.LogInformation($"Total items processed: {Counter} for {typeof(T).Name}");
+                }
+            }
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException((int)response.StatusCode, $"Error calling {path}: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException((int)response.StatusCode, $"Error calling {path}: " + response.ErrorMessage, response.ErrorMessage);
+
+            return responseObject;
+        }
+
+        public void ExecuteRequest<T>(string path, Dictionary<string, string> queryParams, string postBody, bool NoResponse)
+        {
+            queryParams.Add("page_size", ParameterToString(95));
+            int counter = 0;
+            var response = (RestResponse)CallApi<T>(path, Method.Get, queryParams, postBody);
+            var responseObject = (dynamic)Deserialize(response.Content, typeof(T));
+            FillCache(responseObject, out counter);
+
+            if (CheckForProperty(responseObject, "Data"))
+            {
+                if (response.IsSuccessful && !string.IsNullOrEmpty(responseObject.NextPage))
+                {
+                    queryParams.Add("cursor", ParameterToString(responseObject.NextPage));
+
+                    while (!string.IsNullOrEmpty(responseObject.NextPage))
+                    {
+                        // query parameter
+                        queryParams["cursor"] = responseObject.NextPage;
+                        response = (RestResponse)CallApi<T>(path, Method.Get, queryParams, postBody);
+                        var accountResponse = (dynamic)Deserialize(response.Content, typeof(T));
+                        FillCache(accountResponse, out counter);
+                        responseObject.NextPage = accountResponse.NextPage;
+                    }
+
+                    Counter += counter;
+
+                    _logger.LogInformation($"Total items processed: {Counter} for {typeof(T).Name}");
+                }
+            }
+            if (((int)response.StatusCode) >= 400)
+                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.Content, response.Content);
+            else if (((int)response.StatusCode) == 0)
+                throw new ApiException((int)response.StatusCode, "Error calling GetAccounts: " + response.ErrorMessage, response.ErrorMessage);
+        }
 
         /// <summary>
         /// Get the API key with prefix.
@@ -370,6 +535,58 @@ namespace ZIP2GO.Service.Client
                 return apiKeyPrefix + " " + apiKeyValue;
             else
                 return apiKeyValue;
+        }
+
+        public List<T> GetCahe<T>()
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
+        }
+
+        public string GetToken()
+        {
+            var token = new ZuoraToken();
+
+            if (_cache != null && _cache.Exists("ZuoraToken"))
+            {
+                token = _cache.Get<ZuoraToken>("ZuoraToken").Value;
+            }
+            if (token != null && DateTime.UtcNow < token.ExpiresAt?.AddSeconds(-60))
+            {
+                return token.Access_token;
+            }
+
+            var nameValueCollection = new Dictionary<string, string>
+                {
+                    { "grant_type", "client_credentials" },
+                    { "client_id", _options.ClientID },
+                    { "client_secret", _options.ClientSecret }
+                };
+
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(_options.BaseUrl);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+           
+
+            var result = httpClient.PostAsync($"{_options.BaseUrl}oauth/token", new FormUrlEncodedContent(nameValueCollection)).Result;
+            if (!result.IsSuccessStatusCode)
+            {
+                var errorMessage = result.Content.ReadAsStringAsync().Result;
+                if (result.Headers.TryGetValues("zuora-request-id", out var values))
+                {
+                    errorMessage += $" Zuora-Request-Id: {string.Join(',', values)}";
+                }
+
+                throw new InvalidOperationException($"Get Zuora token failed. Details: {errorMessage}");
+            }
+
+            token = JsonConvert.DeserializeObject<ZuoraToken>(result.Content.ReadAsStringAsync().Result);
+            token.ExpiresAt = DateTime.UtcNow.AddSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in);
+            _cache.Set("ZuoraToken", token, TimeSpan.FromSeconds(token.Expires_in <= 0 ? 900 : token.Expires_in)
+            );
+
+            return token.Access_token;
         }
 
         /// <summary>
@@ -393,12 +610,41 @@ namespace ZIP2GO.Service.Client
                 return Convert.ToString(obj);
         }
 
+        public List<T> RequestCachedResult<T>()
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
+        }
+
+        public List<T> RequestCachedResults<T>(string filter)
+        {
+            var cacheKey = $"{typeof(T).Name}_{filter}";
+            return _cache.GetByPrefix<T>(cacheKey).Values.Select(f => f.Value).ToList();
+        }
+
+        public T RequestCachedResult<T>(string id)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.Get<T>($"{cacheKey}_{id}").Value;
+        }
+
+        public T RequestCachedResult<T>(string id, string secondFilter)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.Get<T>($"{cacheKey}_{id}_{secondFilter}").Value;
+        }
+
+        public T RequestCachedResultById<T>(string id)
+        {
+            return _cache.Get<T>($"{id}").Value;
+        }
+
         /// <summary>
         /// Serialize an object into JSON string.
         /// </summary>
         /// <param name="obj">Object.</param>
         /// <returns>JSON string.</returns>
-        public string Serialize(object obj)
+        public string? Serialize(object obj)
         {
             try
             {
@@ -436,28 +682,82 @@ namespace ZIP2GO.Service.Client
                 }
             }
         }
-    }
 
-    public static class AppSettings
-    {
-        private static IConfiguration _configuration;
-
-        static AppSettings()
+        private void FillCache(dynamic result, out int counter)
         {
-            // read JSON directly from a file
-
-
-
+            if (CheckForProperty(result,"Data"))
+            {
+                foreach (var item in result.Data)
+                {
+                    var name = item.GetType().Name;
+                    if (_cache.Exists($"{name}_{item.Id}"))
+                    {
+                        _cache.Remove($"{name}_{item.Id}");
+                        _cache.Set<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(23));
+                    }
+                    else
+                    {
+                        _cache.Set<dynamic>($"{name}_{item.Id}", item, TimeSpan.FromHours(23));
+                    }
+                    Counter++;
+                }
+                
+            }
+            else
+            {
+                var name = result.GetType().Name;
+                if (_cache.Exists($"{name}_{result.Id}"))
+                {
+                    _cache.Remove($"{name}_{result.Id}");
+                    _cache.Set<dynamic>($"{name}_{result.Id}", result, TimeSpan.FromHours(23));
+                }
+                else
+                {
+                    _cache.Set<dynamic>($"{name}_{result.Id}", result, TimeSpan.FromHours(23));
+                }
+            }
+            counter = Counter;
         }
 
-        public static string GetValue(string key)
+        public static bool CheckForProperty(dynamic settings, string name)
         {
-            return _configuration[key];
+            if (settings is ExpandoObject)
+                return ((IDictionary<string, object>)settings).ContainsKey(name);
+
+            return settings.GetType().GetProperty(name) != null;
+        }
+        private T GetCahe<T>(string id)
+        {
+            var cacheKey = $"{typeof(T).Name}";
+            return _cache.Get<T>($"{cacheKey}_{id}").Value;
         }
 
-        public static T GetSection<T>(string sectionName) where T : class, new()
+        private void SetCache<T>(dynamic result)
         {
-            return _configuration.GetSection(sectionName).Get<T>();
+            var cacheKey = $"{typeof(T).Name}";
+            _cache.SetAsync<dynamic>($"{cacheKey}_{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        private void SetCache(dynamic result)
+        {
+            var cacheKey = result.GetType().Name;
+            _cache.SetAsync<dynamic>($"{cacheKey}_{result.Id}", result, TimeSpan.FromHours(12));
+        }
+
+        private string GetRoute(Uri url)
+        {
+            Uri uri = url;
+            string routeWithoutId = string.Empty;
+            string path = uri.AbsolutePath;
+            string[] segments = path.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+            // Remove o último segmento (que seria o ID)
+            if (segments.Length > 0)
+            {
+                // Junta todos os segmentos exceto o último
+                 routeWithoutId = "/" + string.Join("/", segments.Take(2));
+            }
+            return routeWithoutId;
         }
     }
 }

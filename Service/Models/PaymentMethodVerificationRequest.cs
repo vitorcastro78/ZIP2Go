@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Three-letter ISO currency code.
         /// </summary>
         /// <value>Three-letter ISO currency code.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// A hash containing gateway-specific parameters.
         /// </summary>
         /// <value>A hash containing gateway-specific parameters.</value>
-        [DataMember(Name = "gateway_options", EmitDefaultValue = false)]
+        [DataMember(Name = "gateway_options")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
         public Dictionary<string, string> GatewayOptions { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The name of the payment gateway instance. If no value is specified for this field, the default payment gateway of your Zuora tenant will be used.
         /// </summary>
         /// <value>The name of the payment gateway instance. If no value is specified for this field, the default payment gateway of your Zuora tenant will be used.</value>
-        [DataMember(Name = "payment_gateway", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_gateway")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway")]
         public string PaymentGateway { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// Card security code.
         /// </summary>
         /// <value>Card security code.</value>
-        [DataMember(Name = "security_code", EmitDefaultValue = false)]
+        [DataMember(Name = "security_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "security_code")]
         public string SecurityCode { get; set; }
 

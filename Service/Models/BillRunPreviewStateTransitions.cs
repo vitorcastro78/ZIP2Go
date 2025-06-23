@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// The timestamps at which the object&#x27;s state was updated.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The time when the bill run preview completed.
         /// </summary>
         /// <value>The time when the bill run preview completed.</value>
-        [DataMember(Name = "complete_time", EmitDefaultValue = false)]
+        [DataMember(Name = "complete_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "complete_time")]
         public DateTime? CompleteTime { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The time when the bill run preview started.
         /// </summary>
         /// <value>The time when the bill run preview started.</value>
-        [DataMember(Name = "processing_start_time", EmitDefaultValue = false)]
+        [DataMember(Name = "processing_start_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processing_start_time")]
         public DateTime? ProcessingStartTime { get; set; }
 

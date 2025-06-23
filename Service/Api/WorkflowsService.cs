@@ -1,65 +1,52 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
+using EasyCaching.Core;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public class WorkflowsService : IWorkflowsService
     {
+        public readonly IApiClient _apiClient;
+
+        private readonly List<string> expand;
+
+        private List<string> filter;
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowsService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
-        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
         /// <returns></returns>
-        public WorkflowsService(ApiClient apiClient = null)
+        public WorkflowsService(ApiClient apiClient)
         {
-            if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
-            else
-                this.ApiClient = apiClient;
+            _apiClient = apiClient;
+            expand = new List<string>();
+            filter = new List<string>();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowsService"/> class.
-        /// </summary>
-        /// <returns></returns>
-        public WorkflowsService(string basePath)
-        {
-            this.ApiClient = new ApiClient(basePath);
-        }
 
         /// <summary>
-        /// Gets or sets the API client.
+        /// Executes a specified workflow with the provided parameters and returns the result of the workflow execution.
         /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
-
-        /// <summary>
-        /// Gets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public string GetBasePath(string basePath)
-        {
-            return this.ApiClient.BasePath;
-        }
-
-        /// <summary>
-        /// Run a workflow Run a specified workflow. In the request body, you can include parameters that you want to pass to the workflow. For the parameters to be recognized and picked up by tasks in the workflow, you need to define the parameters first.
-        /// </summary>
-        /// <param name="body"></param>
-        /// <param name="workflowId">Workflow Id</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests. If you set a value for this header, Zuora returns the same value in the response header. This header enables you to track your API calls to assist with troubleshooting in the event of an issue. The value of this field must use the US-ASCII character set and must not include any of the following characters: colon (:), semicolon (;), double quote (\&quot;), or quote (&#x27;).</param>
-        /// <param name="async">Making asynchronous requests allows you to scale your applications more efficiently by leveraging Zuora&#x27;s infrastructure to enqueue and execute requests for you without blocking. These requests also use built-in retry semantics, which makes them much less likely to fail for non-deterministic reasons, even in extreme high-throughput scenarios. Meanwhile, when you send a request to one of these endpoints, you can expect to receive a response in less than 150 milliseconds and these calls are unlikely to trigger rate limit errors. If set to true, Zuora returns a 202 Accepted response, and the response body contains only a request ID.</param>
-        /// <param name="zuoraEntityIds">An entity ID. If you have Multi-entity enabled and the authorization token is valid for more than one entity, you must use this header to specify which entity to perform the operation on. If the authorization token is only valid for a single entity or you do not have Multi-entity enabled, you do not need to set this header.</param>
-        /// <param name="idempotencyKey">Specify a unique idempotency key if you want to perform an idempotent POST or PATCH request. Do not use this header in other request types. This idempotency key should be a unique value, and the Zuora server identifies subsequent retries of the same request using this value. For more information, see [Idempotent Requests](https://developer.zuora.com/api-references/quickstart-api/tag/Idempotent-Requests/).</param>
-        /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
-        /// <returns>WorkflowRun</returns>
+        /// <remarks>The method sends a POST request to the API endpoint corresponding to the specified
+        /// workflow ID.  If the <paramref name="async"/> parameter is set to <see langword="true"/>, the workflow will
+        /// be executed asynchronously,  and the response will indicate the initiation of the workflow rather than its
+        /// completion.</remarks>
+        /// <param name="body">The request body containing the input parameters required to execute the workflow. This parameter cannot be
+        /// <see langword="null"/>.</param>
+        /// <param name="workflowId">The unique identifier of the workflow to be executed. This parameter cannot be <see langword="null"/>.</param>
+        /// <param name="zuoraTrackId">An optional tracking identifier for the request, used for logging and tracing purposes.</param>
+        /// <param name="async">A boolean value indicating whether the workflow should be executed asynchronously.  <see langword="true"/>
+        /// to execute the workflow asynchronously; otherwise, <see langword="false"/>.</param>
+        /// <returns>A <see cref="WorkflowRun"/> object containing the details of the executed workflow, including its status and
+        /// any output data.</returns>
+        /// <exception cref="ApiException">Thrown if the required parameters <paramref name="body"/> or <paramref name="workflowId"/> are not provided,
+        /// or if an error occurs during the execution of the workflow.</exception>
         public WorkflowRun RunWorkflow(RunWorkflowRequest body, int? workflowId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
@@ -67,46 +54,30 @@ namespace ZIP2GO.Service
             // verify the required parameter 'workflowId' is set
             if (workflowId == null) throw new ApiException(400, "Missing required parameter 'workflowId' when calling RunWorkflow");
 
-            var path = "/workflows/{workflow_id}/run";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "workflow_id" + "}", ApiClient.ParameterToString(workflowId));
+            var path =$"v2/workflows/{workflowId}/run";
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<WorkflowRun>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling RunWorkflow: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling RunWorkflow: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (WorkflowRun)ApiClient.Deserialize(response.Content, typeof(WorkflowRun));
+            return (WorkflowRun)_apiClient.Deserialize(response.Content, typeof(WorkflowRun));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
+       
     }
 }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Specify this field to renew a subscription
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Terms
         /// </summary>
-        [DataMember(Name = "terms", EmitDefaultValue = false)]
+        [DataMember(Name = "terms")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "terms")]
         public AllOfsubscriptionRenewPatchResponseTerms Terms { get; set; }
 

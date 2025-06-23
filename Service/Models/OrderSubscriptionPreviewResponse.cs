@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Actions
         /// </summary>
-        [DataMember(Name = "actions", EmitDefaultValue = false)]
+        [DataMember(Name = "actions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "actions")]
         public List<AllOforderSubscriptionPreviewResponseActionsItems> Actions { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier of the subscription. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the subscription. It can be user-supplied.</value>
-        [DataMember(Name = "subscription_number", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_number")]
         public string SubscriptionNumber { get; set; }
 

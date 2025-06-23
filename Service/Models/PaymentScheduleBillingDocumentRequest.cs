@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Document number of an invoice or debit memo billing document.
         /// </summary>
         /// <value>Document number of an invoice or debit memo billing document.</value>
-        [DataMember(Name = "billing_document_number", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_document_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_number")]
         public string BillingDocumentNumber { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of an invoice or debit memo billing document.
         /// </summary>
         /// <value>Unique identifier of an invoice or debit memo billing document.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The type of billing document. The default is `invoice`.
         /// </summary>
         /// <value>The type of billing document. The default is `invoice`.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

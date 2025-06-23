@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The amount of the tax applied to the total price.
         /// </summary>
         /// <value>The amount of the tax applied to the total price.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The calculated tax amount excluded due to the exemption.
         /// </summary>
         /// <value>The calculated tax amount excluded due to the exemption.</value>
-        [DataMember(Name = "amount_exempt", EmitDefaultValue = false)]
+        [DataMember(Name = "amount_exempt")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount_exempt")]
         public decimal? AmountExempt { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The date on which the tax is applied.
         /// </summary>
         /// <value>The date on which the tax is applied.</value>
-        [DataMember(Name = "date", EmitDefaultValue = false)]
+        [DataMember(Name = "date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "date")]
         public DateTime? Date { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the taxation item related to the invoice. Only applicable for credit memos created from invoices.
         /// </summary>
         /// <value>Identifier of the taxation item related to the invoice. Only applicable for credit memos created from invoices.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// The jurisdiction that applies the tax or VAT. This value is typically a state, province, county, or city.
         /// </summary>
         /// <value>The jurisdiction that applies the tax or VAT. This value is typically a state, province, county, or city.</value>
-        [DataMember(Name = "jurisdiction", EmitDefaultValue = false)]
+        [DataMember(Name = "jurisdiction")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "jurisdiction")]
         public string Jurisdiction { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Service.Models
         /// The identifier for the location based on the value of the `tax_code` field.
         /// </summary>
         /// <value>The identifier for the location based on the value of the `tax_code` field.</value>
-        [DataMember(Name = "location_code", EmitDefaultValue = false)]
+        [DataMember(Name = "location_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "location_code")]
         public string LocationCode { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Service.Models
         /// The name of the taxation item.
         /// </summary>
         /// <value>The name of the taxation item.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Service.Models
         /// A tax code identifier. If a `tax_code` of a price is not provided when you create or update a price, Zuora will treat the charged amount as non-taxable. If this code is provide, Zuora considers that this price is taxable and the charged amount will be handled accordingly.
         /// </summary>
         /// <value>A tax code identifier. If a `tax_code` of a price is not provided when you create or update a price, Zuora will treat the charged amount as non-taxable. If this code is provide, Zuora considers that this price is taxable and the charged amount will be handled accordingly.</value>
-        [DataMember(Name = "tax_code", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_code")]
         public string TaxCode { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Service.Models
         /// The amount of the tax applied to the total price.
         /// </summary>
         /// <value>The amount of the tax applied to the total price.</value>
-        [DataMember(Name = "tax_code_name", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_code_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_code_name")]
         public string TaxCodeName { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Service.Models
         /// The amount of the tax applied to the total price.
         /// </summary>
         /// <value>The amount of the tax applied to the total price.</value>
-        [DataMember(Name = "tax_rate", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_rate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_rate")]
         public decimal? TaxRate { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Service.Models
         /// The name of the tax rate, such as sales tax or GST. This name is displayed on billing documents.
         /// </summary>
         /// <value>The name of the tax rate, such as sales tax or GST. This name is displayed on billing documents.</value>
-        [DataMember(Name = "tax_rate_name", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_rate_name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_rate_name")]
         public string TaxRateName { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether the tax rate is an amount or a percentage.
         /// </summary>
         /// <value>Indicates whether the tax rate is an amount or a percentage.</value>
-        [DataMember(Name = "tax_rate_type", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_rate_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_rate_type")]
         public string TaxRateType { get; set; }
 

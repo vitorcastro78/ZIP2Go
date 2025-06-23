@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Address information used in billing details.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// City, district, suburb, town, or village.
         /// </summary>
         /// <value>City, district, suburb, town, or village.</value>
-        [DataMember(Name = "city", EmitDefaultValue = false)]
+        [DataMember(Name = "city")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "city")]
         public string City { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The country of the contact's address.
         /// </summary>
         /// <value>The country of the contact's address.</value>
-        [DataMember(Name = "country", EmitDefaultValue = false)]
+        [DataMember(Name = "country")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "country")]
         public string Country { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Address line 1 (e.g., street, PO Box, or company name).
         /// </summary>
         /// <value>Address line 1 (e.g., street, PO Box, or company name).</value>
-        [DataMember(Name = "line1", EmitDefaultValue = false)]
+        [DataMember(Name = "line1")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line1")]
         public string Line1 { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// Address line 2 (e.g., apartment, suite, unit, or building).
         /// </summary>
         /// <value>Address line 2 (e.g., apartment, suite, unit, or building).</value>
-        [DataMember(Name = "line2", EmitDefaultValue = false)]
+        [DataMember(Name = "line2")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line2")]
         public string Line2 { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// ZIP or postal code.
         /// </summary>
         /// <value>ZIP or postal code.</value>
-        [DataMember(Name = "postal_code", EmitDefaultValue = false)]
+        [DataMember(Name = "postal_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "postal_code")]
         public string PostalCode { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Service.Models
         /// The state, county, province, or region.
         /// </summary>
         /// <value>The state, county, province, or region.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
 

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// If true, any posted credit memos are applied first.
         /// </summary>
         /// <value>If true, any posted credit memos are applied first.</value>
-        [DataMember(Name = "apply_credit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "apply_credit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_credit_memos")]
         public bool? ApplyCreditMemos { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// If true, any unapplied payments are applied first.
         /// </summary>
         /// <value>If true, any unapplied payments are applied first.</value>
-        [DataMember(Name = "apply_unapplied_payments", EmitDefaultValue = false)]
+        [DataMember(Name = "apply_unapplied_payments")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_unapplied_payments")]
         public bool? ApplyUnappliedPayments { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the customer account batch to be included in this payment run.
         /// </summary>
         /// <value>Identifier of the customer account batch to be included in this payment run.</value>
-        [DataMember(Name = "batch", EmitDefaultValue = false)]
+        [DataMember(Name = "batch")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "batch")]
         public string Batch { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The day of the month to bill multiple customer accounts.
         /// </summary>
         /// <value>The day of the month to bill multiple customer accounts.</value>
-        [DataMember(Name = "bill_cycle_day", EmitDefaultValue = false)]
+        [DataMember(Name = "bill_cycle_day")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_cycle_day")]
         public int? BillCycleDay { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// The unique identifier of a bill run.
         /// </summary>
         /// <value>The unique identifier of a bill run.</value>
-        [DataMember(Name = "bill_run_id", EmitDefaultValue = false)]
+        [DataMember(Name = "bill_run_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bill_run_id")]
         public string BillRunId { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether to process electronic payments during the execution of payment runs.
         /// </summary>
         /// <value>Indicates whether to process electronic payments during the execution of payment runs.</value>
-        [DataMember(Name = "collect_payment", EmitDefaultValue = false)]
+        [DataMember(Name = "collect_payment")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "collect_payment")]
         public bool? CollectPayment { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Service.Models
         /// If true, a single payment will be collected for all receivables due on an account.
         /// </summary>
         /// <value>If true, a single payment will be collected for all receivables due on an account.</value>
-        [DataMember(Name = "consolidate_payment", EmitDefaultValue = false)]
+        [DataMember(Name = "consolidate_payment")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "consolidate_payment")]
         public bool? ConsolidatePayment { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Service.Models
         /// Three-letter ISO currency code.
         /// </summary>
         /// <value>Three-letter ISO currency code.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Service.Models
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
         /// </summary>
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public Dictionary<string, Object> CustomFields { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Service.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public OneOfpaymentRunCustomObjects CustomObjects { get; set; }
 
@@ -110,14 +110,14 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets PaymentCollectionDate
         /// </summary>
-        [DataMember(Name = "payment_collection_date", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_collection_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_collection_date")]
         public DateTime? PaymentCollectionDate { get; set; }
 
@@ -125,7 +125,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the payment gateway.
         /// </summary>
         /// <value>Unique identifier for the payment gateway.</value>
-        [DataMember(Name = "payment_gateway_id", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_gateway_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_gateway_id")]
         public string PaymentGatewayId { get; set; }
 
@@ -133,7 +133,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the scheduled payment run is to be executed, in `yyyy-mm-dd hh:mm:ss` format.
         /// </summary>
         /// <value>The date and time when the scheduled payment run is to be executed, in `yyyy-mm-dd hh:mm:ss` format.</value>
-        [DataMember(Name = "payment_run_date", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_run_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_run_date")]
         public DateTime? PaymentRunDate { get; set; }
 
@@ -141,7 +141,7 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier for this object.
         /// </summary>
         /// <value>Human-readable identifier for this object.</value>
-        [DataMember(Name = "payment_run_number", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_run_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_run_number")]
         public string PaymentRunNumber { get; set; }
 
@@ -149,7 +149,7 @@ namespace ZIP2GO.Service.Models
         /// Status of the payment run.
         /// </summary>
         /// <value>Status of the payment run.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
 
@@ -157,7 +157,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the payment run executed, in the `yyyy-mm-dd hh:mm:ss` format.
         /// </summary>
         /// <value>The date and time when the payment run executed, in the `yyyy-mm-dd hh:mm:ss` format.</value>
-        [DataMember(Name = "state_transitions", EmitDefaultValue = false)]
+        [DataMember(Name = "state_transitions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state_transitions")]
         public AllOfpaymentRunStateTransitions StateTransitions { get; set; }
 
@@ -165,7 +165,7 @@ namespace ZIP2GO.Service.Models
         /// Summary of the payment run.
         /// </summary>
         /// <value>Summary of the payment run.</value>
-        [DataMember(Name = "summary", EmitDefaultValue = false)]
+        [DataMember(Name = "summary")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "summary")]
         public AllOfpaymentRunSummary Summary { get; set; }
 
@@ -173,7 +173,7 @@ namespace ZIP2GO.Service.Models
         /// The target date used to determine which receivables to be paid in the payment run.       The payments are collected for all receivables with the due date no later than the target date.
         /// </summary>
         /// <value>The target date used to determine which receivables to be paid in the payment run.       The payments are collected for all receivables with the due date no later than the target date.</value>
-        [DataMember(Name = "target_date", EmitDefaultValue = false)]
+        [DataMember(Name = "target_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "target_date")]
         public DateTime? TargetDate { get; set; }
 
@@ -181,7 +181,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -189,7 +189,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

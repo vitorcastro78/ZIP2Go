@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the account that owns the invoice.
         /// </summary>
         /// <value>Identifier of the account that owns the invoice.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier of the account that owns the invoice.
         /// </summary>
         /// <value>Human-readable identifier of the account that owns the invoice.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -30,14 +30,14 @@ namespace ZIP2GO.Service.Models
         /// 3-letter ISO 4217 currency code. This field is available only if you have the [Multiple Currencies](https://knowledgecenter.zuora.com/Zuora_Billing/Bill_your_customers/Flexible_Billing/Multiple_Currencies) feature enabled.
         /// </summary>
         /// <value>3-letter ISO 4217 currency code. This field is available only if you have the [Multiple Currencies](https://knowledgecenter.zuora.com/Zuora_Billing/Bill_your_customers/Flexible_Billing/Multiple_Currencies) feature enabled.</value>
-        [DataMember(Name = "currency", EmitDefaultValue = false)]
+        [DataMember(Name = "currency")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "currency")]
         public string Currency { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -45,7 +45,7 @@ namespace ZIP2GO.Service.Models
         /// An arbitrary string associated with the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string associated with the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -53,7 +53,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the invoice takes effect.
         /// </summary>
         /// <value>The date when the invoice takes effect.</value>
-        [DataMember(Name = "document_date", EmitDefaultValue = false)]
+        [DataMember(Name = "document_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
         public DateTime? DocumentDate { get; set; }
 
@@ -61,7 +61,7 @@ namespace ZIP2GO.Service.Models
         /// The date on which payment for the invoice is due.
         /// </summary>
         /// <value>The date on which payment for the invoice is due.</value>
-        [DataMember(Name = "due_date", EmitDefaultValue = false)]
+        [DataMember(Name = "due_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "due_date")]
         public DateTime? DueDate { get; set; }
 
@@ -69,7 +69,7 @@ namespace ZIP2GO.Service.Models
         /// Information of all invoice items.
         /// </summary>
         /// <value>Information of all invoice items.</value>
-        [DataMember(Name = "items", EmitDefaultValue = false)]
+        [DataMember(Name = "items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
         public List<InvoiceItemCreateRequest> Items { get; set; }
 
@@ -77,7 +77,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether the invoice is automatically picked up for processing in the corresponding payment run.
         /// </summary>
         /// <value>Indicates whether the invoice is automatically picked up for processing in the corresponding payment run.</value>
-        [DataMember(Name = "pay", EmitDefaultValue = false)]
+        [DataMember(Name = "pay")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pay")]
         public bool? Pay { get; set; }
 
@@ -85,7 +85,7 @@ namespace ZIP2GO.Service.Models
         /// Whether to automatically post an invoice after it is created.
         /// </summary>
         /// <value>Whether to automatically post an invoice after it is created.</value>
-        [DataMember(Name = "post", EmitDefaultValue = false)]
+        [DataMember(Name = "post")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "post")]
         public bool? Post { get; set; }
 
@@ -93,7 +93,7 @@ namespace ZIP2GO.Service.Models
         /// Whether to transfer to an external accounting system.
         /// </summary>
         /// <value>Whether to transfer to an external accounting system.</value>
-        [DataMember(Name = "transfer_to_accounting", EmitDefaultValue = false)]
+        [DataMember(Name = "transfer_to_accounting")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "transfer_to_accounting")]
         public bool? TransferToAccounting { get; set; }
 

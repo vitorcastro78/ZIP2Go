@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// An object defining how overage charges are calculated.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates if the overage price is calculated at the end of the smoothing period.
         /// </summary>
         /// <value>Indicates if the overage price is calculated at the end of the smoothing period.</value>
-        [DataMember(Name = "apply_at_end_of_smoothing_period", EmitDefaultValue = false)]
+        [DataMember(Name = "apply_at_end_of_smoothing_period")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_at_end_of_smoothing_period")]
         public bool? ApplyAtEndOfSmoothingPeriod { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies whether or not to credit unused units.
         /// </summary>
         /// <value>Specifies whether or not to credit unused units.</value>
-        [DataMember(Name = "credit_unused_units", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_unused_units")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_unused_units")]
         public bool? CreditUnusedUnits { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the included units to which overage charges do not apply.
         /// </summary>
         /// <value>Specifies the included units to which overage charges do not apply.</value>
-        [DataMember(Name = "included_units", EmitDefaultValue = false)]
+        [DataMember(Name = "included_units")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "included_units")]
         public decimal? IncludedUnits { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the number of intervals used to calculate smoothed overage charges.
         /// </summary>
         /// <value>Specifies the number of intervals used to calculate smoothed overage charges.</value>
-        [DataMember(Name = "interval_count", EmitDefaultValue = false)]
+        [DataMember(Name = "interval_count")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "interval_count")]
         public int? IntervalCount { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// Represents the overage type: one of rolling_window or rollover.
         /// </summary>
         /// <value>Represents the overage type: one of rolling_window or rollover.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

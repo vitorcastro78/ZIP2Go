@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The way to calculate credit. See <a href='https://knowledgecenter.zuora.com/Zuora_Billing/Billing_and_Invoicing/JA_Advanced_Consumption_Billing/Prepaid_with_Drawdown/A_Create_prepayment_charge#Credit_Option'  target='_blank'>Credit Option</a> for more information.
         /// </summary>
         /// <value>The way to calculate credit. See <a href='https://knowledgecenter.zuora.com/Zuora_Billing/Billing_and_Invoicing/JA_Advanced_Consumption_Billing/Prepaid_with_Drawdown/A_Create_prepayment_charge#Credit_Option'  target='_blank'>Credit Option</a> for more information.</value>
-        [DataMember(Name = "credit_option", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_option")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_option")]
         public string CreditOption { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The number of units included in a prepayment charge.
         /// </summary>
         /// <value>The number of units included in a prepayment charge.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The total amount of units that end customers can use during a validity period when they subscribe to a prepayment charge.
         /// </summary>
         /// <value>The total amount of units that end customers can use during a validity period when they subscribe to a prepayment charge.</value>
-        [DataMember(Name = "total_quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "total_quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "total_quantity")]
         public decimal? TotalQuantity { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// A configured unit of measure. This field is required for per-unit prices.
         /// </summary>
         /// <value>A configured unit of measure. This field is required for per-unit prices.</value>
-        [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_of_measure")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// The period in which the prepayment units are valid to use as defined in a prepayment charge.
         /// </summary>
         /// <value>The period in which the prepayment units are valid to use as defined in a prepayment charge.</value>
-        [DataMember(Name = "validity_period", EmitDefaultValue = false)]
+        [DataMember(Name = "validity_period")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "validity_period")]
         public string ValidityPeriod { get; set; }
 

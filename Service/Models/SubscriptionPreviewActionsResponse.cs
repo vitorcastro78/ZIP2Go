@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The action associated with this metric.
         /// </summary>
         /// <value>The action associated with this metric.</value>
-        [DataMember(Name = "action", EmitDefaultValue = false)]
+        [DataMember(Name = "action")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "action")]
         public string Action { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the action.
         /// </summary>
         /// <value>Identifier of the action.</value>
-        [DataMember(Name = "action_id", EmitDefaultValue = false)]
+        [DataMember(Name = "action_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "action_id")]
         public string ActionId { get; set; }
 
@@ -30,14 +30,14 @@ namespace ZIP2GO.Service.Models
         /// The sequence number of the action.
         /// </summary>
         /// <value>The sequence number of the action.</value>
-        [DataMember(Name = "sequence", EmitDefaultValue = false)]
+        [DataMember(Name = "sequence")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sequence")]
         public int? Sequence { get; set; }
 
         /// <summary>
         /// Gets or Sets SubscriptionItems
         /// </summary>
-        [DataMember(Name = "subscription_items", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_items")]
         public List<AllOfsubscriptionPreviewActionsResponseSubscriptionItemsItems> SubscriptionItems { get; set; }
 

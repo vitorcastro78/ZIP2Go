@@ -1,4 +1,4 @@
-using ZIP2GO.Service.Models;
+using Service.Models;
 
 namespace Service.Interfaces
 {
@@ -46,14 +46,25 @@ namespace Service.Interfaces
         Account GetAccount(string accountId, string zuoraTrackId, bool? async);
 
         /// <summary>
-        /// Lists all accounts in the system with pagination support.
+        /// Retrieves a cached version of an account by its unique identifier.
         /// </summary>
-        /// <param name="cursor">Cursor for pagination.</param>
-        /// <param name="expand">List of related objects to include in the response.</param>
-        /// <param name="zuoraTrackId">A custom identifier for tracking API requests.</param>
-        /// <returns>A paginated list of accounts.</returns>
-        ListAccountResponse GetAccounts(bool async, string zuoraTrackId);
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        Account GetAccountCached(string accountId);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="zuoraTrackId"></param>
+        /// <param name="async"></param>
+        void FillAccountsCache(string zuoraTrackId, bool? async);
+
+
+        /// <summary>
+        /// Retrieves a cached list of accounts.
+        /// </summary>
+        /// <returns></returns>
+        ListAccountResponse GetAccountsCached();
 
         /// <summary>
         /// Previews an account before creation, showing future invoice and credit memo items.

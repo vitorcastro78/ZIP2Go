@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The amount applied to this billing document.
         /// </summary>
         /// <value>The amount applied to this billing document.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// A human-readable identifier for the billing document; may be user-supplied.
         /// </summary>
         /// <value>A human-readable identifier for the billing document; may be user-supplied.</value>
-        [DataMember(Name = "billing_document_number", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_document_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_document_number")]
         public string BillingDocumentNumber { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the billing document to which the credit memo, payment, or refund is applied.
         /// </summary>
         /// <value>Identifier of the billing document to which the credit memo, payment, or refund is applied.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The billing document items (invoice items or debit memo items or taxation items) to which the payment is applied.
         /// </summary>
         /// <value>The billing document items (invoice items or debit memo items or taxation items) to which the payment is applied.</value>
-        [DataMember(Name = "items", EmitDefaultValue = false)]
+        [DataMember(Name = "items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
         public List<BillingDocumentItemPaymentApplicationRequest> Items { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// The type of billing document.
         /// </summary>
         /// <value>The type of billing document.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

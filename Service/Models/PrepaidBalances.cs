@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// An array of prepaid balance validity periods
         /// </summary>
         /// <value>An array of prepaid balance validity periods</value>
-        [DataMember(Name = "validity_periods", EmitDefaultValue = false)]
+        [DataMember(Name = "validity_periods")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "validity_periods")]
         public List<ValidityPeriod> ValidityPeriods { get; set; }
 

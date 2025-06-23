@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Array of billing documents to apply this credit memo to.
         /// </summary>
         /// <value>Array of billing documents to apply this credit memo to.</value>
-        [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
         public List<CreditMemoApplicationRequest> BillingDocuments { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the credit memo is applied
         /// </summary>
         /// <value>The date when the credit memo is applied</value>
-        [DataMember(Name = "effective_date", EmitDefaultValue = false)]
+        [DataMember(Name = "effective_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "effective_date")]
         public DateTime? EffectiveDate { get; set; }
 

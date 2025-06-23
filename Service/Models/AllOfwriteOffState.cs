@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// The states of the transactions.
@@ -13,14 +13,14 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Failed
         /// </summary>
-        [DataMember(Name = "failed", EmitDefaultValue = false)]
+        [DataMember(Name = "failed")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed")]
         public string Failed { get; set; }
 
         /// <summary>
         /// Gets or Sets Succeeded
         /// </summary>
-        [DataMember(Name = "succeeded", EmitDefaultValue = false)]
+        [DataMember(Name = "succeeded")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "succeeded")]
         public string Succeeded { get; set; }
 

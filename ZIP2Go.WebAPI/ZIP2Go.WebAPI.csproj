@@ -7,7 +7,8 @@
     <UserSecretsId>881edb0d-69f5-4b00-b7dc-959d0acaae9e</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>C:\Users\vitor\source\repos\vitorcastro78\ZIP2Go\ZIP2Go.WebAPI\zip2go.xml</DocumentationFile>
+    <DocumentationFile>.\ZIP2Go\ZIP2Go.WebAPI\zip2go.xml</DocumentationFile>
+    <ApplicationInsightsResourceId>/subscriptions/abf543e1-bae8-4e7a-89cd-2d96487aad43/resourceGroups/ZuoraAcceleratorRG/providers/microsoft.insights/components/ZuoraAccelerator</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Cache\caching.db3" />
     <None Remove="Database\subscription.db" />
     <None Remove="Dockerfile.original" />
   </ItemGroup>
@@ -23,13 +25,13 @@
     <EmbeddedResource Include="Database\subscription.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="zip2go.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.13.0" />
     <PackageReference Include="EasyCaching.SQLite" Version="1.9.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.TraceListener" Version="2.22.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -43,10 +45,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Repository\Repository.csproj" />
     <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
@@ -55,7 +57,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="config.json" />
+    <EmbeddedResource Include="config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Dockerfile">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

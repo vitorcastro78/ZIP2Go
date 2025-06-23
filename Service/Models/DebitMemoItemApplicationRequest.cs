@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The amount of the payment that is applied to the specific billing document item or taxation item.
         /// </summary>
         /// <value>The amount of the payment that is applied to the specific billing document item or taxation item.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of a memo item.
         /// </summary>
         /// <value>Identifier of a memo item.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the taxation item to which the payment is applied.
         /// </summary>
         /// <value>Identifier of the taxation item to which the payment is applied.</value>
-        [DataMember(Name = "taxation_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "taxation_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_item_id")]
         public string TaxationItemId { get; set; }
 

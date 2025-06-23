@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/ZIP2Go.WebAPI/Cache/cache.db-journal

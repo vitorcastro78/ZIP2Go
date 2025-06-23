@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The information of the new account that owns the subscription. The subscription owner account can be different from the invoice owner account. If you specify this field, do not specify `account_id`.
         /// </summary>
         /// <value>The information of the new account that owns the subscription. The subscription owner account can be different from the invoice owner account. If you specify this field, do not specify `account_id`.</value>
-        [DataMember(Name = "account_data", EmitDefaultValue = false)]
+        [DataMember(Name = "account_data")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_data")]
         public AllOforderCreateRequestAccountData AccountData { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the account.
         /// </summary>
         /// <value>Identifier of the account.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier of the account. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the account. It can be user-supplied.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
@@ -38,14 +38,14 @@ namespace ZIP2GO.Service.Models
         /// Category of the order to indicate a product sale or return. Default value is `sale`.
         /// </summary>
         /// <value>Category of the order to indicate a product sale or return. Default value is `sale`.</value>
-        [DataMember(Name = "category", EmitDefaultValue = false)]
+        [DataMember(Name = "category")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "category")]
         public string Category { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -53,7 +53,7 @@ namespace ZIP2GO.Service.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public OneOforderCreateRequestCustomObjects CustomObjects { get; set; }
 
@@ -61,7 +61,7 @@ namespace ZIP2GO.Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -69,7 +69,7 @@ namespace ZIP2GO.Service.Models
         /// Order line items are non-subscription-based items created by an order, representing transactional charges such as one-time fees, physical goods, or professional service charges that are not sold as subscription services.    By specifying this field, you can launch non-subscription and unified monetization business models in Zuora, in addition to subscription business models.
         /// </summary>
         /// <value>Order line items are non-subscription-based items created by an order, representing transactional charges such as one-time fees, physical goods, or professional service charges that are not sold as subscription services.    By specifying this field, you can launch non-subscription and unified monetization business models in Zuora, in addition to subscription business models.</value>
-        [DataMember(Name = "line_items", EmitDefaultValue = false)]
+        [DataMember(Name = "line_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "line_items")]
         public List<LineItemCreateRequest> LineItems { get; set; }
 
@@ -77,7 +77,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the order is signed. All the order actions under this order will use this order date as the contract effective date if the contract effective date field is skipped or its value is left as null.
         /// </summary>
         /// <value>The date when the order is signed. All the order actions under this order will use this order date as the contract effective date if the contract effective date field is skipped or its value is left as null.</value>
-        [DataMember(Name = "order_date", EmitDefaultValue = false)]
+        [DataMember(Name = "order_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_date")]
         public DateTime? OrderDate { get; set; }
 
@@ -85,14 +85,14 @@ namespace ZIP2GO.Service.Models
         /// The order number of the new order. If not provided, system will auto-generate a number for this order.     Note: Ensure that the order number does not contain a slash.
         /// </summary>
         /// <value>The order number of the new order. If not provided, system will auto-generate a number for this order.     Note: Ensure that the order number does not contain a slash.</value>
-        [DataMember(Name = "order_number", EmitDefaultValue = false)]
+        [DataMember(Name = "order_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "order_number")]
         public string OrderNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets ProcessingOptions
         /// </summary>
-        [DataMember(Name = "processing_options", EmitDefaultValue = false)]
+        [DataMember(Name = "processing_options")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processing_options")]
         public OrdersProcessingOption ProcessingOptions { get; set; }
 
@@ -100,7 +100,7 @@ namespace ZIP2GO.Service.Models
         /// The status of the order.
         /// </summary>
         /// <value>The status of the order.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
 
@@ -108,7 +108,7 @@ namespace ZIP2GO.Service.Models
         /// Based on the intended order action, each item should include specific fields.     For example, to create a new subscription for a new account, you must specify the `account_data` and `subscription_plans` fields at a minimum.
         /// </summary>
         /// <value>Based on the intended order action, each item should include specific fields.     For example, to create a new subscription for a new account, you must specify the `account_data` and `subscription_plans` fields at a minimum.</value>
-        [DataMember(Name = "subscriptions", EmitDefaultValue = false)]
+        [DataMember(Name = "subscriptions")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscriptions")]
         public List<PostSubscriptionOrderRequest> Subscriptions { get; set; }
 

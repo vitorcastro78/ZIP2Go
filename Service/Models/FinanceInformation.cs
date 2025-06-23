@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// An active accounting code defined in **Finance Settings > Configure Accounting Codes** in your Zuora tenant.
         /// </summary>
         /// <value>An active accounting code defined in **Finance Settings > Configure Accounting Codes** in your Zuora tenant.</value>
-        [DataMember(Name = "accounting_code", EmitDefaultValue = false)]
+        [DataMember(Name = "accounting_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "accounting_code")]
         public string AccountingCode { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// An active account in your Zuora Chart of Accounts.
         /// </summary>
         /// <value>An active account in your Zuora Chart of Accounts.</value>
-        [DataMember(Name = "account_receivable_accounting_code", EmitDefaultValue = false)]
+        [DataMember(Name = "account_receivable_accounting_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_receivable_accounting_code")]
         public string AccountReceivableAccountingCode { get; set; }
 

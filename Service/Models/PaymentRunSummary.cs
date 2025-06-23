@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The total number of all receivables with payments not processed.
         /// </summary>
         /// <value>The total number of all receivables with payments not processed.</value>
-        [DataMember(Name = "errors_total", EmitDefaultValue = false)]
+        [DataMember(Name = "errors_total")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "errors_total")]
         public int? ErrorsTotal { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The total number of all invoices.
         /// </summary>
         /// <value>The total number of all invoices.</value>
-        [DataMember(Name = "invoices_total", EmitDefaultValue = false)]
+        [DataMember(Name = "invoices_total")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoices_total")]
         public int? InvoicesTotal { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The number of credit memos processed.
         /// </summary>
         /// <value>The number of credit memos processed.</value>
-        [DataMember(Name = "number_of_credit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_credit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_credit_memos")]
         public int? NumberOfCreditMemos { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The number of debit memos processed.
         /// </summary>
         /// <value>The number of debit memos processed.</value>
-        [DataMember(Name = "number_of_debit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_debit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_debit_memos")]
         public int? NumberOfDebitMemos { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// The number of payments not processed.
         /// </summary>
         /// <value>The number of payments not processed.</value>
-        [DataMember(Name = "number_of_errors", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_errors")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_errors")]
         public int? NumberOfErrors { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Service.Models
         /// The number of invoices processed.
         /// </summary>
         /// <value>The number of invoices processed.</value>
-        [DataMember(Name = "number_of_invoices", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_invoices")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_invoices")]
         public int? NumberOfInvoices { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Service.Models
         /// The number of payments processed.
         /// </summary>
         /// <value>The number of payments processed.</value>
-        [DataMember(Name = "number_of_payments", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_payments")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_payments")]
         public int? NumberOfPayments { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Service.Models
         /// The number of unapplied payments.
         /// </summary>
         /// <value>The number of unapplied payments.</value>
-        [DataMember(Name = "number_of_unapplied_payments", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_unapplied_payments")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_unapplied_payments")]
         public int? NumberOfUnappliedPayments { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Service.Models
         /// The number of unprocessed debit memos.
         /// </summary>
         /// <value>The number of unprocessed debit memos.</value>
-        [DataMember(Name = "number_of_unprocessed_debit_memos", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_unprocessed_debit_memos")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_unprocessed_debit_memos")]
         public int? NumberOfUnprocessedDebitMemos { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Service.Models
         /// The number of receivables with positive remamining balances.
         /// </summary>
         /// <value>The number of receivables with positive remamining balances.</value>
-        [DataMember(Name = "number_of_unprocessed_receivables", EmitDefaultValue = false)]
+        [DataMember(Name = "number_of_unprocessed_receivables")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "number_of_unprocessed_receivables")]
         public int? NumberOfUnprocessedReceivables { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Service.Models
         /// The total number of all processed and unapplied payments.
         /// </summary>
         /// <value>The total number of all processed and unapplied payments.</value>
-        [DataMember(Name = "payments_total", EmitDefaultValue = false)]
+        [DataMember(Name = "payments_total")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payments_total")]
         public int? PaymentsTotal { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Service.Models
         /// The total number of positive remaining balances of all receivables.
         /// </summary>
         /// <value>The total number of positive remaining balances of all receivables.</value>
-        [DataMember(Name = "unprocessed_receivables_total", EmitDefaultValue = false)]
+        [DataMember(Name = "unprocessed_receivables_total")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unprocessed_receivables_total")]
         public int? UnprocessedReceivablesTotal { get; set; }
 

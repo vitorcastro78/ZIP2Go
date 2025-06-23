@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -22,14 +22,14 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -37,7 +37,7 @@ namespace ZIP2GO.Service.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public OneOfpaymentPatchRequestCustomObjects CustomObjects { get; set; }
 
@@ -45,7 +45,7 @@ namespace ZIP2GO.Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -53,7 +53,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -61,7 +61,7 @@ namespace ZIP2GO.Service.Models
         /// Transaction identifier returned by the payment gateway. You may use this field to reconcile payments between your payment gateway and Zuora Payments.
         /// </summary>
         /// <value>Transaction identifier returned by the payment gateway. You may use this field to reconcile payments between your payment gateway and Zuora Payments.</value>
-        [DataMember(Name = "reference_id", EmitDefaultValue = false)]
+        [DataMember(Name = "reference_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reference_id")]
         public string ReferenceId { get; set; }
 
@@ -69,7 +69,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -77,7 +77,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

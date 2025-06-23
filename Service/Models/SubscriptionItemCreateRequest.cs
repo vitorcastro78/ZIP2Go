@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The amount of the price. Specify this field if you want to override the original price with a flat-fee price
         /// </summary>
         /// <value>The amount of the price. Specify this field if you want to override the original price with a flat-fee price</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Any combination of one-time, recurring, and usage.
         /// </summary>
         /// <value>Any combination of one-time, recurring, and usage.</value>
-        [DataMember(Name = "apply_discount_to", EmitDefaultValue = false)]
+        [DataMember(Name = "apply_discount_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_discount_to")]
         public List<string> ApplyDiscountTo { get; set; }
 
@@ -30,14 +30,14 @@ namespace ZIP2GO.Service.Models
         /// Name of the custom field that will be used to set a per unit rate under the `Pre-Rated Per Unit` charge model
         /// </summary>
         /// <value>Name of the custom field that will be used to set a per unit rate under the `Pre-Rated Per Unit` charge model </value>
-        [DataMember(Name = "custom_field_per_unit_rate", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_field_per_unit_rate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_field_per_unit_rate")]
         public string CustomFieldPerUnitRate { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -45,7 +45,7 @@ namespace ZIP2GO.Service.Models
         /// Name of the custom field that will be used to set a total amount under the `Pre-Rated` charge model
         /// </summary>
         /// <value>Name of the custom field that will be used to set a total amount under the `Pre-Rated` charge model </value>
-        [DataMember(Name = "custom_field_total_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_field_total_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_field_total_amount")]
         public string CustomFieldTotalAmount { get; set; }
 
@@ -53,7 +53,7 @@ namespace ZIP2GO.Service.Models
         /// Description of the price. Often useful for displaying to users.
         /// </summary>
         /// <value>Description of the price. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -61,7 +61,7 @@ namespace ZIP2GO.Service.Models
         /// Discount amount. Specify this field if you offer an amount-based discount.
         /// </summary>
         /// <value>Discount amount. Specify this field if you offer an amount-based discount.</value>
-        [DataMember(Name = "discount_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_amount")]
         public decimal? DiscountAmount { get; set; }
 
@@ -69,7 +69,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies at what level a discount should be applied: one of account, subscription or plan.
         /// </summary>
         /// <value>Specifies at what level a discount should be applied: one of account, subscription or plan.</value>
-        [DataMember(Name = "discount_level", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_level")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_level")]
         public string DiscountLevel { get; set; }
 
@@ -77,14 +77,14 @@ namespace ZIP2GO.Service.Models
         /// Discount percent. Specify this field if you offer a percentage-based discount.
         /// </summary>
         /// <value>Discount percent. Specify this field if you offer a percentage-based discount.</value>
-        [DataMember(Name = "discount_percent", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_percent")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_percent")]
         public decimal? DiscountPercent { get; set; }
 
         /// <summary>
         /// Gets or Sets Drawdown
         /// </summary>
-        [DataMember(Name = "drawdown", EmitDefaultValue = false)]
+        [DataMember(Name = "drawdown")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "drawdown")]
         public SubscriptionItemDrawdownField Drawdown { get; set; }
 
@@ -92,21 +92,21 @@ namespace ZIP2GO.Service.Models
         /// The date when the subscription item ends or ended.
         /// </summary>
         /// <value>The date when the subscription item ends or ended.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Gets or Sets Overage
         /// </summary>
-        [DataMember(Name = "overage", EmitDefaultValue = false)]
+        [DataMember(Name = "overage")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "overage")]
         public Overage Overage { get; set; }
 
         /// <summary>
         /// Gets or Sets Prepayment
         /// </summary>
-        [DataMember(Name = "prepayment", EmitDefaultValue = false)]
+        [DataMember(Name = "prepayment")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "prepayment")]
         public SubscriptionItemPrepaymentField Prepayment { get; set; }
 
@@ -114,7 +114,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the base interval of the price the subscriber is subscribed to. If not provided, this field defaults to `billing_period`.
         /// </summary>
         /// <value>Specifies the base interval of the price the subscriber is subscribed to. If not provided, this field defaults to `billing_period`.</value>
-        [DataMember(Name = "price_base_interval", EmitDefaultValue = false)]
+        [DataMember(Name = "price_base_interval")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price_base_interval")]
         public string PriceBaseInterval { get; set; }
 
@@ -122,7 +122,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the price.
         /// </summary>
         /// <value>Identifier of the price.</value>
-        [DataMember(Name = "price_id", EmitDefaultValue = false)]
+        [DataMember(Name = "price_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price_id")]
         public string PriceId { get; set; }
 
@@ -130,14 +130,14 @@ namespace ZIP2GO.Service.Models
         /// Quantity of the product to which your customers subscribe.
         /// </summary>
         /// <value>Quantity of the product to which your customers subscribe.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
         /// <summary>
         /// Gets or Sets Recurring
         /// </summary>
-        [DataMember(Name = "recurring", EmitDefaultValue = false)]
+        [DataMember(Name = "recurring")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recurring")]
         public Recurring Recurring { get; set; }
 
@@ -145,7 +145,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the subscription item starts
         /// </summary>
         /// <value>The date when the subscription item starts</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -153,7 +153,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies when to start billing your customer.
         /// </summary>
         /// <value>Specifies when to start billing your customer.</value>
-        [DataMember(Name = "start_event", EmitDefaultValue = false)]
+        [DataMember(Name = "start_event")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_event")]
         public string StartEvent { get; set; }
 
@@ -161,7 +161,7 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier of the subscription item. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the subscription item. It can be user-supplied.</value>
-        [DataMember(Name = "subscription_item_number", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_number")]
         public string SubscriptionItemNumber { get; set; }
 
@@ -169,7 +169,7 @@ namespace ZIP2GO.Service.Models
         /// Information of all tiers if the price is a tiered price.
         /// </summary>
         /// <value>Information of all tiers if the price is a tiered price.</value>
-        [DataMember(Name = "tiers", EmitDefaultValue = false)]
+        [DataMember(Name = "tiers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tiers")]
         public List<ItemTier> Tiers { get; set; }
 
@@ -177,7 +177,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the mode of tiering.
         /// </summary>
         /// <value>Specifies the mode of tiering.</value>
-        [DataMember(Name = "tiers_mode", EmitDefaultValue = false)]
+        [DataMember(Name = "tiers_mode")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tiers_mode")]
         public string TiersMode { get; set; }
 
@@ -185,7 +185,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the price. This identifier enables you to refer to the price before the price has an internal identifier in Zuora.
         /// </summary>
         /// <value>Unique identifier for the price. This identifier enables you to refer to the price before the price has an internal identifier in Zuora.</value>
-        [DataMember(Name = "unique_token", EmitDefaultValue = false)]
+        [DataMember(Name = "unique_token")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unique_token")]
         public string UniqueToken { get; set; }
 
@@ -193,7 +193,7 @@ namespace ZIP2GO.Service.Models
         /// The unit amount of the price. Specify this field if you want to override the original price with a per-unit price.
         /// </summary>
         /// <value>The unit amount of the price. Specify this field if you want to override the original price with a per-unit price.</value>
-        [DataMember(Name = "unit_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amount")]
         public decimal? UnitAmount { get; set; }
 

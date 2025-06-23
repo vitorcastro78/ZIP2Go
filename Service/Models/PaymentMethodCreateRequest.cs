@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The customer account associated with this payment method.
         /// </summary>
         /// <value>The customer account associated with this payment method.</value>
-        [DataMember(Name = "account", EmitDefaultValue = false)]
+        [DataMember(Name = "account")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account")]
         public AllOfpaymentMethodCreateRequestAccount Account { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// A customer account identifier.
         /// </summary>
         /// <value>A customer account identifier.</value>
-        [DataMember(Name = "account_id", EmitDefaultValue = false)]
+        [DataMember(Name = "account_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_id")]
         public string AccountId { get; set; }
 
@@ -30,42 +30,42 @@ namespace ZIP2GO.Service.Models
         /// A human-readable customer account identifier. It can be user-supplied.
         /// </summary>
         /// <value>A human-readable customer account identifier. It can be user-supplied.</value>
-        [DataMember(Name = "account_number", EmitDefaultValue = false)]
+        [DataMember(Name = "account_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "account_number")]
         public string AccountNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets AchDebit
         /// </summary>
-        [DataMember(Name = "ach_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "ach_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ach_debit")]
         public AchDebit AchDebit { get; set; }
 
         /// <summary>
         /// Gets or Sets ApplePay
         /// </summary>
-        [DataMember(Name = "apple_pay", EmitDefaultValue = false)]
+        [DataMember(Name = "apple_pay")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apple_pay")]
         public ApplePayCreate ApplePay { get; set; }
 
         /// <summary>
         /// Gets or Sets AuBecsDebit
         /// </summary>
-        [DataMember(Name = "au_becs_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "au_becs_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "au_becs_debit")]
         public AuBecsDebit AuBecsDebit { get; set; }
 
         /// <summary>
         /// Gets or Sets AutogiroDebit
         /// </summary>
-        [DataMember(Name = "autogiro_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "autogiro_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "autogiro_debit")]
         public AutogiroDebit AutogiroDebit { get; set; }
 
         /// <summary>
         /// Gets or Sets BacsDebit
         /// </summary>
-        [DataMember(Name = "bacs_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "bacs_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bacs_debit")]
         public BacsDebit BacsDebit { get; set; }
 
@@ -73,35 +73,35 @@ namespace ZIP2GO.Service.Models
         /// The first six or eight digits of the payment method's number, such as the credit card number or account number. Banks use this number to identify a payment method.
         /// </summary>
         /// <value>The first six or eight digits of the payment method's number, such as the credit card number or account number. Banks use this number to identify a payment method.</value>
-        [DataMember(Name = "bank_identification_number", EmitDefaultValue = false)]
+        [DataMember(Name = "bank_identification_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "bank_identification_number")]
         public string BankIdentificationNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets BetalingsDebit
         /// </summary>
-        [DataMember(Name = "betalings_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "betalings_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "betalings_debit")]
         public BetalingsDebit BetalingsDebit { get; set; }
 
         /// <summary>
         /// Gets or Sets BillingDetails
         /// </summary>
-        [DataMember(Name = "billing_details", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_details")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_details")]
         public BillingDetails BillingDetails { get; set; }
 
         /// <summary>
         /// Gets or Sets Card
         /// </summary>
-        [DataMember(Name = "card", EmitDefaultValue = false)]
+        [DataMember(Name = "card")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
         public Card Card { get; set; }
 
         /// <summary>
         /// Gets or Sets CcRef
         /// </summary>
-        [DataMember(Name = "cc_ref", EmitDefaultValue = false)]
+        [DataMember(Name = "cc_ref")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cc_ref")]
         public CcRef CcRef { get; set; }
 
@@ -109,7 +109,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -117,14 +117,14 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -132,7 +132,7 @@ namespace ZIP2GO.Service.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public OneOfpaymentMethodCreateRequestCustomObjects CustomObjects { get; set; }
 
@@ -140,7 +140,7 @@ namespace ZIP2GO.Service.Models
         /// The custom type of the payment method from Universal Payment Connector.
         /// </summary>
         /// <value>The custom type of the payment method from Universal Payment Connector.</value>
-        [DataMember(Name = "custom_type", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_type")]
         public string CustomType { get; set; }
 
@@ -148,7 +148,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the device browser session.
         /// </summary>
         /// <value>Identifier of the device browser session.</value>
-        [DataMember(Name = "device_session_id", EmitDefaultValue = false)]
+        [DataMember(Name = "device_session_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "device_session_id")]
         public string DeviceSessionId { get; set; }
 
@@ -156,21 +156,21 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.
         /// </summary>
         /// <value>Identifier of the payment gateway Zuora will use to authorize the payments that are made with this payment method.</value>
-        [DataMember(Name = "gateway_id", EmitDefaultValue = false)]
+        [DataMember(Name = "gateway_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_id")]
         public string GatewayId { get; set; }
 
         /// <summary>
         /// Gets or Sets GatewayOptions
         /// </summary>
-        [DataMember(Name = "gateway_options", EmitDefaultValue = false)]
+        [DataMember(Name = "gateway_options")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "gateway_options")]
         public Dictionary<string, string> GatewayOptions { get; set; }
 
         /// <summary>
         /// Gets or Sets GooglePay
         /// </summary>
-        [DataMember(Name = "google_pay", EmitDefaultValue = false)]
+        [DataMember(Name = "google_pay")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "google_pay")]
         public GooglePayCreate GooglePay { get; set; }
 
@@ -178,7 +178,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -186,7 +186,7 @@ namespace ZIP2GO.Service.Models
         /// The IP address from which the Mandate was accepted by the customer.
         /// </summary>
         /// <value>The IP address from which the Mandate was accepted by the customer.</value>
-        [DataMember(Name = "ip_address", EmitDefaultValue = false)]
+        [DataMember(Name = "ip_address")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ip_address")]
         public string IpAddress { get; set; }
 
@@ -194,7 +194,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether it is the default payment method on the associated account.
         /// </summary>
         /// <value>Indicates whether it is the default payment method on the associated account.</value>
-        [DataMember(Name = "is_default", EmitDefaultValue = false)]
+        [DataMember(Name = "is_default")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "is_default")]
         public bool? IsDefault { get; set; }
 
@@ -202,21 +202,21 @@ namespace ZIP2GO.Service.Models
         /// Maximum number of consecutive failed retry payment attempts using this payment method before retries are stopped.
         /// </summary>
         /// <value>Maximum number of consecutive failed retry payment attempts using this payment method before retries are stopped.</value>
-        [DataMember(Name = "maximum_payment_attempts", EmitDefaultValue = false)]
+        [DataMember(Name = "maximum_payment_attempts")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "maximum_payment_attempts")]
         public decimal? MaximumPaymentAttempts { get; set; }
 
         /// <summary>
         /// Gets or Sets NzBecsDebit
         /// </summary>
-        [DataMember(Name = "nz_becs_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "nz_becs_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "nz_becs_debit")]
         public NzBecsDebit NzBecsDebit { get; set; }
 
         /// <summary>
         /// Gets or Sets PadDebit
         /// </summary>
-        [DataMember(Name = "pad_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "pad_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pad_debit")]
         public PadDebit PadDebit { get; set; }
 
@@ -224,35 +224,35 @@ namespace ZIP2GO.Service.Models
         /// The retry interval in hours.
         /// </summary>
         /// <value>The retry interval in hours.</value>
-        [DataMember(Name = "payment_retry_interval", EmitDefaultValue = false)]
+        [DataMember(Name = "payment_retry_interval")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "payment_retry_interval")]
         public int? PaymentRetryInterval { get; set; }
 
         /// <summary>
         /// Gets or Sets PaypalAdaptive
         /// </summary>
-        [DataMember(Name = "paypal_adaptive", EmitDefaultValue = false)]
+        [DataMember(Name = "paypal_adaptive")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "paypal_adaptive")]
         public PaypalAdaptive PaypalAdaptive { get; set; }
 
         /// <summary>
         /// Gets or Sets PaypalExpress
         /// </summary>
-        [DataMember(Name = "paypal_express", EmitDefaultValue = false)]
+        [DataMember(Name = "paypal_express")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "paypal_express")]
         public PaypalExpress PaypalExpress { get; set; }
 
         /// <summary>
         /// Gets or Sets PaypalExpressNative
         /// </summary>
-        [DataMember(Name = "paypal_express_native", EmitDefaultValue = false)]
+        [DataMember(Name = "paypal_express_native")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "paypal_express_native")]
         public PaypalExpressNative PaypalExpressNative { get; set; }
 
         /// <summary>
         /// Gets or Sets SepaDebit
         /// </summary>
-        [DataMember(Name = "sepa_debit", EmitDefaultValue = false)]
+        [DataMember(Name = "sepa_debit")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "sepa_debit")]
         public SepaDebit SepaDebit { get; set; }
 
@@ -260,7 +260,7 @@ namespace ZIP2GO.Service.Models
         /// The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.
         /// </summary>
         /// <value>The type of the payment method. An additional hash is included on the payment method with a name matching this value. It contains additional information specific to the payment method type.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 
@@ -268,7 +268,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -276,7 +276,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

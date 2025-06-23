@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,14 +14,14 @@ namespace ZIP2GO.Service.Models
         /// Date on which the subscription item expires.
         /// </summary>
         /// <value>Date on which the subscription item expires.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Gets or Sets Mrr
         /// </summary>
-        [DataMember(Name = "mrr", EmitDefaultValue = false)]
+        [DataMember(Name = "mrr")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mrr")]
         public LineItemsPreviewResponseMrr Mrr { get; set; }
 
@@ -29,7 +29,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the price.
         /// </summary>
         /// <value>Identifier of the price.</value>
-        [DataMember(Name = "price_id", EmitDefaultValue = false)]
+        [DataMember(Name = "price_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price_id")]
         public string PriceId { get; set; }
 
@@ -37,7 +37,7 @@ namespace ZIP2GO.Service.Models
         /// Date on which the subscription item starts to become effective.
         /// </summary>
         /// <value>Date on which the subscription item starts to become effective.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -45,21 +45,21 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the subscription item.
         /// </summary>
         /// <value>Identifier of the subscription item.</value>
-        [DataMember(Name = "subscription_item_id", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_id")]
         public string SubscriptionItemId { get; set; }
 
         /// <summary>
         /// Gets or Sets Tcb
         /// </summary>
-        [DataMember(Name = "tcb", EmitDefaultValue = false)]
+        [DataMember(Name = "tcb")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tcb")]
         public LineItemsPreviewResponseMrr Tcb { get; set; }
 
         /// <summary>
         /// Gets or Sets Tcv
         /// </summary>
-        [DataMember(Name = "tcv", EmitDefaultValue = false)]
+        [DataMember(Name = "tcv")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tcv")]
         public LineItemsPreviewResponseMrr Tcv { get; set; }
 

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The date printed on the invoice.
         /// </summary>
         /// <value>The date printed on the invoice.</value>
-        [DataMember(Name = "invoice_date", EmitDefaultValue = false)]
+        [DataMember(Name = "invoice_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "invoice_date")]
         public DateTime? InvoiceDate { get; set; }
 
@@ -34,7 +34,7 @@ namespace ZIP2GO.Service.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class BillRunPostRequest {\n");
+            sb.Append("class BillRunCreateRequest {\n");
             sb.Append("  InvoiceDate: ").Append(InvoiceDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();

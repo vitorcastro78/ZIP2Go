@@ -1,4 +1,4 @@
-namespace ZIP2GO.Service.Client
+namespace Service.Client
 {
     /// <summary>
     /// API Exception

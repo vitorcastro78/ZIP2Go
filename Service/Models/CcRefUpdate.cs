@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// If the &#x60;type&#x60; of the payment method is &#x60;cc_ref&#x60;, this hash contains details about the Credit Card Reference Transactions payment method. See [Supported payment methods](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/L_Payment_Methods/A_Supported_Payment_Methods) for payment gateways that support this type of payment method.
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Service.Models
         /// A gateway unique identifier that replaces sensitive payment method data. This field is conditionally required only when `token` is being used to represent a gateway customer profile.
         /// </summary>
         /// <value>A gateway unique identifier that replaces sensitive payment method data. This field is conditionally required only when `token` is being used to represent a gateway customer profile.</value>
-        [DataMember(Name = "second_token", EmitDefaultValue = false)]
+        [DataMember(Name = "second_token")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "second_token")]
         public string SecondToken { get; set; }
 

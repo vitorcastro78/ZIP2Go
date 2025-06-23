@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// The date and time when the payment run executed, in the &#x60;yyyy-mm-dd hh:mm:ss&#x60; format.
@@ -13,14 +13,14 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets Completed
         /// </summary>
-        [DataMember(Name = "completed", EmitDefaultValue = false)]
+        [DataMember(Name = "completed")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "completed")]
         public string Completed { get; set; }
 
         /// <summary>
         /// Gets or Sets Failed
         /// </summary>
-        [DataMember(Name = "failed", EmitDefaultValue = false)]
+        [DataMember(Name = "failed")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "failed")]
         public string Failed { get; set; }
 

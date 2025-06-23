@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Details about the customer’s acceptance of the mandate.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The date on which the customer accepted the mandate.
         /// </summary>
         /// <value>The date on which the customer accepted the mandate.</value>
-        [DataMember(Name = "date", EmitDefaultValue = false)]
+        [DataMember(Name = "date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "date")]
         public DateTime? Date { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// A reference to the consent agreement you have with your customer.
         /// </summary>
         /// <value>A reference to the consent agreement you have with your customer.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 

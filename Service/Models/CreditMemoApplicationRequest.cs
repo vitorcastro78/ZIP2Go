@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The credit memo amount applied to this billing document.
         /// </summary>
         /// <value>The credit memo amount applied to this billing document.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the invoice or debit memo to which the credit memo is applied.
         /// </summary>
         /// <value>Identifier of the invoice or debit memo to which the credit memo is applied.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// The billing document items (invoice items or debit memo items or taxation items) to which the credit memo is applied.
         /// </summary>
         /// <value>The billing document items (invoice items or debit memo items or taxation items) to which the credit memo is applied.</value>
-        [DataMember(Name = "items", EmitDefaultValue = false)]
+        [DataMember(Name = "items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "items")]
         public List<CreditMemoItemApplicationRequest> Items { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The type of billing document, one of invoice or debit_memo.
         /// </summary>
         /// <value>The type of billing document, one of invoice or debit_memo.</value>
-        [DataMember(Name = "type", EmitDefaultValue = false)]
+        [DataMember(Name = "type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "type")]
         public string Type { get; set; }
 

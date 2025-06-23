@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Subscription item information.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether the price is active and can be used for new purchases.
         /// </summary>
         /// <value>Indicates whether the price is active and can be used for new purchases.</value>
-        [DataMember(Name = "active", EmitDefaultValue = false)]
+        [DataMember(Name = "active")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "active")]
         public bool? Active { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The amount of the price. Specify this field if you want to override the original price with a flat-fee price
         /// </summary>
         /// <value>The amount of the price. Specify this field if you want to override the original price with a flat-fee price</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Any combination of one_time, recurring and plan.
         /// </summary>
         /// <value>Any combination of one_time, recurring and plan.</value>
-        [DataMember(Name = "apply_discount_to", EmitDefaultValue = false)]
+        [DataMember(Name = "apply_discount_to")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "apply_discount_to")]
         public List<string> ApplyDiscountTo { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The date through which a customer has been billed for the subscription item.
         /// </summary>
         /// <value>The date through which a customer has been billed for the subscription item.</value>
-        [DataMember(Name = "charged_through_date", EmitDefaultValue = false)]
+        [DataMember(Name = "charged_through_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "charged_through_date")]
         public DateTime? ChargedThroughDate { get; set; }
 
@@ -46,7 +46,7 @@ namespace ZIP2GO.Service.Models
         /// Charge model of the price. See [Charge models](https://knowledgecenter.zuora.com/Billing/Subscriptions/Product_Catalog/B_Charge_Models) for more information.
         /// </summary>
         /// <value>Charge model of the price. See [Charge models](https://knowledgecenter.zuora.com/Billing/Subscriptions/Product_Catalog/B_Charge_Models) for more information.</value>
-        [DataMember(Name = "charge_model", EmitDefaultValue = false)]
+        [DataMember(Name = "charge_model")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "charge_model")]
         public string ChargeModel { get; set; }
 
@@ -54,7 +54,7 @@ namespace ZIP2GO.Service.Models
         /// Type of the charge. It can be one of the following types: one-time, recurring, or usage.
         /// </summary>
         /// <value>Type of the charge. It can be one of the following types: one-time, recurring, or usage.</value>
-        [DataMember(Name = "charge_type", EmitDefaultValue = false)]
+        [DataMember(Name = "charge_type")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "charge_type")]
         public string ChargeType { get; set; }
 
@@ -62,7 +62,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who created the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who created the object</value>
-        [DataMember(Name = "created_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "created_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_by_id")]
         public string CreatedById { get; set; }
 
@@ -70,7 +70,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was created in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was created in ISO 8601 UTC format.</value>
-        [DataMember(Name = "created_time", EmitDefaultValue = false)]
+        [DataMember(Name = "created_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "created_time")]
         public DateTime? CreatedTime { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZIP2GO.Service.Models
         /// Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.
         /// </summary>
         /// <value>Set of user-defined fields associated with this object. Useful for storing additional information about the object in a structured format.</value>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public Dictionary<string, Object> CustomFields { get; set; }
 
@@ -86,7 +86,7 @@ namespace ZIP2GO.Service.Models
         /// The custom objects associated with a Zuora standard object.
         /// </summary>
         /// <value>The custom objects associated with a Zuora standard object.</value>
-        [DataMember(Name = "custom_objects", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_objects")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_objects")]
         public OneOfsubscriptionItemCustomObjects CustomObjects { get; set; }
 
@@ -94,7 +94,7 @@ namespace ZIP2GO.Service.Models
         /// An arbitrary string attached to the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string attached to the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -102,7 +102,7 @@ namespace ZIP2GO.Service.Models
         /// Discount amount. Specify this field if you offer an amount-based discount.
         /// </summary>
         /// <value>Discount amount. Specify this field if you offer an amount-based discount.</value>
-        [DataMember(Name = "discount_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_amount")]
         public decimal? DiscountAmount { get; set; }
 
@@ -110,7 +110,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies at what level a discount should be applied: one of account, subscription or plan.
         /// </summary>
         /// <value>Specifies at what level a discount should be applied: one of account, subscription or plan.</value>
-        [DataMember(Name = "discount_level", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_level")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_level")]
         public string DiscountLevel { get; set; }
 
@@ -118,7 +118,7 @@ namespace ZIP2GO.Service.Models
         /// Discount percent. Specify this field if you offer a percentage-based discount.
         /// </summary>
         /// <value>Discount percent. Specify this field if you offer a percentage-based discount.</value>
-        [DataMember(Name = "discount_percent", EmitDefaultValue = false)]
+        [DataMember(Name = "discount_percent")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "discount_percent")]
         public decimal? DiscountPercent { get; set; }
 
@@ -126,7 +126,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the subscription item ends.
         /// </summary>
         /// <value>The date when the subscription item ends.</value>
-        [DataMember(Name = "end_date", EmitDefaultValue = false)]
+        [DataMember(Name = "end_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "end_date")]
         public DateTime? EndDate { get; set; }
 
@@ -134,7 +134,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier for the object.
         /// </summary>
         /// <value>Unique identifier for the object.</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -142,21 +142,21 @@ namespace ZIP2GO.Service.Models
         /// The name of the subscription item.
         /// </summary>
         /// <value>The name of the subscription item.</value>
-        [DataMember(Name = "name", EmitDefaultValue = false)]
+        [DataMember(Name = "name")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or Sets Overage
         /// </summary>
-        [DataMember(Name = "overage", EmitDefaultValue = false)]
+        [DataMember(Name = "overage")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "overage")]
         public Overage Overage { get; set; }
 
         /// <summary>
         /// Gets or Sets Price
         /// </summary>
-        [DataMember(Name = "price", EmitDefaultValue = false)]
+        [DataMember(Name = "price")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price")]
         public Price Price { get; set; }
 
@@ -164,7 +164,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the base interval of the price the subscriber is subscribed to. If not provided, this field defaults to `billing_period`.
         /// </summary>
         /// <value>Specifies the base interval of the price the subscriber is subscribed to. If not provided, this field defaults to `billing_period`.</value>
-        [DataMember(Name = "price_base_interval", EmitDefaultValue = false)]
+        [DataMember(Name = "price_base_interval")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price_base_interval")]
         public string PriceBaseInterval { get; set; }
 
@@ -172,7 +172,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the price.
         /// </summary>
         /// <value>Identifier of the price.</value>
-        [DataMember(Name = "price_id", EmitDefaultValue = false)]
+        [DataMember(Name = "price_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "price_id")]
         public string PriceId { get; set; }
 
@@ -180,7 +180,7 @@ namespace ZIP2GO.Service.Models
         /// The date until when charges are processed. When billing takes place in arrears, such as usage-based prices, this field value is the the same as the `ChargedThroughDate` value. This date is the earliest date when a charge can be amended.
         /// </summary>
         /// <value>The date until when charges are processed. When billing takes place in arrears, such as usage-based prices, this field value is the the same as the `ChargedThroughDate` value. This date is the earliest date when a charge can be amended.</value>
-        [DataMember(Name = "processed_through_date", EmitDefaultValue = false)]
+        [DataMember(Name = "processed_through_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "processed_through_date")]
         public DateTime? ProcessedThroughDate { get; set; }
 
@@ -188,7 +188,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the product with which this subscription is associated.
         /// </summary>
         /// <value>Identifier of the product with which this subscription is associated.</value>
-        [DataMember(Name = "product_id", EmitDefaultValue = false)]
+        [DataMember(Name = "product_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "product_id")]
         public string ProductId { get; set; }
 
@@ -196,14 +196,14 @@ namespace ZIP2GO.Service.Models
         /// Quantity of the product to which your customers subscribe.
         /// </summary>
         /// <value>Quantity of the product to which your customers subscribe.</value>
-        [DataMember(Name = "quantity", EmitDefaultValue = false)]
+        [DataMember(Name = "quantity")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "quantity")]
         public decimal? Quantity { get; set; }
 
         /// <summary>
         /// Gets or Sets Recurring
         /// </summary>
-        [DataMember(Name = "recurring", EmitDefaultValue = false)]
+        [DataMember(Name = "recurring")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "recurring")]
         public Recurring Recurring { get; set; }
 
@@ -211,7 +211,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the subscription item starts.
         /// </summary>
         /// <value>The date when the subscription item starts.</value>
-        [DataMember(Name = "start_date", EmitDefaultValue = false)]
+        [DataMember(Name = "start_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_date")]
         public DateTime? StartDate { get; set; }
 
@@ -219,7 +219,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies when to start billing your customer.
         /// </summary>
         /// <value>Specifies when to start billing your customer.</value>
-        [DataMember(Name = "start_event", EmitDefaultValue = false)]
+        [DataMember(Name = "start_event")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_event")]
         public string StartEvent { get; set; }
 
@@ -227,7 +227,7 @@ namespace ZIP2GO.Service.Models
         /// Based on the current date to populate a state field with the enumeration: [inactive, active, expired] where inactive would represent charge segments with a start_date in the future and expired charge segments with an end_date in the past.
         /// </summary>
         /// <value>Based on the current date to populate a state field with the enumeration: [inactive, active, expired] where inactive would represent charge segments with a start_date in the future and expired charge segments with an end_date in the past.</value>
-        [DataMember(Name = "state", EmitDefaultValue = false)]
+        [DataMember(Name = "state")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "state")]
         public string State { get; set; }
 
@@ -235,14 +235,14 @@ namespace ZIP2GO.Service.Models
         /// Human-readable identifier of the subscription item. It can be user-supplied.
         /// </summary>
         /// <value>Human-readable identifier of the subscription item. It can be user-supplied.</value>
-        [DataMember(Name = "subscription_item_number", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_item_number")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_item_number")]
         public string SubscriptionItemNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets SubscriptionPlan
         /// </summary>
-        [DataMember(Name = "subscription_plan", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_plan")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plan")]
         public SubscriptionPlan SubscriptionPlan { get; set; }
 
@@ -250,7 +250,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the subscription plan this subscription item belongs to.
         /// </summary>
         /// <value>Identifier of the subscription plan this subscription item belongs to.</value>
-        [DataMember(Name = "subscription_plan_id", EmitDefaultValue = false)]
+        [DataMember(Name = "subscription_plan_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "subscription_plan_id")]
         public string SubscriptionPlanId { get; set; }
 
@@ -258,7 +258,7 @@ namespace ZIP2GO.Service.Models
         /// A tax code identifier. If the `tax_code` of a price is not provided when you create or override a price, Zuora will treat the charged amount as non-taxable. If this code is provide, Zuora considers that this price is taxable and the charged amount will be handled accordingly.
         /// </summary>
         /// <value>A tax code identifier. If the `tax_code` of a price is not provided when you create or override a price, Zuora will treat the charged amount as non-taxable. If this code is provide, Zuora considers that this price is taxable and the charged amount will be handled accordingly.</value>
-        [DataMember(Name = "tax_code", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_code")]
         public string TaxCode { get; set; }
 
@@ -266,14 +266,14 @@ namespace ZIP2GO.Service.Models
         /// If this field is set to `true`, it indicates that amounts are inclusive of tax.
         /// </summary>
         /// <value>If this field is set to `true`, it indicates that amounts are inclusive of tax.</value>
-        [DataMember(Name = "tax_inclusive", EmitDefaultValue = false)]
+        [DataMember(Name = "tax_inclusive")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tax_inclusive")]
         public bool? TaxInclusive { get; set; }
 
         /// <summary>
         /// Gets or Sets Tiers
         /// </summary>
-        [DataMember(Name = "tiers", EmitDefaultValue = false)]
+        [DataMember(Name = "tiers")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tiers")]
         public List<ItemTier> Tiers { get; set; }
 
@@ -281,7 +281,7 @@ namespace ZIP2GO.Service.Models
         /// Specifies the kind of tiering.
         /// </summary>
         /// <value>Specifies the kind of tiering.</value>
-        [DataMember(Name = "tiers_mode", EmitDefaultValue = false)]
+        [DataMember(Name = "tiers_mode")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "tiers_mode")]
         public string TiersMode { get; set; }
 
@@ -289,7 +289,7 @@ namespace ZIP2GO.Service.Models
         /// The unit amount of the price. Specify this field if you want to override the original price with a per-unit price.
         /// </summary>
         /// <value>The unit amount of the price. Specify this field if you want to override the original price with a per-unit price.</value>
-        [DataMember(Name = "unit_amount", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_amount")]
         public decimal? UnitAmount { get; set; }
 
@@ -297,7 +297,7 @@ namespace ZIP2GO.Service.Models
         /// A configured unit of measure. This field is required for per-unit prices.
         /// </summary>
         /// <value>A configured unit of measure. This field is required for per-unit prices.</value>
-        [DataMember(Name = "unit_of_measure", EmitDefaultValue = false)]
+        [DataMember(Name = "unit_of_measure")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "unit_of_measure")]
         public string UnitOfMeasure { get; set; }
 
@@ -305,7 +305,7 @@ namespace ZIP2GO.Service.Models
         /// Unique identifier of the Zuora user who last updated the object
         /// </summary>
         /// <value>Unique identifier of the Zuora user who last updated the object</value>
-        [DataMember(Name = "updated_by_id", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_by_id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_by_id")]
         public string UpdatedById { get; set; }
 
@@ -313,7 +313,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the object was last updated in ISO 8601 UTC format.
         /// </summary>
         /// <value>The date and time when the object was last updated in ISO 8601 UTC format.</value>
-        [DataMember(Name = "updated_time", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "updated_time")]
         public DateTime? UpdatedTime { get; set; }
 

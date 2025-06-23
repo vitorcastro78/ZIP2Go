@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Refund amount.
         /// </summary>
         /// <value>Refund amount.</value>
-        [DataMember(Name = "amount", EmitDefaultValue = false)]
+        [DataMember(Name = "amount")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "amount")]
         public decimal? Amount { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The items to which the credit memo is applied.
         /// </summary>
         /// <value>The items to which the credit memo is applied.</value>
-        [DataMember(Name = "credit_memo_items", EmitDefaultValue = false)]
+        [DataMember(Name = "credit_memo_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "credit_memo_items")]
         public List<RefundCreditMemoItemRequest> CreditMemoItems { get; set; }
 
@@ -30,7 +30,7 @@ namespace ZIP2GO.Service.Models
         /// Identifier of the credit memo taxation item
         /// </summary>
         /// <value>Identifier of the credit memo taxation item</value>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "id")]
         public string Id { get; set; }
 
@@ -38,7 +38,7 @@ namespace ZIP2GO.Service.Models
         /// The items to which the credit memo is applied.
         /// </summary>
         /// <value>The items to which the credit memo is applied.</value>
-        [DataMember(Name = "taxation_items", EmitDefaultValue = false)]
+        [DataMember(Name = "taxation_items")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "taxation_items")]
         public List<RefundCreditMemoItemRequest> TaxationItems { get; set; }
 

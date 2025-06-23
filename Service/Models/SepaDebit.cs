@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// If the &#x60;type&#x60; of the payment method is &#x60;sepa_debit&#x60;, this hash contains details about the SEPA bank account.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The BIC code used with the Sepa Debit payment method.
         /// </summary>
         /// <value>The BIC code used with the Sepa Debit payment method.</value>
-        [DataMember(Name = "business_identification_code", EmitDefaultValue = false)]
+        [DataMember(Name = "business_identification_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "business_identification_code")]
         public string BusinessIdentificationCode { get; set; }
 
@@ -22,14 +22,14 @@ namespace ZIP2GO.Service.Models
         /// International Bank Account Number used to create the SEPA Debit payment method.
         /// </summary>
         /// <value>International Bank Account Number used to create the SEPA Debit payment method.</value>
-        [DataMember(Name = "IBAN", EmitDefaultValue = false)]
+        [DataMember(Name = "IBAN")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "IBAN")]
         public string IBAN { get; set; }
 
         /// <summary>
         /// Gets or Sets Mandate
         /// </summary>
-        [DataMember(Name = "mandate", EmitDefaultValue = false)]
+        [DataMember(Name = "mandate")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "mandate")]
         public Mandate Mandate { get; set; }
 

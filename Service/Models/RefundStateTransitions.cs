@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// The timestamps at which the object&#x27;s state was updated.
@@ -14,14 +14,14 @@ namespace ZIP2GO.Service.Models
         /// The date and time (ISO 8601 UTC format) when the refund was canceled.
         /// </summary>
         /// <value>The date and time (ISO 8601 UTC format) when the refund was canceled.</value>
-        [DataMember(Name = "canceled_time", EmitDefaultValue = false)]
+        [DataMember(Name = "canceled_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "canceled_time")]
         public DateTime? CanceledTime { get; set; }
 
         /// <summary>
         /// Gets or Sets RefundedTime
         /// </summary>
-        [DataMember(Name = "refunded_time", EmitDefaultValue = false)]
+        [DataMember(Name = "refunded_time")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "refunded_time")]
         public DateTime? RefundedTime { get; set; }
 

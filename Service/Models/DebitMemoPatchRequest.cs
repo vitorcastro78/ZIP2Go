@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets CustomFields
         /// </summary>
-        [DataMember(Name = "custom_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "custom_fields")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "custom_fields")]
         public CustomFields CustomFields { get; set; }
 
@@ -21,7 +21,7 @@ namespace ZIP2GO.Service.Models
         /// An arbitrary string associated with the object. Often useful for displaying to users.
         /// </summary>
         /// <value>An arbitrary string associated with the object. Often useful for displaying to users.</value>
-        [DataMember(Name = "description", EmitDefaultValue = false)]
+        [DataMember(Name = "description")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "description")]
         public string Description { get; set; }
 
@@ -29,7 +29,7 @@ namespace ZIP2GO.Service.Models
         /// The date when the billing document takes effect.
         /// </summary>
         /// <value>The date when the billing document takes effect.</value>
-        [DataMember(Name = "document_date", EmitDefaultValue = false)]
+        [DataMember(Name = "document_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "document_date")]
         public DateTime? DocumentDate { get; set; }
 
@@ -37,7 +37,7 @@ namespace ZIP2GO.Service.Models
         /// The date on which payment for the billing document is due.
         /// </summary>
         /// <value>The date on which payment for the billing document is due.</value>
-        [DataMember(Name = "due_date", EmitDefaultValue = false)]
+        [DataMember(Name = "due_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "due_date")]
         public DateTime? DueDate { get; set; }
 
@@ -45,7 +45,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates whether the billing document is automatically picked up for processing in the corresponding payment run.
         /// </summary>
         /// <value>Indicates whether the billing document is automatically picked up for processing in the corresponding payment run.</value>
-        [DataMember(Name = "pay", EmitDefaultValue = false)]
+        [DataMember(Name = "pay")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "pay")]
         public bool? Pay { get; set; }
 
@@ -53,7 +53,7 @@ namespace ZIP2GO.Service.Models
         /// Reason for issuing this billing document. This field is applicable only if the `type` field is set to `credit_memo` or `debit_memo`.
         /// </summary>
         /// <value>Reason for issuing this billing document. This field is applicable only if the `type` field is set to `credit_memo` or `debit_memo`.</value>
-        [DataMember(Name = "reason_code", EmitDefaultValue = false)]
+        [DataMember(Name = "reason_code")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "reason_code")]
         public string ReasonCode { get; set; }
 

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// Specify this field when renewing a subscription.
@@ -13,7 +13,7 @@ namespace ZIP2GO.Service.Models
         /// <summary>
         /// Gets or Sets StartOn
         /// </summary>
-        [DataMember(Name = "start_on", EmitDefaultValue = false)]
+        [DataMember(Name = "start_on")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "start_on")]
         public StartOn StartOn { get; set; }
 

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     /// If the &#x60;type&#x60; of the payment method is &#x60;apple_pay&#x60;, this hash contains details about the Apple Pay payment method. See [Supported payment methods](https://knowledgecenter.zuora.com/Billing/Billing_and_Payments/L_Payment_Methods/A_Supported_Payment_Methods) for payment gateways that support this type of payment method.
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.
         /// </summary>
         /// <value>Credit card information. When providing a card number, you must meet the requirements for PCI compliance. We strongly recommend using Zuora.js instead of interacting with this API directly.</value>
-        [DataMember(Name = "card", EmitDefaultValue = false)]
+        [DataMember(Name = "card")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "card")]
         public AllOfGooglePayCard Card { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// A gateway unique identifier that replaces sensitive payment method data or represents a gateway's unique customer profile. When `token` is used to represent a customer profile, `second_token` is conditionally required for representing the underlying tokenized payment method.
         /// </summary>
         /// <value>A gateway unique identifier that replaces sensitive payment method data or represents a gateway's unique customer profile. When `token` is used to represent a customer profile, `second_token` is conditionally required for representing the underlying tokenized payment method.</value>
-        [DataMember(Name = "token", EmitDefaultValue = false)]
+        [DataMember(Name = "token")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "token")]
         public string Token { get; set; }
 

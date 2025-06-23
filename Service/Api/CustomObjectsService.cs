@@ -1,42 +1,33 @@
 using RestSharp;
 using Service.Interfaces;
-using ZIP2GO.Service.Client;
-using ZIP2GO.Service.Models;
+using Service.Client;
+using Service.Models;
+using EasyCaching.Core;
 
-namespace ZIP2GO.Service
+namespace Service
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
     public class CustomObjectsService : ICustomObjectsService
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CustomObjectsService"/> class.
-        /// </summary>
-        /// <param name="apiClient"> an instance of ApiClient (optional)</param>
-        /// <returns></returns>
-        public CustomObjectsService(ApiClient apiClient = null)
-        {
-            if (apiClient == null) // use the default one in Configuration
-                this.ApiClient = Configuration.DefaultApiClient;
-            else
-                this.ApiClient = apiClient;
-        }
+        public readonly IApiClient _apiClient;
+
+        private readonly List<string> expand;
+
+        private List<string> filter;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CustomObjectsService"/> class.
+        /// Initializes a new instance of the <see cref="ContactsService"/> class.
         /// </summary>
+        /// <param name="apiClient"> an instance of _apiClient (optional)</param>
         /// <returns></returns>
-        public CustomObjectsService(string basePath)
+        public CustomObjectsService(ApiClient apiClient)
         {
-            this.ApiClient = new ApiClient(basePath);
+            _apiClient = apiClient;
+            expand = new List<string>();
+            filter = new List<string>();
         }
-
-        /// <summary>
-        /// Gets or sets the API client.
-        /// </summary>
-        /// <value>An instance of the ApiClient</value>
-        public ApiClient ApiClient { get; set; }
 
         /// <summary>
         /// Create a custom object Creates a new custom object.
@@ -55,48 +46,40 @@ namespace ZIP2GO.Service
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
         /// <returns>CustomObject</returns>
-        public CustomObject CreateCustomObject(Dictionary<string, Object> body, string customObjectType, string zuoraTrackId, bool? async, List<string> fields, List<string> customObjectCustomObjectTypeFields, List<string> filter, int? pageSize, List<string> expand)
+        public CustomObject CreateCustomObject(Dictionary<string, Object> body, string customObjectType, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling CreateCustomObject");
             // verify the required parameter 'customObjectType' is set
             if (customObjectType == null) throw new ApiException(400, "Missing required parameter 'customObjectType' when calling CreateCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "custom_object_type" + "}", ApiClient.ParameterToString(customObjectType));
+            var path =$"v2/custom_objects/{customObjectType}";
+            
+            path = path.Replace("{" + "customObjectType" + "}", _apiClient.ParameterToString(customObjectType));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[custom_object_type].fields[]", ApiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
+            if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
+
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Post, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CustomObject>(path, Method.Post, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateCustomObject: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling CreateCustomObject: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CustomObject)ApiClient.Deserialize(response.Content, typeof(CustomObject));
+            return (CustomObject)_apiClient.Deserialize(response.Content, typeof(CustomObject));
         }
 
         /// <summary>
@@ -118,29 +101,22 @@ namespace ZIP2GO.Service
             // verify the required parameter 'customObjectId' is set
             if (customObjectId == null) throw new ApiException(400, "Missing required parameter 'customObjectId' when calling DeleteCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}/{custom_object_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "custom_object_type" + "}", ApiClient.ParameterToString(customObjectType));
-            path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(customObjectId));
+            var path =$"v2/custom_objects/{customObjectType}/{customObjectId}";
+            
+            path = path.Replace("{" + "customObjectType" + "}", _apiClient.ParameterToString(customObjectType));
+            path = path.Replace("{" + "customObjectId" + "}", _apiClient.ParameterToString(customObjectId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Delete, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CustomObject>(path, Method.Delete, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling DeleteCustomObject: " + response.Content, response.Content);
@@ -157,7 +133,7 @@ namespace ZIP2GO.Service
         /// <value>The base path</value>
         public string GetBasePath(string basePath)
         {
-            return this.ApiClient.BasePath;
+            return this._apiClient.BasePath;
         }
 
         /// <summary>
@@ -176,47 +152,40 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>CustomObject</returns>
-        public CustomObject GetCustomObject(string customObjectType, string customObjectId, List<string> fields, List<string> customObjectCustomObjectTypeFields, List<string> filter, int? pageSize, List<string> expand, string zuoraTrackId)
+        public CustomObject GetCustomObject(string customObjectType, string customObjectId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'customObjectType' is set
             if (customObjectType == null) throw new ApiException(400, "Missing required parameter 'customObjectType' when calling GetCustomObject");
             // verify the required parameter 'customObjectId' is set
             if (customObjectId == null) throw new ApiException(400, "Missing required parameter 'customObjectId' when calling GetCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}/{custom_object_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "custom_object_type" + "}", ApiClient.ParameterToString(customObjectType));
-            path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(customObjectId));
+            var path =$"v2/custom_objects/{customObjectType}/{customObjectId}";
+            
+            path = path.Replace("{" + "customObjectType" + "}", _apiClient.ParameterToString(customObjectType));
+            path = path.Replace("{" + "customObjectId" + "}", _apiClient.ParameterToString(customObjectId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[custom_object_type].fields[]", ApiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+  // if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[customObjectType].fields[]", _apiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CustomObject>(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCustomObject: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCustomObject: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CustomObject)ApiClient.Deserialize(response.Content, typeof(CustomObject));
+            return (CustomObject)_apiClient.Deserialize(response.Content, typeof(CustomObject));
         }
 
         /// <summary>
@@ -236,57 +205,41 @@ namespace ZIP2GO.Service
         /// <param name="acceptEncoding">Include a &#x60;accept-encoding: gzip&#x60; header to compress responses, which can reduce the bandwidth required for a response. If specified, Zuora automatically compresses responses that contain over 1000 bytes. For more information about this header, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <param name="contentEncoding">Include a &#x60;content-encoding: gzip&#x60; header to compress a request. Upload a gzipped file for the payload if you specify this header. For more information, see [Request and Response Compression](https://developer.zuora.com/api-references/quickstart-api/tag/Request-and-Response-Compression/).</param>
         /// <returns>ListCustomObjectResponse</returns>
-        public ListCustomObjectResponse GetCustomObjects(string customObjectType, int? pageSize, List<string> expand, string cursor, List<string> filter, List<string> sort, List<string> fields, List<string> customObjectCustomObjectTypeFields, string zuoraTrackId)
+        public ListCustomObjectResponse GetCustomObjects(string customObjectType, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'customObjectType' is set
             if (customObjectType == null) throw new ApiException(400, "Missing required parameter 'customObjectType' when calling GetCustomObjects");
 
-            var path = "/custom_objects/{custom_object_type}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "custom_object_type" + "}", ApiClient.ParameterToString(customObjectType));
+            var path =$"v2/custom_objects/{customObjectType}";
+            
+            path = path.Replace("{" + "customObjectType" + "}", _apiClient.ParameterToString(customObjectType));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (cursor != null) queryParams.Add("cursor", ApiClient.ParameterToString(cursor)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[custom_object_type].fields[]", ApiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-           
-           
-           
-           
-
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            //if (cursor != null) queryParams.Add("cursor", _apiClient.ParameterToString(cursor)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (sort != null) queryParams.Add("sort[]", ApiClient.ParameterToString(sort)); // query parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+  // if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[customObjectType].fields[]", _apiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Get, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<ListCustomObjectResponse>(path, Method.Get, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCustomObjects: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling GetCustomObjects: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (ListCustomObjectResponse)ApiClient.Deserialize(response.Content, typeof(ListCustomObjectResponse));
+            return (ListCustomObjectResponse)_apiClient.Deserialize(response.Content, typeof(ListCustomObjectResponse));
         }
 
-        /// <summary>
-        /// Sets the base path of the API client.
-        /// </summary>
-        /// <param name="basePath">The base path</param>
-        /// <value>The base path</value>
-        public void SetBasePath(string basePath)
-        {
-            this.ApiClient.BasePath = basePath;
-        }
 
         /// <summary>
         /// Update a custom object Updates the specified custom object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -306,7 +259,7 @@ namespace ZIP2GO.Service
         /// <param name="pageSize">The maximum number of results to return in a single page. If the specified &#x60;page_size&#x60; is less than 1 or greater than 99, Zuora will return a 400 error.</param>
         /// <param name="expand">Allows you to expand responses by including related object information in a single call. See the [Expand responses](https://developer.zuora.com/quickstart-api/tutorial/expand-responses/) section of the Quickstart API Tutorials for detailed instructions.</param>
         /// <returns>CustomObject</returns>
-        public CustomObject UpdateCustomObject(Dictionary<string, Object> body, string customObjectType, string customObjectId, string zuoraTrackId, bool? async, List<string> fields, List<string> customObjectCustomObjectTypeFields, List<string> filter, int? pageSize, List<string> expand)
+        public CustomObject UpdateCustomObject(Dictionary<string, Object> body, string customObjectType, string customObjectId, string zuoraTrackId, bool? async)
         {
             // verify the required parameter 'body' is set
             if (body == null) throw new ApiException(400, "Missing required parameter 'body' when calling UpdateCustomObject");
@@ -315,42 +268,54 @@ namespace ZIP2GO.Service
             // verify the required parameter 'customObjectId' is set
             if (customObjectId == null) throw new ApiException(400, "Missing required parameter 'customObjectId' when calling UpdateCustomObject");
 
-            var path = "/custom_objects/{custom_object_type}/{custom_object_id}";
-            path = path.Replace("{format}", "json");
-            path = path.Replace("{" + "custom_object_type" + "}", ApiClient.ParameterToString(customObjectType));
-            path = path.Replace("{" + "custom_object_id" + "}", ApiClient.ParameterToString(customObjectId));
+            var path =$"v2/custom_objects/{customObjectType}/{customObjectId}";
+            
+            path = path.Replace("{" + "customObjectType" + "}", _apiClient.ParameterToString(customObjectType));
+            path = path.Replace("{" + "customObjectId" + "}", _apiClient.ParameterToString(customObjectId));
 
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            var formParams = new Dictionary<string, string>();
-            var fileParams = new Dictionary<string, FileParameter>();
+            
+            
             string postBody = null;
 
-            if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
-            if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[custom_object_type].fields[]", ApiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
-            if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
-            if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
-            if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
-            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", ApiClient.ParameterToString(zuoraTrackId)); // header parameter
-            if (async != null) headerParams.Add("async", ApiClient.ParameterToString(async)); // header parameter
-           
-           
-           
-           
-            postBody = ApiClient.Serialize(body); // http body (model) parameter
+            // if (fields != null) queryParams.Add("fields[]", ApiClient.ParameterToString(fields)); // query parameter
+            // if (customObjectCustomObjectTypeFields != null) queryParams.Add("custom_object[customObjectType].fields[]", _apiClient.ParameterToString(customObjectCustomObjectTypeFields)); // query parameter
+            // if (filter != null) queryParams.Add("filter[]", ApiClient.ParameterToString(filter)); // query parameter
+            // if (pageSize != null) queryParams.Add("page_size", ApiClient.ParameterToString(pageSize)); // query parameter
+            // if (expand != null) queryParams.Add("expand[]", ApiClient.ParameterToString(expand)); // query parameter
+            if (zuoraTrackId != null) headerParams.Add("zuora-track-id", _apiClient.ParameterToString(zuoraTrackId)); // header parameter
+            if (async != null) headerParams.Add("async", _apiClient.ParameterToString(async)); // header parameter
 
-            // authentication setting, if any
-            string[] authSettings = new string[] { "bearerAuth" };
+            postBody = _apiClient.Serialize(body); // http body (model) parameter
 
             // make the HTTP request
-            RestResponse response = (RestResponse)ApiClient.CallApi(path, Method.Patch, queryParams, postBody);
+            RestResponse response = (RestResponse)_apiClient.CallApi<CustomObject>(path, Method.Patch, queryParams, postBody);
 
             if (((int)response.StatusCode) >= 400)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateCustomObject: " + response.Content, response.Content);
             else if (((int)response.StatusCode) == 0)
                 throw new ApiException((int)response.StatusCode, "Error calling UpdateCustomObject: " + response.ErrorMessage, response.ErrorMessage);
 
-            return (CustomObject)ApiClient.Deserialize(response.Content, typeof(CustomObject));
+            return (CustomObject)_apiClient.Deserialize(response.Content, typeof(CustomObject));
         }
+
+        public ListCustomObjectResponse GetCustomObjectsCached()
+        {
+            return new ListCustomObjectResponse
+            {
+                Data = _apiClient.RequestCachedResult<CustomObject>()
+            };
+        }
+
+        public ListCustomObjectResponse GetCustomObjectsCached(string customObjectType)
+        {
+            return new ListCustomObjectResponse
+            {
+                Data = _apiClient.RequestCachedResults<CustomObject>(customObjectType)
+            };
+        }
+
+        public CustomObject GetCustomObjectCached(string customObjectType, string customObjectId) => _apiClient.RequestCachedResult<CustomObject>(customObjectType, customObjectId);
     }
 }

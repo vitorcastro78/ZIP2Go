@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// Indicates to which billing documents (invoices or debit memos) are the payment applied.
         /// </summary>
         /// <value>Indicates to which billing documents (invoices or debit memos) are the payment applied.</value>
-        [DataMember(Name = "billing_documents", EmitDefaultValue = false)]
+        [DataMember(Name = "billing_documents")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "billing_documents")]
         public List<BillingDocumentPaymentApplicationRequest> BillingDocuments { get; set; }
 
@@ -22,7 +22,7 @@ namespace ZIP2GO.Service.Models
         /// The date and time when the payment takes effect.
         /// </summary>
         /// <value>The date and time when the payment takes effect.</value>
-        [DataMember(Name = "effective_date", EmitDefaultValue = false)]
+        [DataMember(Name = "effective_date")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "effective_date")]
         public DateTime? EffectiveDate { get; set; }
 

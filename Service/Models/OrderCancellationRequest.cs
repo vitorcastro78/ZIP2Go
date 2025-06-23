@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace ZIP2GO.Service.Models
+namespace Service.Models
 {
     /// <summary>
     ///
@@ -14,7 +14,7 @@ namespace ZIP2GO.Service.Models
         /// The reason for cancelling the order.
         /// </summary>
         /// <value>The reason for cancelling the order.</value>
-        [DataMember(Name = "cancel_reason", EmitDefaultValue = false)]
+        [DataMember(Name = "cancel_reason")]
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "cancel_reason")]
         public string CancelReason { get; set; }
 
