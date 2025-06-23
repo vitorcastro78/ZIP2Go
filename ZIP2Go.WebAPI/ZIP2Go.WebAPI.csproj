@@ -17,14 +17,7 @@
 
   <ItemGroup>
     <None Remove="Cache\caching.db3" />
-    <None Remove="Database\subscription.db" />
     <None Remove="Dockerfile.original" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Database\subscription.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

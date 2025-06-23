@@ -216,8 +216,6 @@ namespace Service
             
             var queryParams = new Dictionary<string, string>();
             var headerParams = new Dictionary<string, string>();
-            
-            
 
             //if (expand != null) queryParams.Add("expand[]", _apiClient.ParameterToString(expand)); // query parameter
             //if (filter != null) queryParams.Add("filter[]", _apiClient.ParameterToString(filter)); // query parameter
